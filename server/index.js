@@ -25,7 +25,6 @@ app.get("/", (req, res) => {
 });
 
 app.use("/collections", collectionsRoute);
-// app.use("/management", roomsRoute);
 
 app.listen(port, () => {
 	console.log(`Example app listening at http://localhost:${port}`);
