@@ -1,13 +1,15 @@
 require("dotenv").config();
 
+const cookieParser = require('cookie-parser');
 const express = require("express");
 const app = express();
 const cors = require("cors");
 const bodyParser = require("body-parser");
-
 const port = 4000;
 
-const collectionsRoute = require("./routes/products.route");
+const route = require("./routes/index")
+
+
 
 const mongoose = require("mongoose");
 mongoose.connect("mongodb://localhost:27017/ClothesWeb", {
@@ -15,16 +17,14 @@ mongoose.connect("mongodb://localhost:27017/ClothesWeb", {
 	useUnifiedTopology: true,
 });
 
-app.use(bodyParser.json()); // support json encoded bodies
-app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
-app.use("/public", express.static("public"));
+app.use(express.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: false })) // support encoded bodies
+// app.use("/public", express.static("public"));
 
 app.use(cors());
-app.get("/", (req, res) => {
-	res.send("Hello World!");
-});
+app.use(cookieParser());
 
-app.use("/collections", collectionsRoute);
+route(app);
 
 app.listen(port, () => {
 	console.log(`Example app listening at http://localhost:${port}`);
