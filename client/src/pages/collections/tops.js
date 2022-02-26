@@ -8,34 +8,33 @@ import {
 	Button,
 	CardGroup,
 } from "reactstrap";
+import React, { useEffect } from "react";
 
-import axios from "axios";
-import { useEffect, useState } from "react";
+export default function Tops({ tops, fetchTops }) {
+	// const [collections, setCollections] = useState([]);
 
-export default function Tops() {
-	const [collections, setCollections] = useState([]);
+	// async function getCollections() {
+	// 	const res = await axios.get("http://localhost:4000/collections");
+	// 	const data = await res.data;
+	// 	console.log(data);
+	// 	setCollections(data);
+	// }
 
-	async function getCollections() {
-		const res = await axios.get("http://localhost:4000/collections");
-		const data = await res.data;
-		console.log(data);
-		setCollections(data);
-	}
-
+	console.log(tops);
 	useEffect(() => {
-		getCollections();
-	}, []);
+		fetchTops();
+	}, [fetchTops]);
 
 	return (
 		<>
 			<h1>Tops</h1>
 			<CardGroup>
-				{collections.map((collection) => {
+				{tops.map((top) => {
 					return (
 						<Card>
 							<CardImg
 								alt="Card image cap"
-								src={collection.image}
+								src={top.image}
 								top
 								width="100%"
 							/>
@@ -49,13 +48,14 @@ export default function Tops() {
 								>
 									Card subtitle
 								</CardSubtitle>
-								<CardText>{`${collection.name} ${collection.type}`}</CardText>
+								<CardText>{`${top.name} ${top.type}`}</CardText>
 								<Button>Button</Button>
 							</CardBody>
 						</Card>
 					);
 				})}
 			</CardGroup>
+			{!tops.length && <h2>Oops there is no products ~!</h2>}
 		</>
 	);
 }

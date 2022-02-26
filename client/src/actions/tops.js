@@ -4,29 +4,23 @@ import withReactContent from "sweetalert2-react-content";
 
 const MySwal = withReactContent(Swal);
 
-const FETCHED_DATA_ROOM_HOME = "FETCHED_DATA_ROOM_HOME";
-const ADD_ROOM = "ADD_ROOM";
+const FETCHED_DATA_TOPS = "FETCHED_DATA_TOPS";
+const ADD_TOPS = "ADD_TOPS";
 
-export const setRooms = (data) => ({
-	type: FETCHED_DATA_ROOM_HOME,
+export const setTops = (data) => ({
+	type: FETCHED_DATA_TOPS,
 	payload: data,
 });
 
-export const addedRoom = (data) => ({
-	type: ADD_ROOM,
+export const addedTops = (data) => ({
+	type: ADD_TOPS,
 	payload: data,
 });
 
-export const fetchRooms = () => async (dispatch) => {
-	const res = await axios.get(`${process.env.REACT_APP_ROOM_API}`);
+export const fetchTops = () => async (dispatch) => {
+	const res = await axios.get("http://localhost:4000/collections");
 	const data = await res.data;
-	dispatch(
-		setRooms(
-			data.sort((a, b) => {
-				return a.room_id - b.room_id;
-			})
-		)
-	);
+	dispatch(setTops(data));
 };
 
 export const postRoom = (room) => async (dispatch) => {
@@ -36,5 +30,5 @@ export const postRoom = (room) => async (dispatch) => {
 		title: <p>Đã thêm phòng mới</p>,
 		icon: "success",
 	});
-	dispatch(addedRoom(res.data));
+	dispatch(addedTops(res.data));
 };

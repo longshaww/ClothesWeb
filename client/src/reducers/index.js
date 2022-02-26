@@ -1,9 +1,9 @@
 import { combineReducers } from "redux";
-import { getRoomHomePageReducer as RoomHomePage } from "./rooms.js";
+import { TopsCollection } from "./tops.js";
 import { loadingState } from "./loading.js";
 
 const rootReducer = combineReducers({
-	RoomHomePage,
+	TopsCollection,
 	loadingState,
 });
 
