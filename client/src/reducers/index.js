@@ -1,9 +1,9 @@
 import { combineReducers } from "redux";
-import { TopsCollection } from "./tops.js";
+import { topsReducer } from "./tops.js";
 import { loadingState } from "./loading.js";
 
 const rootReducer = combineReducers({
-	TopsCollection,
+	tops: topsReducer,
 	loadingState,
 });
 

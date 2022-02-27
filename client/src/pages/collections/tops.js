@@ -1,61 +1,66 @@
-import {
-	Card,
-	CardImg,
-	CardBody,
-	CardTitle,
-	CardSubtitle,
-	CardText,
-	Button,
-	CardGroup,
-} from "reactstrap";
-import React, { useEffect } from "react";
+import { Card, CardImg, CardBody, CardText, CardGroup } from "reactstrap";
+import { connect } from "react-redux";
+import { fetchTops, setTops, addedTops } from "../../actions/tops";
+import { Link } from "react-router-dom";
 
-export default function Tops({ tops, fetchTops }) {
-	// const [collections, setCollections] = useState([]);
-
-	// async function getCollections() {
-	// 	const res = await axios.get("http://localhost:4000/collections");
-	// 	const data = await res.data;
-	// 	console.log(data);
-	// 	setCollections(data);
-	// }
-
-	console.log(tops);
-	useEffect(() => {
-		fetchTops();
-	}, [fetchTops]);
+function Tops({ tops, fetchTops }) {
+	fetchTops();
 
 	return (
 		<>
 			<h1>Tops</h1>
 			<CardGroup>
-				{tops.map((top) => {
-					return (
-						<Card>
-							<CardImg
-								alt="Card image cap"
-								src={top.image}
-								top
-								width="100%"
-							/>
-							<CardBody>
-								<CardTitle tag="h5">
-									Card title
-								</CardTitle>
-								<CardSubtitle
-									className="mb-2 text-muted"
-									tag="h6"
-								>
-									Card subtitle
-								</CardSubtitle>
-								<CardText>{`${top.name} ${top.type}`}</CardText>
-								<Button>Button</Button>
-							</CardBody>
-						</Card>
-					);
-				})}
+				<div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 ">
+					{tops.map((top) => {
+						return (
+							<Card
+								key={top._id}
+								className="col border-0 "
+							>
+								<CardImg
+									alt="Card image cap"
+									src={top.image[0]}
+									width="100%"
+								/>
+								<CardBody>
+									<CardText className="text-center">
+										<p>{`${top.name} ${top.type} - ${top.color}`}</p>
+										<p className="text-muted">
+											{`${top.price}.000₫`}
+										</p>
+									</CardText>
+									<Link
+										to={`/collections/tops/${top._id}`}
+										state={{
+											topName: top.name,
+											topType: top.type,
+											topImage: top.image[0],
+											topPrice: top.price,
+											topColor: top.color,
+											topDes: top.description,
+										}}
+										className="stretched-link"
+									></Link>
+								</CardBody>
+							</Card>
+						);
+					})}
+				</div>
 			</CardGroup>
 			{!tops.length && <h2>Oops there is no products ~!</h2>}
 		</>
 	);
 }
+const mapStateToProps = (state) => {
+	return {
+		tops: state.tops.list,
+	};
+};
+
+const mapActionToProps = (dispatch) => ({
+	setTops: (data) => dispatch(setTops(data)),
+	fetchTops: () => dispatch(fetchTops()),
+	addedTops: (data) => dispatch(addedTops(data)),
+});
+
+export default connect(mapStateToProps, mapActionToProps)(Tops);

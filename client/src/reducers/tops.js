@@ -1,25 +1,25 @@
 const initialState = {
-	tops: [],
+	list: [],
 };
 
 const FETCHED_DATA_TOPS = "FETCHED_DATA_TOPS";
 const ADD_TOPS = "ADD_TOPS";
 
-export const TopsCollection = (state = initialState, action) => {
+export const topsReducer = (state = initialState, action) => {
 	switch (action.type) {
 		case FETCHED_DATA_TOPS:
 			return {
 				...state,
-				tops: action.payload,
+				list: action.payload,
 			};
 		case ADD_TOPS:
-			const newList = [...state.tops];
+			const newList = [...state.list];
 			newList.push(action.payload);
 			return {
 				...state,
-				tops: newList,
+				list: newList,
 			};
 		default:
-			return state;
+			return { ...state };
 	}
 };

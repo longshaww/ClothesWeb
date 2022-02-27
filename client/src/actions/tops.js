@@ -1,6 +1,7 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import { useEffect } from "react";
 
 const MySwal = withReactContent(Swal);
 
@@ -18,9 +19,14 @@ export const addedTops = (data) => ({
 });
 
 export const fetchTops = () => async (dispatch) => {
-	const res = await axios.get("http://localhost:4000/collections");
-	const data = await res.data;
-	dispatch(setTops(data));
+	useEffect(() => {
+		async function fetchData() {
+			const res = await axios.get("http://localhost:4000/collections");
+			const data = await res.data;
+			dispatch(setTops(data));
+		}
+		fetchData();
+	}, [dispatch]);
 };
 
 export const postRoom = (room) => async (dispatch) => {
