@@ -11,13 +11,14 @@ request('https://highclub.vn/collections/tops/',(err,res,html)=>{
         const dataJson = [];
         
         $('.product-block').each((index,el)=>{
-           const name = normalizeText($(el).find(' .box-pro-detail a').text());
+           const nameProduct = normalizeText($(el).find(' .box-pro-detail a').text());
            const price = normalizeText($(el).find('.box-pro-detail span').text());
-           const picture = $(el).find('.product-img  > a > picture > img').attr('data-src');
-                dataJson.push({
-                    name , 
+           const image0 = $(el).find('.product-img  > a > picture > img').attr('data-src');
+           const size = ["M","L","XL"];     
+           dataJson.push({
+                    nameProduct , 
                     price,
-                    picture
+                   
                 });
         })
              
