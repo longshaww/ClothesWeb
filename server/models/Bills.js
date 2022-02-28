@@ -1,16 +1,20 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
-const bill = new mongoose.Schema({
-    userID: String,
-    displayName: Object,
-    listProduct: Array,
-    address: String,
-    paymentMethod: String,
-    resquest: String,
-    status: String
+const bills = new mongoose.Schema(
+	{
+		userID: String,
+		displayName: Object,
+		listProduct: Array,
+		address: String,
+		paymentMethod: String,
+		request: String,
+		status: String,
+	},
+	{
+		timestamps: true,
+		collection: "bills",
+		versionKey: false,
+	}
+);
 
-}, {
-    timestamps: true,
-  });
-
-module.exports = mongoose.model('bills', bill);
+module.exports = mongoose.model("bills", bills, "bills");

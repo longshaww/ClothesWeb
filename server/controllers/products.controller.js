@@ -1,10 +1,10 @@
-const { ProductsSchema } = require("../models/models");
+const ProductModel = require("../models/Product");
 // const cloudinary = require("../utils/cloudinary");
 
 class Products {
 	async getProducts(req, res) {
 		try {
-			const products = await ProductsSchema.find();
+			const products = await ProductModel.find();
 			res.status(200).json(products);
 		} catch (error) {
 			res.status(500).json(error);

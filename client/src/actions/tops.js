@@ -21,7 +21,7 @@ export const addedTops = (data) => ({
 export const fetchTops = () => async (dispatch) => {
 	useEffect(() => {
 		async function fetchData() {
-			const res = await axios.get("http://localhost:4000/collections");
+			const res = await axios.get(process.env.REACT_APP_API_URL);
 			const data = await res.data;
 			dispatch(setTops(data));
 		}
