@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const types = new mongoose.Schema(
+const Types = new mongoose.Schema(
 	{
 		typeName: {
 			typeName: String,
@@ -18,9 +18,9 @@ const types = new mongoose.Schema(
 	},
 	{
 		timestamps: true,
-		collection: "types",
+		collection: "Types",
 		versionKey: false,
 	}
 );
 
-module.exports = mongoose.model("types", types, "types");
+module.exports = mongoose.model("Types", Types);

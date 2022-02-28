@@ -1,4 +1,4 @@
-import { Card, CardImg, CardBody, CardText, CardGroup } from "reactstrap";
+import { Card, CardImg, CardBody, CardGroup } from "reactstrap";
 import { connect } from "react-redux";
 import { fetchTops, setTops, addedTops } from "../../actions/tops";
 import { Link } from "react-router-dom";
@@ -19,25 +19,23 @@ function Tops({ tops, fetchTops }) {
 							>
 								<CardImg
 									alt="Card image cap"
-									src={top.image[0]}
+									src={top.description.imageList[0]}
 									width="100%"
 								/>
 								<CardBody>
-									<CardText className="text-center">
-										<p>{`${top.name} ${top.type} - ${top.color}`}</p>
+									<div className="text-center">
+										<p>{`${top.nameProduct}`}</p>
 										<p className="text-muted">
-											{`${top.price}.000₫`}
+											{`${top.description.price}`}
 										</p>
-									</CardText>
+									</div>
 									<Link
 										to={`/collections/tops/${top._id}`}
 										state={{
-											topName: top.name,
-											topType: top.type,
-											topImage: top.image[0],
-											topPrice: top.price,
-											topColor: top.color,
-											topDes: top.description,
+											topName: top.nameProduct,
+											topImage:
+												top.description
+													.imageList[0],
 										}}
 										className="stretched-link"
 									></Link>

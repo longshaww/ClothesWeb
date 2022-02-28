@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const bills = new mongoose.Schema(
+const Bills = new mongoose.Schema(
 	{
 		userID: String,
 		displayName: Object,
@@ -12,9 +12,9 @@ const bills = new mongoose.Schema(
 	},
 	{
 		timestamps: true,
-		collection: "bills",
+		collection: "Bills",
 		versionKey: false,
 	}
 );
 
-module.exports = mongoose.model("bills", bills, "bills");
+module.exports = mongoose.model("Bills", Bills);

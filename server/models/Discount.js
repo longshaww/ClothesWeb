@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const discount = new mongoose.Schema(
+const Discount = new mongoose.Schema(
 	{
 		percent: Number,
 		dateStart: Date,
@@ -8,9 +8,9 @@ const discount = new mongoose.Schema(
 	},
 	{
 		timestamps: true,
-		collection: "discount",
+		collection: "Discount",
 		versionKey: false,
 	}
 );
 
-module.exports = mongoose.model("discount", discount, "discount");
+module.exports = mongoose.model("Discount", Discount);

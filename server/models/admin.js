@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const admin = new mongoose.Schema(
+const Admin = new mongoose.Schema(
 	{
 		fullNameCustomer: Object,
 		dateOfBirth: String,
@@ -14,9 +14,9 @@ const admin = new mongoose.Schema(
 	},
 	{
 		timestamps: true,
-		collection: "admin",
+		collection: "Admin",
 		versionKey: false,
 	}
 );
 
-module.exports = mongoose.model("admin", admin, "admin");
+module.exports = mongoose.model("Admin", Admin);
