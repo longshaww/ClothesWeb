@@ -3,30 +3,36 @@ import {
 	Collapse,
 	Nav,
 	NavItem,
-	DropdownItem,
-	NavbarText,
 	Navbar,
-	UncontrolledDropdown,
-	DropdownToggle,
-	DropdownMenu,
 	Input,
 } from "reactstrap";
 import Logo from "../../assets/images/hyperX.jpeg";
+import "../../assets/styles/customize.navbar.css";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 export default function NavbarApp() {
+	const [isOpen, setIsOpen] = useState(false);
+	const toggle = () => setIsOpen(!isOpen);
+
 	return (
-		<Navbar expand="md" light className="text-center">
-			<Link to="/" className="navbar-brand">
-				<img
-					src={Logo}
-					alt=""
-					style={{ width: "3rem", height: "3rem" }}
-					className="rounded-circle"
-				></img>
+		<Navbar expand="md" light>
+			<Link to="/">
+				<div id="center-logo">
+					<img
+						id="logo"
+						src={Logo}
+						alt=""
+						className="rounded-circle"
+					></img>
+					<p id="brand-name" className="text-dark fs-3 fw-bold">
+						HyperX™
+					</p>
+				</div>
 			</Link>
-			<NavbarToggler onClick={function noRefCheck() {}} />
-			<Collapse navbar>
+			<NavbarToggler onClick={toggle} />
+
+			<Collapse isOpen={isOpen} navbar>
 				<Nav className="m-auto" navbar>
 					<NavItem>
 						<Link to="/collections/tops" className="nav-link">
@@ -62,21 +68,10 @@ export default function NavbarApp() {
 							SALE
 						</Link>
 					</NavItem>
-					<UncontrolledDropdown inNavbar nav>
-						<DropdownToggle caret nav>
-							Options
-						</DropdownToggle>
-						<DropdownMenu end>
-							<DropdownItem>Option 1</DropdownItem>
-							<DropdownItem>Option 2</DropdownItem>
-							<DropdownItem divider />
-							<DropdownItem>Reset</DropdownItem>
-						</DropdownMenu>
-					</UncontrolledDropdown>
+					<NavItem id="searchbar">
+						<Input placeholder="Search"></Input>
+					</NavItem>
 				</Nav>
-				<NavbarText>
-					<Input placeholder="Search"></Input>
-				</NavbarText>
 			</Collapse>
 		</Navbar>
 	);

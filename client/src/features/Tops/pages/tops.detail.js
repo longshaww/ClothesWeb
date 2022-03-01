@@ -1,13 +1,13 @@
 import { useLocation } from "react-router-dom";
 
-export default function TopsDetail() {
+export default function Detail() {
 	const location = useLocation();
-	const { topName, topImage } = location.state;
+	const { productName, productImage } = location.state;
 	return (
 		<>
 			<h1>Detail</h1>
-			<img src={topImage} alt=""></img>
-			<div>{topName}</div>
+			<img src={productImage} alt=""></img>
+			<div>{productName}</div>
 		</>
 	);
 }
