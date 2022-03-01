@@ -1,14 +1,15 @@
 import { Card, CardImg, CardBody, CardGroup } from "reactstrap";
 import { connect } from "react-redux";
-import { fetchTops, setTops, addedTops } from "../../actions/tops";
+import { fetchTops } from "../../../actions/tops";
 import { Link } from "react-router-dom";
 
 function Tops({ tops, fetchTops }) {
 	fetchTops();
-
 	return (
 		<>
-			<h1>Tops</h1>
+			<div className="border-bottom border-dark">
+				<h1>Tops</h1>
+			</div>
 			<CardGroup>
 				<div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 ">
 					{tops.map((top) => {
@@ -56,9 +57,7 @@ const mapStateToProps = (state) => {
 };
 
 const mapActionToProps = (dispatch) => ({
-	setTops: (data) => dispatch(setTops(data)),
 	fetchTops: () => dispatch(fetchTops()),
-	addedTops: (data) => dispatch(addedTops(data)),
 });
 
 export default connect(mapStateToProps, mapActionToProps)(Tops);

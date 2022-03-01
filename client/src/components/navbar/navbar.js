@@ -9,19 +9,25 @@ import {
 	UncontrolledDropdown,
 	DropdownToggle,
 	DropdownMenu,
+	Input,
 } from "reactstrap";
-
+import Logo from "../../assets/images/hyperX.jpeg";
 import { Link } from "react-router-dom";
 
 export default function NavbarApp() {
 	return (
-		<Navbar color="light" expand="md" light>
+		<Navbar expand="md" light className="text-center">
 			<Link to="/" className="navbar-brand">
-				LOGO
+				<img
+					src={Logo}
+					alt=""
+					style={{ width: "3rem", height: "3rem" }}
+					className="rounded-circle"
+				></img>
 			</Link>
 			<NavbarToggler onClick={function noRefCheck() {}} />
 			<Collapse navbar>
-				<Nav className="me-auto" navbar>
+				<Nav className="m-auto" navbar>
 					<NavItem>
 						<Link to="/collections/tops" className="nav-link">
 							TOPS
@@ -68,7 +74,9 @@ export default function NavbarApp() {
 						</DropdownMenu>
 					</UncontrolledDropdown>
 				</Nav>
-				<NavbarText>Simple Text</NavbarText>
+				<NavbarText>
+					<Input placeholder="Search"></Input>
+				</NavbarText>
 			</Collapse>
 		</Navbar>
 	);

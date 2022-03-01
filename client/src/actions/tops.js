@@ -8,17 +8,17 @@ const MySwal = withReactContent(Swal);
 const FETCHED_DATA_TOPS = "FETCHED_DATA_TOPS";
 const ADD_TOPS = "ADD_TOPS";
 
-export const setTops = (data) => ({
+const setTops = (data) => ({
 	type: FETCHED_DATA_TOPS,
 	payload: data,
 });
 
-export const addedTops = (data) => ({
+const addedTops = (data) => ({
 	type: ADD_TOPS,
 	payload: data,
 });
 
-export const fetchTops = () => async (dispatch) => {
+const fetchTops = () => async (dispatch) => {
 	useEffect(() => {
 		async function fetchData() {
 			const res = await axios.get(process.env.REACT_APP_API_URL);
@@ -29,7 +29,7 @@ export const fetchTops = () => async (dispatch) => {
 	}, [dispatch]);
 };
 
-export const postRoom = (room) => async (dispatch) => {
+const postTop = (room) => async (dispatch) => {
 	const res = await axios.post(`${process.env.REACT_APP_ROOM_API}`, room);
 	console.log(res);
 	await MySwal.fire({
@@ -38,3 +38,5 @@ export const postRoom = (room) => async (dispatch) => {
 	});
 	dispatch(addedTops(res.data));
 };
+
+export { addedTops, fetchTops, postTop };

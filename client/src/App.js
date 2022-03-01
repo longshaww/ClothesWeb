@@ -1,10 +1,11 @@
 import "./App.css";
-import Home from "./pages/home/home";
-import Collections from "./pages/collections/collections";
-import Tops from "./pages/collections/tops";
+import Home from "./features/Home/pages/home";
+import Collections from "./features/Collections/pages/collections";
+import Tops from "./features/Tops/pages/tops";
+import Bottoms from "./features/Collections/pages/bottoms";
 import { Routes, Route } from "react-router-dom";
 import Layout from "./layouts/layout";
-import TopsDetail from "./pages/collections/tops.detail";
+import TopsDetail from "./features/Tops/pages/tops.detail";
 
 function App() {
 	return (
@@ -16,6 +17,10 @@ function App() {
 						<Route path="tops">
 							<Route index element={<Tops />}></Route>
 							<Route path=":id" element={<TopsDetail />} />
+						</Route>
+						<Route path="bottoms">
+							<Route index element={<Bottoms />}></Route>
+							{/* <Route path=":id" element={<TopsDetail />} /> */}
 						</Route>
 					</Route>
 				</Route>
