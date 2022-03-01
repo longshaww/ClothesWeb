@@ -1,10 +1,10 @@
 const express = require("express");
 const router = express.Router();
-const Products = require("../controllers/products.controller");
+const productController = require("../controllers/ProductController");
 
 // const upload = require("../utils/multer");
 
-router.get("/", Products.getProducts);
+router.get("/:name", productController.getProductDetail);
 // router.post("/", upload.single("image"), controller.postRoom);
 
 // router.get("/:id", controller.viewRoom);
