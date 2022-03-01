@@ -1,16 +1,12 @@
 const ProductsModel = require("../models/Product");
 // const cloudinary = require("../utils/cloudinary");
 
-class Products {
-	async getProducts(req, res) {
-		try {
-			const products = await ProductsModel.find()
-				.populate("description.type")
-				.populate("description.collection");
-			res.status(200).json(products);
-		} catch (error) {
-			res.status(500).json(error);
-		}
+class ProductController {
+	//[GET] 
+	async getProductDetail(req,res,next) {
+		const name  = req.params.name;
+		const detailProduct = await ProductsModel.findOne({"nameProduct" : name});
+		detailProduct ? res.status(202).json(detailProduct) : res.status(404).send("<h1> Data eror </h1>")
 	}
 }
 
@@ -28,4 +24,4 @@ class Products {
 // 	}
 // };
 
-module.exports = new Products();
+module.exports = new ProductController();
