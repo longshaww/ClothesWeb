@@ -1,0 +1,202 @@
+[
+  {
+    "nameProduct": "Basic Short - Black",
+    "price": 330,
+    "size": [
+      { "sizeName": "XL", "qty": 10 },
+      { "sizeName": "L", "qty": 5 },
+      { "sizeName": "M", "qty": 5 }
+    ],
+    "description": {
+      "imageList": [
+        "//product.hstatic.net/200000280689/product/z2426817326020_f0f8122202e6f865054835aea6516b57_ac2b72853ae04c54bb55c697733a8028_grande.jpg",
+        "//product.hstatic.net/200000280689/product/42_8d93092bf6c046eeb5a1f994afa8989c_grande.jpg"
+      ],
+      "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
+      "price": 330,
+      "type": "621df18f81c5aa40061ef709",
+      "collection": "621c50a7bae8653bcb4564b1"
+    },
+    "discount": "ObjectId"
+  },
+  {
+    "nameProduct": "Basic Short - Brown",
+    "price": 330,
+    "size": [
+      { "sizeName": "XL", "qty": 10 },
+      { "sizeName": "L", "qty": 5 },
+      { "sizeName": "M", "qty": 5 }
+    ],
+    "description": {
+      "imageList": [
+        "//product.hstatic.net/200000280689/product/z2426817305518_88ad0c9997e175b88e3e47275b1c7642_d67209f4520b4fc198d774d552b557ec_grande.jpg",
+        "//product.hstatic.net/200000280689/product/46_44a1c9a624c242c590a2ba666c6efb4b_grande.jpg"
+      ],
+      "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
+      "price": 330,
+      "type": "621df18f81c5aa40061ef709",
+      "collection": "621c50a7bae8653bcb4564b1"
+    },
+    "discount": "ObjectId"
+  },
+  {
+    "nameProduct": "Basic Short - Cream",
+    "price": 330,
+    "size": [
+      { "sizeName": "XL", "qty": 10 },
+      { "sizeName": "L", "qty": 5 },
+      { "sizeName": "M", "qty": 5 }
+    ],
+    "description": {
+      "imageList": [
+        "//product.hstatic.net/200000280689/product/z2426817286475_d611b143c563bb69d28a5ef4149c7b1b_fd82338e02a74588a9ce5f36b477d309_grande.jpg",
+        "//product.hstatic.net/200000280689/product/z2426817299180_f727f3819d79ff56002979aad9e42def_3b33507436d441218c9ae6b73813b68a_grande.jpg"
+      ],
+      "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
+      "price": 330,
+      "type": "621df18f81c5aa40061ef709",
+      "collection": "621c50a7bae8653bcb4564b1"
+    },
+    "discount": "ObjectId"
+  },
+  {
+    "nameProduct": "Cargo Pant - Black",
+    "price": 450,
+    "size": [
+      { "sizeName": "XL", "qty": 10 },
+      { "sizeName": "L", "qty": 5 },
+      { "sizeName": "M", "qty": 5 }
+    ],
+    "description": {
+      "imageList": [
+        "//product.hstatic.net/200000280689/product/4-te9206-1-none_b5777398d66e4fb2bf1f51f981bbc85a_grande.jpg",
+        "//product.hstatic.net/200000280689/product/4-te9206-2-none_056c35dacc304fe9ad2505c115873ec3_grande.jpg"
+      ],
+      "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
+      "price": 450,
+      "type": "621df18f81c5aa40061ef709",
+      "collection": "621c50a7bae8653bcb4564b1"
+    },
+    "discount": "ObjectId"
+  },
+  {
+    "nameProduct": "Corduroy Pant - Black",
+    "price": 420,
+    "size": [
+      { "sizeName": "XL", "qty": 10 },
+      { "sizeName": "L", "qty": 5 },
+      { "sizeName": "M", "qty": 5 }
+    ],
+    "description": {
+      "imageList": [
+        "//product.hstatic.net/200000280689/product/1-te9206-1-none_c9c02854de5f4fa9ad521bf2bebf3c11_grande.jpg",
+        "//product.hstatic.net/200000280689/product/37_ed942c51bc1e4310bf3e7973f3a51bc6_grande.jpg"
+      ],
+      "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
+      "price": 420,
+      "type": "621df18f81c5aa40061ef709",
+      "collection": "621c50a7bae8653bcb4564b1"
+    },
+    "discount": "ObjectId"
+  },
+  {
+    "nameProduct": "Corduroy Pant - Brown",
+    "price": 420,
+    "size": [
+      { "sizeName": "XL", "qty": 10 },
+      { "sizeName": "L", "qty": 5 },
+      { "sizeName": "M", "qty": 5 }
+    ],
+    "description": {
+      "imageList": [
+        "//product.hstatic.net/200000280689/product/3-te9206-1-none_49f9cd0491f04bcda000e46c26e3ba4b_grande.jpg",
+        "//product.hstatic.net/200000280689/product/41_647caaa0e98642b7a3dc89713be13e91_grande.jpg"
+      ],
+      "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
+      "price": 420,
+      "type": "621df18f81c5aa40061ef709",
+      "collection": "621c50a7bae8653bcb4564b1"
+    },
+    "discount": "ObjectId"
+  },
+  {
+    "nameProduct": "Corduroy Pant - Grey",
+    "price": 420,
+    "size": [
+      { "sizeName": "XL", "qty": 10 },
+      { "sizeName": "L", "qty": 5 },
+      { "sizeName": "M", "qty": 5 }
+    ],
+    "description": {
+      "imageList": [
+        "//product.hstatic.net/200000280689/product/2-te9206-1-none_2c5bb39700d74ebfbcacfc0ee0f86f5a_grande.jpg",
+        "//product.hstatic.net/200000280689/product/39_e60cb626af4b438b812c42591028221d_grande.jpg"
+      ],
+      "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
+      "price": 420,
+      "type": "621df18f81c5aa40061ef709",
+      "collection": "621c50a7bae8653bcb4564b1"
+    },
+    "discount": "ObjectId"
+  },
+  {
+    "nameProduct": "Logo Wordmark Pants",
+    "price": 390,
+    "size": [
+      { "sizeName": "XL", "qty": 10 },
+      { "sizeName": "L", "qty": 5 },
+      { "sizeName": "M", "qty": 5 }
+    ],
+    "description": {
+      "imageList": [
+        "//product.hstatic.net/200000280689/product/thiet_ke_khong_ten__26__d9568e3247404724a297c6f0c8c363ea_grande.png",
+        "//product.hstatic.net/200000280689/product/thiet_ke_khong_ten__26__d9568e3247404724a297c6f0c8c363ea_grande.png"
+      ],
+      "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
+      "price": 390,
+      "type": "621df18f81c5aa40061ef709",
+      "collection": "621c50a7bae8653bcb4564b1"
+    },
+    "discount": "ObjectId"
+  },
+  {
+    "nameProduct": "Logo Wordmark Shorts",
+    "price": 320,
+    "size": [
+      { "sizeName": "XL", "qty": 10 },
+      { "sizeName": "L", "qty": 5 },
+      { "sizeName": "M", "qty": 5 }
+    ],
+    "description": {
+      "imageList": [
+        "//product.hstatic.net/200000280689/product/thiet_ke_khong_ten__27__1fd6b2b0b67d4feb8a4613025edc1c04_grande.png",
+        "//product.hstatic.net/200000280689/product/thiet_ke_khong_ten__27__1fd6b2b0b67d4feb8a4613025edc1c04_grande.png"
+      ],
+      "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
+      "price": 320,
+      "type": "621df18f81c5aa40061ef709",
+      "collection": "621c50a7bae8653bcb4564b1"
+    },
+    "discount": "ObjectId"
+  },
+  {
+    "nameProduct": "Short Signature",
+    "price": 200,
+    "size": [
+      { "sizeName": "XL", "qty": 10 },
+      { "sizeName": "L", "qty": 5 },
+      { "sizeName": "M", "qty": 5 }
+    ],
+    "description": {
+      "imageList": [
+        "//product.hstatic.net/200000280689/product/screen_shot_2021-04-15_at_2.26.14_pm_85710b22aa914f438db6cfc8cef62b0b_grande.png",
+        "//product.hstatic.net/200000280689/product/short_06ac16561446432e90db62536558eee6_grande.jpg"
+      ],
+      "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
+      "price": 200,
+      "type": "621df18f81c5aa40061ef709",
+      "collection": "621c50a7bae8653bcb4564b1"
+    },
+    "discount": "ObjectId"
+  }
+]

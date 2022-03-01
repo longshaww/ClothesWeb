@@ -1,6 +1,8 @@
-const productRoute = require('./products.route');
+const collectionsRoute =  require('./collections.route');
+const siteRoute = require('./site.route');
 function route(app)
 {
-    app.use("/",productRoute);
+    app.use("/",siteRoute);
+    app.use("/collections",collectionsRoute);
 }
 module.exports = route

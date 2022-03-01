@@ -11,10 +11,9 @@ const Products = new mongoose.Schema(
 			imageList: Array,
 			productDes: String,
 			price: String, // Number
-			type: { type: mongoose.Schema.Types.ObjectId, ref: Types },
+			type: { type: String},
 			collection: {
-				type: mongoose.Schema.Types.ObjectId,
-				ref: Collections,
+				type: String
 			},
 		},
 		discount: Object,
