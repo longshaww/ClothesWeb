@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const Products = require("../models/Product");
 var ObjectId = require('mongodb').ObjectId; 
 
@@ -58,3 +59,12 @@ class CollectionsController{
 }
 
 module.exports = new CollectionsController
+=======
+class CollectionsController{
+    newArrivals(req,res,next)
+    {
+        res.send("NEW - ARRIVALS");
+    }
+}
+module.exports = new CollectionsController();
+>>>>>>> 7507dad22799e6cfe59c9dfbb1e9d336d5cfccdb

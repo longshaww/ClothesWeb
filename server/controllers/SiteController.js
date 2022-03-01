@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 const ProductsModel = require("../models/Product");
 // const cloudinary = require("../utils/cloudinary");
 const product = require("../models/Product");
@@ -37,3 +38,12 @@ class SiteController {
 // };
 
 module.exports = new SiteController();
+=======
+class SiteController{
+    Home(req,res,next)
+    {
+        res.send("thành công");
+    }
+}
+module.exports = new SiteController;
+>>>>>>> 7507dad22799e6cfe59c9dfbb1e9d336d5cfccdb
