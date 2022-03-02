@@ -7,9 +7,15 @@ const MySwal = withReactContent(Swal);
 
 const FETCHED_COLLECTIONS = "FETCHED_COLLECTIONS";
 const ADD_COLLECTIONS = "FETCHED_COLLECTIONS";
+const SEARCH_PRODUCT = "SEARCH_PRODUCT";
 
 const setCollections = (data) => ({
 	type: FETCHED_COLLECTIONS,
+	payload: data,
+});
+
+const setFilter = (data) => ({
+	type: SEARCH_PRODUCT,
 	payload: data,
 });
 
@@ -17,6 +23,19 @@ const addProduct = (data) => ({
 	type: ADD_COLLECTIONS,
 	payload: data,
 });
+
+const searchCollections = (data, value) => async (dispatch) => {
+	useEffect(() => {
+		async function fetchData() {
+			const res = await axios.get(
+				`${process.env.REACT_APP_API_URL}collections`
+			);
+			const data = await res.data;
+			dispatch(setFilter(data));
+		}
+		fetchData();
+	}, [dispatch]);
+};
 
 const fetchCollections = (endpoint) => async (dispatch) => {
 	useEffect(() => {
@@ -41,4 +60,10 @@ const postProduct = (room) => async (dispatch) => {
 	dispatch(addProduct(res.data));
 };
 
-export { addProduct, fetchCollections, postProduct };
+export {
+	addProduct,
+	fetchCollections,
+	postProduct,
+	searchCollections,
+	setCollections,
+};

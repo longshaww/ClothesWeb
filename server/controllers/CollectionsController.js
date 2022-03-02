@@ -79,6 +79,19 @@ class CollectionsController {
 			? res.status(202).json(outerwears)
 			: res.status(404).send("<h1>Không có dữ liệu</h1>");
 	}
+
+	async getFilteredProduct(req, res, next) {
+		const q = req.query.q;
+		const products = await Products.find();
+		const filteredProduct = products.filter((product) => {
+			return (
+				product.nameProduct
+					.toLowerCase()
+					.indexOf(q.toLowerCase()) !== -1
+			);
+		});
+		res.send(filteredProduct);
+	}
 }
 
 module.exports = new CollectionsController();

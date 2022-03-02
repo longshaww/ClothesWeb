@@ -1,20 +1,49 @@
-import {
-	NavbarToggler,
-	Collapse,
-	Nav,
-	NavItem,
-	Navbar,
-	Input,
-} from "reactstrap";
+import { NavbarToggler, Collapse, Nav, NavItem, Navbar } from "reactstrap";
 import Logo from "../../assets/images/hyperX.jpeg";
 import "../../assets/styles/customize.navbar.css";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { setCollections } from "../../actions/collections";
+import queryString from "query-string";
+import PostFilterForm from "./search";
 
 export default function NavbarApp() {
 	const [isOpen, setIsOpen] = useState(false);
 	const toggle = () => setIsOpen(!isOpen);
+	const dispatch = useDispatch();
+	const [filter, setFilter] = useState({ q: "" });
+	const collections = useSelector((state) => state.collections.list);
+	console.log(collections);
 
+	const unChangeCollection = useRef(collections);
+	// const timer = (e) => {
+	// 	e.preventDefault();
+	// 	unChangeCollection.current = setTimeout(
+	// 		() => console.log("unchanged", unChangeCollection),
+	// 		2000
+	// 	);
+	// };
+	// useEffect(() => {
+	// 	return () => clearTimeout(timer);
+	// }, []);
+
+	useEffect(() => {
+		const paramsString = queryString.stringify(filter);
+		async function fetchData() {
+			const res = await axios.get(
+				`${process.env.REACT_APP_API_URL}collections/search/?${paramsString}`
+			);
+			const data = await res.data;
+			dispatch(setCollections(data));
+		}
+		fetchData();
+	}, [filter]);
+
+	function handleFilterChange(newFilter) {
+		setFilter({ ...filter, q: newFilter.search });
+	}
 	return (
 		<Navbar expand="md" light>
 			<Link to="/">
@@ -77,7 +106,7 @@ export default function NavbarApp() {
 						</Link>
 					</NavItem>
 					<NavItem id="searchbar">
-						<Input placeholder="Search"></Input>
+						<PostFilterForm onSubmit={handleFilterChange} />
 					</NavItem>
 				</Nav>
 			</Collapse>

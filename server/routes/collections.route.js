@@ -4,6 +4,7 @@ const router = express.Router();
 const collectionsController = require("../controllers/CollectionsController");
 
 router.get("/", collectionsController.getAllProduct);
+router.get("/search", collectionsController.getFilteredProduct);
 router.get("/new-arrivals", collectionsController.getAllNewArrivals);
 router.get("/tops", collectionsController.getAllTops);
 router.get("/bottoms", collectionsController.getAllBottoms);

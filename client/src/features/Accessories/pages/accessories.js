@@ -3,7 +3,6 @@ import renderDependOnCollection from "../../../components/productCard/product.ca
 import { accessoriesEndpoint } from "../../../constants/constants";
 
 function Accessories({ collections }) {
-	console.log(collections);
 	return (
 		<div id="accessories">
 			{renderDependOnCollection(collections, accessoriesEndpoint)}
