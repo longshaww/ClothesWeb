@@ -1,14 +1,12 @@
 import globalStateAndAction from "../../../container/global.state.action";
 import renderDependOnCollection from "../../../components/productCard/product.card";
-import { accessoriesCollection } from "../../../constants/constants";
+import { accessoriesEndpoint } from "../../../constants/constants";
 
-function Accessories({ collections, fetchCollections }) {
-	if (!collections.length) {
-		fetchCollections();
-	}
+function Accessories({ collections }) {
+	console.log(collections);
 	return (
 		<div id="accessories">
-			{renderDependOnCollection(collections, accessoriesCollection)}
+			{renderDependOnCollection(collections, accessoriesEndpoint)}
 		</div>
 	);
 }

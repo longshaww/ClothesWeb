@@ -1,14 +1,11 @@
-import renderDependOnCollection from "../../../components/productCard/product.card";
-import { topsCollection } from "../../../constants/constants";
+import RenderDependOnCollection from "../../../components/productCard/product.card";
+import { topsEndpoint } from "../../../constants/constants";
 import globalStateAndAction from "../../../container/global.state.action";
 
-function Tops({ collections, fetchCollections }) {
-	if (!collections.length) {
-		fetchCollections();
-	}
+function Tops({ collections }) {
 	return (
 		<div id="tops">
-			{renderDependOnCollection(collections, topsCollection)}
+			{RenderDependOnCollection(collections, topsEndpoint)}
 		</div>
 	);
 }

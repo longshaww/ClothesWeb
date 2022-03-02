@@ -1,13 +1,11 @@
 import { Card, CardImg, CardBody, CardGroup } from "reactstrap";
 import { Link } from "react-router-dom";
+import { fetchCollections } from "../../actions/collections";
+import { useDispatch } from "react-redux";
 
-export default function renderDependOnCollection(collectionList, collectionId) {
-	let collections = collectionList.filter((collection) => {
-		return collection.description.collection === collectionId;
-	});
-	if (!collectionId) {
-		collections = collectionList;
-	}
+export default function RenderDependOnCollection(collections, endpoint) {
+	const dispatch = useDispatch();
+	dispatch(fetchCollections(endpoint));
 	return (
 		<>
 			<CardGroup>

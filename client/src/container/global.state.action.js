@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { fetchCollections } from "../actions/tops";
+import { fetchCollections } from "../actions/collections";
 
 export default function globalStateAndAction(name) {
 	const mapStateToProps = (state) => {
@@ -9,7 +9,7 @@ export default function globalStateAndAction(name) {
 	};
 
 	const mapActionToProps = (dispatch) => ({
-		fetchCollections: () => dispatch(fetchCollections()),
+		fetchCollections: (endpoint) => dispatch(fetchCollections(endpoint)),
 	});
 	return connect(mapStateToProps, mapActionToProps)(name);
 }

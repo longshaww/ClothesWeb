@@ -57,7 +57,7 @@ class CollectionsController {
 		// data user click id  collection  new arrivals
 		const selection = req.body.selection;
 		// data fake
-		const idFake = "621c50c7bae8653bcb4564b3";
+		const idFake = "621c50e0bae8653bcb4564b4";
 		const accessories = await Products.find({
 			"description.collection": idFake,
 		});

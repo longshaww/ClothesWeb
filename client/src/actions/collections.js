@@ -18,11 +18,11 @@ const addProduct = (data) => ({
 	payload: data,
 });
 
-const fetchCollections = () => async (dispatch) => {
+const fetchCollections = (endpoint) => async (dispatch) => {
 	useEffect(() => {
 		async function fetchData() {
 			const res = await axios.get(
-				`${process.env.REACT_APP_API_URL}collections`
+				`${process.env.REACT_APP_API_URL}${endpoint}`
 			);
 			const data = await res.data;
 			dispatch(setCollections(data));

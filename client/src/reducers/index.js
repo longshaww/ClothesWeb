@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { collectionsReducer } from "./tops.js";
+import { collectionsReducer } from "./collections.js";
 import { loadingState } from "./loading.js";
 
 const rootReducer = combineReducers({

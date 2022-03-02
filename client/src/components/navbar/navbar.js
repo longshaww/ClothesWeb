@@ -35,6 +35,14 @@ export default function NavbarApp() {
 			<Collapse isOpen={isOpen} navbar>
 				<Nav className="m-auto" navbar>
 					<NavItem>
+						<Link
+							to="/collections/new-arrivals"
+							className="nav-link"
+						>
+							NEW ARRIVALS
+						</Link>
+					</NavItem>
+					<NavItem>
 						<Link to="/collections/tops" className="nav-link">
 							TOPS
 						</Link>

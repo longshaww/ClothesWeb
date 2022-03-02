@@ -13,7 +13,7 @@ export default function CollectionsLayout() {
 	if (param.length > 2) {
 		param = param[2].toUpperCase();
 	} else {
-		param = "";
+		param = param[1].toUpperCase();
 	}
 	return (
 		<div>

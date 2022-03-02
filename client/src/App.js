@@ -6,10 +6,11 @@ import Bottoms from "./features/Bottoms/pages/bottoms";
 import Outerwears from "./features/Outerwears/pages/outerwears";
 import Accessories from "./features/Accessories/pages/accessories";
 import Sale from "./features/Sale/pages/sale";
-import { Routes, Route } from "react-router-dom";
 import Layout from "./layouts/layout";
 import Detail from "./features/Tops/pages/tops.detail";
 import CollectionsLayout from "./features/Collections/pages/collections.layout";
+import NewArrivals from "./features/New-Arrivals/pages/new.arrivals";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
 	return (
@@ -42,6 +43,12 @@ function App() {
 						</Route>
 						<Route path="sale">
 							<Route index element={<Sale />}></Route>
+						</Route>
+						<Route path="new-arrivals">
+							<Route
+								index
+								element={<NewArrivals />}
+							></Route>
 						</Route>
 					</Route>
 					<Route path="product">
