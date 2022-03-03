@@ -5,7 +5,9 @@ import { useDispatch } from "react-redux";
 
 export default function RenderDependOnCollection(collections, endpoint) {
 	const dispatch = useDispatch();
-	dispatch(fetchCollections(endpoint));
+	if (endpoint) {
+		dispatch(fetchCollections(endpoint));
+	}
 	return (
 		<>
 			<CardGroup>

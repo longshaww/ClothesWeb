@@ -1,11 +1,15 @@
+import {
+	FETCHED_COLLECTIONS,
+	ADD_COLLECTIONS,
+	SET_LIST_SEARCH,
+	SET_SEARCH_INPUT,
+} from "../constants/constants";
+
 const initialState = {
 	list: [],
-	result: [],
+	listSearch: [],
+	searchInput: "",
 };
-
-const FETCHED_COLLECTIONS = "FETCHED_COLLECTIONS";
-const ADD_COLLECTIONS = "FETCHED_COLLECTIONS";
-const SEARCH_PRODUCT = "SEARCH_PRODUCT";
 
 export const collectionsReducer = (state = initialState, action) => {
 	switch (action.type) {
@@ -21,10 +25,15 @@ export const collectionsReducer = (state = initialState, action) => {
 				...state,
 				list: newList,
 			};
-		case SEARCH_PRODUCT:
+		case SET_LIST_SEARCH:
 			return {
 				...state,
-				result: action.payload,
+				listSearch: action.payload,
+			};
+		case SET_SEARCH_INPUT:
+			return {
+				...state,
+				searchInput: action.payload,
 			};
 		default:
 			return { ...state };
