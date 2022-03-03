@@ -16,7 +16,25 @@ class SiteController {
 
 	getAllSite(req,res,next)
 	{
-		res.send("thanh2 cong");
+		res.send("Success");
+	}
+	async searchView(req,res,next)
+	{
+	
+		const nameProduct = await req.query.q
+		if(nameProduct)
+		{
+			const product = await ProductsModel.find({})
+			const data =  await product.filter(function(data){
+				return data.nameProduct.toLowerCase().indexOf(nameProduct.toLowerCase()) !== -1
+			})
+			res.status(202).json(data)		
+		}
+		else
+		{
+			res.status(404).send("<h1>Không có dữ liệu</h1>")
+		}
+		
 	}
 }
 
