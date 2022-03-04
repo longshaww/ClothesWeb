@@ -1,21 +1,21 @@
-import {
-	NavbarToggler,
-	Collapse,
-	Nav,
-	NavItem,
-	NavbarText,
-	Navbar,
-	Input,
-} from "reactstrap";
+import { NavbarToggler, Collapse, Nav, NavItem, Navbar } from "reactstrap";
 import Logo from "../../assets/images/hyperX.jpeg";
 import "../../assets/styles/customize.navbar.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import globalStateAndAction from "../../container/global.state.action";
-
-function NavbarApp({ searchInput, searchInputHandleChange }) {
+import { useDispatch } from "react-redux";
+import { setSearchInput } from "../../actions/collections";
+import PostFilterForm from "./search";
+function NavbarApp() {
 	const [isOpen, setIsOpen] = useState(false);
 	const toggle = () => setIsOpen(!isOpen);
+
+	const dispatch = useDispatch();
+
+	function handleFilterChange(newFilter) {
+		dispatch(setSearchInput(newFilter.search));
+	}
 
 	return (
 		<Navbar expand="md" light>
@@ -78,16 +78,9 @@ function NavbarApp({ searchInput, searchInputHandleChange }) {
 							SALE
 						</Link>
 					</NavItem>
-					<NavbarText>
-						<form action="/search">
-							<Input
-								name="q"
-								value={searchInput}
-								placeholder="Search"
-								onChange={searchInputHandleChange}
-							></Input>
-						</form>
-					</NavbarText>
+					<NavItem>
+						<PostFilterForm onSubmit={handleFilterChange} />
+					</NavItem>
 				</Nav>
 			</Collapse>
 		</Navbar>

@@ -1,14 +1,13 @@
 import {
 	FETCHED_COLLECTIONS,
 	ADD_COLLECTIONS,
-	SET_LIST_SEARCH,
 	SET_SEARCH_INPUT,
 } from "../constants/constants";
 
 const initialState = {
 	list: [],
 	listSearch: [],
-	searchInput: "",
+	searchInput: { q: "" },
 };
 
 export const collectionsReducer = (state = initialState, action) => {
@@ -25,15 +24,12 @@ export const collectionsReducer = (state = initialState, action) => {
 				...state,
 				list: newList,
 			};
-		case SET_LIST_SEARCH:
-			return {
-				...state,
-				listSearch: action.payload,
-			};
 		case SET_SEARCH_INPUT:
+			const newObj = { ...state.searchInput };
+			newObj.q = action.payload;
 			return {
 				...state,
-				searchInput: action.payload,
+				searchInput: newObj,
 			};
 		default:
 			return { ...state };

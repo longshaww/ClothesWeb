@@ -6,7 +6,6 @@ const accessoriesEndpoint = "collections/accessories";
 const newArrivalEndpoint = "collections/new-arrivals";
 const FETCHED_COLLECTIONS = "FETCHED_COLLECTIONS";
 const ADD_COLLECTIONS = "FETCHED_COLLECTIONS";
-const SET_LIST_SEARCH = "SET_LIST_SEARCH";
 const SET_SEARCH_INPUT = "SET_SEARCH_INPUT";
 
 export {
@@ -18,6 +17,5 @@ export {
 	newArrivalEndpoint,
 	FETCHED_COLLECTIONS,
 	ADD_COLLECTIONS,
-	SET_LIST_SEARCH,
 	SET_SEARCH_INPUT,
 };

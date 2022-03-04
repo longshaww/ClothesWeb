@@ -3,10 +3,14 @@ import { Link } from "react-router-dom";
 import { fetchCollections } from "../../actions/collections";
 import { useDispatch } from "react-redux";
 
-export default function RenderDependOnCollection(collections, endpoint) {
+export default function RenderDependOnCollection(
+	collections,
+	endpoint,
+	filter
+) {
 	const dispatch = useDispatch();
 	if (endpoint) {
-		dispatch(fetchCollections(endpoint));
+		dispatch(fetchCollections(endpoint, filter));
 	}
 	return (
 		<>
