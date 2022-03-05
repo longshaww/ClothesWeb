@@ -9,6 +9,7 @@ import { setSearchInput } from "../../actions/collections";
 import PostFilterForm from "./search";
 function NavbarApp() {
 	const [isOpen, setIsOpen] = useState(false);
+
 	const toggle = () => setIsOpen(!isOpen);
 
 	const dispatch = useDispatch();
