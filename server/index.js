@@ -17,6 +17,12 @@ mongoose.connect("mongodb://localhost:27017/ClothesWeb", {
 	useUnifiedTopology: true,
 });
 
+// const mongoose = require("mongoose");
+// mongoose.connect("mongodb://localhost:27017/ClothesWeb", {
+// 	useNewUrlParser: true,
+// 	useUnifiedTopology: true,
+// });
+
 app.use(express.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: false })) // support encoded bodies
 // app.use("/public", express.static("public"));
