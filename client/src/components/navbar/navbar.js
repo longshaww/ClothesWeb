@@ -1,5 +1,6 @@
 import { NavbarToggler, Collapse, Nav, NavItem, Navbar } from "reactstrap";
 import Logo from "../../assets/images/hyperX.jpeg";
+import Cart from "../../assets/images/cart.svg";
 import "../../assets/styles/customize.navbar.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
@@ -7,6 +8,7 @@ import globalStateAndAction from "../../container/global.state.action";
 import { useDispatch } from "react-redux";
 import { setSearchInput } from "../../actions/collections";
 import PostFilterForm from "./search";
+
 function NavbarApp() {
 	const [isOpen, setIsOpen] = useState(false);
 
@@ -81,6 +83,9 @@ function NavbarApp() {
 					</NavItem>
 					<NavItem>
 						<PostFilterForm onSubmit={handleFilterChange} />
+					</NavItem>
+					<NavItem>
+						<img id="cart" src={Cart} alt="" />
 					</NavItem>
 				</Nav>
 			</Collapse>

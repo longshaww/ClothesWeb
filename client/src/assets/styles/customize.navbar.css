@@ -20,3 +20,9 @@
 	position: absolute;
 	right: 1rem;
 }
+
+#cart {
+	width: 3rem;
+	height: 3rem;
+	padding-bottom: 0.7rem;
+}

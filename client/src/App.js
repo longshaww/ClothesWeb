@@ -7,8 +7,9 @@ import Outerwears from "./features/Outerwears/pages/outerwears";
 import Accessories from "./features/Accessories/pages/accessories";
 import Sale from "./features/Sale/pages/sale";
 import Layout from "./layouts/layout";
-import Detail from "./features/Tops/pages/tops.detail";
+import Detail from "./features/ProductDetail/pages/detail";
 import CollectionsLayout from "./features/Collections/pages/collections.layout";
+import DetailLayout from "./features/ProductDetail/pages/detail.layout";
 import NewArrivals from "./features/New-Arrivals/pages/new.arrivals";
 import Search from "./features/Search/search";
 import { Routes, Route } from "react-router-dom";
@@ -52,9 +53,13 @@ function App() {
 							></Route>
 						</Route>
 					</Route>
-					<Route path="product">
+					<Route
+						path="product"
+						element={<DetailLayout></DetailLayout>}
+					>
 						<Route
 							path=":id"
+							index
 							element={<Detail></Detail>}
 						></Route>
 					</Route>

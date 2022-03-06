@@ -2,7 +2,7 @@ import { Outlet, useLocation } from "react-router-dom";
 // import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 // import { useState } from "react";
 // import TopsAddForm from "../../Tops/components/tops.addform";
-import { Nav, NavItem } from "reactstrap";
+import { Breadcrumb, BreadcrumbItem } from "reactstrap";
 import { Link } from "react-router-dom";
 import "../../../assets/styles/collections.nav.css";
 export default function CollectionsLayout() {
@@ -17,26 +17,26 @@ export default function CollectionsLayout() {
 	}
 	return (
 		<div>
-			<Nav>
-				<NavItem>
+			<Breadcrumb>
+				<BreadcrumbItem>
 					<Link to="/" className="nav-link">
 						Trang chủ
 					</Link>
-				</NavItem>
-				<NavItem>
+				</BreadcrumbItem>
+				<BreadcrumbItem>
 					<Link to="/collections" className="nav-link">
 						Danh mục
 					</Link>
-				</NavItem>
-				<NavItem>
+				</BreadcrumbItem>
+				<BreadcrumbItem>
 					<Link
 						to={`/collections/${param}`}
 						className="nav-link disabled text-muted"
 					>
 						{param}
 					</Link>
-				</NavItem>
-			</Nav>
+				</BreadcrumbItem>
+			</Breadcrumb>
 
 			<div className="container">
 				<div className="border-bottom border-dark mt-4">

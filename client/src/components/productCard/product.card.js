@@ -40,12 +40,7 @@ export default function RenderDependOnCollection(
 									<Link
 										to={`/product/${collection._id}`}
 										state={{
-											productName:
-												collection.nameProduct,
-											productImage:
-												collection
-													.description
-													.imageList[0],
+											product: collection,
 										}}
 										className="stretched-link"
 									></Link>
