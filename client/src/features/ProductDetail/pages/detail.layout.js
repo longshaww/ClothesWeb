@@ -7,25 +7,27 @@ export default function DetailLayout() {
 	const { product } = location.state;
 	return (
 		<div>
-			<Breadcrumb>
-				<BreadcrumbItem>
-					<Link to="/" className="nav-link">
-						Trang chủ
-					</Link>
-				</BreadcrumbItem>
-				<BreadcrumbItem>
-					<Link to="/collections" className="nav-link">
-						Danh mục
-					</Link>
-				</BreadcrumbItem>
-				<BreadcrumbItem>
-					<Link
-						to={`/collections/${product.nameProduct}`}
-						className="nav-link disabled text-muted"
-					>
-						{product.nameProduct}
-					</Link>
-				</BreadcrumbItem>
+			<Breadcrumb className="bg-light">
+				<div className="container">
+					<BreadcrumbItem className="d-inline-block">
+						<Link to="/" className="nav-link">
+							Trang chủ
+						</Link>
+					</BreadcrumbItem>
+					<BreadcrumbItem className="d-inline-block">
+						<Link to="/collections" className="nav-link">
+							Danh mục
+						</Link>
+					</BreadcrumbItem>
+					<BreadcrumbItem className="d-inline-block">
+						<Link
+							to={`/collections/${product.nameProduct}`}
+							className="nav-link disabled text-muted"
+						>
+							{product.nameProduct}
+						</Link>
+					</BreadcrumbItem>
+				</div>
 			</Breadcrumb>
 			<Outlet />
 		</div>

@@ -17,25 +17,27 @@ export default function CollectionsLayout() {
 	}
 	return (
 		<div>
-			<Breadcrumb>
-				<BreadcrumbItem>
-					<Link to="/" className="nav-link">
-						Trang chủ
-					</Link>
-				</BreadcrumbItem>
-				<BreadcrumbItem>
-					<Link to="/collections" className="nav-link">
-						Danh mục
-					</Link>
-				</BreadcrumbItem>
-				<BreadcrumbItem>
-					<Link
-						to={`/collections/${param}`}
-						className="nav-link disabled text-muted"
-					>
-						{param}
-					</Link>
-				</BreadcrumbItem>
+			<Breadcrumb className="bg-light">
+				<div className="container">
+					<BreadcrumbItem className="d-inline-block">
+						<Link to="/" className="nav-link">
+							Trang chủ
+						</Link>
+					</BreadcrumbItem>
+					<BreadcrumbItem className="d-inline-block">
+						<Link to="/collections" className="nav-link">
+							Danh mục
+						</Link>
+					</BreadcrumbItem>
+					<BreadcrumbItem className="d-inline-block">
+						<Link
+							to={`/collections/${param}`}
+							className="nav-link disabled text-muted"
+						>
+							{param}
+						</Link>
+					</BreadcrumbItem>
+				</div>
 			</Breadcrumb>
 
 			<div className="container">
