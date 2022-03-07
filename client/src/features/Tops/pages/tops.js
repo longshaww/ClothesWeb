@@ -3,7 +3,6 @@ import { topsEndpoint } from "../../../constants/constants";
 import globalStateAndAction from "../../../container/global.state.action";
 
 function Tops({ collections, pagination }) {
-	console.log(pagination);
 	return (
 		<div id="tops">
 			{RenderDependOnCollection(

@@ -18,6 +18,11 @@ export default function RenderDependOnCollection(
 	const handlePagination = (event, value) => {
 		dispatch(setPage(value));
 	};
+
+	if (!pag && !filter) {
+		dispatch(fetchCollections(endpoint));
+	}
+
 	if (pag) {
 		dispatch(pagination(endpoint, pag));
 	}
