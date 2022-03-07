@@ -8,7 +8,6 @@ import {
 	ADD_COLLECTIONS,
 	SET_SEARCH_INPUT,
 } from "../constants/constants";
-import { setPage } from "./pagination";
 
 const MySwal = withReactContent(Swal);
 
