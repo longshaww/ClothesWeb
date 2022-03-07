@@ -1,6 +1,5 @@
 const ProductsModel = require("../models/Product");
 // const cloudinary = require("../utils/cloudinary");
-const product = require("../models/Product");
 class SiteController {
 	async getProducts(req, res) {
 		try {
@@ -11,15 +10,28 @@ class SiteController {
 		} catch (error) {
 			res.status(500).json(error);
 		}
-     
 	}
 
-	getAllSite(req,res,next)
-	{
-		res.send("thanh2 cong");
+	getAllSite(req, res, next) {
+		res.send("Success");
+	}
+	async searchView(req, res, next) {
+		const q = req.query.q;
+		if (q) {
+			const products = await ProductsModel.find();
+			const filteredProduct = products.filter((product) => {
+				return (
+					product.nameProduct
+						.toLowerCase()
+						.indexOf(q.toLowerCase()) !== -1
+				);
+			});
+			res.status(202).send(filteredProduct);
+		} else {
+			res.status(404).send("<h1>Không có dữ liệu </h1>");
+		}
 	}
 }
-
 
 /// LONG /////
 // const postRoom = async (req, res) => {

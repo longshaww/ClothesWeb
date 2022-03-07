@@ -1,27 +1,52 @@
-import {
-	NavbarToggler,
-	Collapse,
-	Nav,
-	NavItem,
-	DropdownItem,
-	NavbarText,
-	Navbar,
-	UncontrolledDropdown,
-	DropdownToggle,
-	DropdownMenu,
-} from "reactstrap";
-
+import { NavbarToggler, Collapse, Nav, NavItem, Navbar } from "reactstrap";
+import Logo from "../../assets/images/hyperX.jpeg";
+import Cart from "../../assets/images/cart.svg";
+import "../../assets/styles/customize.navbar.css";
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import globalStateAndAction from "../../container/global.state.action";
+import { useDispatch } from "react-redux";
+import { setSearchInput } from "../../actions/collections";
+import PostFilterForm from "./search";
 
-export default function NavbarApp() {
+function NavbarApp() {
+	const [isOpen, setIsOpen] = useState(false);
+
+	const toggle = () => setIsOpen(!isOpen);
+
+	const dispatch = useDispatch();
+
+	function handleFilterChange(newFilter) {
+		dispatch(setSearchInput(newFilter.search));
+	}
+
 	return (
-		<Navbar color="light" expand="md" light>
-			<Link to="/" className="navbar-brand">
-				LOGO
+		<Navbar expand="md" light>
+			<Link to="/">
+				<div id="center-logo">
+					<img
+						id="logo"
+						src={Logo}
+						alt=""
+						className="rounded-circle"
+					></img>
+					<p id="brand-name" className="text-dark fs-3 fw-bold">
+						HyperX™
+					</p>
+				</div>
 			</Link>
-			<NavbarToggler onClick={function noRefCheck() {}} />
-			<Collapse navbar>
-				<Nav className="me-auto" navbar>
+			<NavbarToggler onClick={toggle} />
+
+			<Collapse isOpen={isOpen} navbar>
+				<Nav className="m-auto" navbar>
+					<NavItem>
+						<Link
+							to="/collections/new-arrivals"
+							className="nav-link"
+						>
+							NEW ARRIVALS
+						</Link>
+					</NavItem>
 					<NavItem>
 						<Link to="/collections/tops" className="nav-link">
 							TOPS
@@ -56,20 +81,16 @@ export default function NavbarApp() {
 							SALE
 						</Link>
 					</NavItem>
-					<UncontrolledDropdown inNavbar nav>
-						<DropdownToggle caret nav>
-							Options
-						</DropdownToggle>
-						<DropdownMenu end>
-							<DropdownItem>Option 1</DropdownItem>
-							<DropdownItem>Option 2</DropdownItem>
-							<DropdownItem divider />
-							<DropdownItem>Reset</DropdownItem>
-						</DropdownMenu>
-					</UncontrolledDropdown>
+					<NavItem>
+						<PostFilterForm onSubmit={handleFilterChange} />
+					</NavItem>
+					<NavItem>
+						<img id="cart" src={Cart} alt="" />
+					</NavItem>
 				</Nav>
-				<NavbarText>Simple Text</NavbarText>
 			</Collapse>
 		</Navbar>
 	);
 }
+
+export default globalStateAndAction(NavbarApp);

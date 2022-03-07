@@ -27,6 +27,7 @@ const verify = (req,res,next)=>{
     }
 }
 router.get("/",siteController.getAllSite);
+router.get("/search",siteController.searchView);
 
 router.post("/login",authenciationController.postLogin);
 

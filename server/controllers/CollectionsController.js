@@ -5,7 +5,7 @@ class CollectionsController {
   async getAllProduct(req, res, next) {
     const selection = req.body.selection;
 
-    // data fake
+    // data fak
     const newArrivals = await Products.find();
     newArrivals
       ? res.status(202).json(newArrivals)
@@ -108,6 +108,5 @@ class CollectionsController {
       ? res.status(202).json(outerwears)
       : res.status(404).send("<h1>Không có dữ liệu</h1>");
   }
-}
 
 module.exports = new CollectionsController();

@@ -1,0 +1,28 @@
+#logo {
+	width: 4rem;
+	height: 4rem;
+}
+#center-logo {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+.container-fluid {
+	display: block !important;
+}
+
+#brand-name {
+	padding: 0.5rem;
+	margin-top: 1rem;
+}
+
+#searchbar {
+	position: absolute;
+	right: 1rem;
+}
+
+#cart {
+	width: 3rem;
+	height: 3rem;
+	padding-bottom: 0.7rem;
+}

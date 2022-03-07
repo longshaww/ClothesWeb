@@ -1,10 +1,18 @@
 import "./App.css";
-import Home from "./pages/home/home";
-import Collections from "./pages/collections/collections";
-import Tops from "./pages/collections/tops";
-import { Routes, Route } from "react-router-dom";
+import Home from "./features/Home/pages/home";
+import Collections from "./features/Collections/pages/collections";
+import Tops from "./features/Tops/pages/tops";
+import Bottoms from "./features/Bottoms/pages/bottoms";
+import Outerwears from "./features/Outerwears/pages/outerwears";
+import Accessories from "./features/Accessories/pages/accessories";
+import Sale from "./features/Sale/pages/sale";
 import Layout from "./layouts/layout";
-import TopsDetail from "./pages/collections/tops.detail";
+import Detail from "./features/ProductDetail/pages/detail";
+import CollectionsLayout from "./features/Collections/pages/collections.layout";
+import DetailLayout from "./features/ProductDetail/pages/detail.layout";
+import NewArrivals from "./features/New-Arrivals/pages/new.arrivals";
+import Search from "./features/Search/search";
+import { Routes, Route } from "react-router-dom";
 
 function App() {
 	return (
@@ -12,11 +20,51 @@ function App() {
 			<Routes>
 				<Route path="/" element={<Layout />}>
 					<Route index element={<Home />} />
-					<Route path="collections" element={<Collections />}>
+					<Route
+						path="collections"
+						element={<CollectionsLayout />}
+					>
+						<Route index element={<Collections />} />
 						<Route path="tops">
 							<Route index element={<Tops />}></Route>
-							<Route path=":id" element={<TopsDetail />} />
 						</Route>
+						<Route path="bottoms">
+							<Route index element={<Bottoms />}></Route>
+						</Route>
+						<Route path="outerwears">
+							<Route
+								index
+								element={<Outerwears />}
+							></Route>
+						</Route>
+						<Route path="accessories">
+							<Route
+								index
+								element={<Accessories />}
+							></Route>
+						</Route>
+						<Route path="sale">
+							<Route index element={<Sale />}></Route>
+						</Route>
+						<Route path="new-arrivals">
+							<Route
+								index
+								element={<NewArrivals />}
+							></Route>
+						</Route>
+					</Route>
+					<Route
+						path="product"
+						element={<DetailLayout></DetailLayout>}
+					>
+						<Route
+							path=":id"
+							index
+							element={<Detail></Detail>}
+						></Route>
+					</Route>
+					<Route path="/search">
+						<Route index element={<Search />}></Route>
 					</Route>
 				</Route>
 			</Routes>
