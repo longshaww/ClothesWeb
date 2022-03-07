@@ -1,7 +1,10 @@
 import axios from "axios";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
+import { useSelector } from "react-redux";
+import { useSearchParams } from "react-router-dom";
+import queryString from "query-string";
 
 import {
 	FETCHED_COLLECTIONS,
@@ -26,7 +29,7 @@ const setSearchInput = (data) => ({
 	payload: data,
 });
 
-const fetchCollections = (endpoint, filter) => async (dispatch) => {
+const fetchCollections = (endpoint) => async (dispatch) => {
 	useEffect(() => {
 		async function fetchData() {
 			try {
@@ -40,7 +43,35 @@ const fetchCollections = (endpoint, filter) => async (dispatch) => {
 			}
 		}
 		fetchData();
-	}, [dispatch, filter]);
+	}, [dispatch]);
+};
+
+const filterCollections = () => async (dispatch) => {
+	const qSelect = useSelector((state) => state.collections.searchInput);
+	const [searchParam, setSearchParam] = useSearchParams();
+	const q = queryString.stringify(qSelect);
+	const res = useRef("");
+	useEffect(() => {
+		async function fetchData() {
+			try {
+				if (q === "q=") {
+					res.current = await axios.get(
+						`${process.env.REACT_APP_API_URL}collections`
+					);
+				} else {
+					res.current = await axios.get(
+						`${process.env.REACT_APP_API_URL}search?${q}`
+					);
+				}
+				const data = await res.current.data;
+				dispatch(setCollections(data));
+				setSearchParam(qSelect);
+			} catch (error) {
+				console.log(error);
+			}
+		}
+		fetchData();
+	}, [dispatch, q, setSearchParam, qSelect]);
 };
 
 const postProduct = (room) => async (dispatch) => {
@@ -59,4 +90,5 @@ export {
 	postProduct,
 	setCollections,
 	setSearchInput,
+	filterCollections,
 };

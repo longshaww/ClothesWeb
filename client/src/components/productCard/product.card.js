@@ -1,6 +1,6 @@
 import { Card, CardImg, CardBody, CardGroup } from "reactstrap";
 import { Link } from "react-router-dom";
-import { fetchCollections } from "../../actions/collections";
+import { fetchCollections, filterCollections } from "../../actions/collections";
 import { pagination } from "../../actions/pagination";
 import { useDispatch, useSelector } from "react-redux";
 import { setPage } from "../../actions/pagination";
@@ -27,7 +27,7 @@ export default function RenderDependOnCollection(
 		dispatch(pagination(endpoint, pag));
 	}
 	if (filter) {
-		dispatch(fetchCollections(endpoint, filter));
+		dispatch(filterCollections(endpoint, filter));
 	}
 
 	return (
