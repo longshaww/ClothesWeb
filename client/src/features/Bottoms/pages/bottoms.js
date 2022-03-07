@@ -2,10 +2,15 @@ import renderDependOnCollection from "../../../components/productCard/product.ca
 import { bottomsEndpoint } from "../../../constants/constants";
 import globalStateAndAction from "../../../container/global.state.action";
 
-function Bottoms({ collections }) {
+function Bottoms({ collections, pagination }) {
 	return (
 		<div id="bottoms">
-			{renderDependOnCollection(collections, bottomsEndpoint)}
+			{renderDependOnCollection(
+				collections,
+				bottomsEndpoint,
+				null,
+				pagination
+			)}
 		</div>
 	);
 }

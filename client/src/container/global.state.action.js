@@ -6,6 +6,7 @@ export default function globalStateAndAction(name) {
 		return {
 			collections: state.collections.list,
 			searchInput: state.collections.searchInput,
+			pagination: state.pagination.page,
 		};
 	};
 

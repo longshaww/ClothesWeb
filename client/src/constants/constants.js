@@ -7,6 +7,7 @@ const newArrivalEndpoint = "collections/new-arrivals";
 const FETCHED_COLLECTIONS = "FETCHED_COLLECTIONS";
 const ADD_COLLECTIONS = "FETCHED_COLLECTIONS";
 const SET_SEARCH_INPUT = "SET_SEARCH_INPUT";
+const SET_PAGE = "SET_PAGE";
 
 export {
 	collectionsEndpoint,
@@ -18,4 +19,5 @@ export {
 	FETCHED_COLLECTIONS,
 	ADD_COLLECTIONS,
 	SET_SEARCH_INPUT,
+	SET_PAGE,
 };

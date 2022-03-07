@@ -7,11 +7,13 @@ function Search({ collections, searchInput }) {
 	const paramsString = queryString.stringify(searchInput);
 	return (
 		<div id="search">
-			{renderDependOnCollection(
-				collections,
-				`search?${paramsString}`,
-				searchInput
-			)}
+			<div className="container">
+				{renderDependOnCollection(
+					collections,
+					`search?${paramsString}`,
+					searchInput
+				)}
+			</div>
 		</div>
 	);
 }

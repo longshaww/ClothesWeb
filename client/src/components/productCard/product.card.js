@@ -1,17 +1,30 @@
 import { Card, CardImg, CardBody, CardGroup } from "reactstrap";
 import { Link } from "react-router-dom";
 import { fetchCollections } from "../../actions/collections";
-import { useDispatch } from "react-redux";
+import { pagination } from "../../actions/pagination";
+import { useDispatch, useSelector } from "react-redux";
+import { setPage } from "../../actions/pagination";
+import Pagination from "@mui/material/Pagination";
+import Stack from "@mui/material/Stack";
 
 export default function RenderDependOnCollection(
 	collections,
 	endpoint,
-	filter
+	filter,
+	pag
 ) {
 	const dispatch = useDispatch();
-	if (endpoint) {
+	const page = useSelector((state) => state.pagination.page);
+	const handlePagination = (event, value) => {
+		dispatch(setPage(value));
+	};
+	if (pag) {
+		dispatch(pagination(endpoint, pag));
+	}
+	if (filter) {
 		dispatch(fetchCollections(endpoint, filter));
 	}
+
 	return (
 		<>
 			<CardGroup>
@@ -50,7 +63,22 @@ export default function RenderDependOnCollection(
 					})}
 				</div>
 			</CardGroup>
-			{!collections.length && <h2>Oops there is no products ~!</h2>}
+			{collections.length ? (
+				<div className="d-flex justify-content-center p-3 m-3">
+					<Stack spacing={2}>
+						<Pagination
+							onChange={handlePagination}
+							page={page}
+							size="large"
+							variant="outlined"
+							count={7}
+							color="secondary"
+						/>
+					</Stack>
+				</div>
+			) : (
+				<h2>Oops there is no products ~!</h2>
+			)}
 		</>
 	);
 }

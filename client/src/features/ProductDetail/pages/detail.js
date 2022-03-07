@@ -1,6 +1,7 @@
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import "../../../assets/styles/detail.css";
+
 export default function Detail() {
 	const location = useLocation();
 	const { product } = location.state;
@@ -18,7 +19,6 @@ export default function Detail() {
 
 	return (
 		<>
-			{" "}
 			<div className="container">
 				<div className="row row-cols-1 row-cols-lg-2">
 					<div className="col">

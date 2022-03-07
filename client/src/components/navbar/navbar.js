@@ -8,6 +8,7 @@ import globalStateAndAction from "../../container/global.state.action";
 import { useDispatch } from "react-redux";
 import { setSearchInput } from "../../actions/collections";
 import PostFilterForm from "./search";
+import Badge from "@mui/material/Badge";
 
 function NavbarApp() {
 	const [isOpen, setIsOpen] = useState(false);
@@ -85,7 +86,9 @@ function NavbarApp() {
 						<PostFilterForm onSubmit={handleFilterChange} />
 					</NavItem>
 					<NavItem>
-						<img id="cart" src={Cart} alt="" />
+						<Badge badgeContent={4} color="primary">
+							<img id="cart" src={Cart} alt="" />
+						</Badge>
 					</NavItem>
 				</Nav>
 			</Collapse>
