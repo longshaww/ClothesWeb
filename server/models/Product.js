@@ -10,7 +10,7 @@ const Products = new mongoose.Schema(
 		description: {
 			imageList: Array,
 			productDes: String,
-			price: String, // Number
+			price: Number, // Number
 			type: { type: String},
 			collection: {
 				type: String

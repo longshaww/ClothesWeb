@@ -18,6 +18,12 @@ mongoose.connect(process.env.MONGO_URL, {
 	dbName: "ClothesWeb",
 });
 
+// const mongoose = require("mongoose");
+// mongoose.connect("mongodb://localhost:27017/ClothesWeb", {
+// 	useNewUrlParser: true,
+// 	useUnifiedTopology: true,
+// });
+
 app.use(express.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: false })); // support encoded bodies
 // app.use("/public", express.static("public"));
