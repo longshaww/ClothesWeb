@@ -15,7 +15,7 @@ const Customers = new mongoose.Schema(
 	},
 	{
 		timestamps: true,
-		collection: "customers",
+		collection: "Customers",
 		versionKey: false,
 	}
 );
