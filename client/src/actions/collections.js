@@ -48,18 +48,16 @@ const filterCollections = () => async (dispatch) => {
 	const qSelect = useSelector((state) => state.collections.searchInput);
 	const [searchParam, setSearchParam] = useSearchParams();
 	const q = queryString.stringify(qSelect);
-	const res = useRef("");
+	const data = useRef("");
 	useEffect(() => {
 		async function fetchData() {
-			let data;
 			try {
 				if (q === "q=") {
-					data = await axiosMethod("collections", "GET");
+					data.current = await axiosMethod("collections", "get");
 				} else {
-					data = await axiosMethod(null, "GET", null, q);
+					data.current = await axiosMethod(`search?${q}`, "get");
 				}
-				// const data = await res.current.data;
-				dispatch(setCollections(data));
+				dispatch(setCollections(data.current));
 				setSearchParam(qSelect);
 			} catch (error) {
 				console.log(error);

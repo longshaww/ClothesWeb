@@ -16,7 +16,10 @@ const pagination = (endpoint) => async (dispatch) => {
 	useEffect(() => {
 		async function fetchData() {
 			try {
-				const data = await axiosMethod(endpoint, "GET", pageSelect);
+				const data = await axiosMethod(
+					`${endpoint}?page=${pageSelect}`,
+					"get"
+				);
 				if (!data.length) {
 					dispatch(setPage(1));
 				}

@@ -1,11 +1,10 @@
 import axios from "axios";
 
-export default async function getData(endpoint, method, pageSelect, filter) {
+export default async function axiosMethod(endpoint, method, body) {
 	const res = await axios({
 		method: method,
-		url: `${process.env.REACT_APP_API_URL}${endpoint ? endpoint : ""}${
-			pageSelect ? `?page=${pageSelect}` : ""
-		}${filter ? `search?${filter}` : ""}`,
+		data: body,
+		url: `${process.env.REACT_APP_API_URL}${endpoint}`,
 		withCredentials: true,
 	});
 	const data = await res.data;
