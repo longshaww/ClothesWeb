@@ -5,6 +5,7 @@ import { useEffect, useRef } from "react";
 import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import queryString from "query-string";
+import axiosMethod from "../middlewares/axios";
 
 import {
 	FETCHED_COLLECTIONS,
@@ -33,10 +34,7 @@ const fetchCollections = (endpoint) => async (dispatch) => {
 	useEffect(() => {
 		async function fetchData() {
 			try {
-				const res = await axios.get(
-					`${process.env.REACT_APP_API_URL}${endpoint}`
-				);
-				const data = await res.data;
+				const data = await axiosMethod(endpoint, "GET");
 				dispatch(setCollections(data));
 			} catch (error) {
 				console.log(error);
@@ -53,17 +51,14 @@ const filterCollections = () => async (dispatch) => {
 	const res = useRef("");
 	useEffect(() => {
 		async function fetchData() {
+			let data;
 			try {
 				if (q === "q=") {
-					res.current = await axios.get(
-						`${process.env.REACT_APP_API_URL}collections`
-					);
+					data = await axiosMethod("collections", "GET");
 				} else {
-					res.current = await axios.get(
-						`${process.env.REACT_APP_API_URL}search?${q}`
-					);
+					data = await axiosMethod(null, "GET", null, q);
 				}
-				const data = await res.current.data;
+				// const data = await res.current.data;
 				dispatch(setCollections(data));
 				setSearchParam(qSelect);
 			} catch (error) {

@@ -1,5 +1,5 @@
 import { SET_PAGE } from "../constants/constants";
-import axios from "axios";
+import axiosMethod from "../middlewares/axios";
 import { useEffect } from "react";
 import { setCollections } from "./collections";
 import { useSearchParams } from "react-router-dom";
@@ -16,10 +16,7 @@ const pagination = (endpoint) => async (dispatch) => {
 	useEffect(() => {
 		async function fetchData() {
 			try {
-				const res = await axios.get(
-					`${process.env.REACT_APP_API_URL}${endpoint}?page=${pageSelect}`
-				);
-				const data = await res.data;
+				const data = await axiosMethod(endpoint, "GET", pageSelect);
 				if (!data.length) {
 					dispatch(setPage(1));
 				}
