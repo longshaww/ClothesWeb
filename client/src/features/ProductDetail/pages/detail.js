@@ -1,13 +1,24 @@
 import { useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useDispatch } from "react-redux";
+import {
+	useState,
+	useLayoutEffect,
+	useRef,
+	useCallback,
+	useEffect,
+} from "react";
+import { setCartCount } from "../../../actions/cart";
+import axiosMethod from "../../../middlewares/axios";
 import "../../../assets/styles/detail.css";
 
 export default function Detail() {
+	const dispatch = useDispatch();
 	const location = useLocation();
 	const { product } = location.state;
 	const productSize = [...product.size].reverse();
 	const [checked, setChecked] = useState("M");
 	const [qty, setQty] = useState(1);
+	const firstUpdate = useRef(true);
 
 	const handleMinus = () => {
 		setQty((prevQty) => (prevQty > 1 ? prevQty - 1 : 1));
@@ -15,6 +26,42 @@ export default function Detail() {
 
 	const handlePlus = () => {
 		setQty((prevQty) => prevQty + 1);
+	};
+
+	const handleQtyChange = (e) => {};
+
+	const postCart = useCallback(() => {
+		async function axiosCart() {
+			const data = await axiosMethod("cart", "post", {
+				id: product._id,
+			});
+			dispatch(setCartCount(data.cart.length));
+			return data;
+		}
+		axiosCart();
+	}, [product._id, dispatch]);
+
+	useLayoutEffect(() => {
+		if (firstUpdate) {
+			firstUpdate.current = false;
+			return;
+		}
+		postCart();
+	}, [postCart]);
+
+	//get Cart
+
+	useEffect(() => {
+		async function getCart() {
+			const data = await axiosMethod("cart", "get");
+			dispatch(setCartCount(data.cart.length));
+		}
+		getCart();
+	}, [dispatch]);
+
+	const handleAddCart = async (e) => {
+		e.preventDefault();
+		postCart();
 	};
 
 	return (
@@ -60,6 +107,7 @@ export default function Detail() {
 							</button>
 							<input
 								className="form-control border-0 text-center"
+								onChange={handleQtyChange}
 								value={qty}
 							></input>
 							<button
@@ -70,7 +118,10 @@ export default function Detail() {
 							</button>
 						</div>
 						<div className="wrap-btn">
-							<button className="btn btn-dark btn-cart d-block mb-3">
+							<button
+								onClick={handleAddCart}
+								className="btn btn-dark btn-cart d-block mb-3"
+							>
 								Thêm vào giỏ hàng
 							</button>
 							<button className="btn btn-dark btn-cart d-block mb-3">

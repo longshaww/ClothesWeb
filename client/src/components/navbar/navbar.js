@@ -10,7 +10,7 @@ import { setSearchInput } from "../../actions/collections";
 import PostFilterForm from "./search";
 import Badge from "@mui/material/Badge";
 
-function NavbarApp() {
+function NavbarApp({ cartCount }) {
 	const [isOpen, setIsOpen] = useState(false);
 
 	const toggle = () => setIsOpen(!isOpen);
@@ -20,7 +20,7 @@ function NavbarApp() {
 	function handleFilterChange(newFilter) {
 		dispatch(setSearchInput(newFilter.search));
 	}
-
+	console.log(cartCount);
 	return (
 		<Navbar expand="md" light>
 			<Link to="/">
@@ -86,7 +86,7 @@ function NavbarApp() {
 						<PostFilterForm onSubmit={handleFilterChange} />
 					</NavItem>
 					<NavItem>
-						<Badge badgeContent={4} color="primary">
+						<Badge badgeContent={cartCount} color="primary">
 							<img id="cart" src={Cart} alt="" />
 						</Badge>
 					</NavItem>
