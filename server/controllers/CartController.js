@@ -10,12 +10,14 @@ class CartController {
 				$push: { cart: id },
 			}
 		);
-		const thisSession = await Session.findById(sessionId);
+		const thisSession = await Session.findById(sessionId).populate(
+			"cart"
+		);
 		res.status(200).json(thisSession);
 	}
 	async getCart(req, res, next) {
 		const sessionId = req.signedCookies.sessionId;
-		const session = await Session.findById(sessionId);
+		const session = await Session.findById(sessionId).populate("cart");
 		res.status(200).json(session);
 	}
 }

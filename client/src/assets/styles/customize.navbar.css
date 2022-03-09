@@ -21,8 +21,27 @@
 	right: 1rem;
 }
 
-#cart {
-	width: 3rem;
-	height: 3rem;
-	padding-bottom: 0.7rem;
+.cart-qty {
+	display: inline-block;
+	height: 23px;
+	line-height: 23px;
+	min-width: 25px;
+	padding: 0 3px;
+	text-align: center;
+	background: #f5f5f5;
+	font-size: 13px;
+	font-weight: 500;
+	border-radius: 3px;
+	box-shadow: 0 1px 1px rgb(225 227 228 / 20%);
+	margin: 0;
+	appearance: none;
+}
+
+.bottom-cart-button > button {
+	width: 48%;
+}
+
+#cart-product-img > img {
+	width: 5.5rem;
+	height: 6rem;
 }
