@@ -1,13 +1,7 @@
 import { useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import {
-	useState,
-	useLayoutEffect,
-	useRef,
-	useCallback,
-	useEffect,
-} from "react";
-import { setCartCount } from "../../../actions/cart";
+import { useState, useLayoutEffect, useRef, useCallback } from "react";
+import { setCart } from "../../../actions/cart";
 import axiosMethod from "../../../middlewares/axios";
 import "../../../assets/styles/detail.css";
 
@@ -29,17 +23,21 @@ export default function Detail() {
 	};
 
 	const handleQtyChange = (e) => {};
+	//get cart
 
+	//post cart
 	const postCart = useCallback(() => {
 		async function axiosCart() {
 			const data = await axiosMethod("cart", "post", {
 				id: product._id,
+				qty,
+				size: checked,
 			});
-			dispatch(setCartCount(data.cart.length));
+			dispatch(setCart(data.cart.length, data));
 			return data;
 		}
 		axiosCart();
-	}, [product._id, dispatch]);
+	}, [product._id, checked, qty, dispatch]);
 
 	useLayoutEffect(() => {
 		if (firstUpdate) {
@@ -48,16 +46,6 @@ export default function Detail() {
 		}
 		postCart();
 	}, [postCart]);
-
-	//get Cart
-
-	useEffect(() => {
-		async function getCart() {
-			const data = await axiosMethod("cart", "get");
-			dispatch(setCartCount(data.cart.length));
-		}
-		getCart();
-	}, [dispatch]);
 
 	const handleAddCart = async (e) => {
 		e.preventDefault();

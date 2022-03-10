@@ -9,6 +9,7 @@ const ADD_COLLECTIONS = "FETCHED_COLLECTIONS";
 const SET_SEARCH_INPUT = "SET_SEARCH_INPUT";
 const SET_PAGE = "SET_PAGE";
 const SET_CART_COUNT = "SET_CART_COUNT";
+const SET_CART_STORE = "SET_CART_STORE";
 
 export {
 	collectionsEndpoint,
@@ -22,4 +23,5 @@ export {
 	SET_SEARCH_INPUT,
 	SET_PAGE,
 	SET_CART_COUNT,
+	SET_CART_STORE,
 };

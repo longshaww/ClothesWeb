@@ -4,7 +4,13 @@ const { Schema } = mongoose;
 
 const Sessions = new Schema(
 	{
-		cart: [{ type: Schema.Types.ObjectId, ref: "Products" }],
+		cart: [
+			{
+				_id: { type: Schema.Types.ObjectId, ref: "Products" },
+				qty: Number,
+				size: String,
+			},
+		],
 	},
 	{
 		timestamps: true,

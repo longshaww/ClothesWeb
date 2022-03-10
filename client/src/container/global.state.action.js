@@ -1,6 +1,6 @@
 import { connect } from "react-redux";
 import { fetchCollections, setSearchInput } from "../actions/collections";
-import { setCartCount } from "../actions/cart";
+import { setCart } from "../actions/cart";
 
 export default function globalStateAndAction(name) {
 	const mapStateToProps = (state) => {
@@ -9,6 +9,7 @@ export default function globalStateAndAction(name) {
 			searchInput: state.collections.searchInput,
 			pagination: state.pagination.page,
 			cartCount: state.cart.cartCount,
+			cartStore: state.cart.cartStore,
 		};
 	};
 
@@ -16,7 +17,7 @@ export default function globalStateAndAction(name) {
 		fetchCollections: (endpoint) => dispatch(fetchCollections(endpoint)),
 		setSearchInput: (searchInput) =>
 			dispatch(setSearchInput(searchInput)),
-		setCartCount: (data) => dispatch(setCartCount(data)),
+		setCart: (count, store) => dispatch(setCart(count, store)),
 	});
 	return connect(mapStateToProps, mapActionToProps)(name);
 }

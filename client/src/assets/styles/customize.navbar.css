@@ -41,7 +41,23 @@
 	width: 48%;
 }
 
-#cart-product-img > img {
+.cart-product-img > img {
 	width: 5.5rem;
 	height: 6rem;
+}
+
+.cart-product-img {
+	width: 25%;
+}
+.cart-product-content {
+	position: relative;
+}
+.cart-btn-del {
+	position: absolute;
+	top: 10px;
+	right: 10px;
+}
+
+.cart-view-total button {
+	width: 100%;
 }
