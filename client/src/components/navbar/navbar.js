@@ -1,7 +1,13 @@
 import { NavbarToggler, Collapse, Nav, NavItem, Navbar } from "reactstrap";
 import Logo from "../../assets/images/hyperX.jpeg";
 import "../../assets/styles/customize.navbar.css";
-import { useState, useEffect } from "react";
+import {
+	useState,
+	useEffect,
+	useRef,
+	useCallback,
+	useLayoutEffect,
+} from "react";
 import axiosMethod from "../../middlewares/axios";
 import { Link } from "react-router-dom";
 import globalStateAndAction from "../../container/global.state.action";
@@ -12,25 +18,61 @@ import Popover from "@mui/material/Popover";
 import ClearIcon from "@mui/icons-material/Clear";
 import Box from "@mui/material/Box";
 
-function NavbarApp({ cartCount, cartStore, setSearchInput, setCart }) {
+function NavbarApp({ cartCount, cartStore, setCart }) {
+	//State define
 	const [isOpen, setIsOpen] = useState(false);
 	const [anchorEl, setAnchorEl] = useState(null);
+	const firstUpdate = useRef(true);
+
+	//Get Cart at the first
 
 	useEffect(() => {
 		async function getCart() {
 			const data = await axiosMethod("cart", "get");
-			setCart(data.cart.length, data);
-			console.log(data);
+			const cartQty = data.cart.reduce((a, b) => {
+				return a + b.qty;
+			}, 0);
+			setCart(cartQty, data);
 		}
 		getCart();
 	}, [setCart]);
 
+	//Handle Delete Cart
+
+	const deleteCart = useCallback(
+		(productId) => {
+			async function axiosCart() {
+				const data = await axiosMethod(
+					`cart/${productId}`,
+					"delete",
+					{
+						id: productId,
+					}
+				);
+				const cartQty = data.cart.reduce((a, b) => {
+					return a + b.qty;
+				}, 0);
+				setCart(cartQty, data);
+				return data;
+			}
+			axiosCart();
+		},
+		[setCart]
+	);
+
+	useLayoutEffect(() => {
+		if (firstUpdate) {
+			firstUpdate.current = false;
+			return;
+		}
+		deleteCart();
+	}, [deleteCart]);
+
+	//Navbar toggle
+
 	const toggle = () => setIsOpen(!isOpen);
 
-	function handleFilterChange(newFilter) {
-		setSearchInput(newFilter.search);
-	}
-
+	// Cart handle
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget);
 	};
@@ -38,6 +80,13 @@ function NavbarApp({ cartCount, cartStore, setSearchInput, setCart }) {
 	const handleClose = () => {
 		setAnchorEl(null);
 	};
+
+	//Cart Delete Event
+	const handleDelClick = (productId) => {
+		deleteCart(productId._id);
+	};
+
+	//MUI Cart Open handle
 
 	const open = Boolean(anchorEl);
 	const id = open ? "simple-popover" : undefined;
@@ -104,7 +153,7 @@ function NavbarApp({ cartCount, cartStore, setSearchInput, setCart }) {
 						</Link>
 					</NavItem>
 					<NavItem>
-						<PostFilterForm onSubmit={handleFilterChange} />
+						<PostFilterForm />
 					</NavItem>
 					<NavItem>
 						<Badge badgeContent={cartCount} color="primary">
@@ -123,7 +172,7 @@ function NavbarApp({ cartCount, cartStore, setSearchInput, setCart }) {
 									horizontal: "left",
 								}}
 							>
-								{/* <Box
+								<Box
 									sx={{
 										width: 450,
 										height: 300,
@@ -156,6 +205,7 @@ function NavbarApp({ cartCount, cartStore, setSearchInput, setCart }) {
 																		<img
 																			src={
 																				item
+																					._id
 																					.description
 																					.imageList[0]
 																			}
@@ -165,31 +215,45 @@ function NavbarApp({ cartCount, cartStore, setSearchInput, setCart }) {
 																	</td>
 																	<td className="cart-product-content">
 																		<p className="cart-name-size">
-																			<a
-																				href=""
+																			<Link
+																				to={`product/${item._id._id}`}
 																				className="d-block"
 																			>
 																				{
-																					item.nameProduct
+																					item
+																						._id
+																						.nameProduct
 																				}
-																			</a>
+																			</Link>
 																			<span>
-																				Size
+																				{
+																					item.size
+																				}
 																			</span>
 																		</p>
 																		<div className="d-flex justify-content-between cart-price-qty">
 																			<span className="cart-qty">
-																				1
+																				{
+																					item.qty
+																				}
 																			</span>
 																			<div className="fw-bold">
 																				{
-																					item.price
+																					item
+																						._id
+																						.price
 																				}
 																				,000đ
 																			</div>
 																		</div>
 																		<div className="cart-btn-del">
-																			<ClearIcon></ClearIcon>
+																			<ClearIcon
+																				onClick={() =>
+																					handleDelClick(
+																						item._id
+																					)
+																				}
+																			></ClearIcon>
 																		</div>
 																	</td>
 																</tr>
@@ -237,7 +301,7 @@ function NavbarApp({ cartCount, cartStore, setSearchInput, setCart }) {
 											</table>
 										</div>
 									</div>
-								</Box> */}
+								</Box>
 							</Popover>
 						</Badge>
 					</NavItem>

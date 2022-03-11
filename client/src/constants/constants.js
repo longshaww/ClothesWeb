@@ -1,3 +1,4 @@
+//Redux
 const collectionsEndpoint = "collections";
 const topsEndpoint = "collections/tops";
 const bottomsEndpoint = "collections/bottoms";
@@ -10,6 +11,10 @@ const SET_SEARCH_INPUT = "SET_SEARCH_INPUT";
 const SET_PAGE = "SET_PAGE";
 const SET_CART_COUNT = "SET_CART_COUNT";
 const SET_CART_STORE = "SET_CART_STORE";
+
+// Others
+
+const searchInput = true;
 
 export {
 	collectionsEndpoint,
@@ -24,4 +29,5 @@ export {
 	SET_PAGE,
 	SET_CART_COUNT,
 	SET_CART_STORE,
+	searchInput,
 };

@@ -57,9 +57,6 @@ export default function RenderDependOnCollection(
 									</div>
 									<Link
 										to={`/product/${collection._id}`}
-										state={{
-											product: collection,
-										}}
 										className="stretched-link"
 									></Link>
 								</CardBody>
@@ -82,7 +79,9 @@ export default function RenderDependOnCollection(
 					</Stack>
 				</div>
 			) : (
-				<h2>Oops there is no products ~!</h2>
+				<h2 className="text-center">
+					Oops there is no products ~!
+				</h2>
 			)}
 		</>
 	);

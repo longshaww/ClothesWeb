@@ -1,17 +1,8 @@
 import { useState } from "react";
-import PropTypes from "prop-types";
-import { useNavigate } from "react-router-dom";
-
-PostFilterForm.propTypes = {
-	onSubmit: PropTypes.func,
-};
-
-PostFilterForm.defaultProps = {
-	onSubmit: null,
-};
+import { useNavigate, createSearchParams } from "react-router-dom";
 
 export default function PostFilterForm(props) {
-	const { onSubmit } = props;
+	// const { onSubmit } = props;
 	const [search, setSearch] = useState("");
 	const navigate = useNavigate();
 
@@ -23,9 +14,12 @@ export default function PostFilterForm(props) {
 		const value = e.target.value;
 		if (e.keyCode === 13) {
 			if (!value) return;
-			const formValues = { search: value };
-			onSubmit(formValues);
-			navigate("/search");
+			navigate({
+				pathname: "/search",
+				search: `?${createSearchParams({
+					q: value,
+				})}`,
+			});
 		}
 	}
 	return (

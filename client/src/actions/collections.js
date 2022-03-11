@@ -2,9 +2,7 @@ import axios from "axios";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { useEffect, useRef } from "react";
-import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
-import queryString from "query-string";
 import axiosMethod from "../middlewares/axios";
 
 import {
@@ -45,9 +43,8 @@ const fetchCollections = (endpoint) => async (dispatch) => {
 };
 
 const filterCollections = () => async (dispatch) => {
-	const qSelect = useSelector((state) => state.collections.searchInput);
 	const [searchParam, setSearchParam] = useSearchParams();
-	const q = queryString.stringify(qSelect);
+	const q = searchParam.get("q");
 	const data = useRef("");
 	useEffect(() => {
 		async function fetchData() {
@@ -55,16 +52,18 @@ const filterCollections = () => async (dispatch) => {
 				if (q === "q=") {
 					data.current = await axiosMethod("collections", "get");
 				} else {
-					data.current = await axiosMethod(`search?${q}`, "get");
+					data.current = await axiosMethod(
+						`search?q=${q}`,
+						"get"
+					);
 				}
 				dispatch(setCollections(data.current));
-				setSearchParam(qSelect);
 			} catch (error) {
 				console.log(error);
 			}
 		}
 		fetchData();
-	}, [dispatch, q, setSearchParam, qSelect]);
+	}, [dispatch, q]);
 };
 
 const postProduct = (room) => async (dispatch) => {

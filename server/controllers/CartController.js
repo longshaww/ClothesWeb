@@ -1,20 +1,20 @@
 const Session = require("../models/Sessions");
+
 class CartController {
 	async addToCart(req, res, next) {
-		// let checkIfExist = false;
 		let { id, qty, size } = req.body;
 
 		const sessionId = req.signedCookies.sessionId;
-		const exactSession = await Session.findById(sessionId);
+		const currentSession = await Session.findById(sessionId);
 
-		const findExisted = exactSession.cart.find((item) => {
+		const findExisted = currentSession.cart.find((item) => {
 			return item.id === id;
 		});
 
 		if (findExisted !== undefined) {
-			let subDoc = exactSession.cart.id(id);
+			let subDoc = currentSession.cart.id(id);
 			subDoc.set({ qty: subDoc.qty + qty });
-			await exactSession.save();
+			await currentSession.save();
 		} else {
 			await Session.updateOne(
 				{ _id: sessionId },
@@ -31,10 +31,23 @@ class CartController {
 	}
 	async getCart(req, res, next) {
 		const sessionId = req.signedCookies.sessionId;
-		const session = await Session.findById(sessionId).populate(
+		const thisSession = await Session.findById(sessionId).populate(
 			"cart._id"
 		);
-		res.status(200).json(session);
+		res.status(200).json(thisSession);
+	}
+	async deleteProduct(req, res, next) {
+		const { productId } = req.params;
+		const sessionId = req.signedCookies.sessionId;
+		const currentSession = await Session.findById(sessionId);
+		let subDoc = currentSession.cart.id(productId);
+		subDoc.remove();
+		await currentSession.save();
+
+		const thisSession = await Session.findById(sessionId).populate(
+			"cart._id"
+		);
+		res.status(200).json(thisSession);
 	}
 }
 

@@ -1,8 +1,9 @@
 import globalStateAndAction from "../../container/global.state.action";
 import renderDependOnCollection from "../../components/productCard/product.card";
+import { searchInput } from "../../constants/constants";
 
 // Phú PLAY CODE
-function Search({ collections, searchInput }) {
+function Search({ collections }) {
 	return (
 		<div id="search">
 			<div className="container">
