@@ -14,6 +14,7 @@ import "../../../assets/styles/detail.css";
 export default function Detail() {
 	const dispatch = useDispatch();
 	const [productDetail, setProductDetail] = useState();
+	const [imageIndex, setImageIndex] = useState(0);
 	const { id } = useParams();
 
 	useEffect(() => {
@@ -71,9 +72,13 @@ export default function Detail() {
 		postCart();
 	}, [postCart]);
 
-	const handleAddCart = async (e) => {
+	const handleAddCart = (e) => {
 		e.preventDefault();
 		postCart();
+	};
+
+	const handleModalImage = (e) => {
+		alert("hello");
 	};
 
 	return (
@@ -86,11 +91,31 @@ export default function Detail() {
 								<img
 									src={
 										productDetail.description
-											.imageList[0]
+											.imageList[imageIndex]
 									}
+									onClick={handleModalImage}
 									alt=""
 									className="img-fluid"
 								></img>
+								<div className="gallery d-flex">
+									{productDetail.description.imageList.map(
+										(item, index) => {
+											return (
+												<img
+													key={index}
+													onClick={() =>
+														setImageIndex(
+															index
+														)
+													}
+													src={item}
+													alt=""
+													className="border ms-1 mt-1"
+												></img>
+											);
+										}
+									)}
+								</div>
 							</div>
 							<div className="col">
 								<h4>{productDetail.nameProduct}</h4>

@@ -6,3 +6,8 @@
 	width: 60%;
 	padding: 1rem 2rem;
 }
+
+.gallery > img {
+	width: 7rem;
+	height: 7rem;
+}
