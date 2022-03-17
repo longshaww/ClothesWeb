@@ -1,0 +1,21 @@
+[{
+  "_id": {
+    "$oid": "621c506fbae8653bcb4564ac"
+  },
+  "typeName": "Tops"
+},{
+  "_id": {
+    "$oid": "621c50a7bae8653bcb4564b1"
+  },
+  "typeName": "Bottoms"
+},{
+  "_id": {
+    "$oid": "621c50c7bae8653bcb4564b3"
+  },
+  "typeName": "Outerwears"
+},{
+  "_id": {
+    "$oid": "621c50e0bae8653bcb4564b4"
+  },
+  "typeName": "Accessories"
+}]

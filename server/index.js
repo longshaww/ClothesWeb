@@ -13,9 +13,7 @@ const mongoose = require("mongoose");
 mongoose.connect(process.env.MONGO_URL, {
 	useNewUrlParser: true,
 	useUnifiedTopology: true,
-	user: process.env.MONGOUSER,
-	pass: process.env.MONGOPASSWORD,
-	dbName: "ClothesWeb",
+	dbName: "Clothes",
 });
 
 app.use(express.json()); // support json encoded bodies

@@ -1,0 +1,36 @@
+[{
+  "_id": {
+    "$oid": "621c5639bae8653bcb4564dd"
+  },
+  "typeName": "Tee"
+},{
+  "_id": {
+    "$oid": "621df15681c5aa40061ef704"
+  },
+  "typeName": "Jacket"
+},{
+  "_id": {
+    "$oid": "621df15d81c5aa40061ef705"
+  },
+  "typeName": "Sweater"
+},{
+  "_id": {
+    "$oid": "621df18581c5aa40061ef707"
+  },
+  "typeName": "Pant"
+},{
+  "_id": {
+    "$oid": "621df18f81c5aa40061ef709"
+  },
+  "typeName": "Short"
+},{
+  "_id": {
+    "$oid": "621df19a81c5aa40061ef70a"
+  },
+  "typeName": "Hoodie"
+},{
+  "_id": {
+    "$oid": "621df1c081c5aa40061ef70b"
+  },
+  "typeName": "Varsity"
+}]
