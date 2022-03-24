@@ -58,7 +58,10 @@ export default function Detail() {
 			const cartQty = data.cart.reduce((a, b) => {
 				return a + b.qty;
 			}, 0);
-			dispatch(setCart(cartQty, data));
+			const cartTotal = data.cart.reduce((a, b) => {
+				return a + b._id.price * b.qty;
+			}, 0);
+			dispatch(setCart(cartQty, data, cartTotal));
 			return data;
 		}
 		axiosCart();

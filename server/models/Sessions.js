@@ -9,6 +9,7 @@ const Sessions = new Schema(
 				_id: { type: Schema.Types.ObjectId, ref: "Products" },
 				qty: Number,
 				size: String,
+				total: Number,
 			},
 		],
 	},

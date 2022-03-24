@@ -1,4 +1,9 @@
-import { SET_CART_COUNT, SET_CART_STORE } from "../constants/constants";
+import {
+	SET_CART_COUNT,
+	SET_CART_STORE,
+	SET_PRODUCT_CART_PRICE,
+	SET_CART_TOTAL_PRICE,
+} from "../constants/constants";
 
 const setCartCount = (data) => ({
 	type: SET_CART_COUNT,
@@ -10,9 +15,20 @@ const setCartStore = (data) => ({
 	payload: data,
 });
 
-const setCart = (count, store) => (dispatch) => {
-	dispatch(setCartStore(store));
+const setProductCartPrice = (price) => ({
+	type: SET_PRODUCT_CART_PRICE,
+	payload: price,
+});
+
+const setCartTotalPrice = (price) => ({
+	type: SET_CART_TOTAL_PRICE,
+	payload: price,
+});
+
+const setCart = (count, store, totalPrice) => (dispatch) => {
 	dispatch(setCartCount(count));
+	dispatch(setCartStore(store));
+	dispatch(setCartTotalPrice(totalPrice));
 };
 
-export { setCart };
+export { setCart, setProductCartPrice };

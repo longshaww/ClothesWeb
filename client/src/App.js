@@ -12,6 +12,8 @@ import CollectionsLayout from "./features/Collections/pages/collections.layout";
 import DetailLayout from "./features/ProductDetail/pages/detail.layout";
 import NewArrivals from "./features/New-Arrivals/pages/new.arrivals";
 import Search from "./features/Search/search";
+import Cart from "./features/Cart/pages/cart";
+import Checkout from "./features/Checkout/pages/checkout";
 import { Routes, Route } from "react-router-dom";
 
 function App() {
@@ -63,9 +65,15 @@ function App() {
 							element={<Detail></Detail>}
 						></Route>
 					</Route>
-					<Route path="/search">
+					<Route path="search">
 						<Route index element={<Search />}></Route>
 					</Route>
+					<Route path="cart" index element={<Cart />}></Route>
+					<Route
+						path="checkout"
+						index
+						element={<Checkout />}
+					></Route>
 				</Route>
 			</Routes>
 		</div>
