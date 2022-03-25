@@ -6,7 +6,7 @@ function Checkout({ cart }) {
 	const cartStore = cart.cartStore;
 
 	return (
-		<div className="container pe-5 container-checkout">
+		<div className="container pe-5">
 			<div className="row row-cols-1 row-cols-md-1 row-cols-lg-2">
 				<div className="col col-left pe-5 pt-5">
 					<div className="header pb-2">
@@ -123,7 +123,7 @@ function Checkout({ cart }) {
 						</div>
 					</div>
 				</div>
-				<div className="col col-right ps-5 pt-5">
+				<div className="col col-right ps-5 pt-5 rounded shadow">
 					<table className="table">
 						<tbody>
 							{cartStore.cart &&
