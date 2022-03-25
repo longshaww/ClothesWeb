@@ -1,0 +1,10 @@
+#note-text-area {
+	height: 8rem;
+}
+.list-privacy {
+	list-style: decimal;
+}
+.button-card {
+	width: 100%;
+	height: 3rem;
+}
