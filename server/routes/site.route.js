@@ -29,6 +29,7 @@ const verify = (req,res,next)=>{
 router.get("/",siteController.getAllSite);
 router.get("/search",siteController.searchView);
 
+router.get("/getlocation",siteController.getLocation);
 router.post("/login",authenciationController.postLogin);
 
 router.delete("/deleteCustomerToken/:customerId",verify,authenciationController.deleteTokenCustomer);

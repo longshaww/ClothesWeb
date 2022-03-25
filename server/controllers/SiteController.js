@@ -1,4 +1,6 @@
 const ProductsModel = require("../models/Product");
+const fs = require('fs');
+const name = require("../crawldata/data/datadangkyvitir.json");
 // const cloudinary = require("../utils/cloudinary");
 class SiteController {
 	async getProducts(req, res) {
@@ -26,10 +28,20 @@ class SiteController {
 						.indexOf(q.toLowerCase()) !== -1
 				);
 			});
+			
 			res.status(202).send(filteredProduct);
 		} else {
 			res.status(404).send("<h1>Không có dữ liệu </h1>");
 		}
+	}
+	//[GET] /getLocation
+	getLocation(req,res,next)
+	{
+		const rawdata = fs.readFileSync("crawldata/data/datadangkyvitir.json");
+		const data = JSON.parse(rawdata);
+	
+	
+		return res.status(202).send(data);
 	}
 }
 
