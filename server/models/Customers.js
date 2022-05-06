@@ -4,9 +4,7 @@ const Customers = new mongoose.Schema(
 	{
 		nameCustomer: Object,
 		dateOfBirth: String,
-		sex: String,
-		identityCardNumber: String,
-		address: String,
+		gender: String,
 		phoneNumber: String,
 		email: String,
 		listProduct: Array,

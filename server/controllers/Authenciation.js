@@ -26,7 +26,7 @@ class AuthenciationController{
             return el.loginInformation['userName']  === username && el.loginInformation['password'];
         })
         
-        
+    
         if(customerData)
         {
            const accessToken = generateAccessToken(customerData);
