@@ -5,7 +5,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const port = 4000;
+const port = 4000 || 5000;
 const route = require("./routes/index");
 const sessionMiddleware = require("./middlewares/session.middleware");
 
