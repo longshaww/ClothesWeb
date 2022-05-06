@@ -30,6 +30,9 @@ router.get("/",siteController.getAllSite);
 router.get("/search",siteController.searchView);
 
 router.get("/getlocation",siteController.getLocation);
+
+
+router.post("/register",authenciationController.register);
 router.post("/login",authenciationController.postLogin);
 
 router.delete("/deleteCustomerToken/:customerId",verify,authenciationController.deleteTokenCustomer);

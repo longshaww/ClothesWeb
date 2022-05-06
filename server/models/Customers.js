@@ -3,10 +3,9 @@ const mongoose = require("mongoose");
 const Customers = new mongoose.Schema(
 	{
 		nameCustomer: Object,
-		dateOfBirth: String,
-		gender: String,
+		dateOfBirth: Date,
+		gender: Boolean,
 		phoneNumber: String,
-		email: String,
 		listProduct: Array,
 		loginInformation: Object,
 		avatar: String,
