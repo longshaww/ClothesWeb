@@ -1,22 +1,10 @@
 const Customers = require("../models/Customers");
 const jwt = require("jsonwebtoken");
 
-const generateAccessToken = (customer) => {
-    // tạo ra token
-    return jwt.sign({ id: customer._id, isAdmin: customer.loginInformation['isAdmin'] }, "mySecretKey", {
-        expiresIn: "15m"
-    });
-
-}
-
-const generateRefreshToken = (customer) => {
-    return jwt.sign({ id: customer._id, isAdmin: customer.loginInformation['isAdmin'] }, "myRefreshToken");
-
-}
-
+const {generateRefreshToken,generateAccessToken} = require("../utils/function");
 
 let refreshTokens = []
-class AuthenciationController {
+class AuthenticationController {
 
     //[GET] /register
     async register(req, res, next) {
@@ -43,10 +31,10 @@ class AuthenciationController {
 
     //[POST] /login
     async postLogin(req, res, next) {
-        const { username, password } = req.body;
+        const { email, password } = req.body;
         const listCustomers = await Customers.find({});
         const customerData = await listCustomers.find((el) => {
-            return el.loginInformation['userName'] === username && el.loginInformation['password'];
+            return el.loginInformation['email'] === email && el.loginInformation['password'];
         })
 
 
@@ -58,7 +46,7 @@ class AuthenciationController {
 
 
             res.json({
-                username: customerData.loginInformation['userName'],
+                email: customerData.loginInformation['email'],
                 isAdmin: customerData.loginInformation['isAdmin'],
                 accessToken,
                 refreshToken
@@ -86,6 +74,7 @@ class AuthenciationController {
         const refreshToken = req.body.token;
         console.log(refreshToken);
         if (!refreshToken) return res.status(401).json("Bạn chưa được xác nhận quyền ");
+        // refreshToken moi da co trong mang token r thi loi 
         if (!refreshTokens.includes(refreshToken)) {
             return res.status(403).json("Refresh token is not valid");
         }
@@ -124,4 +113,4 @@ class AuthenciationController {
         res.status(200).json("Đăng xuất thành công");
     }
 }
-module.exports = new AuthenciationController();
+module.exports = new AuthenticationController();
