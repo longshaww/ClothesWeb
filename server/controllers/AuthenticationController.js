@@ -31,6 +31,8 @@ class AuthenticationController {
 
     //[POST] /login
     async postLogin(req, res, next) {
+        
+        console.log(req.body);
         const { email, password } = req.body;
         const listCustomers = await Customers.find({});
         const customerData = await listCustomers.find((el) => {
@@ -39,21 +41,36 @@ class AuthenticationController {
 
 
         if (customerData) {
+            
             const accessToken = generateAccessToken(customerData);
             const refreshToken = generateRefreshToken(customerData);
 
             refreshTokens.push(refreshToken);
-
-
-            res.json({
-                email: customerData.loginInformation['email'],
+            const data = {
+                infoUser :{ 
+                    fullName : customerData.nameCustomer,
+                    email: customerData.loginInformation['email'],
+                    dateOfBirth : customerData.dateOfBirth,
+                    gender : customerData.gender,
+                    phoneNumber : customerData.phoneNumber,
+                    avatar : customerData.avatar
+                },
+                
                 isAdmin: customerData.loginInformation['isAdmin'],
                 accessToken,
                 refreshToken
-            })
+            }
+            res.json(
+              {  
+                  "success":true,
+                  user : data}
+            )
+          
         }
         else {
-            res.status(400).json("Tài khoản mật khẩu không đúng")
+            res.status(400).json(
+               { "success" : false,            
+                msg : "Tài khoản mật khẩu không đúng"})
         }
     }
 
@@ -109,8 +126,14 @@ class AuthenticationController {
 
     async postLogout(req, res, next) {
         const refreshToken = req.body.token;
+        console.log(refreshToken);
         refreshTokens = refreshTokens.filter((token) => token != refreshToken)
-        res.status(200).json("Đăng xuất thành công");
+      
+            res.status(200).json({
+                success : true,
+                msg : "Đăng xuất thành công" });
+        
+    
     }
 }
 module.exports = new AuthenticationController();
