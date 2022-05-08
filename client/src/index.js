@@ -7,13 +7,15 @@ import reportWebVitals from "./reportWebVitals";
 import { BrowserRouter as Router } from "react-router-dom";
 import store from "./store";
 import { Provider } from "react-redux";
-
+import { CookiesProvider } from 'react-cookie';
 ReactDOM.render(
-	<Provider store={store}>
-		<Router>
-			<App />
-		</Router>
-	</Provider>,
+	<CookiesProvider>
+		<Provider store={store}>
+			<Router>
+				<App />
+			</Router>
+		</Provider></CookiesProvider>,
+
 	document.getElementById("root")
 );
 

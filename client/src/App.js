@@ -1,5 +1,5 @@
 import "./App.css";
-import Home from "./features/Home/pages/home";
+
 import Collections from "./features/Collections/pages/collections";
 import Tops from "./features/Tops/pages/tops";
 import Bottoms from "./features/Bottoms/pages/bottoms";
@@ -21,7 +21,6 @@ function App() {
 		<div>
 			<Routes>
 				<Route path="/" element={<Layout />}>
-					<Route index element={<Home />} />
 					<Route
 						path="collections"
 						element={<CollectionsLayout />}

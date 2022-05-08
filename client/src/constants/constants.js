@@ -13,6 +13,10 @@ const SET_CART_COUNT = "SET_CART_COUNT";
 const SET_CART_STORE = "SET_CART_STORE";
 const SET_PRODUCT_CART_PRICE = "SET_PRODUCT_CART_PRICE";
 const SET_CART_TOTAL_PRICE = "SET_CART_TOTAL_PRICE";
+
+// AUTH
+const SET_USER = "SET_USER";
+
 // Others
 
 const searchInput = true;
@@ -33,4 +37,5 @@ export {
 	searchInput,
 	SET_PRODUCT_CART_PRICE,
 	SET_CART_TOTAL_PRICE,
+	SET_USER,
 };
