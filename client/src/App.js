@@ -1,5 +1,3 @@
-import "./App.css";
-
 import Collections from "./features/Collections/pages/collections";
 import Tops from "./features/Tops/pages/tops";
 import Bottoms from "./features/Bottoms/pages/bottoms";
@@ -15,6 +13,7 @@ import Search from "./features/Search/search";
 import Cart from "./features/Cart/pages/cart";
 import Checkout from "./features/Checkout/pages/checkout";
 import { Routes, Route } from "react-router-dom";
+import IndexCheckout from "./features/Payment/pages/index";
 
 function App() {
 	return (
@@ -72,6 +71,11 @@ function App() {
 						path="checkout"
 						index
 						element={<Checkout />}
+					></Route>
+					<Route
+						path="payment"
+						index
+						element={<IndexCheckout />}
 					></Route>
 				</Route>
 			</Routes>

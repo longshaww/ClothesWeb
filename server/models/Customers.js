@@ -2,10 +2,13 @@ const mongoose = require("mongoose");
 
 const Customers = new mongoose.Schema(
 	{
-		nameCustomer: Object,
+		nameCustomer: { type: String, required: true },
+		address: { type: String, required: true },
+		email: { type: String, required: true },
+		phoneNumber: { type: String, required: true },
+		isRegister: { type: Boolean, required: true, default: false },
 		dateOfBirth: Date,
 		gender: Boolean,
-		phoneNumber: String,
 		listProduct: Array,
 		loginInformation: Object,
 		avatar: String,

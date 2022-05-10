@@ -24,6 +24,7 @@
 		"multer": "^1.4.4",
 		"nodemon": "^2.0.15",
 		"request": "^2.88.2",
-		"request-promise": "^4.2.6"
+		"request-promise": "^4.2.6",
+		"stripe": "^9.0.0"
 	}
 }
