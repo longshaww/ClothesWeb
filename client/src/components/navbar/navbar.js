@@ -5,6 +5,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import PostFilterForm from "./search";
 import PopupCart from "../cart/cart";
+import Auth from '../auth/auth';
 
 export default function NavbarApp() {
 	//State define
@@ -78,6 +79,9 @@ export default function NavbarApp() {
 					</NavItem>
 					<NavItem>
 						<PopupCart></PopupCart>
+					</NavItem>
+					<NavItem>
+						<Auth/>
 					</NavItem>
 				</Nav>
 			</Collapse>
