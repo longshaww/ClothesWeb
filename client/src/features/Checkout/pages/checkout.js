@@ -13,6 +13,38 @@ function Checkout({ cart }) {
 	const [dataListWards, setListWards] = useState([]);
 	const [dataWard, setWard] = useState([]);
 
+	const [inputs, setInputs] = useState({});
+	const [payment, setPayment] = useState({
+		paymentMethod: "COD",
+	});
+
+	const [checked, setChecked] = useState("COD");
+
+	//Get inputs
+	const handleChange = (event) => {
+		const name = event.target.name;
+		const value = event.target.value;
+		setInputs((values) => ({ ...values, [name]: value }));
+	};
+
+	//Submit Form
+	const handleSubmit = (event) => {
+		event.preventDefault();
+		const { paymentMethod } = payment;
+		const data = {
+			...inputs,
+			paymentMethod,
+			listProduct: cartStore.cart.map((el) => el._id._id),
+		};
+		console.log(data);
+	};
+	//Get Radio button
+	const handlePaymentMethodChange = (event) => {
+		const { name, value } = event.target;
+		setPayment({ [name]: value });
+		setChecked(value);
+	};
+
 	useEffect(async () => {
 		const location = await axiosMethod("getlocation", "get");
 		setData(location);
@@ -21,7 +53,6 @@ function Checkout({ cart }) {
 	const handleClickCity = (event) => {
 		// value city click
 		const valueCity = event.target.value;
-		console.log(valueCity);
 		if (valueCity !== " ") {
 			console.log("da vao");
 			// filter data belong city
@@ -68,15 +99,15 @@ function Checkout({ cart }) {
 					<div className="header pb-2">
 						<h2 className="m-0">HYPERX</h2>
 						<nav aria-label="breadcrumb">
-							<ol class="breadcrumb mb-0 mt-2">
-								<li class="breadcrumb-item">
+							<ol className="breadcrumb mb-0 mt-2">
+								<li className="breadcrumb-item">
 									<Link to="#">Giỏ hàng</Link>
 								</li>
-								<li class="breadcrumb-item">
+								<li className="breadcrumb-item">
 									Thông tin giỏ hàng
 								</li>
 								<li
-									class="breadcrumb-item active"
+									className="breadcrumb-item active"
 									aria-current="page"
 								>
 									<small class="text-muted">
@@ -86,7 +117,7 @@ function Checkout({ cart }) {
 							</ol>
 						</nav>
 					</div>
-					<div className="section">
+					<form className="section" onSubmit={handleSubmit}>
 						<span>Thông tin giao hàng</span>
 						<p className="mt-3">
 							Bạn đã có tài khoản ?
@@ -94,8 +125,11 @@ function Checkout({ cart }) {
 						</p>
 						<input
 							type="text"
+							name="customerName"
+							value={inputs.customerName || ""}
 							className="form-control"
 							placeholder="Họ và tên"
+							onChange={handleChange}
 						></input>
 						<div class="row">
 							<div class="col">
@@ -103,12 +137,18 @@ function Checkout({ cart }) {
 									type="text"
 									class="form-control"
 									placeholder="Email"
+									value={inputs.email || ""}
+									onChange={handleChange}
+									name="email"
 								/>
 							</div>
 							<div class="col-4">
 								<input
 									type="text"
+									name="phoneNumber"
+									value={inputs.phoneNumber || ""}
 									class="form-control"
+									onChange={handleChange}
 									placeholder="Số điện thoại"
 								/>
 							</div>
@@ -116,6 +156,9 @@ function Checkout({ cart }) {
 						<input
 							type="text"
 							className="form-control"
+							name="address"
+							value={inputs.address || ""}
+							onChange={handleChange}
 							placeholder="Địa chỉ"
 						></input>
 						<div class="row">
@@ -139,6 +182,50 @@ function Checkout({ cart }) {
 										);
 									})}
 								</select>
+								<div className="mt-3">
+									<div class="form-check">
+										<input
+											className="form-check-input"
+											type="radio"
+											name="paymentMethod"
+											checked={
+												checked === "COD"
+											}
+											id="COD"
+											value="COD"
+											onChange={
+												handlePaymentMethodChange
+											}
+										/>
+										<label
+											className="form-check-label"
+											for="COD"
+										>
+											Thanh toán COD
+										</label>
+									</div>
+									<div class="form-check">
+										<input
+											className="form-check-input"
+											type="radio"
+											checked={
+												checked === "Online"
+											}
+											value="Online"
+											name="paymentMethod"
+											onChange={
+												handlePaymentMethodChange
+											}
+											id="Online"
+										/>
+										<label
+											className="form-check-label"
+											for="Online"
+										>
+											Thanh toán Online
+										</label>
+									</div>
+								</div>
 							</div>
 							<div class="col">
 								<select
@@ -207,12 +294,15 @@ function Checkout({ cart }) {
 								</Link>
 							</div>
 							<div className="col">
-								<button className="btn btn-dark button-step-footer">
+								<button
+									className="btn btn-dark button-step-footer"
+									type="submit"
+								>
 									Tiếp tục đến phương thức thanh toán
 								</button>
 							</div>
 						</div>
-					</div>
+					</form>
 				</div>
 				<div className="col col-right ps-5 pt-5 rounded shadow">
 					<table className="table">
@@ -270,7 +360,7 @@ function Checkout({ cart }) {
 							)}
 						</tbody>
 					</table>
-					<div class="row py-3 border-bottom">
+					<div className="row py-3 border-bottom">
 						<div className="col d-flex justify-content-center">
 							<input
 								type="text"

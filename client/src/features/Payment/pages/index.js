@@ -14,10 +14,13 @@ export default function IndexCheckout() {
 
 	useEffect(() => {
 		// Create PaymentIntent as soon as the page loads
-		const data = axiosMethod(`create-payment-intent`, "post", {
-			items: [{ id: "xl-tshirt" }],
-		});
-		setClientSecret(data.clientSecret);
+		async function getClientSecret() {
+			const data = await axiosMethod(`create-payment-intent`, "post", {
+				items: [{ id: "xl-tshirt" }],
+			});
+			setClientSecret(data.clientSecret);
+		}
+		getClientSecret();
 	}, []);
 
 	const appearance = {
