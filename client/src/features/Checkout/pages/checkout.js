@@ -34,7 +34,14 @@ function Checkout({ cart }) {
 		const data = {
 			...inputs,
 			paymentMethod,
-			listProduct: cartStore.cart.map((el) => el._id._id),
+			listProduct: cartStore.cart.map((el) => {
+				return {
+					_id: el._id._id,
+					size: el.size,
+					qty: el.qty,
+					sum: el.total,
+				};
+			}),
 		};
 		console.log(data);
 	};
@@ -93,7 +100,7 @@ function Checkout({ cart }) {
 		setWard(event.target.value);
 	};
 	return (
-		<div className="container pe-5">
+		<div className="container pe-5 my-5">
 			<div className="row row-cols-1 row-cols-md-1 row-cols-lg-2">
 				<div className="col col-left pe-5 pt-5">
 					<div className="header pb-2">
@@ -110,7 +117,7 @@ function Checkout({ cart }) {
 									className="breadcrumb-item active"
 									aria-current="page"
 								>
-									<small class="text-muted">
+									<small className="text-muted">
 										Phương thức thanh toán
 									</small>
 								</li>
@@ -131,23 +138,23 @@ function Checkout({ cart }) {
 							placeholder="Họ và tên"
 							onChange={handleChange}
 						></input>
-						<div class="row">
-							<div class="col">
+						<div className="row">
+							<div className="col">
 								<input
 									type="text"
-									class="form-control"
+									className="form-control"
 									placeholder="Email"
 									value={inputs.email || ""}
 									onChange={handleChange}
 									name="email"
 								/>
 							</div>
-							<div class="col-4">
+							<div className="col-4">
 								<input
 									type="text"
 									name="phoneNumber"
 									value={inputs.phoneNumber || ""}
-									class="form-control"
+									className="form-control"
 									onChange={handleChange}
 									placeholder="Số điện thoại"
 								/>
@@ -161,8 +168,8 @@ function Checkout({ cart }) {
 							onChange={handleChange}
 							placeholder="Địa chỉ"
 						></input>
-						<div class="row">
-							<div class="col">
+						<div className="row">
+							<div className="col">
 								<select
 									style={{
 										width: "100%",
@@ -174,16 +181,19 @@ function Checkout({ cart }) {
 									<option value={" "}>
 										Chọn Tỉnh/Thành Phố{" "}
 									</option>
-									{data.map((el) => {
+									{data.map((el, index) => {
 										return (
-											<option value={el.Id}>
+											<option
+												key={index}
+												value={el.Id}
+											>
 												{el.Name}
 											</option>
 										);
 									})}
 								</select>
 								<div className="mt-3">
-									<div class="form-check">
+									<div className="form-check">
 										<input
 											className="form-check-input"
 											type="radio"
@@ -199,12 +209,12 @@ function Checkout({ cart }) {
 										/>
 										<label
 											className="form-check-label"
-											for="COD"
+											htmlFor="COD"
 										>
 											Thanh toán COD
 										</label>
 									</div>
-									<div class="form-check">
+									<div className="form-check">
 										<input
 											className="form-check-input"
 											type="radio"
@@ -220,14 +230,14 @@ function Checkout({ cart }) {
 										/>
 										<label
 											className="form-check-label"
-											for="Online"
+											htmlFor="Online"
 										>
 											Thanh toán Online
 										</label>
 									</div>
 								</div>
 							</div>
-							<div class="col">
+							<div className="col">
 								<select
 									style={{
 										width: "100%",
@@ -241,9 +251,12 @@ function Checkout({ cart }) {
 									</option>
 									{dataListProvince !== " "
 										? dataListProvince.map(
-												(el) => {
+												(el, index) => {
 													return (
 														<option
+															key={
+																index
+															}
 															value={
 																el.Id
 															}
@@ -272,22 +285,29 @@ function Checkout({ cart }) {
 										Chọn Phường/Xã
 									</option>
 									{dataListWards !== " "
-										? dataListWards.map((el) => {
-												return (
-													<option
-														value={
-															el.Id
-														}
-													>
-														{el.Name}
-													</option>
-												);
-										  })
+										? dataListWards.map(
+												(el, index) => {
+													return (
+														<option
+															key={
+																index
+															}
+															value={
+																el.Id
+															}
+														>
+															{
+																el.Name
+															}
+														</option>
+													);
+												}
+										  )
 										: null}
 								</select>
 							</div>
 						</div>
-						<div class="row mb-3">
+						<div className="row mb-3">
 							<div className="col d-flex align-items-center">
 								<Link to="#" className="">
 									Giỏ hàng
@@ -374,7 +394,7 @@ function Checkout({ cart }) {
 							</button>
 						</div>
 					</div>
-					<div class="row py-3 border-bottom">
+					<div className="row py-3 border-bottom">
 						<div className="col d-flex justify-content-start">
 							<p className="fs-5">Khách hàng thân thiết</p>
 						</div>

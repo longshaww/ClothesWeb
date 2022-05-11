@@ -12,7 +12,16 @@ const Bills = new mongoose.Schema(
 			required: true,
 		},
 		listProduct: [
-			{ type: Schema.Types.ObjectId, ref: "Products", required: true },
+			{
+				_id: {
+					type: Schema.Types.ObjectId,
+					ref: "Products",
+					required: true,
+				},
+				size: { type: String, required: true },
+				qty: { type: Number, required: true },
+				sum: { type: Number, required: true },
+			},
 		],
 		paymentMethod: {
 			type: String,
