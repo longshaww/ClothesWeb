@@ -139,7 +139,7 @@ function Cart({ cart, setCart }) {
 								) : (
 									<tr>
 										<td className="text-center">
-											Không có sp
+											Không có sản phẩm
 										</td>
 									</tr>
 								)}
@@ -235,11 +235,21 @@ function Cart({ cart, setCart }) {
 								thanh toán. Bạn cũng có thể nhập mã giảm
 								giá ở trang thanh toán.
 							</p>
-							<Link to="/checkout">
-								<button className="btn btn-danger button-card mb-2">
+							{cartStore.cart &&
+							cartStore.cart.length === 0 ? (
+								<button
+									className="btn btn-danger button-card mb-2"
+									disabled
+								>
 									Thanh toán
 								</button>
-							</Link>
+							) : (
+								<Link to="/checkout">
+									<button className="btn btn-danger button-card mb-2">
+										Thanh toán
+									</button>
+								</Link>
+							)}
 							<p className="text-center">
 								<Link
 									to="/collections"

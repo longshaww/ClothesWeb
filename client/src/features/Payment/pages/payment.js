@@ -5,7 +5,7 @@ import {
 	useElements,
 } from "@stripe/react-stripe-js";
 
-export default function CheckoutForm() {
+export default function PaymentForm() {
 	const stripe = useStripe();
 	const elements = useElements();
 
@@ -62,7 +62,7 @@ export default function CheckoutForm() {
 			elements,
 			confirmParams: {
 				// Make sure to change this to your payment completion page
-				return_url: "http://localhost:3000",
+				return_url: `${process.env.REACT_APP_URL}checkout/method/online/success`,
 			},
 		});
 
@@ -97,7 +97,11 @@ export default function CheckoutForm() {
 			>
 				<span id="button-text">
 					{isLoading ? (
-						<div className="spinner" id="spinner"></div>
+						<div className="spinner-border" role="status">
+							<span className="visually-hidden">
+								Loading...
+							</span>
+						</div>
 					) : (
 						"Pay now"
 					)}

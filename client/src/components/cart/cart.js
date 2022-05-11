@@ -186,7 +186,7 @@ function PopupCart({ cart, setCart }) {
 								) : (
 									<tr>
 										<td className="text-center">
-											Không có sp
+											Không có sản phẩm
 										</td>
 									</tr>
 								)}
@@ -212,11 +212,24 @@ function PopupCart({ cart, setCart }) {
 											</Link>
 										</td>
 										<td>
-											<Link to={`/checkout`}>
-												<button className="btn btn-dark py-2">
+											{cartStore.cart &&
+											cartStore.cart.length ===
+												0 ? (
+												<button
+													className="btn btn-dark py-2"
+													disabled
+												>
 													Thanh toán
 												</button>
-											</Link>
+											) : (
+												<Link
+													to={`/checkout`}
+												>
+													<button className="btn btn-dark py-2">
+														Thanh toán
+													</button>
+												</Link>
+											)}
 										</td>
 									</tr>
 								</tbody>

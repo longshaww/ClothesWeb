@@ -13,7 +13,10 @@ import Search from "./features/Search/search";
 import Cart from "./features/Cart/pages/cart";
 import Checkout from "./features/Checkout/pages/checkout";
 import { Routes, Route } from "react-router-dom";
-import IndexCheckout from "./features/Payment/pages/index";
+import PaymentSuccess from "./features/Payment/pages/success";
+import CustomerInfo from "./features/Checkout/components/customer.info";
+import PaymentMethod from "./features/Checkout/components/payment.method";
+import OnlinePayment from "./features/Payment/pages/index";
 
 function App() {
 	return (
@@ -25,33 +28,36 @@ function App() {
 						element={<CollectionsLayout />}
 					>
 						<Route index element={<Collections />} />
-						<Route path="tops">
-							<Route index element={<Tops />}></Route>
-						</Route>
-						<Route path="bottoms">
-							<Route index element={<Bottoms />}></Route>
-						</Route>
-						<Route path="outerwears">
-							<Route
-								index
-								element={<Outerwears />}
-							></Route>
-						</Route>
-						<Route path="accessories">
-							<Route
-								index
-								element={<Accessories />}
-							></Route>
-						</Route>
-						<Route path="sale">
-							<Route index element={<Sale />}></Route>
-						</Route>
-						<Route path="new-arrivals">
-							<Route
-								index
-								element={<NewArrivals />}
-							></Route>
-						</Route>
+						<Route
+							path="tops"
+							index
+							element={<Tops />}
+						></Route>
+						<Route
+							path="bottoms"
+							index
+							element={<Bottoms />}
+						></Route>
+						<Route
+							path="outerwears"
+							index
+							element={<Outerwears />}
+						></Route>
+						<Route
+							path="accessories"
+							index
+							element={<Accessories />}
+						></Route>
+						<Route
+							path="sale"
+							index
+							element={<Sale />}
+						></Route>
+						<Route
+							path="new-arrivals"
+							index
+							element={<NewArrivals />}
+						></Route>
 					</Route>
 					<Route
 						path="product"
@@ -67,15 +73,24 @@ function App() {
 						<Route index element={<Search />}></Route>
 					</Route>
 					<Route path="cart" index element={<Cart />}></Route>
+					<Route path="checkout" element={<Checkout />}>
+						<Route index element={<CustomerInfo />} />
+						<Route
+							path="method"
+							index
+							element={<PaymentMethod />}
+						></Route>
+						<Route
+							path="method/online"
+							index
+							element={<OnlinePayment />}
+						></Route>
+					</Route>
+
 					<Route
-						path="checkout"
+						path="checkout/method/:payment/success"
 						index
-						element={<Checkout />}
-					></Route>
-					<Route
-						path="payment"
-						index
-						element={<IndexCheckout />}
+						element={<PaymentSuccess />}
 					></Route>
 				</Route>
 			</Routes>
