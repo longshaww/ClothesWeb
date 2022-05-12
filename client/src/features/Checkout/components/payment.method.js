@@ -22,11 +22,11 @@ export default function PaymentMethod() {
 	const shippingChange = () => {};
 
 	//Handle POST
-	const postCODCB = useCallback((data) => {
-		postCOD(data);
+	const postPaymentCB = useCallback((data) => {
+		postPayment(data);
 	}, []);
 
-	async function postCOD(data) {
+	async function postPayment(data) {
 		const req = await axiosMethod("bill", "post", data);
 		return req;
 	}
@@ -35,8 +35,8 @@ export default function PaymentMethod() {
 			firstUpdate.current = false;
 			return;
 		}
-		postCODCB();
-	}, [postCODCB]);
+		postPaymentCB();
+	}, [postPaymentCB]);
 
 	//Alert if success
 	const sweetAlertSuccess = (customer) => {
@@ -44,7 +44,7 @@ export default function PaymentMethod() {
 			title: <p>Đang xử lý</p>,
 			didOpen: () => {
 				MySwal.showLoading();
-				postCODCB(customer);
+				postPaymentCB(customer);
 			},
 			timer: 1000,
 		})
@@ -97,8 +97,7 @@ export default function PaymentMethod() {
 		if (checkedPayment === 1) {
 			customer.paymentMethod = "COD";
 			sweetAlertSuccess(customer);
-		}
-		if (checkedPayment === 2) {
+		} else {
 			navigate("/checkout/method/online");
 		}
 	};
