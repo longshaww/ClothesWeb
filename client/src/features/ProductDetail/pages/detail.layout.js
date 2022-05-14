@@ -2,8 +2,22 @@ import { Outlet, useParams } from "react-router-dom";
 import { Breadcrumb, BreadcrumbItem } from "reactstrap";
 import { Link } from "react-router-dom";
 import "../../../assets/styles/collections.nav.css";
+import { useEffect } from 'react';
+import { useState } from 'react';
+import axiosMethod from "../../../middlewares/axios";
 export default function DetailLayout() {
 	const { id } = useParams();
+	const [productDetail, setProductDetail] = useState();
+	useEffect(() => {
+		async function fetchProductDetail() {
+			const data = await axiosMethod(`product/${id}`, "get");
+			setProductDetail(data.nameProduct);
+			return data;
+		}
+		fetchProductDetail();
+	}, [id]);
+
+
 	return (
 		<div>
 			<Breadcrumb className="bg-light">
@@ -23,7 +37,7 @@ export default function DetailLayout() {
 							to={`/collections/${id}`}
 							className="nav-link disabled text-muted"
 						>
-							{id}
+						{productDetail}
 						</Link>
 					</BreadcrumbItem>
 				</div>
