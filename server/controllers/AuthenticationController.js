@@ -40,42 +40,44 @@ class AuthenticationController {
 		console.log(req.body);
 		const { email, password } = req.body;
 		const listCustomers = await Customers.find({});
+		console.log(listCustomers);
+		console.log(email);
 		const customerData = await listCustomers.find((el) => {
-			return (
-				el.loginInformation["email"] === email &&
-				el.loginInformation["password"]
-			);
+			console.log(el.loginInformation["email"]);
+			// return (
+			// 	el.loginInformation["email"] === email && el.loginInformation["password"] === password
+			// );
 		});
+		// console.log(customerData);
+		// if (customerData) {
+		// 	const accessToken = generateAccessToken(customerData);
+		// 	const refreshToken = generateRefreshToken(customerData);
 
-		if (customerData) {
-			const accessToken = generateAccessToken(customerData);
-			const refreshToken = generateRefreshToken(customerData);
+		// 	refreshTokens.push(refreshToken);
+		// 	const data = {
+		// 		infoUser: {
+		// 			fullName: customerData.nameCustomer,
+		// 			email: customerData.loginInformation["email"],
+		// 			dateOfBirth: customerData.dateOfBirth,
+		// 			gender: customerData.gender,
+		// 			phoneNumber: customerData.phoneNumber,
+		// 			avatar: customerData.avatar,
+		// 		},
 
-			refreshTokens.push(refreshToken);
-			const data = {
-				infoUser: {
-					fullName: customerData.nameCustomer,
-					email: customerData.loginInformation["email"],
-					dateOfBirth: customerData.dateOfBirth,
-					gender: customerData.gender,
-					phoneNumber: customerData.phoneNumber,
-					avatar: customerData.avatar,
-				},
-
-				isAdmin: customerData.loginInformation["isAdmin"],
-				accessToken,
-				refreshToken,
-			};
-			res.json({
-				success: true,
-				user: data,
-			});
-		} else {
-			res.status(400).json({
-				success: false,
-				msg: "Tài khoản mật khẩu không đúng",
-			});
-		}
+		// 		isAdmin: customerData.loginInformation["isAdmin"],
+		// 		accessToken,
+		// 		refreshToken,
+		// 	};
+		// 	res.json({
+		// 		success: true,
+		// 		user: data,
+		// 	});
+		// } else {
+		// 	res.status(400).json({
+		// 		success: false,
+		// 		msg: "Tài khoản mật khẩu không đúng",
+		// 	});
+		// }
 	}
 
 	//[DELETE] /deleteCustomerToken/:customerId
