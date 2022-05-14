@@ -1,13 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, {
+	useEffect,
+	useState,
+	useCallback,
+	useLayoutEffect,
+	useRef,
+} from "react";
 import {
 	PaymentElement,
 	useStripe,
 	useElements,
 } from "@stripe/react-stripe-js";
+import axiosMethod from "../../../middlewares/axios";
 
 export default function PaymentForm() {
 	const stripe = useStripe();
 	const elements = useElements();
+	const firstUpdate = useRef(true);
 
 	const [message, setMessage] = useState(null);
 	const [isLoading, setIsLoading] = useState(false);
@@ -47,8 +55,25 @@ export default function PaymentForm() {
 			});
 	}, [stripe]);
 
+	const postPaymentCB = useCallback((data) => {
+		postPayment(data);
+	}, []);
+
+	async function postPayment(data) {
+		const req = await axiosMethod("bill", "post", data);
+		return req;
+	}
+	useLayoutEffect(() => {
+		if (firstUpdate) {
+			firstUpdate.current = false;
+			return;
+		}
+		postPaymentCB();
+	}, [postPaymentCB]);
+
 	const handleSubmit = async (e) => {
 		e.preventDefault();
+		const customer = JSON.parse(localStorage.getItem("customer"));
 
 		if (!stripe || !elements) {
 			// Stripe.js has not yet loaded.
@@ -57,7 +82,10 @@ export default function PaymentForm() {
 		}
 
 		setIsLoading(true);
-
+		if (customer) {
+			customer.paymentMethod = "Online";
+			postPaymentCB(customer);
+		}
 		const { error } = await stripe.confirmPayment({
 			elements,
 			confirmParams: {

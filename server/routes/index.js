@@ -4,6 +4,7 @@ const productRoute = require("./products.route");
 const cartRoute = require("./cart.route");
 const authRoute = require("./auth.route");
 const billRoute = require("./bill.route");
+const authCookieRoute = require("./auth.cookie.route");
 
 function route(app) {
 	app.use("/", siteRoute);
@@ -12,5 +13,6 @@ function route(app) {
 	app.use("/cart", cartRoute);
 	app.use("/auth", authRoute);
 	app.use("/bill", billRoute);
+	app.use("/authCookie", authCookieRoute);
 }
 module.exports = route;
