@@ -7,7 +7,6 @@ const Customers = new mongoose.Schema(
 		email: { type: String, required: true },
 		phoneNumber: { type: String, required: true },
 		isRegister: { type: Boolean, required: true, default: false },
-		listProduct: Array,
 	},
 	{
 		timestamps: true,

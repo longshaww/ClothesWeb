@@ -4,5 +4,6 @@ const router = express.Router();
 const authCookieController = require("../controllers/AuthCookieController");
 
 router.post("/login", authCookieController.postLogin);
+router.post("/register", authCookieController.register);
 
 module.exports = router;

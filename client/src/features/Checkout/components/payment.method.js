@@ -54,7 +54,6 @@ export default function PaymentMethod() {
 					icon: "success",
 					didOpen: () => {
 						MySwal.showLoading();
-						localStorage.removeItem("customer");
 					},
 					timer: 1000,
 				});

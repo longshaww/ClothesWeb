@@ -4,6 +4,8 @@ import axiosMethod from "../../../middlewares/axios";
 function PaymentSuccess({ setCart }) {
 	useEffect(() => {
 		async function getCart() {
+			localStorage.removeItem("customer");
+
 			const data = await axiosMethod("cart", "get");
 			const cartQty = data.cart.reduce((a, b) => {
 				return a + b.qty;

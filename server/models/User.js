@@ -6,14 +6,9 @@ const User = new mongoose.Schema(
 	{
 		email: { type: String, required: true },
 		password: { type: String, required: true },
-		information: {
-			name: String,
-			phoneNumber: String,
-			dateOfBirth: Date,
-			gender: Boolean,
-			avatar: String,
-			address: String,
-		},
+		dateOfBirth: Date,
+		gender: Boolean,
+		avatar: String,
 		customer: { type: Schema.Types.ObjectId, ref: "Customers" },
 		isAdmin: { type: Boolean, required: true, default: false },
 	},
