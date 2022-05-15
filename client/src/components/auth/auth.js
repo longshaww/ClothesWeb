@@ -24,13 +24,20 @@ function Auth() {
 
     try {
       const res = await axios.post(endpoint, { email, password });
+      console.log(res);
       if (res.data.success === true) {
         const dataUser = res.data.user;
+      
         setCookie('user', dataUser);
       }
+     
+     
 
     } catch (err) {
       console.log(err);
+      
+        alert("Vui lòng nhập lại mật khẩu")
+      
     }
 
   };
@@ -150,7 +157,7 @@ function Auth() {
             <h6 class="text-center">THÔNG TIN TÀI KHOẢN</h6>
             <hr class="mt-2"></hr>
             <div>
-              <span>{cookies.user.infoUser.fullName.firstName + " " + cookies.user.infoUser.fullName.lastName}</span>
+              <span>{cookies.user.infoUser.fullName}</span>
             </div>
             <div class="mt-1">
               <span>Tài khoản của tôi</span>

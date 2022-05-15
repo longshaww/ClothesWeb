@@ -1,6 +1,6 @@
 const Customers = require("../models/Customers");
 const jwt = require("jsonwebtoken");
-
+const User = require("../models/User");
 const {
 	generateRefreshToken,
 	generateAccessToken,
@@ -37,47 +37,46 @@ class AuthenticationController {
 
 	//[POST] /login
 	async postLogin(req, res, next) {
-		console.log(req.body);
+
 		const { email, password } = req.body;
-		const listCustomers = await Customers.find({});
-		console.log(listCustomers);
-		console.log(email);
+		const listCustomers = await User.find({});
+
 		const customerData = await listCustomers.find((el) => {
-			console.log(el.loginInformation["email"]);
-			// return (
-			// 	el.loginInformation["email"] === email && el.loginInformation["password"] === password
-			// );
+	
+			return (
+				el["email"] === email && el["password"] === password
+			);
 		});
-		// console.log(customerData);
-		// if (customerData) {
-		// 	const accessToken = generateAccessToken(customerData);
-		// 	const refreshToken = generateRefreshToken(customerData);
 
-		// 	refreshTokens.push(refreshToken);
-		// 	const data = {
-		// 		infoUser: {
-		// 			fullName: customerData.nameCustomer,
-		// 			email: customerData.loginInformation["email"],
-		// 			dateOfBirth: customerData.dateOfBirth,
-		// 			gender: customerData.gender,
-		// 			phoneNumber: customerData.phoneNumber,
-		// 			avatar: customerData.avatar,
-		// 		},
+		if (customerData) {
+			const accessToken = generateAccessToken(customerData);
+			const refreshToken = generateRefreshToken(customerData);
 
-		// 		isAdmin: customerData.loginInformation["isAdmin"],
-		// 		accessToken,
-		// 		refreshToken,
-		// 	};
-		// 	res.json({
-		// 		success: true,
-		// 		user: data,
-		// 	});
-		// } else {
-		// 	res.status(400).json({
-		// 		success: false,
-		// 		msg: "Tài khoản mật khẩu không đúng",
-		// 	});
-		// }
+			refreshTokens.push(refreshToken);
+			const data = {
+				infoUser: {
+					fullName: customerData['information']['name'],
+					email: customerData["email"],
+					dateOfBirth: customerData['information']['dateOfBirth'],
+					gender: customerData['information']['gender'],
+					phoneNumber: customerData.phoneNumber,
+					avatar: customerData['information'].avatar,
+				},
+
+				isAdmin: customerData["isAdmin"],
+				accessToken,
+				refreshToken,
+			};
+			res.json({
+				success: true,
+				user: data,
+			});
+		} else {
+			res.status(400).json({
+				success: false,
+				msg: "Tài khoản mật khẩu không đúng",
+			});
+		}
 	}
 
 	//[DELETE] /deleteCustomerToken/:customerId
