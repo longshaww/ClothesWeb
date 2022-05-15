@@ -12,7 +12,7 @@ class AuthCookieController {
 				return;
 			}
 			if (user.password !== password) {
-				res.status(400).res.send("Wrong password");
+				res.status(400).send("Wrong password");
 				return;
 			}
 			res.status(200)
