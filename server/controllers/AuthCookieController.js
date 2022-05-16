@@ -69,7 +69,8 @@ class AuthCookieController {
 				avatar,
 				customer: newCustomer._id,
 			});
-			res.status(201).json(newUser);
+			const resUser = await newUser.populate("customer");
+			res.status(201).json(resUser);
 		} catch (err) {
 			res.status(400).send("Something wrong ~!");
 			throw new Error(err);
