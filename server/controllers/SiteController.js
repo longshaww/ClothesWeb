@@ -1,5 +1,5 @@
 const ProductsModel = require("../models/Product");
-const fs = require('fs');
+const fs = require("fs");
 const name = require("../crawldata/data/datadangkyvitir.json");
 // const cloudinary = require("../utils/cloudinary");
 class SiteController {
@@ -18,8 +18,8 @@ class SiteController {
 		res.send("Success");
 	}
 	async searchView(req, res, next) {
-		const q = req.query.q;
-		if (q) {
+		const { q, ascending, descending } = req.query;
+		if (q || ascending || descending) {
 			const products = await ProductsModel.find();
 			const filteredProduct = products.filter((product) => {
 				return (
@@ -28,19 +28,28 @@ class SiteController {
 						.indexOf(q.toLowerCase()) !== -1
 				);
 			});
-			
+			if (ascending === "true") {
+				filteredProduct.sort((a, b) => {
+					return a.price - b.price;
+				});
+			}
+			if (descending === "true") {
+				filteredProduct.sort((a, b) => {
+					return a.price + b.price;
+				});
+			}
 			res.status(202).send(filteredProduct);
 		} else {
 			res.status(404).send("<h1>Không có dữ liệu </h1>");
 		}
 	}
 	//[GET] /getLocation
-	getLocation(req,res,next)
-	{
-		const rawdata = fs.readFileSync("crawldata/data/datadangkyvitir.json");
+	getLocation(req, res, next) {
+		const rawdata = fs.readFileSync(
+			"crawldata/data/datadangkyvitir.json"
+		);
 		const data = JSON.parse(rawdata);
-	
-	
+
 		return res.status(202).send(data);
 	}
 }
