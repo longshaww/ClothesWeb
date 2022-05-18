@@ -2,6 +2,20 @@ const ProductsModel = require("../models/Product");
 const fs = require("fs");
 const name = require("../crawldata/data/datadangkyvitir.json");
 // const cloudinary = require("../utils/cloudinary");
+
+function checkIfNameOrNot(ascending, descending, list) {
+	if (ascending === "true") {
+		list.sort((a, b) => {
+			return a.price - b.price;
+		});
+	}
+	if (descending === "true") {
+		list.sort((a, b) => {
+			return b.price - a.price;
+		});
+	}
+	return list;
+}
 class SiteController {
 	async getProducts(req, res) {
 		try {
@@ -17,30 +31,39 @@ class SiteController {
 	getAllSite(req, res, next) {
 		res.send("Success");
 	}
+
 	async searchView(req, res, next) {
 		const { q, ascending, descending } = req.query;
-		if (q || ascending || descending) {
+		let resProduct;
+		try {
 			const products = await ProductsModel.find();
-			const filteredProduct = products.filter((product) => {
-				return (
-					product.nameProduct
-						.toLowerCase()
-						.indexOf(q.toLowerCase()) !== -1
+			console.log(req.query);
+			if (q) {
+				const filteredProduct = products.filter((product) => {
+					return (
+						product.nameProduct
+							.toLowerCase()
+							.indexOf(q.toLowerCase()) !== -1
+					);
+				});
+				resProduct = checkIfNameOrNot(
+					ascending,
+					descending,
+					filteredProduct
 				);
-			});
-			if (ascending === "true") {
-				filteredProduct.sort((a, b) => {
-					return a.price - b.price;
-				});
 			}
-			if (descending === "true") {
-				filteredProduct.sort((a, b) => {
-					return a.price + b.price;
-				});
+			if (!q || q === "") {
+				resProduct = checkIfNameOrNot(
+					ascending,
+					descending,
+					products
+				);
 			}
-			res.status(202).send(filteredProduct);
-		} else {
+
+			res.status(202).send(resProduct);
+		} catch (err) {
 			res.status(404).send("<h1>Không có dữ liệu </h1>");
+			throw new Error(err);
 		}
 	}
 	//[GET] /getLocation
