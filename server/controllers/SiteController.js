@@ -37,7 +37,6 @@ class SiteController {
 		let resProduct;
 		try {
 			const products = await ProductsModel.find();
-			console.log(req.query);
 			if (q) {
 				const filteredProduct = products.filter((product) => {
 					return (
