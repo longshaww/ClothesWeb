@@ -11,19 +11,18 @@ class AuthenticationController {
 	//[GET] /register
 	async register(req, res, next) {
 		let customData = {
-			nameCustomer: {
-				firstName: req.body["firstName"],
-				lastName: req.body["lastName"],
+			email: req.boby.email,
+			password: req.boby.password,
+			information: { 
+				name : req.body.name ,
+				dateOfBirth : req.body.dateOfBirth,
+				phoneNumber : req.body.phoneNumber,
+				gender : req.body.gender,
+				avatar : req.body.avatar,
+				address : req.body.address
 			},
-			dateOfBirth: req.body["dateOfBirth"],
-			phoneNumber: Number(req.body["phoneNumber"]),
-			listProduct: [],
-			loginInformation: {
-				email: req.body["email"],
-				password: req.body["password"],
-				isAdmin: false,
-			},
-			avatar: req.body["avatar"],
+			isAdmin: false
+
 		};
 
 		const user = await new Customers(customData);
