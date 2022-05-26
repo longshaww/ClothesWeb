@@ -1,6 +1,6 @@
 const Customers = require("../models/Customers");
 const jwt = require("jsonwebtoken");
-const User = require("../models/User");
+const User = require("../models/UserWeb");
 const {
 	generateRefreshToken,
 	generateAccessToken,
@@ -90,7 +90,6 @@ class AuthenticationController {
 	async refreshToken(req, res, next) {
 		//lẫy mã token mới từ người dùng
 		const refreshToken = req.body.token;
-		console.log(refreshToken);
 		if (!refreshToken)
 			return res.status(401).json("Bạn chưa được xác nhận quyền ");
 		// refreshToken moi da co trong mang token r thi loi
