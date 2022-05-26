@@ -21,6 +21,7 @@ import { useCookies } from "react-cookie";
 import { useEffect } from "react";
 import Dashboard from "./features/admin/dashboard/dashboard";
 import LayoutAdmin from "./layouts/layoutAdmin";
+import Register from "./components/auth/register";
 
 function App() {
 	const [cookies, setCookie, removeCookie] = useCookies(["user"]);
