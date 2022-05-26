@@ -14,7 +14,6 @@ const User = new mongoose.Schema(
 			avatar: String,
 			address: String,
 		},
-		customer: { type: Schema.Types.ObjectId, ref: "Customers" },
 		isAdmin: { type: Boolean, required: true, default: false },
 	},
 	{
