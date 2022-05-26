@@ -17,18 +17,15 @@ import PaymentSuccess from "./features/Payment/pages/success";
 import CustomerInfo from "./features/Checkout/components/customer.info";
 import PaymentMethod from "./features/Checkout/components/payment.method";
 import OnlinePayment from "./features/Payment/pages/index";
-import Home from './features/home/home';
+import Home from "./features/home/home";
+import Register from "./components/auth/register";
 
 function App() {
 	return (
 		<div>
 			<Routes>
 				<Route path="/" element={<Layout />}>
-				<Route
-						path=""
-						element={<Home/>}
-					>
-						</Route>
+					<Route path="" element={<Home />}></Route>
 					<Route
 						path="collections"
 						element={<CollectionsLayout />}
@@ -75,6 +72,10 @@ function App() {
 							element={<Detail></Detail>}
 						></Route>
 					</Route>
+					<Route
+						path="account/register"
+						element={<Register />}
+					></Route>
 					<Route path="search">
 						<Route index element={<Search />}></Route>
 					</Route>
