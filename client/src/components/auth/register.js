@@ -36,7 +36,7 @@ const Register = () => {
 
 	const handleSubmit = async (event) => {
 		event.preventDefault();
-		// const data = await axiosMethod("auth/register", "post", inputs);
+		const data = await axiosMethod("auth/register", "post", inputs);
 		console.log(inputs);
 	};
 	return (
@@ -56,8 +56,8 @@ const Register = () => {
 				<FormGroup>
 					<Label for="dataOfBirth">Date of Birth</Label>
 					<Input
-						id="dataOfBirth"
-						name="dataOfBirth"
+						id="dateOfBirth"
+						name="dateOfBirth"
 						type="text"
 <<<<<<< HEAD
 =======

@@ -11,21 +11,20 @@ class AuthenticationController {
 	//[GET] /register
 	async register(req, res, next) {
 		let customData = {
-			email: req.boby.email,
-			password: req.boby.password,
-			information: { 
-				name : req.body.name ,
-				dateOfBirth : req.body.dateOfBirth,
-				phoneNumber : req.body.phoneNumber,
-				gender : req.body.gender,
-				avatar : req.body.avatar,
-				address : req.body.address
+			email: req.body.email,
+			password: req.body.password,
+			information: {
+				name: req.body.name,
+				dateOfBirth: req.body.dateOfBirth,
+				phoneNumber: req.body.phoneNumber,
+				gender: req.body.gender,
+				avatar: req.body.avatar,
+				address: req.body.address,
 			},
-			isAdmin: false
-
+			isAdmin: false,
 		};
 
-		const user = await new Customers(customData);
+		const user = await new User(customData);
 
 		await user.save();
 		res.json({
@@ -36,15 +35,11 @@ class AuthenticationController {
 
 	//[POST] /login
 	async postLogin(req, res, next) {
-
 		const { email, password } = req.body;
 		const listCustomers = await User.find({});
 
 		const customerData = await listCustomers.find((el) => {
-	
-			return (
-				el["email"] === email && el["password"] === password
-			);
+			return el["email"] === email && el["password"] === password;
 		});
 
 		if (customerData) {
@@ -54,12 +49,13 @@ class AuthenticationController {
 			refreshTokens.push(refreshToken);
 			const data = {
 				infoUser: {
-					fullName: customerData['information']['name'],
+					fullName: customerData["information"]["name"],
 					email: customerData["email"],
-					dateOfBirth: customerData['information']['dateOfBirth'],
-					gender: customerData['information']['gender'],
+					dateOfBirth:
+						customerData["information"]["dateOfBirth"],
+					gender: customerData["information"]["gender"],
 					phoneNumber: customerData.phoneNumber,
-					avatar: customerData['information'].avatar,
+					avatar: customerData["information"].avatar,
 				},
 
 				isAdmin: customerData["isAdmin"],
