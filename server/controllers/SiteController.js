@@ -74,6 +74,18 @@ class SiteController {
 
 		return res.status(202).send(data);
 	}
+
+	async getAllProduct(req, res, next) {
+		let listProduct = [];
+		const product = await ProductsModel.find({});
+		for (var i = 0; i < 15; i++) {
+			listProduct.push(product[i]);
+		}
+		res.json({
+			success: true,
+			products: listProduct,
+		});
+	}
 }
 
 /// LONG /////

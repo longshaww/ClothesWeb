@@ -17,10 +17,30 @@ import PaymentSuccess from "./features/Payment/pages/success";
 import CustomerInfo from "./features/Checkout/components/customer.info";
 import PaymentMethod from "./features/Checkout/components/payment.method";
 import OnlinePayment from "./features/Payment/pages/index";
-import Home from "./features/home/home";
-import Register from "./components/auth/register";
+import { useCookies } from "react-cookie";
+import { useEffect } from "react";
+import Dashboard from "./features/admin/dashboard/dashboard";
+import LayoutAdmin from "./layouts/layoutAdmin";
 
 function App() {
+	const [cookies, setCookie, removeCookie] = useCookies(["user"]);
+
+	const renderAdmin = () => {
+		let user;
+		if (cookies.user !== undefined) {
+			user = cookies.user.isAdmin;
+		}
+		if (user) {
+			return (
+				<Route path="/admin" element={<LayoutAdmin />}>
+					<Route
+						path="dashboard"
+						element={<Dashboard></Dashboard>}
+					></Route>
+				</Route>
+			);
+		}
+	};
 	return (
 		<div>
 			<Routes>
@@ -100,6 +120,7 @@ function App() {
 						element={<PaymentSuccess />}
 					></Route>
 				</Route>
+				{renderAdmin()}
 			</Routes>
 		</div>
 	);
