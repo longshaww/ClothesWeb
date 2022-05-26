@@ -163,6 +163,9 @@ function Auth() {
               <span>Tài khoản của tôi</span>
             </div>
             <div class="mt-1">
+              <span>Quản Lý</span>
+            </div>
+            <div class="mt-1">
               <span
                 
                 onClick={handleClickLogOut}

@@ -35,13 +35,28 @@ class SiteController {
 		}
 	}
 	//[GET] /getLocation
-	getLocation(req,res,next)
+	 getLocation(req,res,next)
 	{
 		const rawdata = fs.readFileSync("crawldata/data/datadangkyvitir.json");
 		const data = JSON.parse(rawdata);
 	
 	
 		return res.status(202).send(data);
+	}
+
+
+	async getAllProduct(req,res,next)
+	{
+		let listProduct = [];
+		const product = await ProductsModel.find({});
+		for(var i =0 ; i < 15 ; i ++)
+		{
+			listProduct.push(product[i]);
+		}
+		res.json({
+			success : true,
+			products : listProduct
+		})
 	}
 }
 

@@ -169,6 +169,26 @@ class CollectionsController {
 			? res.status(202).json(outerwears)
 			: res.status(404).send("<h1>Không có dữ liệu</h1>");
 	}
+
+	async getHomeNewArrivals(req,res,next)
+	{
+			// data fake
+			const idFake = "621e4d91df99d34d865f9e55";
+			let listProduct = [];
+			const product = await Products.find({
+				"description.collection": idFake,
+			})
+			for(var i =0 ; i < 15 ; i ++)
+			{
+				listProduct.push(product[i]);
+			}
+			res.json({
+				success : true,
+				products : listProduct
+			})
+
+			
+	}
 }
 
 module.exports = new CollectionsController();

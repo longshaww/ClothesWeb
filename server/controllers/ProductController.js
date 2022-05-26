@@ -14,18 +14,4 @@ class ProductController {
 	}
 }
 
-// const postRoom = async (req, res) => {
-// 	var image = await cloudinary.uploader.unsigned_upload(
-// 		req.file.path,
-// 		"oeaxhoph"
-// 	);
-// 	req.body.image = image.secure_url;
-// 	try {
-// 		const room = await Rooms.create(req.body);
-// 		res.json(room);
-// 	} catch (error) {
-// 		res.status(500).json(error);
-// 	}
-// };
-
 module.exports = new ProductController();
