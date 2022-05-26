@@ -17,12 +17,18 @@ import PaymentSuccess from "./features/Payment/pages/success";
 import CustomerInfo from "./features/Checkout/components/customer.info";
 import PaymentMethod from "./features/Checkout/components/payment.method";
 import OnlinePayment from "./features/Payment/pages/index";
+import Home from './features/home/home';
 
 function App() {
 	return (
 		<div>
 			<Routes>
 				<Route path="/" element={<Layout />}>
+				<Route
+						path=""
+						element={<Home/>}
+					>
+						</Route>
 					<Route
 						path="collections"
 						element={<CollectionsLayout />}
