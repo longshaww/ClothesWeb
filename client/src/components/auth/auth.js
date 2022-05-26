@@ -20,24 +20,14 @@ function Auth() {
 
 		try {
 			const res = await axios.post(endpoint, { email, password });
-<<<<<<< HEAD
 			if (res.data.success === true) {
 				const dataUser = res.data.user;
-=======
-			console.log(res);
-			if (res.data.success === true) {
-				const dataUser = res.data.user;
-
->>>>>>> form register
 				setCookie("user", dataUser);
 			}
 		} catch (err) {
 			console.log(err);
-<<<<<<< HEAD
-=======
 
 			alert("Vui lòng nhập lại mật khẩu");
->>>>>>> form register
 		}
 	};
 	const handleClickLogOut = async () => {
@@ -71,38 +61,22 @@ function Auth() {
 						padding: "20px 15px",
 					}}
 				>
-<<<<<<< HEAD
 					<div id="cart-container" className="py-0 px-3">
 						<div className="text-center" data-metatip="true">
 							<h6 style={{ marginBottom: "2px" }}>
 								ĐĂNG NHẬP TÀI KHOẢN
 							</h6>
 							<p className="mt-0">
-=======
-					<div id="cart-container" class="py-0 px-3">
-						<div class="text-center" data-metatip="true">
-							<h6 style={{ marginBottom: "2px" }}>
-								ĐĂNG NHẬP TÀI KHOẢN
-							</h6>
-							<p class="mt-0">
->>>>>>> form register
 								<small>
 									Nhập email và mật khẩu của bạn
 								</small>
 							</p>
 						</div>
 						<form onSubmit={handleSubmit}>
-<<<<<<< HEAD
 							<div className="form-group">
 								<input
 									type="email"
 									className="form-control"
-=======
-							<div class="form-group">
-								<input
-									type="email"
-									class="form-control"
->>>>>>> form register
 									id="exampleDropdownFormEmail1"
 									placeholder="Email"
 									onChange={(e) =>
@@ -110,17 +84,10 @@ function Auth() {
 									}
 								></input>
 							</div>
-<<<<<<< HEAD
 							<div className="form-group mt-3">
 								<input
 									type="password"
 									className="form-control"
-=======
-							<div class="form-group mt-3">
-								<input
-									type="password"
-									class="form-control"
->>>>>>> form register
 									id="exampleDropdownFormPassword1"
 									placeholder="Password"
 									onChange={(e) =>
@@ -128,11 +95,7 @@ function Auth() {
 									}
 								></input>
 							</div>
-<<<<<<< HEAD
 							<div className="footer mt-2">
-=======
-							<div class="footer mt-2">
->>>>>>> form register
 								<em>
 									This site is protected by reCAPTCHA
 									and the Google
@@ -161,30 +124,17 @@ function Auth() {
 								<button
 									type="submit"
 									style={{ height: "40px" }}
-<<<<<<< HEAD
 									className="col-12  mt-1  btn btn-secondary btn-sm btn-block"
-=======
-									class="col-12  mt-1  btn btn-secondary btn-sm btn-block"
->>>>>>> form register
 								>
 									ĐĂNG NHẬP
 								</button>
 							</div>
 						</form>
-<<<<<<< HEAD
 						<div className="text-center">
 							<Link to="/account/register">
 								Tạo tài khoản
 							</Link>
 							<Link to="/account/register">
-=======
-						<div class="text-center">
-							<Link class="link" to="/account/register">
-								Tạo tài khoản
-							</Link>
-							<br></br>
-							<Link class="link" to="/account/register">
->>>>>>> form register
 								Bạn đã quên mật khẩu ?
 							</Link>
 						</div>
