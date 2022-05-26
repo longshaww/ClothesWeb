@@ -2,13 +2,13 @@ const jwt = require("jsonwebtoken");
 module.exports = {
     generateAccessToken :  (customer) => {
         // tạo ra token
-        return jwt.sign({ id: customer._id, isAdmin: customer.loginInformation['isAdmin'] }, "mySecretKey", {
-            expiresIn: "15m"
+        return jwt.sign({ id: customer._id, isAdmin: customer['isAdmin'] }, "mySecretKey", {
+            expiresIn: "90 days"
         });
     
     },
     generateRefreshToken : (customer) => {
-        return jwt.sign({ id: customer._id, isAdmin: customer.loginInformation['isAdmin'] }, "myRefreshToken");
+        return jwt.sign({ id: customer._id, isAdmin: customer['isAdmin'] }, "myRefreshToken");
     
     }
 }

@@ -5,6 +5,7 @@ const collectionsController = require("../controllers/CollectionsController");
 
 router.get("/", collectionsController.getAllProductWithOutPagination);
 router.get("/new-arrivals", collectionsController.getAllNewArrivals);
+router.get("/new-arrivals-home", collectionsController.getHomeNewArrivals);
 router.get(
 	"/new-arrivals-without-pag",
 	collectionsController.getAllNewArrivalsWithOutPagination

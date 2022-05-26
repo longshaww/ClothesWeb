@@ -1,6 +1,6 @@
 const Customers = require("../models/Customers");
 const jwt = require("jsonwebtoken");
-
+const User = require("../models/UserWeb");
 const {
 	generateRefreshToken,
 	generateAccessToken,
@@ -11,22 +11,20 @@ class AuthenticationController {
 	//[GET] /register
 	async register(req, res, next) {
 		let customData = {
-			nameCustomer: {
-				firstName: req.body["firstName"],
-				lastName: req.body["lastName"],
+			email: req.body.email,
+			password: req.body.password,
+			information: {
+				name: req.body.name,
+				dateOfBirth: req.body.dateOfBirth,
+				phoneNumber: req.body.phoneNumber,
+				gender: req.body.gender,
+				avatar: req.body.avatar,
+				address: req.body.address,
 			},
-			dateOfBirth: req.body["dateOfBirth"],
-			phoneNumber: Number(req.body["phoneNumber"]),
-			listProduct: [],
-			loginInformation: {
-				email: req.body["email"],
-				password: req.body["password"],
-				isAdmin: false,
-			},
-			avatar: req.body["avatar"],
+			isAdmin: false,
 		};
 
-		const user = await new Customers(customData);
+		const user = await new User(customData);
 
 		await user.save();
 		res.json({
@@ -37,14 +35,11 @@ class AuthenticationController {
 
 	//[POST] /login
 	async postLogin(req, res, next) {
-		console.log(req.body);
 		const { email, password } = req.body;
-		const listCustomers = await Customers.find({});
+		const listCustomers = await User.find({});
+
 		const customerData = await listCustomers.find((el) => {
-			return (
-				el.loginInformation["email"] === email &&
-				el.loginInformation["password"]
-			);
+			return el["email"] === email && el["password"] === password;
 		});
 
 		if (customerData) {
@@ -54,15 +49,16 @@ class AuthenticationController {
 			refreshTokens.push(refreshToken);
 			const data = {
 				infoUser: {
-					fullName: customerData.nameCustomer,
-					email: customerData.loginInformation["email"],
-					dateOfBirth: customerData.dateOfBirth,
-					gender: customerData.gender,
+					fullName: customerData["information"]["name"],
+					email: customerData["email"],
+					dateOfBirth:
+						customerData["information"]["dateOfBirth"],
+					gender: customerData["information"]["gender"],
 					phoneNumber: customerData.phoneNumber,
-					avatar: customerData.avatar,
+					avatar: customerData["information"].avatar,
 				},
 
-				isAdmin: customerData.loginInformation["isAdmin"],
+				isAdmin: customerData["isAdmin"],
 				accessToken,
 				refreshToken,
 			};
@@ -94,7 +90,6 @@ class AuthenticationController {
 	async refreshToken(req, res, next) {
 		//lẫy mã token mới từ người dùng
 		const refreshToken = req.body.token;
-		console.log(refreshToken);
 		if (!refreshToken)
 			return res.status(401).json("Bạn chưa được xác nhận quyền ");
 		// refreshToken moi da co trong mang token r thi loi

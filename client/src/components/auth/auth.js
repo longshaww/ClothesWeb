@@ -7,7 +7,7 @@ import axiosMethod from "../../middlewares/axios";
 import axios from "axios";
 import globalStateAndAction from "../../container/global.state.action";
 import { useCookies } from "react-cookie";
-import { Link } from "@mui/material";
+import { Link } from "react-router-dom";
 
 function Auth() {
 	const [cookies, setCookie, removeCookie] = useCookies(["user"]);
@@ -26,6 +26,8 @@ function Auth() {
 			}
 		} catch (err) {
 			console.log(err);
+
+			alert("Vui lòng nhập lại mật khẩu");
 		}
 	};
 	const handleClickLogOut = async () => {
