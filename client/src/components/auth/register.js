@@ -17,6 +17,7 @@ const Register = () => {
 						type="text"
 =======
 import { useState } from "react";
+import axiosMethod from "../../middlewares/axios";
 
 const Register = () => {
 	const [inputs, setInputs] = useState({
@@ -33,8 +34,9 @@ const Register = () => {
 		setInputs((values) => ({ ...values, [name]: value }));
 	};
 
-	const handleSubmit = (event) => {
+	const handleSubmit = async (event) => {
 		event.preventDefault();
+		// const data = await axiosMethod("auth/register", "post", inputs);
 		console.log(inputs);
 	};
 	return (
