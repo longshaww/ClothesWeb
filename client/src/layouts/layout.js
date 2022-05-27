@@ -1,4 +1,4 @@
-import NavbarApp from "../components/navbar/navbar";
+import NavbarApp from "../components/navbars/navbar/navbar";
 // import Footer from "../components/footer/footer";
 import { Outlet } from "react-router-dom";
 import GoToTop from "../components/GoToTopButton/go.to.top";
