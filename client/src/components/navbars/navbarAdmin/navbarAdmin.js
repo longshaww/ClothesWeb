@@ -1,8 +1,5 @@
 import { NavbarToggler, Collapse, Nav, NavItem, Navbar } from "reactstrap";
-import Logo from "../../assets/images/hyperX.jpeg";
-import "../../assets/styles/customize.navbar.css";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+
 
 /* 		<Link
 							to="/collections/new-arrivals"
