@@ -1,6 +1,6 @@
-const User = require("../models/User");
-const Bill = require("../models/Bills");
-const Product = require("../models/Product");
+const User = require("../../models/User");
+const Bill = require("../../models/Bills");
+const Product = require("../../models/Product");
 class AdminController {
     getDashboard(req,res,next)
     {
