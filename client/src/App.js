@@ -18,14 +18,14 @@ import CustomerInfo from "./features/Checkout/components/customer.info";
 import PaymentMethod from "./features/Checkout/components/payment.method";
 import OnlinePayment from "./features/Payment/pages/index";
 import { useCookies } from "react-cookie";
-import { useEffect } from "react";
+
 import Dashboard from "./features/admin/dashboard/dashboard";
 import LayoutAdmin from "./layouts/layoutAdmin";
 import Register from "./components/auth/register";
 import Home from "./features/home/home";
 
 function App() {
-	const [cookies, setCookie, removeCookie] = useCookies(["user"]);
+	const [cookies] = useCookies(["user"]);
 
 	const renderAdmin = () => {
 		let user;

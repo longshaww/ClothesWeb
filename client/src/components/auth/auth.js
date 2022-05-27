@@ -1,6 +1,6 @@
 import Badge from "@mui/material/Badge";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Popover from "@mui/material/Popover";
 import Box from "@mui/material/Box";
 import axiosMethod from "../../middlewares/axios";
@@ -8,7 +8,8 @@ import axios from "axios";
 import globalStateAndAction from "../../container/global.state.action";
 import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
-
+import jwt_decode from "jwt-decode";
+import jwtDecode from "jwt-decode";
 function Auth() {
 	const [cookies, setCookie, removeCookie] = useCookies(["user"]);
 	const [email, setEmail] = useState("");
@@ -16,14 +17,20 @@ function Auth() {
 	// click submit
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		const endpoint = process.env.REACT_APP_API_URL + "auth/login";
-
 		try {
-			const res = await axios.post(endpoint, { email, password });
-			if (res.data.success === true) {
-				const dataUser = res.data.user;
-				setCookie("user", dataUser);
+			if(email === "" || password === "")
+			{
+				alert("VUI LÒNG NHẬP TÀI KHOẢN HOẶC MẬT KHẨU !")
 			}
+			else
+			{
+				const res = await axiosMethod("authJWT/login","POST", { email, password });
+				if (res.success === true) {
+					const info =  await jwtDecode(res.accessToken);
+					setCookie("user",info);
+				}
+			}
+		
 		} catch (err) {
 			console.log(err);
 
@@ -31,22 +38,14 @@ function Auth() {
 		}
 	};
 	const handleClickLogOut = async () => {
-		const endpoint = process.env.REACT_APP_API_URL + "auth/logout";
-
 		try {
-			const res = await axios.post(
-				endpoint,
-				cookies.user.refreshToken,
-				{
-					headers: {
-						authorization:
-							"Bearer " + cookies.user.accessToken,
-					},
-				}
-			);
-			if (res.data.success === true) {
+			const res = await axiosMethod("authJWT/logout","POST");
+			
+			if(res.success === true)
+			{
 				removeCookie("user");
 			}
+		
 		} catch (err) {
 			console.log(err);
 		}
@@ -155,11 +154,7 @@ function Auth() {
 						<hr class="mt-2"></hr>
 						<div>
 							<span>
-								{cookies.user.infoUser.fullName
-									.firstName +
-									" " +
-									cookies.user.infoUser.fullName
-										.lastName}
+								{cookies.user.information.name}
 							</span>
 						</div>
 						<div className="mt-1">

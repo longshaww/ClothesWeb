@@ -1,6 +1,6 @@
 #logo {
-	width: 4rem;
-	height: 4rem;
+	font-size : 30 px;
+	width: 12rem;	
 }
 #center-logo {
 	display: flex;

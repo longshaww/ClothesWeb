@@ -5,21 +5,20 @@ const {
 	generateRefreshToken,
 	generateAccessToken,
 } = require("../utils/function");
-
+const md5 = require("md5");	
 let refreshTokens = [];
 class AuthenticationController {
 	//[GET] /register
 	async register(req, res, next) {
 		let customData = {
 			email: req.body.email,
-			password: req.body.password,
+			password: md5(req.body.password),
 			information: {
-				name: req.body.name,
-				dateOfBirth: req.body.dateOfBirth,
-				phoneNumber: req.body.phoneNumber,
-				gender: req.body.gender,
-				avatar: req.body.avatar,
-				address: req.body.address,
+				name: req.body.information.name,
+				dateOfBirth: req.body.information.dateOfBirth,
+				phoneNumber: req.body.information.phoneNumber,
+				gender: req.body.information.gender,
+				address: req.body.information.address,
 			},
 			isAdmin: false,
 		};
@@ -39,7 +38,7 @@ class AuthenticationController {
 		const listCustomers = await User.find({});
 
 		const customerData = await listCustomers.find((el) => {
-			return el["email"] === email && el["password"] === password;
+			return el["email"] === email && el["password"] === md5(password);
 		});
 
 		if (customerData) {
@@ -47,24 +46,10 @@ class AuthenticationController {
 			const refreshToken = generateRefreshToken(customerData);
 
 			refreshTokens.push(refreshToken);
-			const data = {
-				infoUser: {
-					fullName: customerData["information"]["name"],
-					email: customerData["email"],
-					dateOfBirth:
-						customerData["information"]["dateOfBirth"],
-					gender: customerData["information"]["gender"],
-					phoneNumber: customerData.phoneNumber,
-					avatar: customerData["information"].avatar,
-				},
-
-				isAdmin: customerData["isAdmin"],
-				accessToken,
-				refreshToken,
-			};
-			res.json({
+			res.status(200).json({
 				success: true,
-				user: data,
+				accessToken,
+				refreshToken
 			});
 		} else {
 			res.status(400).json({
@@ -73,19 +58,6 @@ class AuthenticationController {
 			});
 		}
 	}
-
-	//[DELETE] /deleteCustomerToken/:customerId
-	async deleteTokenCustomer(req, res, next) {
-		if (
-			req.customer.id === req.params.customerId ||
-			req.customer.isAdmin
-		) {
-			res.status(200).json("Khách hàng đã bị xóa");
-		} else {
-			res.status(403).json("Bạn không có quyền xóa");
-		}
-	}
-
 	//[POST] /refreshToken/
 	async refreshToken(req, res, next) {
 		//lẫy mã token mới từ người dùng

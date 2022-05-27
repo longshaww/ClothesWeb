@@ -7,12 +7,11 @@ const UserWeb = new mongoose.Schema(
 		email: { type: String, required: true },
 		password: { type: String, required: true },
 		information: {
-			name: String,
-			phoneNumber: String,
+			name: { type: String, required: true },
+			phoneNumber: { type: String, required: true },
 			dateOfBirth: Date,
-			gender: Boolean,
-			avatar: String,
-			address: String,
+			gender: { type: Boolean, required: true },
+			address: { type: String, required: true }
 		},
 		isAdmin: { type: Boolean, required: true, default: false },
 	},
