@@ -1,11 +1,11 @@
 import { NavbarToggler, Collapse, Nav, NavItem, Navbar } from "reactstrap";
-import Logo from "../../assets/images/hyperX.jpeg";
-import "../../assets/styles/customize.navbar.css";
+import Logo from "../../../assets/images/hyperX.jpeg";
+import "../../../assets/styles/customize.navbar.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import PostFilterForm from "./search";
-import PopupCart from "../cart/cart";
-import Auth from '../auth/auth';
+import PopupCart from "../../cart/cart";
+import Auth from '../../auth/auth';
 
 export default function NavbarApp() {
 	//State define
