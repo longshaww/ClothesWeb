@@ -15,17 +15,15 @@ export default function NavbarApp() {
 
 	return (
 		<Navbar expand="md" light>
+			
 			<Link to="/">
-				<div id="center-logo">
+				<div id="center-logo" className="mt-4">
 					<img
 						id="logo"
 						src={Logo}
 						alt=""
-						className="rounded-circle"
+						className="logo-Img"
 					></img>
-					<p id="brand-name" className="text-dark fs-3 fw-bold">
-						HyperX™
-					</p>
 				</div>
 			</Link>
 			<NavbarToggler onClick={toggle} />

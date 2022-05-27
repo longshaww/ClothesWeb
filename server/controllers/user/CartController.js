@@ -1,5 +1,5 @@
-const Session = require("../models/Sessions");
-const Product = require("../models/Product");
+const Session = require("../../models/Sessions");
+const Product = require("../../models/Product");
 class CartController {
 	async addToCart(req, res, next) {
 		// Nhận dữ liệu từ client

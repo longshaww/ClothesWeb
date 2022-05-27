@@ -1,6 +1,6 @@
-const ProductsModel = require("../models/Product");
+const ProductsModel = require("../../models/Product");
 const fs = require("fs");
-const name = require("../crawldata/data/datadangkyvitir.json");
+const name = require("../../crawldata/data/datadangkyvitir.json");
 // const cloudinary = require("../utils/cloudinary");
 
 function checkIfNameOrNot(ascending, descending, list) {

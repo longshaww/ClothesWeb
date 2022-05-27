@@ -8,8 +8,6 @@ router.post("/register",authenticationController.register);
 
 router.post("/login",authenticationController.postLogin);
 
-router.delete("/deleteCustomerToken/:customerId",verifyAdmin,authenticationController.deleteTokenCustomer);
-
 router.post("/refreshToken",authenticationController.refreshToken)
 
 router.post("/logout",verify,authenticationController.postLogout)

@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-const collectionsController = require("../controllers/CollectionsController");
+const collectionsController = require("../../controllers/user/CollectionsController");
 
 router.get("/", collectionsController.getAllProductWithOutPagination);
 router.get("/new-arrivals", collectionsController.getAllNewArrivals);

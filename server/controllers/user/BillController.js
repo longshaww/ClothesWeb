@@ -1,6 +1,6 @@
-const Bill = require("../models/Bills");
-const Customer = require("../models/Customers");
-const Session = require("../models/Sessions");
+const Bill = require("../../models/Bills");
+const Customer = require("../../models/Customers");
+const Session = require("../../models/Sessions");
 
 class BillController {
 	async postBill(req, res, next) {

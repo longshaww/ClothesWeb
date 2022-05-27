@@ -1,4 +1,4 @@
-const Products = require("../models/Product");
+const Products = require("../../models/Product");
 var ObjectId = require("mongodb").ObjectId;
 const pageSize = 12;
 class CollectionsController {
