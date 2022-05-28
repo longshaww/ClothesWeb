@@ -10,26 +10,41 @@ let refreshTokens = [];
 class AuthenticationController {
 	//[GET] /register
 	async register(req, res, next) {
-		let customData = {
-			email: req.body.email,
-			password: md5(req.body.password),
-			information: {
-				name: req.body.information.name,
-				dateOfBirth: req.body.information.dateOfBirth,
-				phoneNumber: req.body.information.phoneNumber,
-				gender: req.body.information.gender,
-				address: req.body.information.address,
-			},
-			isAdmin: false,
-		};
 
-		const user = await new User(customData);
+		const userSentinel = await User.findOne({"email": req.body.email});
+		if(!userSentinel)
+		{
 
-		await user.save();
-		res.json({
-			success: true,
-			data: user,
-		});
+			let customData = {
+				email: req.body.email,
+				password: md5(req.body.password),
+				information: {
+					name: req.body.information.name,
+					dateOfBirth: req.body.information.dateOfBirth,
+					phoneNumber: req.body.information.phoneNumber,
+					gender: req.body.information.gender,
+					address: req.body.information.address,
+				},
+				isAdmin: false,
+			};
+			
+			const user = await new User(customData);
+
+			await user.save();
+			res.json({
+				success: true,
+				data: user,
+			});
+		}
+		else
+		{
+			res.status(404).json({
+				success: false,
+				msg : "TÀI KHOẢN ĐÃ TỒN TẠI"
+			})
+		}
+
+
 	}
 
 	//[POST] /login
