@@ -1,7 +1,7 @@
 export const userData = [
     {
       name: "Jan",
-      "Active User": 5000,
+      "Active User": 4000,
     },
     {
       name: "Feb",

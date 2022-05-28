@@ -1,10 +1,9 @@
-import Chart from "../dashboard/chart";
+import Chart from "../dashboard/chart"
 import FeaturedInfo from "../dashboard/featuredInfo";
-import "../../../assets/styles/home.css";
 import { userData } from "../dashboard/dummyData";
 import WidgetSm from "../dashboard/widgetSm";
 import WidgetLg from "../dashboard/widgetLg";
-
+import "../../../assets/styles/admin/home.css"
 function Dashboard() {
 	return (
 		<div className="home">
