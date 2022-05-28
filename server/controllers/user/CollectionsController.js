@@ -9,7 +9,10 @@ class CollectionsController {
 		const newArrivals = await Products.find().skip(skip).limit(pageSize);
 		newArrivals
 			? res.status(202).json(newArrivals)
-			: res.status(404).send("<h1>Không có dữ liệu</h1>");
+			: res.status(404).json({
+				success : false,
+				msg : "NOT HAVE DATA"
+			});
 	}
 
 	//[GET] collections without pagination
@@ -18,7 +21,10 @@ class CollectionsController {
 		const newArrivals = await Products.find();
 		newArrivals
 			? res.status(202).json(newArrivals)
-			: res.status(404).send("<h1>Không có dữ liệu</h1>");
+			: res.status(404).json({
+				success : false,
+				msg : "NOT HAVE DATA"
+			});
 	}
 
 	//[GET] collections/new-arrivals
@@ -37,7 +43,10 @@ class CollectionsController {
 			.limit(pageSize);
 		newArrivals
 			? res.status(202).json(newArrivals)
-			: res.status(404).send("<h1>Không có dữ liệu</h1>");
+			: res.status(404).json({
+				success : false,
+				msg : "NOT HAVE DATA"
+			});
 	}
 
 	//[GET] collections/new-arrivals without pagination
@@ -49,7 +58,10 @@ class CollectionsController {
 		});
 		newArrivals
 			? res.status(202).json(newArrivals)
-			: res.status(404).send("<h1>Không có dữ liệu</h1>");
+			: res.status(404).json({
+				success : false,
+				msg : "NOT HAVE DATA"
+			});
 	}
 
 	//[GET] collections/tops
@@ -68,7 +80,10 @@ class CollectionsController {
 			.limit(pageSize);
 		tops
 			? res.status(202).json(tops)
-			: res.status(404).send("<h1>Không có dữ liệu</h1>");
+			: res.status(404).json({
+				success : false,
+				msg : "NOT HAVE DATA"
+			});
 	}
 
 	//[GET] collections/tops without pagination
@@ -80,7 +95,10 @@ class CollectionsController {
 		});
 		tops
 			? res.status(202).json(tops)
-			: res.status(404).send("<h1>Không có dữ liệu</h1>");
+			: res.status(404).json({
+				success : false,
+				msg : "NOT HAVE DATA"
+			});
 	}
 
 	//[GET] collections/bottoms
@@ -98,7 +116,10 @@ class CollectionsController {
 			.limit(pageSize);
 		bottoms
 			? res.status(202).json(bottoms)
-			: res.status(404).send("<h1>Không có dữ liệu</h1>");
+			: res.status(404).json({
+				success : false,
+				msg : "NOT HAVE DATA"
+			});
 	}
 
 	//[GET] collections/bottoms without pagination
@@ -109,7 +130,10 @@ class CollectionsController {
 		});
 		bottoms
 			? res.status(202).json(bottoms)
-			: res.status(404).send("<h1>Không có dữ liệu</h1>");
+			: res.status(404).json({
+				success : false,
+				msg : "NOT HAVE DATA"
+			});
 	}
 
 	//[GET] collections/accessories
@@ -127,7 +151,10 @@ class CollectionsController {
 			.limit(pageSize);
 		accessories
 			? res.status(202).json(accessories)
-			: res.status(404).send("<h1>Không có dữ liệu</h1>");
+			: res.status(404).json({
+				success : false,
+				msg : "NOT HAVE DATA"
+			});
 	}
 
 	//[GET] collections/accessories without pagination
@@ -139,7 +166,10 @@ class CollectionsController {
 		});
 		accessories
 			? res.status(202).json(accessories)
-			: res.status(404).send("<h1>Không có dữ liệu</h1>");
+			: res.status(404).json({
+				success : false,
+				msg : "NOT HAVE DATA"
+			});
 	}
 
 	//[GET] collections/Outerwears
@@ -157,7 +187,10 @@ class CollectionsController {
 			.limit(pageSize);
 		outerwears
 			? res.status(202).json(outerwears)
-			: res.status(404).send("<h1>Không có dữ liệu</h1>");
+			: res.status(404).json({
+				success : false,
+				msg : "NOT HAVE DATA"
+			});
 	}
 
 	//[GET] collections/Outerwears without pagination
@@ -167,7 +200,10 @@ class CollectionsController {
 		});
 		outerwears
 			? res.status(202).json(outerwears)
-			: res.status(404).send("<h1>Không có dữ liệu</h1>");
+			: res.status(404).json({
+				success : false,
+				msg : "NOT HAVE DATA"
+			});
 	}
 
 	async getHomeNewArrivals(req,res,next)
@@ -188,6 +224,22 @@ class CollectionsController {
 			})
 
 			
+	}
+
+
+	// GETNEWARRIVALS 15 PRODUCTS  
+	async  get15NewArrivals(req,res)
+	{
+		const idFake = "621e4d91df99d34d865f9e55";
+		const newArrivals = await Products.find({
+			"description.collection": idFake,
+		})
+		const listProduct = await newArrivals.splice(8,6)
+		res.send({
+			success: true,
+			 listProduct
+		})
+
 	}
 }
 

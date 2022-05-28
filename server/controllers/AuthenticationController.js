@@ -112,7 +112,6 @@ class AuthenticationController {
 
 	async postLogout(req, res, next) {
 		const refreshToken = req.body.token;
-		console.log(refreshToken);
 		refreshTokens = refreshTokens.filter(
 			(token) => token != refreshToken
 		);

@@ -4,11 +4,9 @@ import { useState } from "react";
 import Popover from "@mui/material/Popover";
 import Box from "@mui/material/Box";
 import axiosMethod from "../../middlewares/axios";
-import axios from "axios";
 import globalStateAndAction from "../../container/global.state.action";
 import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
-import jwt_decode from "jwt-decode";
 import jwtDecode from "jwt-decode";
 function Auth() {
 	const [cookies, setCookie, removeCookie] = useCookies(["user"]);

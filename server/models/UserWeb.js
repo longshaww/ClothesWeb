@@ -14,7 +14,8 @@ const UserWeb = new mongoose.Schema(
 			address: { type: String, required: true }
 		},
 		isAdmin: { type: Boolean, required: true, default: false },
-	},
+		myPoint : {type : Number , required : true , default : 0 }
+ 	},
 	{
 		timestamps: true,
 		collection: "UserWeb",

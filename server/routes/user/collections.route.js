@@ -10,6 +10,8 @@ router.get(
 	"/new-arrivals-without-pag",
 	collectionsController.getAllNewArrivalsWithOutPagination
 );
+router.get("/get-15-newarrivals",collectionsController.get15NewArrivals);
+
 router.get("/tops", collectionsController.getAllTops);
 router.get("/tops-without-pag", collectionsController.getAllTopsWithOutPag);
 router.get("/bottoms", collectionsController.getAllBottoms);
