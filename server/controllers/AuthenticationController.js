@@ -94,7 +94,6 @@ class AuthenticationController {
 							token !== refreshToken;
 						});
 
-						console.log(customerData);
 						const newAccessToken = jwt.sign(
 							{
 								id: customerData.id,
