@@ -11,37 +11,51 @@ class AuthenticationController {
 	//[GET] /register
 	async register(req, res, next) {
 
-		const userSentinel = await User.findOne({"email": req.body.email});
-		if(!userSentinel)
-		{
-
-			let customData = {
-				email: req.body.email,
-				password: md5(req.body.password),
-				information: {
-					name: req.body.information.name,
-					dateOfBirth: req.body.information.dateOfBirth,
-					phoneNumber: req.body.information.phoneNumber,
-					gender: req.body.information.gender,
-					address: req.body.information.address,
-				},
-				isAdmin: false,
-			};
-			
-			const user = await new User(customData);
-
-			await user.save();
-			res.json({
-				success: true,
-				data: user,
+		let newCustomer;
+		try {
+			if (!req.body) {
+				res.status(400).send("You cannot post without data");
+			}
+			const {
+				email,
+				nameCustomer,
+				password,
+				phoneNumber,
+				dateOfBirth,
+				gender,
+				avatar,
+				address,
+			} = req.body;
+			new Date(dateOfBirth);
+			const existedCustomer = await Customers.findOne({
+				email,
 			});
-		}
-		else
-		{
-			res.status(404).json({
-				success: false,
-				msg : "TÀI KHOẢN ĐÃ TỒN TẠI"
-			})
+			if (existedCustomer !== null) {
+				newCustomer = existedCustomer;
+				existedCustomer.isRegister = true;
+				existedCustomer.save();
+			} else {
+				newCustomer = await Customers.create({
+					nameCustomer,
+					address,
+					email,
+					phoneNumber,
+				});
+			}
+
+			const newUser = await User.create({
+				email: newCustomer.email,
+				password,
+				dateOfBirth,
+				gender,
+				avatar,
+				customer: newCustomer._id,
+			});
+			const resUser = await newUser.populate("customer");
+			res.status(201).json(resUser);
+		} catch (err) {
+			res.status(400).send("Something wrong ~!");
+			throw new Error(err);
 		}
 
 
