@@ -1,8 +1,7 @@
 const express = require("express");
 const router = express.Router();
 
-router.get("/",(req,res,next)=>{
-        res.send("hello");
-})
+const billAdminController = require("../../controllers/admin/BillAdminController");
+router.get("/getNewBill",billAdminController.getNewBill);
 
 module.exports = router;
