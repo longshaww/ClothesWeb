@@ -22,6 +22,8 @@ import LayoutAdmin from "./layouts/layoutAdmin";
 import Register from "./components/auth/register";
 import Home from "./features/home/home";
 import Dashboard from './features/admin/dashboard/dashboard';
+import ListUser from './features/admin/user/listUser';
+import ProductList from './features/admin/product/productList';
 
 function App() {
 	const [cookies] = useCookies(["user"]);
@@ -39,6 +41,16 @@ function App() {
 						element={<Dashboard/>}
 					>
 					</Route>
+					<Route 
+						path="users"
+						element={ <ListUser />}
+					>
+         			</Route>
+					 <Route 
+						path="products"
+						element={ <ProductList />}
+					>
+         			</Route>
 				</Route>
 			);
 		}
