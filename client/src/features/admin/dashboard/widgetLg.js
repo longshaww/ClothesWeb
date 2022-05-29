@@ -1,6 +1,14 @@
 import "../../../assets/styles/admin/widgetLg.css";
+import globalStateAndAction from '../../../container/global.state.action';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
-export default function WidgetLg() {
+ function WidgetLg({listDashBoard}) {
+   const [listTransactions,setListTransactions] = useState();
+  useEffect(() => {
+    console.log(listDashBoard);
+    setListTransactions()
+  })
   const Button = ({ type }) => {
     return <button className={"widgetLgButton " + type}>{type}</button>;
   };
@@ -78,3 +86,4 @@ export default function WidgetLg() {
     </div>
   );
 }
+export default globalStateAndAction(WidgetLg)

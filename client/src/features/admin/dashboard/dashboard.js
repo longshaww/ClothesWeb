@@ -28,13 +28,9 @@ function Dashboard({ listDashBoard, setDataDashBoard }) {
 	}, [listDashBoard]);
 
 	return (
-		<div className="home">
+		<div className="home mt-5">
 			<FeaturedInfo />
 			<Chart data={lineChartBill} title="Money Analytics" grid dataKey="TOTAL" />
-			<div className="homeWidgets">
-				<WidgetSm />
-				<WidgetLg />
-			</div>
 		</div>
 	);
 }
