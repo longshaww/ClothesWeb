@@ -10,53 +10,38 @@ let refreshTokens = [];
 class AuthenticationController {
 	//[GET] /register
 	async register(req, res, next) {
-
-		let newCustomer;
-		try {
-			if (!req.body) {
-				res.status(400).send("You cannot post without data");
-			}
-			const {
-				email,
-				nameCustomer,
-				password,
-				phoneNumber,
-				dateOfBirth,
-				gender,
-				avatar,
-				address,
-			} = req.body;
-			new Date(dateOfBirth);
-			const existedCustomer = await Customers.findOne({
-				email,
+	
+		const sentinelUser = await User.find({"email" : req.body.email})
+		if(!sentinelUser) {
+			let customData = {
+				email: req.body.email,
+				password: md5(req.body.password),
+				information: {
+					name: req.body.information.name,
+					dateOfBirth: req.body.information.dateOfBirth,
+					phoneNumber: req.body.information.phoneNumber,
+					gender: req.body.information.gender,
+					address: req.body.information.address,
+				},
+				isAdmin: false,
+			};
+			
+			const user = await new User(customData);
+	
+			await user.save();
+			res.json({
+				success: true,
+				data: user,
 			});
-			if (existedCustomer !== null) {
-				newCustomer = existedCustomer;
-				existedCustomer.isRegister = true;
-				existedCustomer.save();
-			} else {
-				newCustomer = await Customers.create({
-					nameCustomer,
-					address,
-					email,
-					phoneNumber,
-				});
-			}
-
-			const newUser = await User.create({
-				email: newCustomer.email,
-				password,
-				dateOfBirth,
-				gender,
-				avatar,
-				customer: newCustomer._id,
-			});
-			const resUser = await newUser.populate("customer");
-			res.status(201).json(resUser);
-		} catch (err) {
-			res.status(400).send("Something wrong ~!");
-			throw new Error(err);
 		}
+		else{
+			res.json({
+				success: false,
+				msg : "FAILED"
+			})
+		}
+	
+		
 
 
 	}
@@ -67,25 +52,28 @@ class AuthenticationController {
 		const listCustomers = await User.find({});
 
 		const customerData = await listCustomers.find((el) => {
-			return el["email"] === email && el["password"] === md5(password);
+			return el["email"].toLowerCase() === email.toLowerCase() && el["password"] === md5(password);
 		});
+	
+	
+			if (customerData) {
+				const accessToken = generateAccessToken(customerData);
+				const refreshToken = generateRefreshToken(customerData);
+	
+				refreshTokens.push(refreshToken);
+				res.status(200).json({
+					success: true,
+					accessToken,
+					refreshToken
+				});
+			} else {
+				res.status(400).json({
+					success: false,
+					msg: "Tài khoản mật khẩu không đúng",
+				});
+			}
 
-		if (customerData) {
-			const accessToken = generateAccessToken(customerData);
-			const refreshToken = generateRefreshToken(customerData);
-
-			refreshTokens.push(refreshToken);
-			res.status(200).json({
-				success: true,
-				accessToken,
-				refreshToken
-			});
-		} else {
-			res.status(400).json({
-				success: false,
-				msg: "Tài khoản mật khẩu không đúng",
-			});
-		}
+		
 	}
 	//[POST] /refreshToken/
 	async refreshToken(req, res, next) {

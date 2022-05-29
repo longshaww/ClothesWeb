@@ -9,7 +9,8 @@ import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 function Auth() {
-	const [cookies, setCookie, removeCookie] = useCookies(["user"]);
+	const [cookies, setCookie, removeCookie] = useCookies(["user","accessToken"]);
+	
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	// click submit
@@ -26,6 +27,7 @@ function Auth() {
 				if (res.success === true) {
 					const info =  await jwtDecode(res.accessToken);
 					setCookie("user",info);
+					setCookie("accessToken",res.accessToken)
 				}
 			}
 		
@@ -42,6 +44,7 @@ function Auth() {
 			if(res.success === true)
 			{
 				removeCookie("user");
+				removeCookie("accessToken");
 			}
 		
 		} catch (err) {

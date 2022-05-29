@@ -1,10 +1,13 @@
-const User = require("../../models/User");
+const User = require("../../models/UserWeb");
 const Bill = require("../../models/Bills");
 const Product = require("../../models/Product");
 const moment = require("moment");
 class DashBoardController {
     // [GET] /admin/dashboard/getDashBoard
     async getDashboard(req, res, next) {
+
+        const listUser = await User.find({"isAdmin": false}).limit(5);
+
         const d = await new Date();
         let month = d.getMonth() + 1;
         let qtyBill = 0;
@@ -77,7 +80,7 @@ class DashBoardController {
                         sentinel = false
                         let customData = {
                             name: arrayChart[i].createdAt,
-                            "totalMoney": sumMoneyOfDate
+                            "TOTAL": sumMoneyOfDate
                         }
                         lineChartBill.push(customData);
                         sentinelBeforeArray = false
@@ -87,7 +90,7 @@ class DashBoardController {
                         sumMoneyOfDate = arrayChart[i].totalMoney;
                         let customData = {
                             name: arrayChart[i].createdAt,
-                            "totalMoney": sumMoneyOfDate
+                            "TOTAL": sumMoneyOfDate
                         }
                         lineChartBill.push(customData);
                         sumMoneyOfDate = 0;
@@ -98,7 +101,7 @@ class DashBoardController {
                     sumMoneyOfDate = arrayChart[i].totalMoney;
                     let customData = {
                         name: arrayChart[i].createdAt,
-                        "totalMoney": sumMoneyOfDate
+                        "TOTAL": sumMoneyOfDate
                     }
                     lineChartBill.push(customData);
                     sumMoneyOfDate = 0;
@@ -106,16 +109,18 @@ class DashBoardController {
                 }
 
         }
-        res.send({
+        res.status(200).json({
             success: true,
-            bills: {
-                listBillOffMonth: dataBillCustom,
-                arrayChart,
-                lineChartBill,
-                qtyBill,
-            },
-            qtyProduct,
-            qtyUser,
+            data :{ 
+                bills: {
+                    listBillOffMonth: dataBillCustom,
+                    lineChartBill,
+                    qtyBill,
+                },
+                qtyProduct,
+                qtyUser,
+                listUser
+            }   
         });
     }
 }

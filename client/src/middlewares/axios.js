@@ -6,6 +6,7 @@ export default async function axiosMethod(endpoint, method, body) {
 		data: body,
 		url: `${process.env.REACT_APP_API_URL}${endpoint}`,
 		withCredentials: true,
+	
 	});
 	const data = res.data;
 	return data;

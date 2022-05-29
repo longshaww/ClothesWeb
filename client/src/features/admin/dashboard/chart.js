@@ -8,6 +8,7 @@ import {
   ResponsiveContainer,
 } from "recharts";
 
+
 export default function Chart({ title, data, dataKey, grid }) {
 
   return (

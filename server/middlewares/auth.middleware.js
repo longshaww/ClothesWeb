@@ -2,8 +2,8 @@ const jwt = require('jsonwebtoken');
 
 module.exports = {
     verifyAdmin: async (req, res, next) => {
+     
         const authHeader = req.headers.authorization;
-  
         if (authHeader) {
             const token = authHeader.split(" ")[1];
             jwt.verify(token, "mySecretKey", (err, dataUser) => {

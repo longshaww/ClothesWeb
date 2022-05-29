@@ -24,6 +24,12 @@ const SET_USER = "SET_USER";
 
 const searchInput = true;
 
+
+
+//ADMIN	 
+
+const SET_DATA_DASHBOARD=  "SET_DATA_DASHBOARD";
+
 export {
 	collectionsEndpoint,
 	topsEndpoint,
@@ -43,4 +49,5 @@ export {
 	SET_USER,
 	SET_CUSTOMER,
 	SET_METHOD,
+	SET_DATA_DASHBOARD
 };
