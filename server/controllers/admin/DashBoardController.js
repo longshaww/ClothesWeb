@@ -6,7 +6,7 @@ class DashBoardController {
     // [GET] /admin/dashboard/getDashBoard
     async getDashboard(req, res, next) {
 
-        const listUser = await User.find({"isAdmin": false}).limit(5);
+        const listUser = await User.find({ "isAdmin": false }).limit(5);
 
         const d = await new Date();
         let month = d.getMonth() + 1;
@@ -56,10 +56,9 @@ class DashBoardController {
         for (let i = 0; i < arrayChart.length; i++) {
 
             // TH1  : TIEP TUC CHAY DANG TRONG CHUNG GIA TRI 
-           
 
-            if(i !== arrayChart.length-1)
-            {                
+
+            if (i !== arrayChart.length - 1) {
                 if (arrayChart[i].createdAt === arrayChart[i + 1].createdAt) {
                     // CONG 1 GIA TRI VI DA CONG 2 GIA TRI BAN DAU R 
                     if (sentinel) {
@@ -76,27 +75,16 @@ class DashBoardController {
 
                 }
                 else if (arrayChart[i].createdAt !== arrayChart[i + 1].createdAt && sentinelBeforeArray === true) {
-                        sumMoneyOfDate += arrayChart[i].totalMoney
-                        sentinel = false
-                        let customData = {
-                            name: arrayChart[i].createdAt,
-                            "TOTAL": sumMoneyOfDate
-                        }
-                        lineChartBill.push(customData);
-                        sentinelBeforeArray = false
-                        sumMoneyOfDate = 0;
+                    sumMoneyOfDate += arrayChart[i].totalMoney
+                    sentinel = false
+                    let customData = {
+                        name: arrayChart[i].createdAt,
+                        "TOTAL": sumMoneyOfDate
                     }
-                    else {
-                        sumMoneyOfDate = arrayChart[i].totalMoney;
-                        let customData = {
-                            name: arrayChart[i].createdAt,
-                            "TOTAL": sumMoneyOfDate
-                        }
-                        lineChartBill.push(customData);
-                        sumMoneyOfDate = 0;
-    
-                    }
-                }    
+                    lineChartBill.push(customData);
+                    sentinelBeforeArray = false
+                    sumMoneyOfDate = 0;
+                }
                 else {
                     sumMoneyOfDate = arrayChart[i].totalMoney;
                     let customData = {
@@ -107,20 +95,32 @@ class DashBoardController {
                     sumMoneyOfDate = 0;
 
                 }
+            }
+            else {
+                sumMoneyOfDate = arrayChart[i].totalMoney;
+                let customData = {
+                    name: arrayChart[i].createdAt,
+                    "TOTAL": sumMoneyOfDate
+                }
+                lineChartBill.push(customData);
+                sumMoneyOfDate = 0;
+
+            }
 
         }
         res.status(200).json({
             success: true,
-            data :{ 
+            data: {
                 bills: {
                     listBillOffMonth: dataBillCustom,
                     lineChartBill,
-                    qtyBill,
+
                 },
+                qtyBill,
                 qtyProduct,
                 qtyUser,
                 listUser
-            }   
+            }
         });
     }
 }

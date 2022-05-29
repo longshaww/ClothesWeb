@@ -1,6 +1,5 @@
 import Chart from "../dashboard/chart"
 import FeaturedInfo from "../dashboard/featuredInfo";
-import { userData } from "../dashboard/dummyData";
 import WidgetSm from "../dashboard/widgetSm";
 import WidgetLg from "../dashboard/widgetLg";
 import "../../../assets/styles/admin/home.css"

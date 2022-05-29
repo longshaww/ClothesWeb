@@ -1,39 +1,47 @@
 import "../../../assets/styles/admin/featuredInfo.css";
 import { ArrowDownward, ArrowUpward } from "@material-ui/icons";
+import globalStateAndAction from '../../../container/global.state.action';
+import { useState } from 'react';
+import { useEffect } from 'react';
 
-export default function FeaturedInfo() {
+function FeaturedInfo({listDashBoard}) {
+  const [infoQty,setInfoQty] = useState({
+    qtyProduct : 0 ,
+    qtyBill : 0 ,
+    qtyUser : 0 
+  })
+  useEffect(() =>{
+    setInfoQty(()=>({
+      qtyProduct :listDashBoard.qtyProduct ,
+      qtyBill :listDashBoard.qtyBill,
+      qtyUser :listDashBoard.qtyUser
+    }))
+  },[listDashBoard])
   return (
     <div className="featured">
       <div className="featuredItem">
-        <span className="featuredTitle">Revanue</span>
+        <span className="featuredTitle">TỔNG SẢN PHẨM</span>
         <div className="featuredMoneyContainer">
-          <span className="featuredMoney">$2,415</span>
-          <span className="featuredMoneyRate">
-            -11.4 <ArrowDownward  className="featuredIcon negative"/>
-          </span>
+          <span className="featuredMoney">{infoQty.qtyProduct}</span>
+         
         </div>
-        <span className="featuredSub">Compared to last month</span>
+        <span className="featuredSub">SẢN PHẨM</span>
       </div>
       <div className="featuredItem">
-        <span className="featuredTitle">Sales</span>
+        <span className="featuredTitle">TỔNG ĐƠN TRONG THÁNG</span>
         <div className="featuredMoneyContainer">
-          <span className="featuredMoney">$4,415</span>
-          <span className="featuredMoneyRate">
-            -1.4 <ArrowDownward className="featuredIcon negative"/>
-          </span>
+          <span className="featuredMoney">{infoQty.qtyBill}</span>
         </div>
-        <span className="featuredSub">Compared to last month</span>
+        <span className="featuredSub">ĐƠN HÀNG</span>
       </div>
       <div className="featuredItem">
-        <span className="featuredTitle">Cost</span>
+        <span className="featuredTitle">TỔNG KHÁCH HÀNG</span>
         <div className="featuredMoneyContainer">
-          <span className="featuredMoney">$2,225</span>
-          <span className="featuredMoneyRate">
-            +2.4 <ArrowUpward className="featuredIcon"/>
-          </span>
+          <span className="featuredMoney">{infoQty.qtyUser}</span>
         </div>
-        <span className="featuredSub">Compared to last month</span>
+        <span className="featuredSub">KHÁCH HÀNG</span>
       </div>
     </div>
   );
 }
+export default globalStateAndAction(FeaturedInfo)
