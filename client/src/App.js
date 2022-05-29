@@ -18,10 +18,12 @@ import CustomerInfo from "./features/Checkout/components/customer.info";
 import PaymentMethod from "./features/Checkout/components/payment.method";
 import OnlinePayment from "./features/Payment/pages/index";
 import { useCookies } from "react-cookie";
-import Dashboard from "./features/admin/dashboard/dashboard";
 import LayoutAdmin from "./layouts/layoutAdmin";
 import Register from "./components/auth/register";
 import Home from "./features/home/home";
+import Dashboard from './features/admin/dashboard/dashboard';
+import ListUser from './features/admin/user/listUser';
+import ProductList from './features/admin/product/productList';
 
 function App() {
 	const [cookies] = useCookies(["user"]);
@@ -36,8 +38,19 @@ function App() {
 				<Route path="/admin" element={<LayoutAdmin />}>
 					<Route
 						path="dashboard"
-						element={<Dashboard></Dashboard>}
-					></Route>
+						element={<Dashboard/>}
+					>
+					</Route>
+					<Route 
+						path="users"
+						element={ <ListUser />}
+					>
+         			</Route>
+					 <Route 
+						path="products"
+						element={ <ProductList />}
+					>
+         			</Route>
 				</Route>
 			);
 		}

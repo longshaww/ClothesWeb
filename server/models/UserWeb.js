@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Customer = require("./Customers");
 const { Schema } = mongoose;
+const mongooseDelete = require('mongoose-delete')
 
 const UserWeb = new mongoose.Schema(
 	{
@@ -14,12 +15,16 @@ const UserWeb = new mongoose.Schema(
 			address: { type: String, required: true }
 		},
 		isAdmin: { type: Boolean, required: true, default: false },
-	},
+		myPoint : {type : Number , required : true , default : 0 }
+ 	},
 	{
 		timestamps: true,
 		collection: "UserWeb",
 		versionKey: false,
 	}
 );
-
+UserWeb.plugin(mongooseDelete, {
+	overrideMethods: true,
+	deletedAt: true
+  });
 module.exports = mongoose.model("UserWeb", UserWeb);

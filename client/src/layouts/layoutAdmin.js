@@ -1,12 +1,16 @@
 import NavbarAppAdmin from "../components/navbars/navbarAdmin/navbarAdmin";
-// import Footer from "../components/footer/footer";
-import { Outlet } from "react-router-dom";
 
-export default function Layout() {
-	return (
-		<div>
-			<NavbarAppAdmin />
-			<Outlet />
-		</div>
-	);
+import "../assets/styles/admin/layoutadmin.css"
+import Sidebar from '../components/navbars/navbarAdmin/sideBarAdmin';
+import { Outlet } from 'react-router-dom';
+export default function LayoutAdmin() {
+  return (
+    <>
+        <NavbarAppAdmin />
+        <div className="respon">
+                <Sidebar />
+                <Outlet/>
+        </div>
+    </>
+  );
 }

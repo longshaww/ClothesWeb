@@ -3,7 +3,6 @@ import {
 	SET_CART_STORE,
 	SET_PRODUCT_CART_PRICE,
 	SET_CART_TOTAL_PRICE,
-	SET_EMPTY,
 } from "../constants/constants";
 
 const setCartCount = (data) => ({

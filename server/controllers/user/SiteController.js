@@ -2,20 +2,7 @@ const ProductsModel = require("../../models/Product");
 const fs = require("fs");
 const name = require("../../crawldata/data/datadangkyvitir.json");
 // const cloudinary = require("../utils/cloudinary");
-
-function checkIfNameOrNot(ascending, descending, list) {
-	if (ascending === "true") {
-		list.sort((a, b) => {
-			return a.price - b.price;
-		});
-	}
-	if (descending === "true") {
-		list.sort((a, b) => {
-			return b.price - a.price;
-		});
-	}
-	return list;
-}
+const {checkIfNameOrNot} = require("../../utils/function");
 class SiteController {
 	async getProducts(req, res) {
 		try {

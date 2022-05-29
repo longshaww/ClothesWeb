@@ -2,17 +2,16 @@ const jwt = require('jsonwebtoken');
 
 module.exports = {
     verifyAdmin: async (req, res, next) => {
-        const authHeader = req.headers.authorization;
      
+        const authHeader = req.headers.authorization;
         if (authHeader) {
             const token = authHeader.split(" ")[1];
-            jwt.verify(token, "mySecretKey", (err, dataCustomer) => {
+            jwt.verify(token, "mySecretKey", (err, dataUser) => {
                 if (err) {
-                    return res.status(401).json("token không được định nghĩa");
+                    return res.status(401).json("Token không được định nghĩa");
                 } else {
-                    console.log(dataCustomer);
-                    if (dataCustomer.isAdmin) {
-                        req.customer = dataCustomer;
+                    if (dataUser.isAdmin) {
+                        req.user = dataUser;
                         next();
                     }
                     else {
@@ -36,7 +35,7 @@ module.exports = {
         if (authHeader) {
             console.log(authHeader);
             const token = authHeader.split(" ")[1];
-            jwt.verify(token, "mySecretKey", (err, dataCustomer) => {
+            jwt.verify(token, "mySecretKey", (err, dataUser) => {
                 if (err) {
                     return res.json(
                         {"success" : false,
@@ -44,7 +43,7 @@ module.exports = {
                 } else {
              
                     console.log("thanh cong")
-                    req.customer = dataCustomer;
+                    req.customer = dataUser;
                     next();
 
 
