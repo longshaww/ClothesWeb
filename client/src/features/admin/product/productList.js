@@ -5,7 +5,7 @@ import { productRows } from "../dashboard/dummyData";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import globalStateAndAction from '../../../container/global.state.action';
-
+//
  function ProductList() {
   const [data, setData] = useState(productRows);
 
