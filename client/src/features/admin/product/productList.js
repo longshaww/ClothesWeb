@@ -4,8 +4,9 @@ import { DeleteOutline } from "@material-ui/icons";
 import { productRows } from "../dashboard/dummyData";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import globalStateAndAction from '../../../container/global.state.action';
 
-export default function ProductList() {
+ function ProductList() {
   const [data, setData] = useState(productRows);
 
   const handleDelete = (id) => {
@@ -70,3 +71,5 @@ export default function ProductList() {
     </div>
   );
 }
+
+export default globalStateAndAction(ProductList)
