@@ -50,37 +50,50 @@ class DashBoardController {
         let sentinelBeforeArray = false
         let sumMoneyOfDate = 0;
 
-        for (let i = 0; i < arrayChart.length-1; i++) {
+        for (let i = 0; i < arrayChart.length; i++) {
 
             // TH1  : TIEP TUC CHAY DANG TRONG CHUNG GIA TRI 
+           
 
-            if (arrayChart[i].createdAt === arrayChart[i + 1].createdAt) {
-                // CONG 1 GIA TRI VI DA CONG 2 GIA TRI BAN DAU R 
-                if (sentinel) {
-                    sumMoneyOfDate += arrayChart[i].totalMoney
-                }
-                else
-                // CONG 2 GIA tri ban dau 
-                {
-                    sumMoneyOfDate = arrayChart[i].totalMoney + arrayChart[i + 1].totalMoney;
-                    sentinel = true;
-                    sentinelBeforeArray = true;
-                    i++;
-                }
-
-            }
-            else
-                if (arrayChart[i].createdAt !== arrayChart[i + 1].createdAt && sentinelBeforeArray === true) {
-                    sumMoneyOfDate += arrayChart[i].totalMoney
-                    sentinel = false
-                    let customData = {
-                        name: arrayChart[i].createdAt,
-                        "totalMoney": sumMoneyOfDate
+            if(i !== arrayChart.length-1)
+            {                
+                if (arrayChart[i].createdAt === arrayChart[i + 1].createdAt) {
+                    // CONG 1 GIA TRI VI DA CONG 2 GIA TRI BAN DAU R 
+                    if (sentinel) {
+                        sumMoneyOfDate += arrayChart[i].totalMoney
                     }
-                    lineChartBill.push(customData);
-                    sentinelBeforeArray = false
-                    sumMoneyOfDate = 0;
+                    else
+                    // CONG 2 GIA tri ban dau 
+                    {
+                        sumMoneyOfDate = arrayChart[i].totalMoney + arrayChart[i + 1].totalMoney;
+                        sentinel = true;
+                        sentinelBeforeArray = true;
+                        i++;
+                    }
+
                 }
+                else if (arrayChart[i].createdAt !== arrayChart[i + 1].createdAt && sentinelBeforeArray === true) {
+                        sumMoneyOfDate += arrayChart[i].totalMoney
+                        sentinel = false
+                        let customData = {
+                            name: arrayChart[i].createdAt,
+                            "totalMoney": sumMoneyOfDate
+                        }
+                        lineChartBill.push(customData);
+                        sentinelBeforeArray = false
+                        sumMoneyOfDate = 0;
+                    }
+                    else {
+                        sumMoneyOfDate = arrayChart[i].totalMoney;
+                        let customData = {
+                            name: arrayChart[i].createdAt,
+                            "totalMoney": sumMoneyOfDate
+                        }
+                        lineChartBill.push(customData);
+                        sumMoneyOfDate = 0;
+    
+                    }
+                }    
                 else {
                     sumMoneyOfDate = arrayChart[i].totalMoney;
                     let customData = {
@@ -91,7 +104,8 @@ class DashBoardController {
                     sumMoneyOfDate = 0;
 
                 }
-         }
+
+        }
         res.send({
             success: true,
             bills: {
