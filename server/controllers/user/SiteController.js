@@ -2,7 +2,7 @@ const ProductsModel = require("../../models/Product");
 const fs = require("fs");
 const name = require("../../crawldata/data/datadangkyvitir.json");
 // const cloudinary = require("../utils/cloudinary");
-const {checkIfNameOrNot} = require("../../utils/function");
+const { checkIfNameOrNot } = require("../../utils/function");
 class SiteController {
 	async getProducts(req, res) {
 		try {
@@ -16,7 +16,10 @@ class SiteController {
 	}
 
 	getAllSite(req, res, next) {
-		res.send("Success");
+		res.send({
+			success: true,
+			message: "Welcome to Phu Le and Long Tran server",
+		});
 	}
 
 	async searchView(req, res, next) {
@@ -52,6 +55,14 @@ class SiteController {
 			throw new Error(err);
 		}
 	}
+	calculateOrderAmount = (items) => {
+		const reduce =
+			items.reduce((a, b) => {
+				return a + b.sum;
+			}, 0) / 23;
+		const total = parseInt(reduce.toFixed(2).replace(".", ""));
+		return total;
+	};
 	//[GET] /getLocation
 	getLocation(req, res, next) {
 		const rawdata = fs.readFileSync(
@@ -71,6 +82,22 @@ class SiteController {
 		res.json({
 			success: true,
 			products: listProduct,
+		});
+	}
+	async chargePayment(req, res, next) {
+		const { items } = req.body;
+
+		// Create a PaymentIntent with the order amount and currency
+		const paymentIntent = await stripe.paymentIntents.create({
+			amount: calculateOrderAmount(items),
+			currency: "usd",
+			automatic_payment_methods: {
+				enabled: true,
+			},
+		});
+
+		res.send({
+			clientSecret: paymentIntent.client_secret,
 		});
 	}
 }
