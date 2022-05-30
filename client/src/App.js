@@ -12,7 +12,7 @@ import NewArrivals from "./features/New-Arrivals/pages/new.arrivals";
 import Search from "./features/Search/search";
 import Cart from "./features/Cart/pages/cart";
 import Checkout from "./features/Checkout/pages/checkout";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route,Navigate } from "react-router-dom";
 import PaymentSuccess from "./features/Payment/pages/success";
 import CustomerInfo from "./features/Checkout/components/customer.info";
 import PaymentMethod from "./features/Checkout/components/payment.method";
@@ -24,37 +24,14 @@ import Home from "./features/home/home";
 import Dashboard from './features/admin/dashboard/dashboard';
 import ListUser from './features/admin/user/listUser';
 import ProductList from './features/admin/product/productList';
+import { useEffect } from 'react';
 
 function App() {
 	const [cookies] = useCookies(["user"]);
-
-	const renderAdmin = () => {
-		let user;
-		if (cookies.user !== undefined) {
-			user = cookies.user.isAdmin;
-		}
-		if (user) {
-			return (
-				<Route path="/admin" element={<LayoutAdmin />}>
-					<Route
-						path="dashboard"
-						element={<Dashboard/>}
-					>
-					</Route>
-					<Route 
-						path="users"
-						element={ <ListUser />}
-					>
-         			</Route>
-					 <Route 
-						path="products"
-						element={ <ProductList />}
-					>
-         			</Route>
-				</Route>
-			);
-		}
-	};
+	let user;
+	if (cookies.user !== undefined) {
+		user = cookies.user.isAdmin;
+	}
 	return (
 		<div>
 			<Routes>
@@ -133,8 +110,26 @@ function App() {
 						index
 						element={<PaymentSuccess />}
 					></Route>
+					
+						
 				</Route>
-				{renderAdmin()}
+				<Route path="/admin" element={user ? <LayoutAdmin /> : <Navigate to="/" />}>
+					<Route
+						path="dashboard"
+						element={<Dashboard/>}
+					>
+					</Route>
+					<Route 
+						path="users"
+						element={ <ListUser />}
+					>
+         			</Route>
+					 <Route 
+						path="products"
+						element={ <ProductList />}
+					>
+         			</Route>
+				</Route>
 			</Routes>
 		</div>
 	);

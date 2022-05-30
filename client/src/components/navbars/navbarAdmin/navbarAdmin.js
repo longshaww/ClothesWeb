@@ -8,21 +8,7 @@ import avatar from "../../../assets/images/avatar.jpeg";
 import axiosMethod from "../../../middlewares/axios";
 
 export default function NavbarAppAdmin() {
-  const [cookies, setCookie, removeCookie] = useCookies(["user","accessToken"]);
-  const handleClickLogOut = async () => {
-		try {
-			const res = await axiosMethod("authJWT/logout","POST");
-			if(res.success === true)
-			{
-				
-				removeCookie("accessToken");
-   
-			}
-		
-		} catch (err) {
-			console.log(err);
-		}
-	};
+ 
 	return (
         <div className="topbar">
         <div className="topbarWrapper">
@@ -47,11 +33,9 @@ export default function NavbarAppAdmin() {
             </div>
             <div className="topbarIconContainer" >
                    
-              <span onClick={handleClickLogOut}>
-								Đăng xuất
-							</span>
+         
             </div>
-            <img src={avatar} alt="" className="topAvatar" />
+            <Auth/>
 
           </div>
         </div>

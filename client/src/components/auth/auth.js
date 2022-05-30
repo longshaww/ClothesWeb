@@ -26,8 +26,8 @@ function Auth() {
 
 				if (res.success === true) {
 					const info =  await jwtDecode(res.accessToken);
-					setCookie("user",info);
-					setCookie("accessToken",res.accessToken)
+					setCookie("user",info,{ path: '/' });
+					setCookie("accessToken",res.accessToken,{ path: '/' })
 				}
 			}
 		
@@ -42,10 +42,11 @@ function Auth() {
 			const res = await axiosMethod("authJWT/logout","POST");
 			if(res.success === true)
 			{
-				removeCookie("user");
-				removeCookie("accessToken");
+				removeCookie("user",{ path: '/' });
+				removeCookie("accessToken",{ path: '/' });
+	
 			}
-		
+			
 		} catch (err) {
 			console.log(err);
 		}
