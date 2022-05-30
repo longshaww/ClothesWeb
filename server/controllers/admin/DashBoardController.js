@@ -97,14 +97,28 @@ class DashBoardController {
                 }
             }
             else {
-                sumMoneyOfDate = arrayChart[i].totalMoney;
-                let customData = {
-                    name: arrayChart[i].createdAt,
-                    "TOTAL": sumMoneyOfDate
+                if(sentinelBeforeArray)
+                {
+                    sumMoneyOfDate += arrayChart[i].totalMoney;
+                    let customData = {
+                        name: arrayChart[i].createdAt,
+                        "TOTAL": sumMoneyOfDate
+                    }
+                    lineChartBill.push(customData);
+                    sumMoneyOfDate = 0;
+    
                 }
-                lineChartBill.push(customData);
-                sumMoneyOfDate = 0;
-
+                else
+                {
+                    sumMoneyOfDate = arrayChart[i].totalMoney;
+                    let customData = {
+                        name: arrayChart[i].createdAt,
+                        "TOTAL": sumMoneyOfDate
+                    }
+                    lineChartBill.push(customData);
+                    sumMoneyOfDate = 0;
+                }
+            
             }
 
         }
