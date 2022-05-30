@@ -4,7 +4,6 @@ import { useState } from "react";
 import Popover from "@mui/material/Popover";
 import Box from "@mui/material/Box";
 import axiosMethod from "../../middlewares/axios";
-import globalStateAndAction from "../../container/global.state.action";
 import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
 import jwtDecode from "jwt-decode";
@@ -24,10 +23,11 @@ function Auth() {
 			else
 			{
 				const res = await axiosMethod("authJWT/login","POST", { email, password });
+
 				if (res.success === true) {
 					const info =  await jwtDecode(res.accessToken);
-					setCookie("user",info);
-					setCookie("accessToken",res.accessToken)
+					setCookie("user",info,{ path: '/' });
+					setCookie("accessToken",res.accessToken,{ path: '/' })
 				}
 			}
 		
@@ -40,13 +40,13 @@ function Auth() {
 	const handleClickLogOut = async () => {
 		try {
 			const res = await axiosMethod("authJWT/logout","POST");
-			
 			if(res.success === true)
 			{
-				removeCookie("user");
-				removeCookie("accessToken");
+				removeCookie("user",{ path: '/' });
+				removeCookie("accessToken",{ path: '/' });
+	
 			}
-		
+			
 		} catch (err) {
 			console.log(err);
 		}
@@ -151,8 +151,8 @@ function Auth() {
 					}}
 				>
 					<div id="cart-container" className="px-3">
-						<h6 class="text-center">THÔNG TIN TÀI KHOẢN</h6>
-						<hr class="mt-2"></hr>
+						<h6 className="text-center">THÔNG TIN TÀI KHOẢN</h6>
+						<hr className="mt-2"></hr>
 						<div>
 							<span>
 								{cookies.user.information.name}
@@ -208,4 +208,4 @@ function Auth() {
 	);
 }
 
-export default globalStateAndAction(Auth);
+export default Auth;

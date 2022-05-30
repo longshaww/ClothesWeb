@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
-const Types = require("./Types");
+const Types  = require("./Types");
 const Collections = require("./Collections");
-
+const { Schema } = mongoose;
 const Products = new mongoose.Schema(
 	{
 		nameProduct: String,
@@ -11,7 +11,7 @@ const Products = new mongoose.Schema(
 			imageList: Array,
 			productDes: String,
 			price: Number, // Number
-			type: { type: String},
+			type: { type: Schema.Types.ObjectId,ref: 'Types'},
 			collection: {
 				type: String
 			},

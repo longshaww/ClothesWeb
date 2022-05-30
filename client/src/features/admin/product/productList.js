@@ -3,10 +3,33 @@ import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
 import { productRows } from "../dashboard/dummyData";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState,useEffect } from "react";
+import globalStateAndAction from '../../../container/global.state.action';
+import axios from 'axios';
+import { useCookies } from "react-cookie";
 
-export default function ProductList() {
+ function ProductList() {
+  
   const [data, setData] = useState(productRows);
+  const [listProduct,setListProduct] = useState([]);
+  const [cookies] = useCookies();
+  const getData = async () => {
+    const endpoint = `${process.env.REACT_APP_API_URL}admin/products/getAllProduct`
+
+		const { data } = await axios.get(endpoint,
+			{
+				headers: {
+					authorization:
+						"Bearer " + cookies.accessToken,
+				},
+			});
+      setListProduct(data.listProduct);
+	};
+	useEffect(() => {
+		getData();
+
+	}, [listProduct]);
+
 
   const handleDelete = (id) => {
     setData(data.filter((item) => item.id !== id));
@@ -70,3 +93,5 @@ export default function ProductList() {
     </div>
   );
 }
+
+export default globalStateAndAction(ProductList)

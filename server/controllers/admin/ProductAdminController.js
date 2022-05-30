@@ -1,9 +1,12 @@
 const Product = require("../../models/Product");
+const Types = require("../../models/Types");
 class ProductAdminController
  {
-    async getALlProduct(req,res,next)
+    async getAllProduct(req,res,next)
     {
-        const listProduct = await Product.find({})
+        
+        const listProduct = await Product.find({}).populate('description.type');
+       
         res.status(200).json({
             success: true,
             listProduct
