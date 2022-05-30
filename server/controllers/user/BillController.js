@@ -1,13 +1,15 @@
 const Bill = require("../../models/Bills");
 const Customer = require("../../models/Customers");
 const Session = require("../../models/Sessions");
+const User = require("../../models/User");
 
 class BillController {
 	async postBill(req, res, next) {
 		const sessionId = req.signedCookies.sessionId;
-
+		let customerID;
 		try {
 			const {
+				userID,
 				nameCustomer,
 				email,
 				phoneNumber,
@@ -15,14 +17,22 @@ class BillController {
 				paymentMethod,
 				listProduct,
 			} = req.body;
-			const newCustomer = await Customer.create({
-				nameCustomer,
-				email,
-				phoneNumber,
-				address,
-			});
+
+			if (userID) {
+				const thisUser = await User.findById(userID);
+				customerID = thisUser.customer;
+			} else {
+				const newCustomer = await Customer.create({
+					nameCustomer,
+					email,
+					phoneNumber,
+					address,
+				});
+				customerID = newCustomer.id;
+			}
+
 			const newBill = await Bill.create({
-				customerID: newCustomer.id,
+				customerID: customerID,
 				listProduct,
 				paymentMethod,
 				status: true,
