@@ -1,5 +1,8 @@
 const Product = require("../../models/Product");
-const Types = require("../../models/Types");
+const Bill = require("../../models/Bills");
+const moment = require("moment");
+var ObjectId = require("mongodb").ObjectId;
+
 class ProductAdminController {
     async getAllProduct(req, res, next) {
 
@@ -54,6 +57,33 @@ class ProductAdminController {
             msg: "SUCCESS"
         })
 
+    }
+
+    async ProductDetail(req,res,next)
+    {
+        const d = await new Date();
+        let month = d.getMonth() + 1;
+        let qtyBill = 0;
+        const listBillOffMonth = await Bill.aggregate([
+            {
+                $redact: {
+                    $cond: [
+                        { $eq: [{ $month: "$createdAt" }, month] },
+                        "$$KEEP",
+                        "$$PRUNE",
+                    ],
+                },
+            },
+        ]);
+        let dataCustom =[];
+        Promise.all( await listBillOffMonth.map(async (el)=>{
+            let product =  await el['listProduct'].find(async (el1)=>{
+                return await el1['_id'] === ObjectId(req.params.id)
+            })
+        
+            dataCustom.push(product);
+        }))
+        res.send(dataCustom);
     }
 }
 module.exports = new ProductAdminController();
