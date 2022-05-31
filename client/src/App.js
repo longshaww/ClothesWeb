@@ -24,8 +24,8 @@ import Home from "./features/home/home";
 import Dashboard from './features/admin/dashboard/dashboard';
 import ListUser from './features/admin/user/listUser';
 import ProductList from './features/admin/product/productList';
-import { useEffect } from 'react';
-
+import User from "./features/admin/user/user"
+import DetailProduct from './features/admin/product/productDetail';
 function App() {
 	const [cookies] = useCookies(["user"]);
 	let user;
@@ -124,11 +124,17 @@ function App() {
 						element={ <ListUser />}
 					>
          			</Route>
+					 <Route path="users/:id"
+					         element={ <User />}
+					 ></Route>
 					 <Route 
 						path="products"
 						element={ <ProductList />}
 					>
          			</Route>
+					 <Route path="products/:id"
+					         element={ <DetailProduct />}
+					 ></Route>
 				</Route>
 			</Routes>
 		</div>

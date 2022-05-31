@@ -41,7 +41,6 @@ import { useCookies } from "react-cookie";
       headerName: "Tên Sản Phẩm",
       width: 200,
       renderCell: (params) => {
-        console.log(params)
         return (
           <div className="productListItem">
             <img className="productListImg" src={params.row.image} alt="" />
@@ -79,7 +78,7 @@ import { useCookies } from "react-cookie";
       renderCell: (params) => {
         return (
           <>
-            <Link to={"/product/" + params.row.id}>
+            <Link to={ params.row.id}>
               <button className="productListEdit">Edit</button>
             </Link>
             <DeleteOutline

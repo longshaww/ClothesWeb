@@ -26,8 +26,8 @@ function Auth() {
 
 				if (res.success === true) {
 					const info =  await jwtDecode(res.accessToken);
-					setCookie("user",info,{ path: '/' });
-					setCookie("accessToken",res.accessToken,{ path: '/' })
+					setCookie("user",info);
+					setCookie("accessToken",res.accessToken)
 				}
 			}
 		
