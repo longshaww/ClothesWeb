@@ -1,7 +1,6 @@
 import "../../../assets/styles/admin/productList.css";
 import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
-import { productRows } from "../dashboard/dummyData";
 import { Link } from "react-router-dom";
 import { useState,useEffect } from "react";
 import globalStateAndAction from '../../../container/global.state.action';
