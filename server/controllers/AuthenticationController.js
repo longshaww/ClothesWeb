@@ -11,7 +11,8 @@ class AuthenticationController {
 	//[GET] /register
 	async register(req, res, next) {
 	
-		const sentinelUser = await User.find({"email" : req.body.email})
+		const sentinelUser = await User.findOne({"email" : req.body.email})
+		
 		if(!sentinelUser) {
 			let customData = {
 				email: req.body.email,

@@ -23,6 +23,7 @@ import { useCookies } from "react-cookie";
 			});
       
       setData(data.listDataCustom);
+  
 	};
 	useEffect(() => {
 		getData();

@@ -6,7 +6,7 @@ import { useState ,useEffect} from "react";
 import axios from 'axios';
 import { useCookies } from "react-cookie";
 export default function ListUser() {
-  const [data, setData] = useState([]);
+  const [dataUser, setData] = useState([]);
   const [cookies] = useCookies();
   const getData = async () => {
     const endpoint = `${process.env.REACT_APP_API_URL}admin/users/getAllUser`
@@ -24,18 +24,47 @@ export default function ListUser() {
 	useEffect(() => {
 		getData();
 
-	}, [data]);
+	}, [dataUser]);
 
-  const handleDelete = (id) => {
-    setData(data.filter((item) => item.id !== id));
+  const  handleOpenBlock = async (id) => {
+
+    const endpoint = `${process.env.REACT_APP_API_URL}admin/users/openBan/${id}`
+
+    const res = await axios.get(endpoint,
+			{
+				headers: {
+					authorization:
+						"Bearer " + cookies.accessToken,
+				},
+			});
+    if(res.data.success === true )
+    {
+      alert("MỞ BLOCK USER THÀNH CÔNG")
+    }
   };
   
-  const columns = [
-    { field: "id", headerName: "ID", width: 210 },
+  const handleBlock = async (id)=>{
+    const endpoint = `${process.env.REACT_APP_API_URL}admin/users/banuser/${id}`
+
+    const res = await axios.delete(endpoint,
+			{
+				headers: {
+					authorization:
+						"Bearer " + cookies.accessToken,
+				},
+			});
+    if(res.data.success === true )
     {
-      field: "name",
-      headerName: "User",
-      width: 200,
+      alert("BLOCK USER THÀNH CÔNG")
+    }
+  }
+
+  const columns = [
+    { field: "id", headerName: "ID", width: 150 },
+    {
+      field: "email",
+      headerName: "Email",
+      width: 230,
       renderCell: (params) => {
         return (
           <div className="userListUser">
@@ -64,17 +93,14 @@ export default function ListUser() {
     {
       field: "action",
       headerName: "Action",
-      width: 150,
+      width: 400,
       renderCell: (params) => {
         return (
           <>
-            <Link to={params.row.id}>
-              <button className="userListEdit">Edit</button>
-            </Link>
-            <DeleteOutline
-              className="userListDelete"
-              onClick={() => handleDelete(params.row.id)}
-            />
+            {params.row.bans === false ?   <button className="btn btn-danger" style={{width:"111px"}} onClick={()=>(handleBlock(params.row.id))}>BLOCK</button> :  <button className="btn btn-success" onClick={()=>(handleOpenBlock(params.row.id))}>MỞ BLOCK</button> }
+             
+      
+            
           </>
         );
       },
@@ -84,7 +110,7 @@ export default function ListUser() {
   return (
     <div className="userList">
       <DataGrid
-        rows={data}
+        rows={dataUser}
         disableSelectionOnClick
         columns={columns}
         pageSize={9}
