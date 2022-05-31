@@ -13,7 +13,7 @@ const Products = new mongoose.Schema(
 			price: Number, // Number
 			type: { type: Schema.Types.ObjectId,ref: 'Types'},
 			collection: {
-				type: String
+				 type: Schema.Types.ObjectId,ref: 'Collections'
 			},
 		},
 		discount: Object,
