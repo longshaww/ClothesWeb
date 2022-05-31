@@ -2,13 +2,7 @@ const User = require("../../models/User");
 const Bill = require("../../models/Bills");
 const Product = require("../../models/Product");
 class AdminController {
-    getDashboard(req,res,next)
-    {
-        
-    }
-    
-
-    async getBill(req,res,next)
+  async getBill(req,res,next)
     {
         const bill = await Bill.find({});
         res.status(200).json({

@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const Collections = new mongoose.Schema(
 	{
-		collectionName: {
+		typeName: {
 			type: String,
 			enum: ["Tops", "Bottoms", "Outerwears", "Accessories"],
 		},

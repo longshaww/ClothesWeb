@@ -1,7 +1,6 @@
 import "../../../assets/styles/admin/productList.css";
 import { DataGrid } from "@material-ui/data-grid";
 import { DeleteOutline } from "@material-ui/icons";
-import { productRows } from "../dashboard/dummyData";
 import { Link } from "react-router-dom";
 import { useState,useEffect } from "react";
 import globalStateAndAction from '../../../container/global.state.action';
@@ -10,8 +9,7 @@ import { useCookies } from "react-cookie";
 
  function ProductList() {
   
-  const [data, setData] = useState(productRows);
-  const [listProduct,setListProduct] = useState([]);
+  const [data, setData] = useState([]);
   const [cookies] = useCookies();
   const getData = async () => {
     const endpoint = `${process.env.REACT_APP_API_URL}admin/products/getAllProduct`
@@ -23,12 +21,14 @@ import { useCookies } from "react-cookie";
 						"Bearer " + cookies.accessToken,
 				},
 			});
-      setListProduct(data.listProduct);
+      
+      setData(data.listDataCustom);
+  
 	};
 	useEffect(() => {
 		getData();
 
-	}, [listProduct]);
+	}, [data]);
 
 
   const handleDelete = (id) => {
@@ -38,29 +38,40 @@ import { useCookies } from "react-cookie";
   const columns = [
     { field: "id", headerName: "ID", width: 90 },
     {
-      field: "product",
-      headerName: "Product",
+      field: "nameProduct",
+      headerName: "Tên Sản Phẩm",
       width: 200,
       renderCell: (params) => {
         return (
           <div className="productListItem">
-            <img className="productListImg" src={params.row.img} alt="" />
-            {params.row.name}
+            <img className="productListImg" src={params.row.image} alt="" />
+            {params.row.nameProduct}
           </div>
         );
       },
     },
-    { field: "stock", headerName: "Stock", width: 200 },
+    { field: "price", headerName: "Giá", width: 200 },
     {
-      field: "status",
-      headerName: "Status",
+      field: "collections",
+      headerName: "Loại",
       width: 120,
     },
     {
-      field: "price",
-      headerName: "Price",
+      field: "sizeM",
+      headerName: "Size M",
       width: 160,
     },
+    {
+      field: "sizeL",
+      headerName: "Size L",
+      width: 160,
+    },
+    {
+      field: "sizeXL",
+      headerName: "Size XL",
+      width: 160,
+    },
+
     {
       field: "action",
       headerName: "Action",
@@ -68,7 +79,7 @@ import { useCookies } from "react-cookie";
       renderCell: (params) => {
         return (
           <>
-            <Link to={"/product/" + params.row.id}>
+            <Link to={ params.row.id}>
               <button className="productListEdit">Edit</button>
             </Link>
             <DeleteOutline

@@ -27,7 +27,7 @@ class CollectionsController {
 		// data fake
 		const idFake = "6295e2c2edafd2b5ebe66cd3";
 		const newArrivals = await Products.find({
-			"description.collection": idFake,
+			"description.collection": ObjectId(idFake),
 		})
 			.skip(skip)
 			.limit(pageSize);
@@ -49,12 +49,13 @@ class CollectionsController {
 		// data user click id  collection  new arrivals
 		const selection = req.body.selection;
 		// data fake
-		const idFake = "621c506fbae8653bcb4564ac";
+		const idFake = "6295e2c2edafd2b5ebe66cd3";
 		const tops = await Products.find({
-			"description.collection": idFake,
+			"description.collection": ObjectId(idFake),
 		})
 			.skip(skip)
 			.limit(pageSize);
+		console.log(tops);
 		tops
 			? res.status(202).json(tops)
 			: res.status(404).json({
@@ -74,7 +75,7 @@ class CollectionsController {
 		// data fake
 		const idFake = "621c50a7bae8653bcb4564b1";
 		const bottoms = await Products.find({
-			"description.collection": idFake,
+			"description.collection": ObjectId(idFake),
 		})
 			.skip(skip)
 			.limit(pageSize);
@@ -97,7 +98,7 @@ class CollectionsController {
 		// data fake
 		const idFake = "621c50e0bae8653bcb4564b4";
 		const accessories = await Products.find({
-			"description.collection": idFake,
+			"description.collection": ObjectId(idFake),
 		})
 			.skip(skip)
 			.limit(pageSize);
@@ -120,7 +121,7 @@ class CollectionsController {
 		// data fake
 		const idFake = "621c50c7bae8653bcb4564b3";
 		const outerwears = await Products.find({
-			"description.collection": idFake,
+			"description.collection": ObjectId(idFake),
 		})
 			.skip(skip)
 			.limit(pageSize);
@@ -136,10 +137,10 @@ class CollectionsController {
 
 	async getHomeNewArrivals(req, res, next) {
 		// data fake
-		const idFake = "621e4d91df99d34d865f9e55";
+		const idFake = "6295e2c2edafd2b5ebe66cd3";
 		let listProduct = [];
 		const product = await Products.find({
-			"description.collection": idFake,
+			"description.collection": ObjectId(idFake),
 		});
 		for (var i = 0; i < 15; i++) {
 			listProduct.push(product[i]);
@@ -154,7 +155,7 @@ class CollectionsController {
 	async get15NewArrivals(req, res) {
 		const idFake = "6295e2c2edafd2b5ebe66cd3";
 		const newArrivals = await Products.find({
-			"description.collection": idFake,
+			"description.collection": ObjectId(idFake),
 		});
 		const listProduct = await newArrivals.splice(7, 6);
 		res.send({

@@ -5,5 +5,6 @@ const productAdminController = require("../../controllers/admin/ProductAdminCont
 
 router.get("/getAllProduct",productAdminController.getAllProduct);
 router.post("/createProduct",productAdminController.createProduct);
+router.get("/detailProduct/:id",productAdminController.ProductDetail)
 router.post("/editProduct/:id",productAdminController.editProduct);
 module.exports = router;
