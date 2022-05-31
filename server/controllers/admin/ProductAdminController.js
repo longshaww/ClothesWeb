@@ -5,8 +5,6 @@ var ObjectId = require("mongodb").ObjectId;
 
 class ProductAdminController {
     async getAllProduct(req, res, next) {
-
-    
             const listProduct = await Product.find()
                 .populate('description.collection').exec()
 
@@ -56,34 +54,39 @@ class ProductAdminController {
             success: true,
             msg: "SUCCESS"
         })
-
     }
 
     async ProductDetail(req,res,next)
     {
-        const d = await new Date();
-        let month = d.getMonth() + 1;
-        let qtyBill = 0;
-        const listBillOffMonth = await Bill.aggregate([
-            {
-                $redact: {
-                    $cond: [
-                        { $eq: [{ $month: "$createdAt" }, month] },
-                        "$$KEEP",
-                        "$$PRUNE",
-                    ],
-                },
-            },
-        ]);
-        let dataCustom =[];
-        Promise.all( await listBillOffMonth.map(async (el)=>{
-            let product =  await el['listProduct'].find(async (el1)=>{
-                return await el1['_id'] === ObjectId(req.params.id)
-            })
+      
+        const product = await Product.findOne({"_id" :  ObjectId(req.params.id)}).populate('description.collection').exec()
         
-            dataCustom.push(product);
-        }))
-        res.send(dataCustom);
+        let customData = {
+            nameProduct : product.nameProduct,
+            price : product.price,
+            sizeM : product.size[2].qty,
+            sizeL  : product.size[1].qty,
+            sizeXL : product.size[0].qty,
+            image1: product.description.imageList[0],
+            image2 : product.description.imageList[1],
+            description : product.description.productDes,
+            collection :product.description.collection.typeName
+            
+        };
+        res.status(200).json({
+            success: true,
+            customData 
+        })
+    }
+    async deleteProduct(req, res, next) {
+        Product.deleteOne({"_id":ObjectId(req.params.id)})
+        .then(()=>{
+            res.status(200).json({
+                success: true,
+                msg:"SUCCESS"
+            })
+        })
+        .catch(next)
     }
 }
 module.exports = new ProductAdminController();

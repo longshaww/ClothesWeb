@@ -31,8 +31,20 @@ import { useCookies } from "react-cookie";
 	}, [data]);
 
 
-  const handleDelete = (id) => {
-    setData(data.filter((item) => item.id !== id));
+  const handleDelete = async (id) => {
+    const endpoint = `${process.env.REACT_APP_API_URL}admin/products/deleteProduct/${id}`
+
+		const res = await axios.delete(endpoint,
+			{
+				headers: {
+					authorization:
+						"Bearer " + cookies.accessToken,
+				},
+			});
+      if(res.data.success === true)
+      {
+        alert("Xóa Thành Công")
+      }
   };
 
   const columns = [
