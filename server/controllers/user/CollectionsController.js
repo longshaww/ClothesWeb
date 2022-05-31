@@ -25,7 +25,7 @@ class CollectionsController {
 		// data user click id  collection  new arrivals
 		const selection = req.body.selection;
 		// data fake
-		const idFake = "621e4d91df99d34d865f9e55";
+		const idFake = "6295e2c2edafd2b5ebe66cd3";
 		const newArrivals = await Products.find({
 			"description.collection": ObjectId(idFake),
 		})
@@ -137,7 +137,7 @@ class CollectionsController {
 
 	async getHomeNewArrivals(req, res, next) {
 		// data fake
-		const idFake = "621e4d91df99d34d865f9e55";
+		const idFake = "6295e2c2edafd2b5ebe66cd3";
 		let listProduct = [];
 		const product = await Products.find({
 			"description.collection": ObjectId(idFake),
@@ -153,7 +153,7 @@ class CollectionsController {
 
 	// GETNEWARRIVALS 15 PRODUCTS
 	async get15NewArrivals(req, res) {
-		const idFake = "621e4d91df99d34d865f9e55";
+		const idFake = "6295e2c2edafd2b5ebe66cd3";
 		const newArrivals = await Products.find({
 			"description.collection": ObjectId(idFake),
 		});
