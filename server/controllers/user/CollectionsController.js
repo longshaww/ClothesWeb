@@ -157,7 +157,7 @@ class CollectionsController {
 		const newArrivals = await Products.find({
 			"description.collection": ObjectId(idFake),
 		});
-		const listProduct = await newArrivals.splice(8, 6);
+		const listProduct = await newArrivals.splice(7, 6);
 		res.send({
 			success: true,
 			listProduct,
