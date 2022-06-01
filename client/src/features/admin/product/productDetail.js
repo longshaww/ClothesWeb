@@ -11,6 +11,16 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 export default function DetailProduct() {
   let { id } = useParams();
+  const [inputs, setInputs] = useState({
+		nameProduct: "",
+		price: "",
+		collections: "",
+		sizeM: "",
+		sizeL: "",
+    sizeXL :"",
+    image1 : "",
+    image2: ""
+	});
   const [dataDetail, setDataDetail] = useState({});
   const [cookies] = useCookies();
   const getData = async () => {
@@ -24,6 +34,18 @@ export default function DetailProduct() {
 
     setDataDetail(data.customData);
   };
+
+  const handleSubmit = async (event) => {
+		event.preventDefault();
+		// const data = await axiosMethod("auth/register", "post", inputs);
+		// console.log(inputs);
+	};
+
+	const handleChange = (event) => {
+		setInputs((values) => ({ ...values}));
+    console.log(inputs)
+	};
+
   useEffect(() => {
     getData();
   }, [dataDetail]);
@@ -76,7 +98,7 @@ export default function DetailProduct() {
         </div>
       </div>
       <div className="productBottom">
-        <form>
+        <form onSubmit={handleSubmit}>
           <div class="form-row">
             <div class="form-group col-md-4">
               <label for="inputEmail4">Tên Sản Phẩm</label>
@@ -87,6 +109,8 @@ export default function DetailProduct() {
                 name="nameProduct"
                 placeholder="Email"
                 value={dataDetail.nameProduct}
+                onChange={handleChange}
+
               />
             </div>
             <div class="form-group col-md-4">
@@ -98,6 +122,8 @@ export default function DetailProduct() {
                 placeholder="Email"
                 name="price"
                 value={dataDetail.price}
+                onChange={handleChange}
+
               />
             </div>
           </div>
@@ -122,6 +148,8 @@ export default function DetailProduct() {
               placeholder="qty"
               name="sizeM"
               value={dataDetail.sizeM}
+              onChange={handleChange}
+
             />
           </div>
 
@@ -134,6 +162,8 @@ export default function DetailProduct() {
               placeholder="qty"
               name="sizeL"
               value={dataDetail.sizeL}
+              onChange={handleChange}
+
             />
             
           </div>
@@ -146,6 +176,8 @@ export default function DetailProduct() {
               name="sizeXL"
               placeholder="qty"
               value={dataDetail.sizeXL}
+              onChange={handleChange}
+
             />
             
           </div>
@@ -153,11 +185,29 @@ export default function DetailProduct() {
           <div className="d-flex">
           <div class="mb-3 col-md-2">
                      <label for="formFile" class="form-label">Hình Trước</label>
-                     <input class="form-control" type="file" id="formFile"/>
+                     <input
+                type="text"
+                class="form-control"
+                id="inputEmail4"
+                name="nameProduct"
+                placeholder="Email"
+                value={dataDetail.nameProduct}
+                onChange={handleChange}
+
+              />
           </div>  
           <div class="mb-3 col-md-2">
                      <label for="formFile" class="form-label">Hình Sau</label>
-                     <input class="form-control" type="file" id="formFile"/>
+                     <input
+                type="text"
+                class="form-control"
+                id="inputEmail4"
+                name="nameProduct"
+                placeholder="Email"
+                value={dataDetail.nameProduct}
+                onChange={handleChange}
+
+              />
           </div>  
           </div>
        

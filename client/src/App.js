@@ -25,6 +25,7 @@ import Dashboard from './features/admin/dashboard/dashboard';
 import ListUser from './features/admin/user/listUser';
 import ProductList from './features/admin/product/productList';
 import DetailProduct from './features/admin/product/productDetail';
+import NewProduct from './features/admin/product/newProduct';
 function App() {
 	const [cookies] = useCookies(["user"]);
 	let user;
@@ -126,6 +127,11 @@ function App() {
 					 <Route 
 						path="products"
 						element={ <ProductList />}
+					>
+         			</Route>
+					 	 <Route 
+						path="products/newProduct"
+						element={ <NewProduct />}
 					>
          			</Route>
 					 <Route path="products/:id"

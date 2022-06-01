@@ -49,11 +49,12 @@ class ProductAdminController {
         }
     }
     async editProduct(req, res, next) {
-        await Product.updateOne({ _id: req.params.id }, req.body)
-        res.status(200).json({
-            success: true,
-            msg: "SUCCESS"
-        })
+        console.log("vao")
+        // await Product.updateOne({ _id: req.params.id }, req.body)
+        // res.status(200).json({
+        //     success: true,
+        //     msg: "SUCCESS"
+        // })
     }
 
     async ProductDetail(req,res,next)
