@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { Schema } = mongoose;
 
 const Customers = new mongoose.Schema(
 	{
@@ -7,6 +8,7 @@ const Customers = new mongoose.Schema(
 		email: { type: String, required: true },
 		phoneNumber: { type: String, required: true },
 		isRegister: { type: Boolean, required: true, default: false },
+		userID: { type: Schema.Types.ObjectId, ref: "User" },
 	},
 	{
 		timestamps: true,

@@ -1,0 +1,132 @@
+[{
+  "_id": {
+    "$oid": "6291d3b893bd880d40d6b7e8"
+  },
+  "email": "ngocphu@gmail.com",
+  "password": "202cb962ac59075b964b07152d234b70",
+  "information": {
+    "name": "ngocphu",
+    "phoneNumber": "2031223",
+    "dateOfBirth": {
+      "$date": {
+        "$numberLong": "1670000400000"
+      }
+    },
+    "gender": true,
+    "address": "12 Nguyen THi MInh"
+  },
+  "isAdmin": false,
+  "myPoint": 0,
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1653724088351"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1654013967810"
+    }
+  },
+  "deleted": false,
+  "deletedAt": {
+    "$date": {
+      "$numberLong": "1654010399508"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "629613a1b1e85d067bdf6a86"
+  },
+  "email": "n@gmail.com",
+  "password": "202cb962ac59075b964b07152d234b70",
+  "information": {
+    "name": "ngocphu",
+    "phoneNumber": "2031223",
+    "dateOfBirth": {
+      "$date": {
+        "$numberLong": "1670000400000"
+      }
+    },
+    "gender": true,
+    "address": "12 Nguyen THi MInh"
+  },
+  "isAdmin": false,
+  "myPoint": 0,
+  "deleted": false,
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1654002593481"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1654013970409"
+    }
+  },
+  "deletedAt": {
+    "$date": {
+      "$numberLong": "1654010395052"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "629614178bb4df65c9532626"
+  },
+  "email": "at400123@gmail.com",
+  "password": "12345678",
+  "information": {
+    "name": "Trần Thanh Long",
+    "phoneNumber": "0938200394",
+    "dateOfBirth": {
+      "$date": {
+        "$numberLong": "1008201600000"
+      }
+    }
+  },
+  "isAdmin": true,
+  "deleted": false,
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1653556002435"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1654013965130"
+    }
+  },
+  "deletedAt": {
+    "$date": {
+      "$numberLong": "1654010364289"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "629614218bb4df65c9532627"
+  },
+  "email": "ngocphupham@gmail.com",
+  "password": "202cb962ac59075b964b07152d234b70",
+  "information": {
+    "name": "ngocphu",
+    "phoneNumber": "2031223",
+    "dateOfBirth": {
+      "$date": {
+        "$numberLong": "1670000400000"
+      }
+    },
+    "gender": true,
+    "address": "12 Nguyen THi MInh"
+  },
+  "isAdmin": true,
+  "deleted": false,
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1653649786323"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1653649786323"
+    }
+  }
+}]
