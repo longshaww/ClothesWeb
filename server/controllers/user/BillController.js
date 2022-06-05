@@ -4,6 +4,18 @@ const Session = require("../../models/Sessions");
 const User = require("../../models/User");
 
 class BillController {
+	async getListInfoUser(req, res) {
+		const { userID } = req.body;
+		if (!userID) {
+			return res.status(400).send("Bad request");
+		}
+		try {
+			const listInfo = await Customer.find({ userID });
+			res.status(200).json(listInfo);
+		} catch (err) {
+			res.status(400).send(err);
+		}
+	}
 	async getBillHistory(req, res) {
 		let bills;
 		const { userID } = req.body;
