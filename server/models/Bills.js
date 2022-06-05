@@ -23,6 +23,8 @@ const Bills = new mongoose.Schema(
 				sum: { type: Number, required: true },
 			},
 		],
+		qtyProduct: { type: Number, required: true },
+		total: { type: Number, required: true },
 		paymentMethod: {
 			type: String,
 			required: true,

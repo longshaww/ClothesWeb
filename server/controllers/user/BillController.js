@@ -4,7 +4,26 @@ const Session = require("../../models/Sessions");
 const User = require("../../models/User");
 
 class BillController {
-	validateCustomerDIff() {}
+	async getBillHistory(req, res) {
+		let bills;
+		const { userID } = req.body;
+
+		if (!userID) {
+			return res.status(400).send("Bad request");
+		}
+		try {
+			const customers = await Customer.find({
+				userID,
+			});
+			for (let customer of customers) {
+				bills = await Bill.find({ customer: customer.id });
+			}
+			res.status(200).json(bills);
+		} catch (err) {
+			res.status(400).send(err);
+		}
+	}
+
 	async postBill(req, res, next) {
 		const sessionId = req.signedCookies.sessionId;
 		let customerID;
@@ -59,6 +78,8 @@ class BillController {
 			newBill.listProduct = listProduct;
 			newBill.paymentMethod = paymentMethod;
 			newBill.status = true;
+			newBill.total = listProduct.reduce((a, b) => a + b.sum, 0);
+			newBill.qtyProduct = listProduct.reduce((a, b) => a + b.qty, 0);
 			await newBill.save();
 
 			const currentSession = await Session.findById(sessionId);
