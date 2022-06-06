@@ -5,28 +5,42 @@ const User = require("../../models/User");
 
 class BillController {
 	async addNewInfoUser(req, res) {
-		const { nameCustomer, address, email, isRegister, userID } = req.body;
+		const {
+			nameCustomer,
+			address,
+			email,
+			isRegister,
+			userID,
+			phoneNumber,
+		} = req.body;
 		if (!nameCustomer || !address || !isRegister || !email || !userID) {
 			res.status(400).send("Bad request");
 		}
-		if (!req.body) {
-			return res.status(400).send("Bad request");
-		}
 		try {
-			const newCustomer = await Customer.create(req.body);
+			const newCustomer = await Customer.create({
+				nameCustomer,
+				address,
+				email,
+				isRegister,
+				userID,
+				phoneNumber,
+			});
+
 			res.status(200).json(newCustomer);
 		} catch (err) {
+			console.log(err);
 			res.status(400).send(err);
 		}
 	}
 
-	async editInfoUser() {
-		const { _id, nameCustomer, address, phoneNumber } = req.body;
-		if (!_id || !nameCustomer || !address || !phoneNumber) {
+	async editInfoUser(req, res) {
+		const { id } = req.params;
+		const { nameCustomer, address, phoneNumber } = req.body;
+		if (!id || !nameCustomer || !address || !phoneNumber) {
 			res.status(400).send("Bad request");
 		}
 		try {
-			const updateCus = await Customer.findById(_id);
+			const updateCus = await Customer.findById(id);
 			if (!updateCus) {
 				return res.status(404).send("Not found");
 			}
@@ -34,21 +48,20 @@ class BillController {
 			updateCus.address = address;
 			updateCus.phoneNumber = phoneNumber;
 			const newCus = await updateCus.save();
+
 			res.status(200).json(newCus);
 		} catch (err) {
 			res.status(400).send(err);
 		}
 	}
 
-	async deleteInfoUser() {
-		const { _id } = req.body;
-		if (!_id) {
+	async deleteInfoUser(req, res) {
+		const { id } = req.params;
+		if (!id) {
 			res.status(400).send("Bad request");
 		}
 		try {
-			const deleteCustomer = await Customer.findOneAndDelete({
-				id: _id,
-			});
+			const deleteCustomer = await Customer.findByIdAndDelete(id);
 			res.status(200).json(deleteCustomer);
 		} catch (err) {
 			res.status(400).send(err);
