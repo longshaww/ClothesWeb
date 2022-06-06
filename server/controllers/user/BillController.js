@@ -4,6 +4,57 @@ const Session = require("../../models/Sessions");
 const User = require("../../models/User");
 
 class BillController {
+	async addNewInfoUser(req, res) {
+		const { nameCustomer, address, email, isRegister, userID } = req.body;
+		if (!nameCustomer || !address || !isRegister || !email || !userID) {
+			res.status(400).send("Bad request");
+		}
+		if (!req.body) {
+			return res.status(400).send("Bad request");
+		}
+		try {
+			const newCustomer = await Customer.create(req.body);
+			res.status(200).json(newCustomer);
+		} catch (err) {
+			res.status(400).send(err);
+		}
+	}
+
+	async editInfoUser() {
+		const { _id, nameCustomer, address, phoneNumber } = req.body;
+		if (!_id || !nameCustomer || !address || !phoneNumber) {
+			res.status(400).send("Bad request");
+		}
+		try {
+			const updateCus = await Customer.findById(_id);
+			if (!updateCus) {
+				return res.status(404).send("Not found");
+			}
+			updateCus.nameCustomer = nameCustomer;
+			updateCus.address = address;
+			updateCus.phoneNumber = phoneNumber;
+			const newCus = await updateCus.save();
+			res.status(200).json(newCus);
+		} catch (err) {
+			res.status(400).send(err);
+		}
+	}
+
+	async deleteInfoUser() {
+		const { _id } = req.body;
+		if (!_id) {
+			res.status(400).send("Bad request");
+		}
+		try {
+			const deleteCustomer = await Customer.findOneAndDelete({
+				id: _id,
+			});
+			res.status(200).json(deleteCustomer);
+		} catch (err) {
+			res.status(400).send(err);
+		}
+	}
+
 	async getListInfoUser(req, res) {
 		const { userID } = req.body;
 		if (!userID) {
@@ -57,16 +108,13 @@ class BillController {
 				);
 				if (
 					updateCus.nameCustomer !== nameCustomer ||
-					updateCus.email !== email ||
 					updateCus.phoneNumber !== phoneNumber ||
 					updateCus.address !== address
 				) {
-					const newCustomer = await Customer.create({
+					const newCustomer = await Customer.findOne({
 						nameCustomer,
-						email,
 						phoneNumber,
 						address,
-						userID: thisUser.id,
 					});
 					customerID = newCustomer.id;
 				} else {
