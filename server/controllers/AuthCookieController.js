@@ -48,6 +48,10 @@ class AuthCookieController {
 			const existedCustomer = await Customer.findOne({
 				email,
 			});
+			const existedUser = await User.findOne({ email });
+			if (existedUser) {
+				return res.status(400).send("Email has been register");
+			}
 			if (existedCustomer !== null) {
 				newCustomer = existedCustomer;
 				existedCustomer.isRegister = true;
@@ -60,7 +64,6 @@ class AuthCookieController {
 					phoneNumber,
 				});
 			}
-
 			const newUser = await User.create({
 				email: newCustomer.email,
 				password,
@@ -76,39 +79,21 @@ class AuthCookieController {
 			throw new Error(err);
 		}
 	}
-	async updateAccount(req, res, next) {
+	async updatePassword(req, res, next) {
 		try {
-			const {
-				userId,
-				phoneNumber,
-				address,
-				password,
-				currentPassword,
-			} = req.body;
-			if (!userId) {
-				res.status(400).send("Please provide userId !");
+			const { userId, password, currentPassword } = req.body;
+			if (!userId || !password || !currentPassword) {
+				return res.status(400).send("Please provide valid body !");
 			}
 			const thisUser = await User.findById(userId);
-			const thisCustomer = await Customer.findById(thisUser.customer);
-			if (phoneNumber && address) {
-				thisCustomer.phoneNumber = phoneNumber;
-				thisCustomer.address = address;
-				thisCustomer.save();
-				const resUser = await User.findById(userId).populate(
-					"customer"
-				);
-				res.status(200).json(resUser);
+			if (thisUser.password !== currentPassword) {
+				return res
+					.status(400)
+					.send("Current password does not match");
 			}
-			if (password && currentPassword) {
-				if (thisUser.password !== currentPassword) {
-					res.status(400).send(
-						"Current password does not match"
-					);
-				}
-				thisUser.password = password;
-				thisUser.save();
-				res.status(200).json(await thisUser.populate("customer"));
-			}
+			thisUser.password = password;
+			thisUser.save();
+			res.status(200).json(await thisUser.populate("customer"));
 		} catch (err) {
 			res.status(400).send("Something wrong ~!");
 			throw new Error(err);

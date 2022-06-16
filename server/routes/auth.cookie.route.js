@@ -5,6 +5,6 @@ const authCookieController = require("../controllers/AuthCookieController");
 
 router.post("/login", authCookieController.postLogin);
 router.post("/register", authCookieController.register);
-router.post("/update", authCookieController.updateAccount);
+router.post("/update", authCookieController.updatePassword);
 
 module.exports = router;
