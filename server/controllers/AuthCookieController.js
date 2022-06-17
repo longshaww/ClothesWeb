@@ -55,6 +55,7 @@ class AuthCookieController {
 				address,
 				email,
 				phoneNumber,
+				isRegistered: true,
 			});
 			const newUser = await User.create({
 				email: newCustomer.email,

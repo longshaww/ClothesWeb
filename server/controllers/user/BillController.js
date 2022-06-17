@@ -5,23 +5,18 @@ const User = require("../../models/User");
 
 class BillController {
 	async addNewInfoUser(req, res) {
-		const {
-			nameCustomer,
-			address,
-			email,
-			isRegister,
-			userID,
-			phoneNumber,
-		} = req.body;
-		if (!nameCustomer || !address || !isRegister || !email || !userID) {
-			res.status(400).send("Bad request");
+		const { nameCustomer, address, email, userID, phoneNumber } =
+			req.body;
+
+		if (!nameCustomer || !address || !email || !userID || !phoneNumber) {
+			return res.status(400).send("Bad request");
 		}
 		try {
 			const newCustomer = await Customer.create({
 				nameCustomer,
 				address,
 				email,
-				isRegister,
+				isRegister: true,
 				userID,
 				phoneNumber,
 			});
@@ -37,7 +32,7 @@ class BillController {
 		const { id } = req.params;
 		const { nameCustomer, address, phoneNumber } = req.body;
 		if (!id || !nameCustomer || !address || !phoneNumber) {
-			res.status(400).send("Bad request");
+			return res.status(400).send("Bad request");
 		}
 		try {
 			const updateCus = await Customer.findById(id);
@@ -48,7 +43,6 @@ class BillController {
 			updateCus.address = address;
 			updateCus.phoneNumber = phoneNumber;
 			const newCus = await updateCus.save();
-
 			res.status(200).json(newCus);
 		} catch (err) {
 			res.status(400).send(err);
@@ -58,7 +52,7 @@ class BillController {
 	async deleteInfoUser(req, res) {
 		const { id } = req.params;
 		if (!id) {
-			res.status(400).send("Bad request");
+			return res.status(400).send("Bad request");
 		}
 		try {
 			const deleteCustomer = await Customer.findByIdAndDelete(id);
@@ -81,7 +75,7 @@ class BillController {
 		}
 	}
 	async getBillHistory(req, res) {
-		let bills;
+		let bills = [];
 		const { userID } = req.body;
 
 		if (!userID) {
@@ -91,9 +85,11 @@ class BillController {
 			const customers = await Customer.find({
 				userID,
 			});
+
 			for (let customer of customers) {
-				bills = await Bill.find({ customerID: customer.id });
+				bills.push(await Bill.find({ customerID: customer.id }));
 			}
+			bills = bills.flat();
 			if (!bills) {
 				return res
 					.status(400)
@@ -156,7 +152,7 @@ class BillController {
 			newBill.listProduct = listProduct;
 			newBill.paymentMethod = paymentMethod;
 			newBill.status = true;
-			newBill.total = listProduct.reduce((a, b) => a + b.sum, 0);
+			newBill.total = listProduct.reduce((a, b) => a + b.sum, 0) + 35;
 			newBill.qtyProduct = listProduct.reduce((a, b) => a + b.qty, 0);
 			await newBill.save();
 
