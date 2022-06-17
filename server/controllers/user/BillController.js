@@ -92,12 +92,12 @@ class BillController {
 				userID,
 			});
 			for (let customer of customers) {
-				bills = await Bill.find({ customer: customer.id });
+				bills = await Bill.find({ customerID: customer.id });
 			}
 			if (!bills) {
 				return res
 					.status(400)
-					.send("Người dùng chưa đặt đơn hàng nao2");
+					.send("Người dùng chưa đặt đơn hàng nào");
 			}
 			res.status(200).json(bills);
 		} catch (err) {
@@ -161,10 +161,14 @@ class BillController {
 			await newBill.save();
 
 			const currentSession = await Session.findById(sessionId);
-			currentSession.cart = [];
-			currentSession.save();
+			if (currentSession) {
+				currentSession.cart = [];
+				currentSession.save();
+			}
 			res.status(201).json(newBill);
 		} catch (err) {
+			console.log(err);
+
 			res.status(400).send(err);
 		}
 	}
