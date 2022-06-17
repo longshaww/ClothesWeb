@@ -29,7 +29,6 @@ class AuthCookieController {
 	}
 
 	async register(req, res, next) {
-		let newCustomer;
 		try {
 			if (!req.body) {
 				res.status(400).send("You cannot post without data");
@@ -45,25 +44,18 @@ class AuthCookieController {
 				address,
 			} = req.body;
 			new Date(dateOfBirth);
-			const existedCustomer = await Customer.findOne({
-				email,
-			});
+
 			const existedUser = await User.findOne({ email });
 			if (existedUser) {
 				return res.status(400).send("Email has been register");
 			}
-			if (existedCustomer !== null) {
-				newCustomer = existedCustomer;
-				existedCustomer.isRegister = true;
-				existedCustomer.save();
-			} else {
-				newCustomer = await Customer.create({
-					nameCustomer,
-					address,
-					email,
-					phoneNumber,
-				});
-			}
+
+			const newCustomer = await Customer.create({
+				nameCustomer,
+				address,
+				email,
+				phoneNumber,
+			});
 			const newUser = await User.create({
 				email: newCustomer.email,
 				password,
@@ -72,6 +64,8 @@ class AuthCookieController {
 				avatar,
 				customer: newCustomer._id,
 			});
+			newCustomer.userID = newUser.id;
+			newCustomer.save();
 			const resUser = await newUser.populate("customer");
 			res.status(201).json(resUser);
 		} catch (err) {

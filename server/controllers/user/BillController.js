@@ -94,6 +94,11 @@ class BillController {
 			for (let customer of customers) {
 				bills = await Bill.find({ customer: customer.id });
 			}
+			if (!bills) {
+				return res
+					.status(400)
+					.send("Người dùng chưa đặt đơn hàng nao2");
+			}
 			res.status(200).json(bills);
 		} catch (err) {
 			res.status(400).send(err);
