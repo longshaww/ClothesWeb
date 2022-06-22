@@ -3,9 +3,9 @@ const fs = require("fs");
 const name = require("../../crawldata/data/datadangkyvitir.json");
 // const cloudinary = require("../utils/cloudinary");
 const { checkIfNameOrNot } = require("../../utils/function");
-const stripe = require("stripe")(
-	"sk_test_51KwO8iLbEwIz3CNxDmcyHUOdMcLCUa7UUu5Y7ltmoH8ogGdBSRDoYYwSvrxO1gNt97l6RUMclbvhBN4D5dmTZmMe00no4A2QPu"
-);
+const stripe = require("stripe")(process.env.STRIPE_KEY);
+const calculateOrderAmount = require("../../utils/calculate.amount");
+
 class SiteController {
 	async getProducts(req, res) {
 		try {
@@ -58,14 +58,7 @@ class SiteController {
 			throw new Error(err);
 		}
 	}
-	calculateOrderAmount = (items) => {
-		const reduce =
-			items.reduce((a, b) => {
-				return a + b.sum;
-			}, 0) / 23;
-		const total = parseInt(reduce.toFixed(2).replace(".", ""));
-		return total;
-	};
+
 	//[GET] /getLocation
 	getLocation(req, res, next) {
 		const rawdata = fs.readFileSync(
@@ -90,34 +83,23 @@ class SiteController {
 	async chargePayment(req, res, next) {
 		const { items } = req.body;
 
-		// Create a PaymentIntent with the order amount and currency
-		const paymentIntent = await stripe.paymentIntents.create({
-			amount: calculateOrderAmount(items),
-			currency: "usd",
-			automatic_payment_methods: {
-				enabled: true,
-			},
-		});
+		try {
+			// Create a PaymentIntent with the order amount and currency
+			const paymentIntent = await stripe.paymentIntents.create({
+				amount: calculateOrderAmount(items),
+				currency: "usd",
+				automatic_payment_methods: {
+					enabled: true,
+				},
+			});
 
-		res.send({
-			clientSecret: paymentIntent.client_secret,
-		});
+			res.status(200).send({
+				clientSecret: paymentIntent.client_secret,
+			});
+		} catch (err) {
+			res.status(400).send(err);
+		}
 	}
 }
-
-/// LONG /////
-// const postRoom = async (req, res) => {
-// 	var image = await cloudinary.uploader.unsigned_upload(
-// 		req.file.path,
-// 		"oeaxhoph"
-// 	);
-// 	req.body.image = image.secure_url;
-// 	try {
-// 		const room = await Rooms.create(req.body);
-// 		res.json(room);
-// 	} catch (error) {
-// 		res.status(500).json(error);
-// 	}
-// };
 
 module.exports = new SiteController();
