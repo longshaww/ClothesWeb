@@ -5,15 +5,14 @@ const {
 	generateRefreshToken,
 	generateAccessToken,
 } = require("../utils/function");
-const md5 = require("md5");	
+const md5 = require("md5");
 let refreshTokens = [];
 class AuthenticationController {
 	//[GET] /register
 	async register(req, res, next) {
-	
-		const sentinelUser = await User.findOne({"email" : req.body.email})
-		
-		if(!sentinelUser) {
+		const sentinelUser = await User.findOne({ email: req.body.email });
+
+		if (!sentinelUser) {
 			let customData = {
 				email: req.body.email,
 				password: md5(req.body.password),
@@ -26,25 +25,20 @@ class AuthenticationController {
 				},
 				isAdmin: false,
 			};
-			
+
 			const user = await new User(customData);
-	
+
 			await user.save();
 			res.json({
 				success: true,
 				data: user,
 			});
-		}
-		else{
+		} else {
 			res.json({
 				success: false,
-				msg : "FAILED"
-			})
+				msg: "FAILED",
+			});
 		}
-	
-		
-
-
 	}
 
 	//[POST] /login
@@ -53,28 +47,28 @@ class AuthenticationController {
 		const listCustomers = await User.find({});
 
 		const customerData = await listCustomers.find((el) => {
-			return el["email"].toLowerCase() === email.toLowerCase() && el["password"] === md5(password);
+			return (
+				el["email"].toLowerCase() === email.toLowerCase() &&
+				el["password"] === md5(password)
+			);
 		});
-	
-	
-			if (customerData) {
-				const accessToken = generateAccessToken(customerData);
-				const refreshToken = generateRefreshToken(customerData);
-	
-				refreshTokens.push(refreshToken);
-				res.status(200).json({
-					success: true,
-					accessToken,
-					refreshToken
-				});
-			} else {
-				res.status(400).json({
-					success: false,
-					msg: "Tài khoản mật khẩu không đúng",
-				});
-			}
 
-		
+		if (customerData) {
+			const accessToken = generateAccessToken(customerData);
+			const refreshToken = generateRefreshToken(customerData);
+
+			refreshTokens.push(refreshToken);
+			res.status(200).json({
+				success: true,
+				accessToken,
+				refreshToken,
+			});
+		} else {
+			res.status(400).json({
+				success: false,
+				msg: "Tài khoản mật khẩu không đúng",
+			});
+		}
 	}
 	//[POST] /refreshToken/
 	async refreshToken(req, res, next) {

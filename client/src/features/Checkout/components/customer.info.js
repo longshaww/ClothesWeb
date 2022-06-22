@@ -6,6 +6,11 @@ import axiosMethod from "../../../middlewares/axios";
 import { useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import ModalCreateInfo from "./modal.create.info";
+import Toast from "../../../utils/toast";
+import ModalEditInfo from "./modal.edit.info";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
 
 function CustomerInfo({ cart }) {
 	const cartStore = cart.cartStore;
@@ -17,12 +22,40 @@ function CustomerInfo({ cart }) {
 	const [dataProvince, setProvince] = useState();
 	const [dataListWards, setListWards] = useState([]);
 	const [dataWard, setWard] = useState([]);
+	const [inputs, setInputs] = useState({
+		nameCustomer: "",
+		email: "",
+		phoneNumber: "",
+		address: "",
+	});
 
-	const [inputs, setInputs] = useState({});
+	const userLocal = localStorage.getItem("user_info");
+	const userInfo = JSON.parse(userLocal);
+
+	const [changeInfo, setChangeInfo] = useState({
+		view: false,
+		modalCreate: false,
+		modalEdit: false,
+		listInfo: [],
+		checkedInfo: userLocal && userInfo._id,
+	});
 
 	useEffect(() => {
+		if (userLocal) {
+			setInputs({
+				...inputs,
+				nameCustomer: userInfo.nameCustomer,
+				email: userInfo.email,
+				phoneNumber: userInfo.phoneNumber,
+				address: userInfo.address,
+			});
+		}
 		async function fetchData() {
 			const location = await axiosMethod("getlocation", "get");
+			const listInfo = await axiosMethod("bill/listInfo", "post", {
+				userID: userInfo.id,
+			});
+			setChangeInfo({ ...changeInfo, listInfo: listInfo.body });
 			setData(location);
 		}
 		fetchData();
@@ -32,7 +65,6 @@ function CustomerInfo({ cart }) {
 		// value city click
 		const valueCity = event.target.value;
 		if (valueCity !== " ") {
-			console.log("da vao");
 			// filter data belong city
 			const dataBeLongCity = data.filter((el) => {
 				return el.Id === valueCity;
@@ -52,7 +84,7 @@ function CustomerInfo({ cart }) {
 
 	const handleClickProvince = (event) => {
 		const valueProvince = event.target.value;
-		if (valueProvince !== " ") {
+		if (valueProvince !== "") {
 			setProvince(valueProvince);
 
 			const dataBeLongProvince = dataListProvince.filter((el) => {
@@ -86,7 +118,12 @@ function CustomerInfo({ cart }) {
 	const handleSubmit = (event) => {
 		event.preventDefault();
 
-		if (validation()) return;
+		if (validation()) {
+			return MySwal.fire({
+				title: "Vui lòng nhập đầy đủ thông tin",
+				icon: "error",
+			});
+		}
 		const data = {
 			...inputs,
 			listProduct: cartStore.cart.map((el) => {
@@ -112,6 +149,59 @@ function CustomerInfo({ cart }) {
 
 	const handleClickWard = (event) => {
 		setWard(event.target.value);
+	};
+
+	const handleChangeInfo = () => {
+		setChangeInfo({ ...changeInfo, view: !changeInfo.view });
+	};
+
+	const handleSubmitInfo = () => {
+		const info = changeInfo.listInfo.find(
+			(el) => el._id === changeInfo.checkedInfo
+		);
+
+		if (!info) {
+			return Toast.fire({
+				title: "Cập nhật thông tin thất bại",
+				icon: "error",
+			});
+		}
+		const data = {
+			...info,
+			email: userInfo.email,
+			id: userInfo.id,
+		};
+		localStorage.setItem("user_info", JSON.stringify(data));
+		setInputs({
+			...inputs,
+			nameCustomer: data.nameCustomer,
+			email: data.email,
+			phoneNumber: data.phoneNumber,
+			address: data.address,
+		});
+		Toast.fire({
+			title: "Cập nhật thông tin thành công",
+			icon: "success",
+		});
+	};
+
+	const onDeleteInfoClick = async (id) => {
+		const deleteInfo = await axiosMethod(`bill/info/${id}`, "delete");
+		if (deleteInfo.success) {
+			const findById = changeInfo.listInfo.find((a) => a._id === id);
+			const index = changeInfo.listInfo.indexOf(findById);
+			setChangeInfo({
+				...changeInfo,
+				listInfo: [
+					...changeInfo.listInfo.slice(0, index),
+					...changeInfo.listInfo.slice(index + 1),
+				],
+			});
+			Toast.fire({
+				title: "Xóa thông tin thành công",
+				icon: "success",
+			});
+		}
 	};
 	return (
 		<>
@@ -251,12 +341,135 @@ function CustomerInfo({ cart }) {
 						</select>
 					</div>
 				</div>
+				{userLocal && (
+					<div class="form-check form-switch">
+						<input
+							class="form-check-input"
+							type="checkbox"
+							role="switch"
+							id="changeInfoInput"
+							onChange={handleChangeInfo}
+						/>
+						<label
+							class="form-check-label"
+							for="changeInfoInput"
+						>
+							Thay đổi thông tin giao hàng ?
+						</label>
+					</div>
+				)}
+
+				{changeInfo.view && (
+					<div className="p-4 shadow mt-3 mb-5">
+						<div className="d-flex fw-bold text-danger fs-5">
+							<div>Địa chỉ nhận hàng</div>
+							<button
+								className="btn btn-outline-dark ms-auto"
+								type="button"
+								onClick={() =>
+									setChangeInfo({
+										...changeInfo,
+										modalCreate:
+											!changeInfo.modalCreate,
+									})
+								}
+							>
+								Thêm địa chỉ mới
+							</button>
+						</div>
+						<ModalCreateInfo
+							changeInfo={changeInfo}
+							setChangeInfo={setChangeInfo}
+						/>
+						<ModalEditInfo
+							changeInfo={changeInfo}
+							setChangeInfo={setChangeInfo}
+						/>
+						<div className="py-3 my-4">
+							{changeInfo.listInfo.length &&
+								changeInfo.listInfo.map(
+									(item, index) => (
+										<div
+											class="form-check mb-2"
+											key={index}
+										>
+											<input
+												class="form-check-input"
+												type="radio"
+												checked={
+													changeInfo.checkedInfo ===
+													item._id
+												}
+												onChange={() =>
+													setChangeInfo({
+														...changeInfo,
+														checkedInfo:
+															item._id,
+													})
+												}
+												id={index}
+											/>
+											<label
+												class="form-check-label row"
+												for={index}
+											>
+												<div className="col fw-bold">
+													{`${item.nameCustomer} ${item.phoneNumber}`}
+												</div>
+												<div className="col">
+													{item.address}
+												</div>
+												<div className="col-3">
+													<EditIcon
+														style={{
+															cursor: "pointer",
+														}}
+														onClick={() =>
+															setChangeInfo(
+																{
+																	...changeInfo,
+																	modalEdit:
+																		!changeInfo.modalEdit,
+																}
+															)
+														}
+													/>
+													<DeleteIcon
+														className="ms-2"
+														style={{
+															cursor: "pointer",
+														}}
+														onClick={() =>
+															onDeleteInfoClick(
+																item._id
+															)
+														}
+													/>
+												</div>
+											</label>
+										</div>
+									)
+								)}
+						</div>
+						<div className="text-center">
+							<button
+								className="btn btn-danger"
+								type="button"
+								onClick={handleSubmitInfo}
+							>
+								Hoàn thành
+							</button>
+						</div>
+					</div>
+				)}
+
 				<div className="row mb-3">
 					<div className="col d-flex align-items-center">
 						<Link to="#" className="">
 							Giỏ hàng
 						</Link>
 					</div>
+
 					<div className="col">
 						<button
 							className="btn btn-dark button-step-footer"

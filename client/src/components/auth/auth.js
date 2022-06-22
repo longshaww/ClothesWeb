@@ -7,49 +7,77 @@ import axiosMethod from "../../middlewares/axios";
 import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
 import jwtDecode from "jwt-decode";
+import Toast from "../../utils/toast";
+
 function Auth() {
-	const [cookies, setCookie, removeCookie] = useCookies(["user","accessToken"]);
-	
+	const [cookies, setCookie, removeCookie] = useCookies([
+		"user",
+		"accessToken",
+	]);
+
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	// click submit
 	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-			if(email === "" || password === "")
-			{
-				alert("VUI LÒNG NHẬP TÀI KHOẢN HOẶC MẬT KHẨU !")
-			}
-			else
-			{
-				const res = await axiosMethod("authJWT/login","POST", { email, password });
-
+			if (email === "" || password === "") {
+				Toast.fire({
+					title: "Vui lòng nhập tài khoản và mật khẩu",
+					icon: "warning",
+				});
+			} else {
+				const res = await axiosMethod("authJWT/login", "POST", {
+					email,
+					password,
+				});
 				if (res.success === true) {
-					const info =  await jwtDecode(res.accessToken);
-
-					setCookie("user",info, { path: '/' });
-					setCookie("accessToken",res.accessToken, { path: '/' })
+					const info = await jwtDecode(res.accessToken);
+					const customize = {
+						id: info.id,
+						_id: info.id,
+						nameCustomer: info.information.name,
+						phoneNumber: info.information.phoneNumber,
+						email: info.email,
+						address: info.information.address,
+					};
+					localStorage.setItem(
+						"user_info",
+						JSON.stringify(customize)
+					);
+					setCookie("user", info, { path: "/" });
+					setCookie("accessToken", res.accessToken, {
+						path: "/",
+					});
+					Toast.fire({
+						title: "Đăng nhập thành công",
+						icon: "success",
+					});
 				}
 			}
-		
 		} catch (err) {
-			console.log(err);
-
-			alert("Vui lòng nhập lại mật khẩu");
+			Toast.fire({
+				title: "Tài khoản hoặc mật khẩu không đúng",
+				icon: "warning",
+			});
 		}
 	};
 	const handleClickLogOut = async () => {
 		try {
-			const res = await axiosMethod("authJWT/logout","POST");
-			if(res.success === true)
-			{
-				removeCookie("user",{ path: '/' });
-				removeCookie("accessToken",{ path: '/' });
-	
+			const res = await axiosMethod("authJWT/logout", "POST");
+			if (res.success === true) {
+				removeCookie("user", { path: "/" });
+				removeCookie("accessToken", { path: "/" });
+				Toast.fire({
+					title: "Đăng xuất thành công",
+					icon: "success",
+				});
 			}
-			
 		} catch (err) {
-			console.log(err);
+			Toast.fire({
+				title: "Có gì đó không đúng ~ !",
+				icon: "error",
+			});
 		}
 	};
 	const showAuth = () => {
@@ -152,12 +180,12 @@ function Auth() {
 					}}
 				>
 					<div id="cart-container" className="px-3">
-						<h6 className="text-center">THÔNG TIN TÀI KHOẢN</h6>
+						<h6 className="text-center">
+							THÔNG TIN TÀI KHOẢN
+						</h6>
 						<hr className="mt-2"></hr>
 						<div>
-							<span>
-								{cookies.user.information.name}
-							</span>
+							<span>{cookies.user.information.name}</span>
 						</div>
 						<div className="mt-1">
 							<span>Tài khoản của tôi</span>

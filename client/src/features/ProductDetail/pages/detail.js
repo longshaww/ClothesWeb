@@ -1,18 +1,15 @@
-import { useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import {
-	useState,
-	useLayoutEffect,
-	useRef,
-	useCallback,
-	useEffect,
-} from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useState, useEffect } from "react";
 import { setCart } from "../../../actions/cart";
 import axiosMethod from "../../../middlewares/axios";
 import "../../../assets/styles/detail.css";
+import Toast from "../../../utils/toast";
 
 export default function Detail() {
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
+	const cartCount = useSelector((state) => state.cart.cartCount);
 	const [productDetail, setProductDetail] = useState();
 	const [imageIndex, setImageIndex] = useState(0);
 	const { id } = useParams();
@@ -35,7 +32,6 @@ export default function Detail() {
 	}
 	const [checked, setChecked] = useState("M");
 	const [qty, setQty] = useState(1);
-	const firstUpdate = useRef(true);
 
 	const handleMinus = () => {
 		setQty((prevQty) => (prevQty > 1 ? prevQty - 1 : 1));
@@ -48,39 +44,41 @@ export default function Detail() {
 	const handleQtyChange = (e) => {};
 
 	//post cart
-	const postCart = useCallback(() => {
-		async function axiosCart() {
-			const data = await axiosMethod("cart", "post", {
-				id: productId,
-				qty,
-				size: checked,
+	async function postCart() {
+		const data = await axiosMethod("cart", "post", {
+			id: productId,
+			qty,
+			size: checked,
+		});
+		const cartQty = data.cart.reduce((a, b) => {
+			return a + b.qty;
+		}, 0);
+		const cartTotal = data.cart.reduce((a, b) => {
+			return a + b._id.price * b.qty;
+		}, 0);
+		dispatch(setCart(cartQty, data, cartTotal));
+		Toast.fire({
+			title: "Thêm vào giỏ hàng thành công",
+			icon: "success",
+		});
+		return data;
+	}
+
+	const handleCheckout = () => {
+		if (cartCount === 0) {
+			return Toast.fire({
+				title: "Bạn chưa có sản phẩm nào trong giỏ hàng",
+				icon: "warning",
 			});
-			const cartQty = data.cart.reduce((a, b) => {
-				return a + b.qty;
-			}, 0);
-			const cartTotal = data.cart.reduce((a, b) => {
-				return a + b._id.price * b.qty;
-			}, 0);
-			dispatch(setCart(cartQty, data, cartTotal));
-			return data;
 		}
-		axiosCart();
-	}, [productId, checked, qty, dispatch]);
+		navigate("/checkout");
+	};
 
-	useLayoutEffect(() => {
-		if (firstUpdate) {
-			firstUpdate.current = false;
-			return;
-		}
-		postCart();
-	}, [postCart]);
-
-	const handleAddCart = (e) => {
-		e.preventDefault();
+	const handleAddCart = () => {
 		postCart();
 	};
 
-	const handleModalImage = (e) => {
+	const handleModalImage = () => {
 		alert("hello");
 	};
 
@@ -174,7 +172,10 @@ export default function Detail() {
 									>
 										Thêm vào giỏ hàng
 									</button>
-									<button className="btn btn-dark btn-cart d-block mb-3">
+									<button
+										onClick={handleCheckout}
+										className="btn btn-dark btn-cart d-block mb-3"
+									>
 										Thanh toán
 									</button>
 								</div>
