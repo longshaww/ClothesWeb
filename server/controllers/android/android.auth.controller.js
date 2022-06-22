@@ -1,8 +1,8 @@
-const User = require("../models/User");
-const Customer = require("../models/Customers");
-var moment = require("moment"); // require
+const User = require("../../models/User");
+const Customer = require("../../models/Customers");
+var moment = require("moment");
 
-class AuthCookieController {
+class AndroidAuthController {
 	async postLogin(req, res, next) {
 		try {
 			const { email, password } = req.body;
@@ -96,4 +96,4 @@ class AuthCookieController {
 	}
 }
 
-module.exports = new AuthCookieController();
+module.exports = new AndroidAuthController();

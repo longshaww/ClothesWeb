@@ -4,7 +4,6 @@ const productRoute = require("./user/products.route");
 const cartRoute = require("./user/cart.route");
 const authJWTRoute = require("./auth.JWT.route");
 const billRoute = require("./user/bill.route");
-const authCookieRoute = require("./auth.cookie.route");
 const { verifyAdmin } = require("../middlewares/auth.middleware");
 const billAdminRoute = require("../routes/admin/bill.admin.route");
 const productAdminRoute = require("../routes/admin/product.admin.route");
@@ -18,8 +17,7 @@ function route(app) {
 	app.use("/product", productRoute);
 	app.use("/cart", cartRoute);
 	app.use("/bill", billRoute);
-	app.use("/authCookie", authCookieRoute);
-	//
+
 	app.use("/authJWT", authJWTRoute);
 	app.use("/admin/bills", verifyAdmin, billAdminRoute);
 	app.use("/admin/products", verifyAdmin, productAdminRoute);
