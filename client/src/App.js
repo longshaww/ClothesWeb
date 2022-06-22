@@ -12,7 +12,7 @@ import NewArrivals from "./features/New-Arrivals/pages/new.arrivals";
 import Search from "./features/Search/search";
 import Cart from "./features/Cart/pages/cart";
 import Checkout from "./features/Checkout/pages/checkout";
-import { Routes, Route,Navigate } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import PaymentSuccess from "./features/Payment/pages/success";
 import CustomerInfo from "./features/Checkout/components/customer.info";
 import PaymentMethod from "./features/Checkout/components/payment.method";
@@ -20,12 +20,12 @@ import OnlinePayment from "./features/Payment/pages/index";
 import { useCookies } from "react-cookie";
 import LayoutAdmin from "./layouts/layoutAdmin";
 import Register from "./components/auth/register";
-import Home from "./features/home/home";
-import Dashboard from './features/admin/dashboard/dashboard';
-import ListUser from './features/admin/user/listUser';
-import ProductList from './features/admin/product/productList';
-import DetailProduct from './features/admin/product/productDetail';
-import NewProduct from './features/admin/product/newProduct';
+import Home from "./features/Home/home";
+import Dashboard from "./features/admin/dashboard/dashboard";
+import ListUser from "./features/admin/user/listUser";
+import ProductList from "./features/admin/product/productList";
+import DetailProduct from "./features/admin/product/productDetail";
+import NewProduct from "./features/admin/product/newProduct";
 function App() {
 	const [cookies] = useCookies(["user"]);
 	let user;
@@ -110,33 +110,28 @@ function App() {
 						index
 						element={<PaymentSuccess />}
 					></Route>
-					
-						
 				</Route>
-				<Route path="/admin" element={user ? <LayoutAdmin /> : <Navigate to="/" />}>
+				<Route
+					path="/admin"
+					element={user ? <LayoutAdmin /> : <Navigate to="/" />}
+				>
 					<Route
 						path="dashboard"
-						element={<Dashboard/>}
-					>
-					</Route>
-					<Route 
-						path="users"
-						element={ <ListUser />}
-					>
-         			</Route>
-					 <Route 
+						element={<Dashboard />}
+					></Route>
+					<Route path="users" element={<ListUser />}></Route>
+					<Route
 						path="products"
-						element={ <ProductList />}
-					>
-         			</Route>
-					 	 <Route 
+						element={<ProductList />}
+					></Route>
+					<Route
 						path="products/newProduct"
-						element={ <NewProduct />}
-					>
-         			</Route>
-					 <Route path="products/:id"
-					         element={ <DetailProduct />}
-					 ></Route>
+						element={<NewProduct />}
+					></Route>
+					<Route
+						path="products/:id"
+						element={<DetailProduct />}
+					></Route>
 				</Route>
 			</Routes>
 		</div>
