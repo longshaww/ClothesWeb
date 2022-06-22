@@ -3,6 +3,9 @@ const fs = require("fs");
 const name = require("../../crawldata/data/datadangkyvitir.json");
 // const cloudinary = require("../utils/cloudinary");
 const { checkIfNameOrNot } = require("../../utils/function");
+const stripe = require("stripe")(
+	"sk_test_51KwO8iLbEwIz3CNxDmcyHUOdMcLCUa7UUu5Y7ltmoH8ogGdBSRDoYYwSvrxO1gNt97l6RUMclbvhBN4D5dmTZmMe00no4A2QPu"
+);
 class SiteController {
 	async getProducts(req, res) {
 		try {

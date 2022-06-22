@@ -1,4 +1,6 @@
 const jwt = require("jsonwebtoken");
+const multer = require("multer");
+const path= require("path");
 module.exports = {
     generateAccessToken :  (user) => {
         const dataSign = {
@@ -36,5 +38,14 @@ module.exports = {
             });
         }
         return list;
-    }
+    },
+    storage : multer.diskStorage({
+        destination : (req,file,cb) =>{
+            cb(null,'public')
+        },
+        filename : (req,file,cb) =>{
+            console.log(file);
+            cb(null,Date.now()+ path.extname(file.originalname));
+        }
+    }),
 }
