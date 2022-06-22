@@ -8,7 +8,6 @@ const bodyParser = require("body-parser");
 const port = 4000 || 5000;
 const route = require("./routes/index");
 const sessionMiddleware = require("./middlewares/session.middleware");
-
 const mongoose = require("mongoose");
 mongoose.connect(process.env.MONGO_URL, {
 	useNewUrlParser: true,
@@ -18,7 +17,6 @@ mongoose.connect(process.env.MONGO_URL, {
 
 app.use(express.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: false })); // support encoded bodies
-// app.use("/public", express.static("public"));
 var corsOptions = {
 	origin: "http://localhost:3000",
 	credentials: true,
@@ -26,6 +24,7 @@ var corsOptions = {
 app.use(cors(corsOptions));
 app.use(cookieParser(process.env.signed_cookie));
 app.use(sessionMiddleware);
+app.use(express.static('public'));
 route(app);
 
 app.listen(port, () => {

@@ -5,7 +5,7 @@ const moment = require("moment");
 class DashBoardController {
     // [GET] /admin/dashboard/getDashBoard
     async getDashboard(req, res, next) {
-
+        console.log("vao")
         const listUser = await User.find({ "isAdmin": false }).limit(5);
 
         const d = await new Date();
