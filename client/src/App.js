@@ -20,7 +20,7 @@ import OnlinePayment from "./features/Payment/pages/index";
 import { useCookies } from "react-cookie";
 import LayoutAdmin from "./layouts/layoutAdmin";
 import Register from "./components/auth/register";
-import Home from "./features/Home/home";
+import Home from "./features/home/home";
 import Dashboard from "./features/admin/dashboard/dashboard";
 import ListUser from "./features/admin/user/listUser";
 import ProductList from "./features/admin/product/productList";
