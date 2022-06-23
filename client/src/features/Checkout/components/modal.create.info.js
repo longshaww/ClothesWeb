@@ -2,8 +2,14 @@ import { Modal, ModalBody, ModalHeader, ModalFooter, Button } from "reactstrap";
 import { useState } from "react";
 import Toast from "../../../utils/toast";
 import axiosMethod from "../../../middlewares/axios";
+import DetailAddress from "./detail.address";
 
-function ModalCreateInfo({ setChangeInfo, changeInfo }) {
+function ModalCreateInfo({
+	setChangeInfo,
+	changeInfo,
+	detailAddress,
+	setDetailAddress,
+}) {
 	const userLocal = localStorage.getItem("user_info");
 	const [inputs, setInputs] = useState({});
 	const handleChange = (event) => {
@@ -12,7 +18,14 @@ function ModalCreateInfo({ setChangeInfo, changeInfo }) {
 		setInputs((values) => ({ ...values, [name]: value }));
 	};
 	const handleSubmit = async () => {
-		if (!inputs.nameCustomer || !inputs.address || !inputs.phoneNumber) {
+		if (
+			!inputs.nameCustomer ||
+			!inputs.address ||
+			!inputs.phoneNumber ||
+			!detailAddress.city ||
+			!detailAddress.ward ||
+			!detailAddress.province
+		) {
 			return Toast.fire({
 				title: "Vui lòng kiểm tra lại thông tin",
 				icon: "error",
@@ -26,6 +39,7 @@ function ModalCreateInfo({ setChangeInfo, changeInfo }) {
 		}
 		const user = JSON.parse(userLocal);
 		const data = { ...inputs, userID: user.id };
+		data.address = `${inputs.address} ${detailAddress.ward},${detailAddress.province},${detailAddress.city}`;
 		const resInfo = await axiosMethod("bill/info", "post", data);
 		if (resInfo.success) {
 			setChangeInfo({
@@ -33,7 +47,12 @@ function ModalCreateInfo({ setChangeInfo, changeInfo }) {
 				listInfo: [...changeInfo.listInfo, resInfo.body],
 				modalCreate: !changeInfo.modalCreate,
 			});
-
+			setDetailAddress({
+				...detailAddress,
+				city: "",
+				province: "",
+				ward: "",
+			});
 			return Toast.fire({
 				title: "Thêm thông tin thành công",
 				icon: "success",
@@ -43,6 +62,7 @@ function ModalCreateInfo({ setChangeInfo, changeInfo }) {
 	return (
 		<Modal
 			centered
+			size="lg"
 			isOpen={changeInfo.modalCreate}
 			toggle={() =>
 				setChangeInfo({
@@ -53,7 +73,7 @@ function ModalCreateInfo({ setChangeInfo, changeInfo }) {
 		>
 			<ModalHeader>Địa chỉ mới</ModalHeader>
 			<ModalBody>
-				<form className="d-flex flex-column p-5">
+				<form className="d-flex flex-column p-4">
 					<input
 						type="text"
 						className="form-control"
@@ -72,12 +92,16 @@ function ModalCreateInfo({ setChangeInfo, changeInfo }) {
 					></input>
 					<input
 						type="text"
-						className="form-control mt-3"
+						className="form-control my-3"
 						name="phoneNumber"
 						value={inputs.phoneNumber || ""}
 						onChange={handleChange}
 						placeholder="Số điện thoại"
 					></input>
+					<DetailAddress
+						detailAddress={detailAddress}
+						setDetailAddress={setDetailAddress}
+					/>
 				</form>
 			</ModalBody>
 			<ModalFooter>

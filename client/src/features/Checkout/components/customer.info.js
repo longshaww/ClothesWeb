@@ -11,26 +11,31 @@ import Toast from "../../../utils/toast";
 import ModalEditInfo from "./modal.edit.info";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import DetailAddress from "./detail.address";
 
 function CustomerInfo({ cart }) {
 	const cartStore = cart.cartStore;
 	const navigate = useNavigate();
 	const MySwal = withReactContent(Swal);
-	const [data, setData] = useState([]);
-	const [dataCity, setDataCity] = useState();
-	const [dataListProvince, setListProvince] = useState([]);
-	const [dataProvince, setProvince] = useState();
-	const [dataListWards, setListWards] = useState([]);
-	const [dataWard, setWard] = useState([]);
+
+	const userLocal = localStorage.getItem("user_info");
+	const userInfo = JSON.parse(userLocal);
+
+	const [detailAddress, setDetailAddress] = useState({
+		city: "",
+		province: "",
+		ward: "",
+		listProvince: [],
+		listWard: [],
+		listAddress: [],
+	});
+
 	const [inputs, setInputs] = useState({
 		nameCustomer: "",
 		email: "",
 		phoneNumber: "",
 		address: "",
 	});
-
-	const userLocal = localStorage.getItem("user_info");
-	const userInfo = JSON.parse(userLocal);
 
 	const [changeInfo, setChangeInfo] = useState({
 		view: false,
@@ -51,52 +56,15 @@ function CustomerInfo({ cart }) {
 			});
 		}
 		async function fetchData() {
-			const location = await axiosMethod("getlocation", "get");
+			const location = await axiosMethod("getLocation", "get");
 			const listInfo = await axiosMethod("bill/listInfo", "post", {
 				userID: userInfo.id,
 			});
 			setChangeInfo({ ...changeInfo, listInfo: listInfo.body });
-			setData(location);
+			setDetailAddress({ ...detailAddress, listAddress: location });
 		}
 		fetchData();
 	}, []);
-
-	const handleClickCity = (event) => {
-		// value city click
-		const valueCity = event.target.value;
-		if (valueCity !== " ") {
-			// filter data belong city
-			const dataBeLongCity = data.filter((el) => {
-				return el.Id === valueCity;
-			});
-			// get district
-			const listDistrict = dataBeLongCity[0].Districts;
-			// set value city
-			setDataCity(valueCity);
-			// setListProvince belong city
-			setListProvince(listDistrict);
-		} else {
-			setDataCity(" ");
-			setListProvince(" ");
-			setListWards(" ");
-		}
-	};
-
-	const handleClickProvince = (event) => {
-		const valueProvince = event.target.value;
-		if (valueProvince !== "") {
-			setProvince(valueProvince);
-
-			const dataBeLongProvince = dataListProvince.filter((el) => {
-				return el.Id === valueProvince;
-			});
-			const listWards = dataBeLongProvince[0].Wards;
-			setListWards(listWards);
-		} else {
-			setProvince(" ");
-			setListWards(" ");
-		}
-	};
 
 	//Get inputs
 	const handleChange = (event) => {
@@ -110,18 +78,20 @@ function CustomerInfo({ cart }) {
 			!inputs.nameCustomer ||
 			!inputs.email ||
 			!inputs.phoneNumber ||
-			!inputs.address
+			!inputs.address ||
+			!detailAddress.city ||
+			!detailAddress.ward ||
+			!detailAddress.province
 		)
 			return true;
 	};
 	//Submit Form
 	const handleSubmit = (event) => {
 		event.preventDefault();
-
 		if (validation()) {
-			return MySwal.fire({
-				title: "Vui lòng nhập đầy đủ thông tin",
-				icon: "error",
+			return Toast.fire({
+				title: "Vui lòng nhập đầy đủ thông tin !",
+				icon: "warning",
 			});
 		}
 		const data = {
@@ -135,6 +105,7 @@ function CustomerInfo({ cart }) {
 				};
 			}),
 		};
+		data.address = `${inputs.address} ${detailAddress.ward},${detailAddress.province},${detailAddress.city}`;
 		localStorage.setItem("customer", JSON.stringify(data));
 		MySwal.fire({
 			title: <p>Chuyển đến trang phương thức thanh toán</p>,
@@ -145,10 +116,6 @@ function CustomerInfo({ cart }) {
 		}).then(() => {
 			navigate("/checkout/method");
 		});
-	};
-
-	const handleClickWard = (event) => {
-		setWard(event.target.value);
 	};
 
 	const handleChangeInfo = () => {
@@ -269,78 +236,10 @@ function CustomerInfo({ cart }) {
 					onChange={handleChange}
 					placeholder="Địa chỉ"
 				></input>
-				<div className="row">
-					<div className="col">
-						<select
-							style={{
-								width: "100%",
-								height: "",
-							}}
-							onChange={handleClickCity}
-							className="form-control"
-						>
-							<option value={" "}>
-								Chọn Tỉnh/Thành Phố{" "}
-							</option>
-							{data.map((el, index) => {
-								return (
-									<option key={index} value={el.Id}>
-										{el.Name}
-									</option>
-								);
-							})}
-						</select>
-					</div>
-					<div className="col">
-						<select
-							style={{
-								width: "100%",
-								height: "",
-							}}
-							className="form-control"
-							onChange={handleClickProvince}
-						>
-							<option value={" "}>Chọn Quận/Huyện</option>
-							{dataListProvince !== " "
-								? dataListProvince.map((el, index) => {
-										return (
-											<option
-												key={index}
-												value={el.Id}
-											>
-												{el.Name}
-											</option>
-										);
-								  })
-								: null}
-						</select>
-					</div>
-					<div className="col">
-						<select
-							style={{
-								width: "100%",
-								height: "",
-								marginBottom: "40px",
-							}}
-							className="form-control"
-							onChange={handleClickWard}
-						>
-							<option value={" "}>Chọn Phường/Xã</option>
-							{dataListWards !== " "
-								? dataListWards.map((el, index) => {
-										return (
-											<option
-												key={index}
-												value={el.Id}
-											>
-												{el.Name}
-											</option>
-										);
-								  })
-								: null}
-						</select>
-					</div>
-				</div>
+				<DetailAddress
+					detailAddress={detailAddress}
+					setDetailAddress={setDetailAddress}
+				/>
 				{userLocal && (
 					<div class="form-check form-switch">
 						<input
@@ -380,10 +279,14 @@ function CustomerInfo({ cart }) {
 						<ModalCreateInfo
 							changeInfo={changeInfo}
 							setChangeInfo={setChangeInfo}
+							detailAddress={detailAddress}
+							setDetailAddress={setDetailAddress}
 						/>
 						<ModalEditInfo
 							changeInfo={changeInfo}
 							setChangeInfo={setChangeInfo}
+							detailAddress={detailAddress}
+							setDetailAddress={setDetailAddress}
 						/>
 						<div className="py-3 my-4">
 							{changeInfo.listInfo.length &&

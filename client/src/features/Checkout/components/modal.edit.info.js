@@ -2,8 +2,15 @@ import { Modal, ModalBody, ModalHeader, ModalFooter, Button } from "reactstrap";
 import { useEffect, useState } from "react";
 import Toast from "../../../utils/toast";
 import axiosMethod from "../../../middlewares/axios";
+import DetailAddress from "./detail.address";
+import { handleAddress } from "../../../middlewares/handle.address";
 
-function ModalEditInfo({ setChangeInfo, changeInfo }) {
+function ModalEditInfo({
+	setChangeInfo,
+	changeInfo,
+	detailAddress,
+	setDetailAddress,
+}) {
 	const userLocal = localStorage.getItem("user_info");
 	const [data, setData] = useState({});
 	const [inputs, setInputs] = useState({
@@ -31,7 +38,14 @@ function ModalEditInfo({ setChangeInfo, changeInfo }) {
 		setInputs((values) => ({ ...values, [name]: value }));
 	};
 	const handleSubmit = async () => {
-		if (!inputs.nameCustomer || !inputs.address || !inputs.phoneNumber) {
+		if (
+			!inputs.nameCustomer ||
+			!inputs.address ||
+			!inputs.phoneNumber ||
+			!detailAddress.city ||
+			!detailAddress.ward ||
+			!detailAddress.province
+		) {
 			return Toast.fire({
 				title: "Vui lòng kiểm tra lại thông tin",
 				icon: "error",
@@ -43,6 +57,10 @@ function ModalEditInfo({ setChangeInfo, changeInfo }) {
 				icon: "error",
 			});
 		}
+		inputs.address = `${handleAddress(inputs.address)} ${
+			detailAddress.ward
+		},${detailAddress.province},${detailAddress.city}`;
+
 		const resInfo = await axiosMethod(
 			`bill/info/${changeInfo.checkedInfo}`,
 			"put",
@@ -57,6 +75,12 @@ function ModalEditInfo({ setChangeInfo, changeInfo }) {
 				listInfo: newList,
 				modalEdit: !changeInfo.modalEdit,
 			});
+			setDetailAddress({
+				...detailAddress,
+				city: "",
+				province: "",
+				ward: "",
+			});
 			return Toast.fire({
 				title: "Sửa thông tin thành công",
 				icon: "success",
@@ -65,6 +89,7 @@ function ModalEditInfo({ setChangeInfo, changeInfo }) {
 	};
 	return (
 		<Modal
+			size="lg"
 			centered
 			isOpen={changeInfo.modalEdit}
 			toggle={() =>
@@ -95,12 +120,16 @@ function ModalEditInfo({ setChangeInfo, changeInfo }) {
 					></input>
 					<input
 						type="text"
-						className="form-control mt-3"
+						className="form-control my-3"
 						name="phoneNumber"
 						value={inputs.phoneNumber || ""}
 						onChange={handleChange}
 						placeholder="Số điện thoại"
 					></input>
+					<DetailAddress
+						detailAddress={detailAddress}
+						setDetailAddress={setDetailAddress}
+					/>
 				</form>
 			</ModalBody>
 			<ModalFooter>
