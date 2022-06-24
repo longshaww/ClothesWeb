@@ -39,6 +39,7 @@
 		"redux-thunk": "^2.4.1",
 		"sweetalert2": "^11.2.2",
 		"sweetalert2-react-content": "^4.2.0",
+		"uuid": "^8.3.2",
 		"web-vitals": "^2.1.4"
 	},
 	"scripts": {

@@ -6,6 +6,7 @@ import { useState,useEffect } from "react";
 import globalStateAndAction from '../../../container/global.state.action';
 import axios from 'axios';
 import { useCookies } from "react-cookie";
+import Toast from '../../../utils/toast';
 
  function ProductList() {
   
@@ -44,7 +45,10 @@ import { useCookies } from "react-cookie";
 			});
       if(res.data.success === true)
       {
-        alert("Xóa Thành Công")
+        Toast.fire({
+          title: "Xóa Thành Công",
+          icon: "success",
+        });
       }
   };
 
@@ -107,6 +111,10 @@ import { useCookies } from "react-cookie";
 
   return (
     <div className="productList">
+      <Link to="/admin/products/create">
+          <button type="button" class="btn btn-primary mb-2">Tạo Sản Phẩm</button>
+      </Link>
+    
       <DataGrid
         rows={data}
         disableSelectionOnClick

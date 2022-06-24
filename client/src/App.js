@@ -20,12 +20,12 @@ import OnlinePayment from "./features/Payment/pages/index";
 import { useCookies } from "react-cookie";
 import LayoutAdmin from "./layouts/layoutAdmin";
 import Register from "./components/auth/register";
-import Home from "./features/Home/home";
+import Home from "./features/home/home";
 import Dashboard from "./features/admin/dashboard/dashboard";
 import ListUser from "./features/admin/user/listUser";
 import ProductList from "./features/admin/product/productList";
 import DetailProduct from "./features/admin/product/productDetail";
-import NewProduct from "./features/admin/product/newProduct";
+import CreateProduct from "./features/admin/product/createProduct";
 function App() {
 	const [cookies] = useCookies(["user"]);
 	let user;
@@ -124,13 +124,14 @@ function App() {
 						path="products"
 						element={<ProductList />}
 					></Route>
-					<Route
-						path="products/newProduct"
-						element={<NewProduct />}
-					></Route>
+				
 					<Route
 						path="products/:id"
 						element={<DetailProduct />}
+					></Route>
+					<Route
+						path="products/create"
+						element={<CreateProduct/>}
 					></Route>
 				</Route>
 			</Routes>
