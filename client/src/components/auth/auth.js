@@ -33,18 +33,6 @@ function Auth() {
 				});
 				if (res.success === true) {
 					const info = await jwtDecode(res.accessToken);
-					const customize = {
-						id: info.id,
-						_id: info.id,
-						nameCustomer: info.information.name,
-						phoneNumber: info.information.phoneNumber,
-						email: info.email,
-						address: info.information.address,
-					};
-					localStorage.setItem(
-						"user_info",
-						JSON.stringify(customize)
-					);
 					setCookie("user", info, { path: "/" });
 					setCookie("accessToken", res.accessToken, {
 						path: "/",

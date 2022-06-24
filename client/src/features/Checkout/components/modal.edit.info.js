@@ -4,6 +4,7 @@ import Toast from "../../../utils/toast";
 import axiosMethod from "../../../middlewares/axios";
 import DetailAddress from "./detail.address";
 import { handleAddress } from "../../../middlewares/handle.address";
+import { useCookies } from "react-cookie";
 
 function ModalEditInfo({
 	setChangeInfo,
@@ -11,7 +12,7 @@ function ModalEditInfo({
 	detailAddress,
 	setDetailAddress,
 }) {
-	const userLocal = localStorage.getItem("user_info");
+	const [cookies] = useCookies(["user"]);
 	const [data, setData] = useState({});
 	const [inputs, setInputs] = useState({
 		nameCustomer: "",
@@ -51,7 +52,7 @@ function ModalEditInfo({
 				icon: "error",
 			});
 		}
-		if (!userLocal) {
+		if (!cookies.user) {
 			return Toast.fire({
 				title: "Lỗi",
 				icon: "error",

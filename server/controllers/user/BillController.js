@@ -1,7 +1,6 @@
 const DeliveryInfo = require("../../models/DeliveryInfo");
 const UserWeb = require("../../models/UserWeb");
-const jwt_decode = require("jwt-decode");
-
+const BillWeb = require("../../models/BillWeb");
 class BillController {
 	async addNewInfoUser(req, res) {
 		const { userID, nameCustomer, address, phoneNumber } = req.body;
@@ -50,7 +49,7 @@ class BillController {
 		}
 		try {
 			const deliveryInfo = await DeliveryInfo.findByIdAndDelete(id);
-			res.status(200).json({ success: true, body: DeliveryInfo });
+			res.status(200).json({ success: true, body: deliveryInfo });
 		} catch (err) {
 			res.status(400).json({ success: false, message: err });
 		}
@@ -79,7 +78,56 @@ class BillController {
 			res.status(400).json({ success: false, message: err });
 		}
 	}
-	async postBill(req, res) {}
+	async postBill(req, res) {
+		const {
+			userID,
+			nameCustomer,
+			address,
+			phoneNumber,
+			email,
+			listProduct,
+			paymentMethod,
+			idDelivery,
+		} = req.body;
+		if (
+			!nameCustomer ||
+			!address ||
+			!phoneNumber ||
+			!listProduct ||
+			!email ||
+			!paymentMethod
+		) {
+			return res.status(400).json({
+				success: false,
+				message: "Cannot post without body !",
+			});
+		}
+		const newBillWeb = new BillWeb({
+			listProduct,
+			paymentMethod,
+			qtyProduct: listProduct.reduce((a, b) => a + b.qty, 0),
+			total: listProduct.reduce((a, b) => a + b.sum, 0),
+			status: true,
+		});
+		if (userID) {
+			newBillWeb.userID = userID;
+			if (idDelivery) {
+				newBillWeb.deliveryID = idDelivery;
+			}
+		} else {
+			const newInfo = await DeliveryInfo.create({
+				nameCustomer,
+				address,
+				phoneNumber,
+				email,
+			});
+			newBillWeb.deliveryID = newInfo.id;
+		}
+		res.status(200).send({
+			success: true,
+			body: await newBillWeb.save(),
+		});
+	}
 }
 
 module.exports = new BillController();

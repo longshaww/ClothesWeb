@@ -1,11 +1,10 @@
-import { useState, useCallback, useRef, useLayoutEffect } from "react";
+import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import axiosMethod from "../../../middlewares/axios";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 
 export default function PaymentMethod() {
-	const firstUpdate = useRef(true);
 	const MySwal = withReactContent(Swal);
 	const navigate = useNavigate();
 	const [checkedPayment, setCheckedPayment] = useState(1);
@@ -22,29 +21,17 @@ export default function PaymentMethod() {
 	const shippingChange = () => {};
 
 	//Handle POST
-	const postPaymentCB = useCallback((data) => {
-		postPayment(data);
-	}, []);
-
 	async function postPayment(data) {
 		const req = await axiosMethod("bill", "post", data);
 		return req;
 	}
-	useLayoutEffect(() => {
-		if (firstUpdate) {
-			firstUpdate.current = false;
-			return;
-		}
-		postPaymentCB();
-	}, [postPaymentCB]);
-
 	//Alert if success
 	const sweetAlertSuccess = (customer) => {
 		MySwal.fire({
 			title: <p>Đang xử lý</p>,
 			didOpen: () => {
 				MySwal.showLoading();
-				postPaymentCB(customer);
+				postPayment(customer);
 			},
 			timer: 1000,
 		})
@@ -64,8 +51,8 @@ export default function PaymentMethod() {
 	};
 
 	//alert if error
-	const sweetAlertError = (customer) => {
-		if (!customer) {
+	const sweetAlertError = () => {
+		if (!localStorage.getItem("customer")) {
 			MySwal.fire({
 				icon: "warning",
 				title: (
@@ -91,7 +78,7 @@ export default function PaymentMethod() {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const customer = JSON.parse(localStorage.getItem("customer"));
-		if (sweetAlertError(customer)) return;
+		if (sweetAlertError()) return;
 
 		if (checkedPayment === 1) {
 			customer.paymentMethod = "COD";

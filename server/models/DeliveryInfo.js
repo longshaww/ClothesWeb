@@ -6,6 +6,7 @@ const DeliveryInfo = new mongoose.Schema(
 		nameCustomer: { type: String, required: true },
 		address: { type: String, required: true },
 		phoneNumber: { type: String, required: true },
+		email: { type: String },
 		userID: { type: Schema.Types.ObjectId, ref: "User" },
 	},
 	{
