@@ -4,7 +4,7 @@ const siteController = require("../../controllers/user/SiteController");
 
 router.get("/", siteController.getAllSite);
 router.get("/search", siteController.searchView);
-router.get("/getlocation", siteController.getLocation);
+router.get("/getLocation", siteController.getLocation);
 router.post("/create-payment-intent", siteController.chargePayment);
 
 module.exports = router;

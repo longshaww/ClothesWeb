@@ -6,6 +6,7 @@ import ClearIcon from "@mui/icons-material/Clear";
 import { useRef, useCallback, useLayoutEffect } from "react";
 import axiosMethod from "../../../middlewares/axios";
 import { Breadcrumb, BreadcrumbItem } from "reactstrap";
+import Toast from "../../../utils/toast";
 
 function Cart({ cart, setCart }) {
 	const cartCount = cart.cartCount;
@@ -33,6 +34,10 @@ function Cart({ cart, setCart }) {
 					return a + b._id.price * b.qty;
 				}, 0);
 				setCart(cartQty, data, cartTotal);
+				Toast.fire({
+					title: "Đã xóa sản phẩm khỏi giỏ hàng",
+					icon: "success",
+				});
 				return data;
 			}
 			axiosCart();

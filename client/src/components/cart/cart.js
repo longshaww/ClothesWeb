@@ -13,6 +13,7 @@ import {
 	useLayoutEffect,
 } from "react";
 import axiosMethod from "../../middlewares/axios";
+import Toast from "../../utils/toast";
 
 function PopupCart({ cart, setCart }) {
 	//Get state from redux
@@ -60,6 +61,10 @@ function PopupCart({ cart, setCart }) {
 					return a + b._id.price * b.qty;
 				}, 0);
 				setCart(cartQty, data, cartTotal);
+				Toast.fire({
+					title: "Đã xóa sản phẩm khỏi giỏ hàng",
+					icon: "success",
+				});
 				return data;
 			}
 			axiosCart();
