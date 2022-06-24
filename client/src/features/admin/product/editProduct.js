@@ -23,7 +23,7 @@ export default function EditProduct({ infoProduct,idProduct,accessToken}) {
       if(inputs.nameProduct === ""|| inputs.price === ""|| inputs.sizeM === ""
           ||  inputs.sizeL === ""||  inputs.sizeXL === "" || inputs.description === "")
       { 
-        return  Toast.fire({
+         Toast.fire({
           title: "Vui Lòng Điền Đầy Đủ Thông Tin",
           icon: "error",
         });

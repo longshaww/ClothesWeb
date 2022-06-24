@@ -7,9 +7,10 @@ const productAdminController = require("../../controllers/admin/ProductAdminCont
 
 
 router.get("/getAllProduct",productAdminController.getAllProduct);
-router.post("/createProduct",productAdminController.createProduct);
+router.post("/createProduct",upload.array('image', 12),productAdminController.createProduct);
 router.get("/detailProduct/:id",productAdminController.ProductDetail)
-router.post("/editProduct/:id",upload.single("image"),productAdminController.editProduct);
+router.put("/editProduct/:id",productAdminController.editProduct);
+router.put("/editImage/:id",upload.single('image'),productAdminController.editImage);
 router.delete("/deleteProduct/:id",productAdminController.deleteProduct);
 
 

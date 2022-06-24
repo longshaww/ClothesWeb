@@ -1,11 +1,9 @@
-import { NotificationsNone, Language, Settings } from "@material-ui/icons";
+import { NotificationsNone, Language } from "@material-ui/icons";
 import "../../../assets/styles/admin/narbaradmin.css";
 import Logo from "../../../assets/images/hyperX.jpeg";
-import { useCookies } from "react-cookie";
-import { useEffect } from 'react';
+
 import Auth from "../../auth/auth";
-import avatar from "../../../assets/images/avatar.jpeg";
-import axiosMethod from "../../../middlewares/axios";
+
 
 export default function NavbarAppAdmin() {
  
