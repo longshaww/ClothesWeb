@@ -3,7 +3,7 @@ import "../../../assets/styles/cart.detail.css";
 import ReplyIcon from "@mui/icons-material/Reply";
 import { Link } from "react-router-dom";
 import ClearIcon from "@mui/icons-material/Clear";
-import { useRef, useCallback, useLayoutEffect } from "react";
+import { useRef } from "react";
 import axiosMethod from "../../../middlewares/axios";
 import { Breadcrumb, BreadcrumbItem } from "reactstrap";
 import Toast from "../../../utils/toast";
@@ -12,46 +12,22 @@ function Cart({ cart, setCart }) {
 	const cartCount = cart.cartCount;
 	const cartStore = cart.cartStore;
 	const cartTotalPrice = cart.cartTotalPrice;
-	const firstUpdate = useRef(true);
 
 	const handleDelClick = (productId) => {
 		deleteCart(productId._id);
 	};
-	const deleteCart = useCallback(
-		(productId) => {
-			async function axiosCart() {
-				const data = await axiosMethod(
-					`cart/${productId}`,
-					"delete",
-					{
-						id: productId,
-					}
-				);
-				const cartQty = data.cart.reduce((a, b) => {
-					return a + b.qty;
-				}, 0);
-				const cartTotal = data.cart.reduce((a, b) => {
-					return a + b._id.price * b.qty;
-				}, 0);
-				setCart(cartQty, data, cartTotal);
-				Toast.fire({
-					title: "Đã xóa sản phẩm khỏi giỏ hàng",
-					icon: "success",
-				});
-				return data;
-			}
-			axiosCart();
-		},
-		[setCart]
-	);
-
-	useLayoutEffect(() => {
-		if (firstUpdate) {
-			firstUpdate.current = false;
-			return;
+	async function deleteCart(productId) {
+		const data = await axiosMethod(`cart/${productId}`, "delete", {
+			id: productId,
+		});
+		if (data.success) {
+			setCart(data.cartQty, data, data.cartTotal);
+			Toast.fire({
+				title: "Đã xóa sản phẩm khỏi giỏ hàng",
+				icon: "success",
+			});
 		}
-		deleteCart();
-	}, [deleteCart]);
+	}
 
 	return (
 		<>

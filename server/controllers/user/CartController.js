@@ -1,37 +1,30 @@
 const Session = require("../../models/Sessions");
 const Product = require("../../models/Product");
+const getCartUtil = require("../../utils/cart.util");
 class CartController {
 	async addToCart(req, res, next) {
-		// Nhận dữ liệu từ client
 		let { id, qty, size } = req.body;
-		//Tìm sản phẩm có id được gửi từ client
 		const product = await Product.findById(id);
-		// Lấy ra giá của sản phẩm đó
 		const productPrice = product.price;
-		//Lấy sessionId được gửi từ phía client
 		const sessionId = req.signedCookies.sessionId;
-		//Tìm trong DB sessionId trùng với sessionId ở trên
 		const currentSession = await Session.findById(sessionId);
 
-		// Tìm sản phẩm đã tồn tại trong giỏ hàng dựa trên Id nhận được
+		if (!currentSession) {
+			res.status(400).json({
+				success: false,
+				message: "Session not found",
+			});
+		}
 		const findExisted = currentSession.cart.find((item) => {
 			return item.id === id;
 		});
 
-		// Nếu đã có sản phẩm đó trong giỏ hàng
 		if (findExisted !== undefined) {
-			// Truy cập vào giỏ hàng chứa sản phẩm có id là = id từ client
 			let subDoc = currentSession.cart.id(id);
-			//set thuộc tính qty của giỏ hàng hiện tại + qty được gửi từ client
 			subDoc.set({ qty: subDoc.qty + qty });
-			// set thuộc tính total = giá sản phẩm ban đầu * số lượng sản phẩm trong giỏ
 			subDoc.set({ total: productPrice * subDoc.qty });
-			// Lưu data vừa thay đổi vào DB
 			await currentSession.save();
-		}
-		// Nếu sản phẩm đã tồn tại trong giỏ hàng
-		else {
-			// Push dữ liệu từ client vào cart
+		} else {
 			await Session.updateOne(
 				{ _id: sessionId },
 				{
@@ -41,31 +34,45 @@ class CartController {
 				}
 			);
 		}
-		// Code response cho client
 		const thisSession = await Session.findById(sessionId).populate(
 			"cart._id"
 		);
-		res.status(200).json(thisSession);
+		res.status(200).json(getCartUtil(thisSession));
 	}
 	async getCart(req, res, next) {
-		const sessionId = req.signedCookies.sessionId;
-		const thisSession = await Session.findById(sessionId).populate(
-			"cart._id"
-		);
-		res.status(200).json(thisSession);
+		try {
+			const sessionId = req.signedCookies.sessionId;
+			const thisSession = await Session.findById(sessionId).populate(
+				"cart._id"
+			);
+			res.status(200).json(getCartUtil(thisSession));
+		} catch (err) {
+			res.status(400).json({ success: false, message: err });
+		}
 	}
 	async deleteProduct(req, res, next) {
 		const { productId } = req.params;
-		const sessionId = req.signedCookies.sessionId;
-		const currentSession = await Session.findById(sessionId);
-		let subDoc = currentSession.cart.id(productId);
-		subDoc.remove();
-		await currentSession.save();
+		try {
+			const sessionId = req.signedCookies.sessionId;
+			const currentSession = await Session.findById(sessionId);
+			let subDoc = currentSession.cart.id(productId);
+			if (subDoc) {
+				subDoc.remove();
+				await currentSession.save();
+			}
 
-		const thisSession = await Session.findById(sessionId).populate(
-			"cart._id"
-		);
-		res.status(200).json(thisSession);
+			const thisSession = await Session.findById(sessionId).populate(
+				"cart._id"
+			);
+
+			res.status(200).json(getCartUtil(thisSession));
+		} catch (err) {
+			console.log(err);
+			res.status(400).json({
+				success: false,
+				message: err,
+			});
+		}
 	}
 }
 

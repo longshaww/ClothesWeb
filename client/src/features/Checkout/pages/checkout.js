@@ -1,10 +1,12 @@
 import globalStateAndAction from "../../../container/global.state.action";
 import { Link, Outlet } from "react-router-dom";
 import "../../../assets/styles/checkout.css";
+import { useCookies } from "react-cookie";
 
 function Checkout({ cart }) {
 	const cartStore = cart.cartStore;
 	const cartTotalPrice = cart.cartTotalPrice;
+	const [cookies] = useCookies(["user"]);
 
 	return (
 		<div className="container pe-5 my-5">
@@ -87,9 +89,15 @@ function Checkout({ cart }) {
 							<p className="fs-5">Khách hàng thân thiết</p>
 						</div>
 						<div className="col-3">
-							<button className="btn btn-dark">
-								Đăng nhập
-							</button>
+							{cookies.user ? (
+								<div className="fw-bold fs-5">
+									{cookies.user.information.name}
+								</div>
+							) : (
+								<button className="btn btn-dark">
+									Đăng nhập
+								</button>
+							)}
 						</div>
 					</div>
 					<table className="table table-borderless">

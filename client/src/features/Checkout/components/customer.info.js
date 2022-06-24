@@ -12,14 +12,14 @@ import ModalEditInfo from "./modal.edit.info";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import DetailAddress from "./detail.address";
+import { useCookies } from "react-cookie";
 
 function CustomerInfo({ cart }) {
 	const cartStore = cart.cartStore;
 	const navigate = useNavigate();
 	const MySwal = withReactContent(Swal);
 
-	const userLocal = localStorage.getItem("user_info");
-	const userInfo = JSON.parse(userLocal);
+	const [cookies] = useCookies(["user"]);
 
 	const [detailAddress, setDetailAddress] = useState({
 		city: "",
@@ -35,6 +35,8 @@ function CustomerInfo({ cart }) {
 		email: "",
 		phoneNumber: "",
 		address: "",
+		idDelivery: "",
+		detailInputHidden: false,
 	});
 
 	const [changeInfo, setChangeInfo] = useState({
@@ -42,29 +44,48 @@ function CustomerInfo({ cart }) {
 		modalCreate: false,
 		modalEdit: false,
 		listInfo: [],
-		checkedInfo: userLocal && userInfo._id,
+		checkedInfo: cookies.user && cookies.user.id,
 	});
 
 	useEffect(() => {
-		if (userLocal) {
+		if (cookies.user) {
 			setInputs({
 				...inputs,
-				nameCustomer: userInfo.nameCustomer,
-				email: userInfo.email,
-				phoneNumber: userInfo.phoneNumber,
-				address: userInfo.address,
+				nameCustomer: cookies.user.information.name,
+				email: cookies.user.email,
+				phoneNumber: cookies.user.information.phoneNumber,
+				address: cookies.user.information.address,
+			});
+		} else {
+			setInputs({
+				...inputs,
+				nameCustomer: "",
+				email: "",
+				phoneNumber: "",
+				address: "",
 			});
 		}
+
 		async function fetchData() {
 			const location = await axiosMethod("getLocation", "get");
-			const listInfo = await axiosMethod("bill/listInfo", "post", {
-				userID: userInfo.id,
+			setDetailAddress({
+				...detailAddress,
+				listAddress: location,
 			});
-			setChangeInfo({ ...changeInfo, listInfo: listInfo.body });
-			setDetailAddress({ ...detailAddress, listAddress: location });
+
+			if (cookies.user) {
+				const listInfo = await axiosMethod(
+					"bill/listInfo",
+					"post",
+					{
+						userID: cookies.user.id,
+					}
+				);
+				setChangeInfo({ ...changeInfo, listInfo: listInfo.body });
+			}
 		}
 		fetchData();
-	}, []);
+	}, [cookies.user]);
 
 	//Get inputs
 	const handleChange = (event) => {
@@ -74,17 +95,36 @@ function CustomerInfo({ cart }) {
 	};
 
 	const validation = () => {
-		if (
-			!inputs.nameCustomer ||
-			!inputs.email ||
-			!inputs.phoneNumber ||
-			!inputs.address ||
-			!detailAddress.city ||
-			!detailAddress.ward ||
-			!detailAddress.province
-		)
-			return true;
+		if (!cookies.user) {
+			if (
+				!inputs.nameCustomer ||
+				!inputs.email ||
+				!inputs.phoneNumber ||
+				!inputs.address ||
+				!detailAddress.city ||
+				!detailAddress.ward ||
+				!detailAddress.province
+			) {
+				return true;
+			}
+		} else {
+			if (
+				!inputs.nameCustomer ||
+				!inputs.email ||
+				!inputs.phoneNumber ||
+				!inputs.address ||
+				!detailAddress.city ||
+				!detailAddress.ward ||
+				!detailAddress.province
+			) {
+				if (inputs.detailInputHidden) {
+					return false;
+				}
+				return true;
+			}
+		}
 	};
+
 	//Submit Form
 	const handleSubmit = (event) => {
 		event.preventDefault();
@@ -94,6 +134,7 @@ function CustomerInfo({ cart }) {
 				icon: "warning",
 			});
 		}
+
 		const data = {
 			...inputs,
 			listProduct: cartStore.cart.map((el) => {
@@ -105,7 +146,15 @@ function CustomerInfo({ cart }) {
 				};
 			}),
 		};
-		data.address = `${inputs.address} ${detailAddress.ward},${detailAddress.province},${detailAddress.city}`;
+		if (cookies.user) {
+			data.userID = cookies.user.id;
+		}
+		if (!inputs.address.includes("Phường")) {
+			if (!inputs.address.includes("Xã")) {
+				data.address = `${inputs.address} ${detailAddress.ward},${detailAddress.province},${detailAddress.city}`;
+			}
+		}
+
 		localStorage.setItem("customer", JSON.stringify(data));
 		MySwal.fire({
 			title: <p>Chuyển đến trang phương thức thanh toán</p>,
@@ -135,16 +184,17 @@ function CustomerInfo({ cart }) {
 		}
 		const data = {
 			...info,
-			email: userInfo.email,
-			id: userInfo.id,
+			email: cookies.user.email,
+			id: cookies.user.id,
 		};
-		localStorage.setItem("user_info", JSON.stringify(data));
 		setInputs({
 			...inputs,
 			nameCustomer: data.nameCustomer,
 			email: data.email,
 			phoneNumber: data.phoneNumber,
 			address: data.address,
+			idDelivery: changeInfo.checkedInfo,
+			detailInputHidden: !inputs.detailInputHidden,
 		});
 		Toast.fire({
 			title: "Cập nhật thông tin thành công",
@@ -153,6 +203,12 @@ function CustomerInfo({ cart }) {
 	};
 
 	const onDeleteInfoClick = async (id) => {
+		if (cookies.user.id === id) {
+			return Toast.fire({
+				title: "Không thể xóa thông tin mặc định",
+				icon: "warning",
+			});
+		}
 		const deleteInfo = await axiosMethod(`bill/info/${id}`, "delete");
 		if (deleteInfo.success) {
 			const findById = changeInfo.listInfo.find((a) => a._id === id);
@@ -195,9 +251,13 @@ function CustomerInfo({ cart }) {
 			</div>
 			<form className="section" onSubmit={handleSubmit}>
 				<span>Thông tin giao hàng</span>
-				<p className="mt-3">
-					Bạn đã có tài khoản ?<Link to="#"> Đăng nhập</Link>
-				</p>
+				{!cookies.user && (
+					<p className="mt-3">
+						Bạn đã có tài khoản ?
+						<Link to="#"> Đăng nhập</Link>
+					</p>
+				)}
+
 				<input
 					type="text"
 					name="nameCustomer"
@@ -236,11 +296,14 @@ function CustomerInfo({ cart }) {
 					onChange={handleChange}
 					placeholder="Địa chỉ"
 				></input>
-				<DetailAddress
-					detailAddress={detailAddress}
-					setDetailAddress={setDetailAddress}
-				/>
-				{userLocal && (
+				{!inputs.detailInputHidden && (
+					<DetailAddress
+						detailAddress={detailAddress}
+						setDetailAddress={setDetailAddress}
+					/>
+				)}
+
+				{cookies.user && (
 					<div class="form-check form-switch">
 						<input
 							class="form-check-input"
@@ -258,7 +321,7 @@ function CustomerInfo({ cart }) {
 					</div>
 				)}
 
-				{changeInfo.view && (
+				{changeInfo.view && cookies.user && (
 					<div className="p-4 shadow mt-3 mb-5">
 						<div className="d-flex fw-bold text-danger fs-5">
 							<div>Địa chỉ nhận hàng</div>
@@ -327,15 +390,28 @@ function CustomerInfo({ cart }) {
 														style={{
 															cursor: "pointer",
 														}}
-														onClick={() =>
+														onClick={() => {
+															if (
+																cookies
+																	.user
+																	.id ===
+																item._id
+															) {
+																return Toast.fire(
+																	{
+																		title: "Không thể sửa thông tin mặc định",
+																		icon: "warning",
+																	}
+																);
+															}
 															setChangeInfo(
 																{
 																	...changeInfo,
 																	modalEdit:
 																		!changeInfo.modalEdit,
 																}
-															)
-														}
+															);
+														}}
 													/>
 													<DeleteIcon
 														className="ms-2"
@@ -354,6 +430,7 @@ function CustomerInfo({ cart }) {
 									)
 								)}
 						</div>
+
 						<div className="text-center">
 							<button
 								className="btn btn-danger"

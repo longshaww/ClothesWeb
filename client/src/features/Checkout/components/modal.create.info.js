@@ -3,6 +3,7 @@ import { useState } from "react";
 import Toast from "../../../utils/toast";
 import axiosMethod from "../../../middlewares/axios";
 import DetailAddress from "./detail.address";
+import { useCookies } from "react-cookie";
 
 function ModalCreateInfo({
 	setChangeInfo,
@@ -10,7 +11,7 @@ function ModalCreateInfo({
 	detailAddress,
 	setDetailAddress,
 }) {
-	const userLocal = localStorage.getItem("user_info");
+	const [cookies] = useCookies(["user"]);
 	const [inputs, setInputs] = useState({});
 	const handleChange = (event) => {
 		const name = event.target.name;
@@ -31,14 +32,13 @@ function ModalCreateInfo({
 				icon: "error",
 			});
 		}
-		if (!userLocal) {
+		if (!cookies.user) {
 			return Toast.fire({
 				title: "Lỗi",
 				icon: "error",
 			});
 		}
-		const user = JSON.parse(userLocal);
-		const data = { ...inputs, userID: user.id };
+		const data = { ...inputs, userID: cookies.user.id };
 		data.address = `${inputs.address} ${detailAddress.ward},${detailAddress.province},${detailAddress.city}`;
 		const resInfo = await axiosMethod("bill/info", "post", data);
 		if (resInfo.success) {

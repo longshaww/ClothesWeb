@@ -1,16 +1,15 @@
-import { useState, useCallback, useRef, useLayoutEffect } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axiosMethod from "../../../middlewares/axios";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import Toast from "../../../utils/toast";
 
 export default function PaymentMethod() {
-	const firstUpdate = useRef(true);
 	const MySwal = withReactContent(Swal);
 	const navigate = useNavigate();
 	const [checkedPayment, setCheckedPayment] = useState(1);
 	const checkedShipping = "Phí vận chuyển";
-
+	const customer = localStorage.getItem("customer");
 	const radio = [
 		{
 			id: 1,
@@ -21,51 +20,31 @@ export default function PaymentMethod() {
 
 	const shippingChange = () => {};
 
-	//Handle POST
-	const postPaymentCB = useCallback((data) => {
-		postPayment(data);
+	useEffect(() => {
+		if (!customer) {
+			navigate("/checkout");
+			Toast.fire({
+				title: "Bạn chưa nhập thông tin thanh toán",
+				icon: "warning",
+			});
+		}
 	}, []);
 
-	async function postPayment(data) {
-		const req = await axiosMethod("bill", "post", data);
-		return req;
-	}
-	useLayoutEffect(() => {
-		if (firstUpdate) {
-			firstUpdate.current = false;
-			return;
-		}
-		postPaymentCB();
-	}, [postPaymentCB]);
-
 	//Alert if success
-	const sweetAlertSuccess = (customer) => {
-		MySwal.fire({
+	const sweetAlertSuccess = async (customer) => {
+		await MySwal.fire({
 			title: <p>Đang xử lý</p>,
 			didOpen: () => {
 				MySwal.showLoading();
-				postPaymentCB(customer);
 			},
 			timer: 1000,
-		})
-			.then(() => {
-				return MySwal.fire({
-					title: "Thành công",
-					icon: "success",
-					didOpen: () => {
-						MySwal.showLoading();
-					},
-					timer: 1000,
-				});
-			})
-			.then(() => {
-				navigate("/checkout/method/COD/success");
-			});
+		});
+		navigate("/checkout/method/COD/success");
 	};
 
 	//alert if error
-	const sweetAlertError = (customer) => {
-		if (!customer) {
+	const sweetAlertError = () => {
+		if (!localStorage.getItem("customer")) {
 			MySwal.fire({
 				icon: "warning",
 				title: (
@@ -91,13 +70,13 @@ export default function PaymentMethod() {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		const customer = JSON.parse(localStorage.getItem("customer"));
-		if (sweetAlertError(customer)) return;
+		if (sweetAlertError()) return;
 
 		if (checkedPayment === 1) {
 			customer.paymentMethod = "COD";
 			sweetAlertSuccess(customer);
 		} else {
-			navigate("/checkout/method/online");
+			navigate("/checkout/method/Online");
 		}
 	};
 	return (
