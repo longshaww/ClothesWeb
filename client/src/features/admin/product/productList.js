@@ -11,24 +11,25 @@ import { useCookies } from "react-cookie";
   
   const [data, setData] = useState([]);
   const [cookies] = useCookies();
-  const getData = async () => {
-    const endpoint = `${process.env.REACT_APP_API_URL}admin/products/getAllProduct`
 
-		const { data } = await axios.get(endpoint,
-			{
-				headers: {
-					authorization:
-						"Bearer " + cookies.accessToken,
-				},
-			});
-      
-      setData(data.listDataCustom);
-  
-	};
 	useEffect(() => {
+    const getData = async () => {
+      const endpoint = `${process.env.REACT_APP_API_URL}admin/products/getAllProduct`
+  
+      const { data } = await axios.get(endpoint,
+        {
+          headers: {
+            authorization:
+              "Bearer " + cookies.accessToken,
+          },
+        });
+        
+        setData(data.listDataCustom);
+    
+    };
 		getData();
 
-	}, [data]);
+	}, [data,cookies.accessToken]);
 
 
   const handleDelete = async (id) => {

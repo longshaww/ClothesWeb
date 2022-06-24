@@ -1,8 +1,54 @@
 import { useState } from "react";
-export default function EditProduct({ infoProduct }) {
+import Toast from "../../../utils/toast";
+import axios from "axios"
+export default function EditProduct({ infoProduct,idProduct,accessToken}) {
   const [inputs, setInputs] = useState(infoProduct);
-  const handleChangeEditProduct = () => {
-    console.log("vao");
+  const options = [
+    { id: "621c506fbae8653bcb4564ac", typeName: "Tops" },
+    { id: "621c50a7bae8653bcb4564b1", typeName: "Bottoms" },
+    { id: "621c50c7bae8653bcb4564b3", typeName: "Outerwears" },
+    { id: "621c50e0bae8653bcb4564b4", typeName: "Accessories" },
+    { id: "6295e2c2edafd2b5ebe66cd3", typeName: "NewArrivals" },
+  ];
+  const handleChangeEditProduct = (e) => {
+    const value = e.target.value;
+    setInputs({
+      ...inputs,
+      [e.target.name]: value,
+    });
+  };
+  const handleChangeSelectBox = (e) =>setInputs({...inputs,idCollection : e.target.value,collection : null})
+  const handleClick = async () => {
+    try{
+      if(inputs.nameProduct === ""|| inputs.price === ""|| inputs.sizeM === ""
+          ||  inputs.sizeL === ""||  inputs.sizeXL === "" || inputs.description === "")
+      { 
+        return  Toast.fire({
+          title: "Vui Lòng Điền Đầy Đủ Thông Tin",
+          icon: "error",
+        });
+      }
+      else
+      { 
+        const { data } = await axios.put(`${process.env.REACT_APP_API_URL}admin/products/editProduct/${idProduct}`,inputs,{
+          headers: {
+            authorization: "Bearer " + accessToken,
+          },
+        });
+        if(data.success){
+           Toast.fire({
+            title: "Cập Nhật Thành Công",
+            icon: "success",
+          });
+
+        }
+      }
+    }
+    catch(err)
+    { 
+
+    }
+ 
   };
   return (
     <>
@@ -14,9 +60,28 @@ export default function EditProduct({ infoProduct }) {
               <label>Tên Sản Phẩm</label>
               <input
                 type="text"
-                name="nameRestaurant"
+                name="nameProduct"
                 placeholder={infoProduct.nameProduct}
                 value={inputs.nameProduct}
+                onChange={handleChangeEditProduct}
+                className="userUpdateInput"
+              />
+            </div>
+            <div className="userUpdateItem  mt-4" style={{width: '250px'}}>
+              <select class="form-select" value={inputs.idCollection} onChange={handleChangeSelectBox}>
+              {options.map(item => {
+                  return (<option key={item.id} value={item.id}>{item.typeName}</option>);
+              })}
+              </select>
+            </div>
+         
+            <div className="userUpdateItem">
+              <label>Giá</label>
+              <input
+                type="number"
+                placeholder={infoProduct.price}
+                name="price"
+                value={inputs.price}
                 onChange={handleChangeEditProduct}
                 className="userUpdateInput"
               />
@@ -27,7 +92,7 @@ export default function EditProduct({ infoProduct }) {
                 <input
                   type="number"
                   placeholder={infoProduct.sizeM}
-                  name="priceService"
+                  name="sizeM"
                   value={inputs.sizeM}
                   onChange={handleChangeEditProduct}
                   className="userUpdateInput"
@@ -39,7 +104,7 @@ export default function EditProduct({ infoProduct }) {
                 <input
                   type="number"
                   placeholder={infoProduct.sizeL}
-                  name="priceService"
+                  name="sizeL"
                   value={inputs.sizeL}
                   onChange={handleChangeEditProduct}
                   className="userUpdateInput"
@@ -51,7 +116,7 @@ export default function EditProduct({ infoProduct }) {
                 <input
                   type="number"
                   placeholder={infoProduct.sizeXL}
-                  name="priceService"
+                  name="sizeXL"
                   value={inputs.sizeXL}
                   onChange={handleChangeEditProduct}
                   className="userUpdateInput"
@@ -60,50 +125,22 @@ export default function EditProduct({ infoProduct }) {
               </div>
             </div>
             <div className="userUpdateItem">
-              <label>Giá</label>
-              <input
-                type="number"
-                placeholder={infoProduct.price}
-                name="priceService"
-                value={inputs.price}
-                onChange={handleChangeEditProduct}
-                className="userUpdateInput"
-              />
-            </div>
-            <div className="userUpdateItem">
               <label>Mô Tả Sản Phẩm</label>
 
               <textarea
-                name="descriptionRestaurant"
+                name="description"
                 style={{ width: "500px", height: "200px" }}
                 value={infoProduct.description}
                 onChange={handleChangeEditProduct}
               />
             </div>
-            <button className="userUpdateButton mt-5" type="button">
-              Cập NHật
+            <button
+              className="userUpdateButton mt-5"
+              onClick={handleClick}
+              type="button"
+            >
+              Cập Nhật
             </button>
-          </div>
-          <div className="userUpdateRight">
-            <div class="form-group">
-                <div>
-                <label for="exampleFormControlFile1">Example file input</label>
-              <input
-                type="file"
-                class="form-control-file"
-                id="exampleFormControlFile1"
-              />
-                </div>
-                <div className="mt-4">
-                <label for="exampleFormControlFile1">Example file input</label>
-              <input
-                type="file"
-                class="form-control-file"
-                id="exampleFormControlFile1"
-              />
-                </div>
-            
-            </div>
           </div>
         </form>
       </div>

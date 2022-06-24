@@ -12,23 +12,22 @@ export default function DetailProduct() {
 
   const [dataDetail, setDataDetail] = useState(null);
   const [cookies] = useCookies();
-  const getData = async () => {
-    const endpoint = `${process.env.REACT_APP_API_URL}admin/products/detailProduct/${id}`;
-
-    const { data } = await axios.get(endpoint, {
-      headers: {
-        authorization: "Bearer " + cookies.accessToken,
-      },
-    });
-    setDataDetail(data.customData);
-  };
-
-
 
   useEffect(() => {
+    const getData = async () => {
+      const endpoint = `${process.env.REACT_APP_API_URL}admin/products/detailProduct/${id}`;
+  
+      const { data } = await axios.get(endpoint, {
+        headers: {
+          authorization: "Bearer " + cookies.accessToken,
+        },
+      });
+      setDataDetail(data.customData);
+      console.log(dataDetail)
+    };
     getData();
 
-  }, []);
+  }, [dataDetail,id,cookies.accessToken]);
 
   const renderProduct = ()=>{
         if(dataDetail!==null)
@@ -37,7 +36,7 @@ export default function DetailProduct() {
             <>
             <div className="userContainer">
               <InfoProduct infoProduct={dataDetail}/>
-              <EditProduct infoProduct={dataDetail} idProduct={id}/>
+              <EditProduct infoProduct={dataDetail} idProduct={id} accessToken={cookies.accessToken}/>
 
             </div>
           </>

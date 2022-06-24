@@ -1,3 +1,5 @@
+import PaidIcon from '@mui/icons-material/Paid';
+import CollectionsBookmarkIcon from '@mui/icons-material/CollectionsBookmark';
 export default function InfoProduct({ infoProduct }) {
   return (
     <>
@@ -10,29 +12,35 @@ export default function InfoProduct({ infoProduct }) {
         </div>
         <div className="userShowBottom">
           <span className="userShowTitle">Thông Tin</span>
-          <div className="userShowInfo">
-            {/* <MonetizationOnIcon className="userShowIcon" /> */}
+          <div className="userShowInfo mt-3">
+            <PaidIcon className="userShowIcon" />
             <span className="userShowInfoTitle">
               {infoProduct.price},000 VND
+            </span>
+          </div>
+          <div className="userShowInfo mt-3">
+          <CollectionsBookmarkIcon className="userShowIcon" />
+            <span className="userShowInfoTitle">
+                    {infoProduct.collection}
             </span>
           </div>
           <div className="d-flex  userShowInfo">
             <div>   
                 <span className="userShowIcon" >SizeM :</span>
-                <span className="userShowInfoTitle">{infoProduct.sizeM} </span>
+                <span className="userShowInfoTitle">{infoProduct.sizeM},</span>
             </div>
             <div style={{marginLeft:"10px"}}>   
                 <span className="userShowIcon" >SizeL : </span>
-                <span className="userShowInfoTitle">{infoProduct.sizeL} </span>
+                <span className="userShowInfoTitle">{infoProduct.sizeL},</span>
             </div>
             <div style={{marginLeft:"10px"}}>   
                 <span className="userShowIcon" >SizeXL : </span>
-                <span className="userShowInfoTitle">{infoProduct.sizeXL} </span>
+                <span className="userShowInfoTitle">{infoProduct.sizeXL}</span>
             </div>
           </div>
           <span className="userShowTitle">Giới Thiệu</span>
           <div className="userShowInfo mt-2">
-            <span className="userShowInfoTitle">{infoProduct.description}</span>
+            <span className="userShowInfoTitle m-lg-0">{infoProduct.description}</span>
           </div>
           <div className="d-flex">
             <div>
