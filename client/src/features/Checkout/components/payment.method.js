@@ -26,28 +26,15 @@ export default function PaymentMethod() {
 		return req;
 	}
 	//Alert if success
-	const sweetAlertSuccess = (customer) => {
-		MySwal.fire({
+	const sweetAlertSuccess = async (customer) => {
+		await MySwal.fire({
 			title: <p>Đang xử lý</p>,
 			didOpen: () => {
 				MySwal.showLoading();
-				postPayment(customer);
 			},
 			timer: 1000,
-		})
-			.then(() => {
-				return MySwal.fire({
-					title: "Thành công",
-					icon: "success",
-					didOpen: () => {
-						MySwal.showLoading();
-					},
-					timer: 1000,
-				});
-			})
-			.then(() => {
-				navigate("/checkout/method/COD/success");
-			});
+		});
+		navigate("/checkout/method/COD/success");
 	};
 
 	//alert if error
@@ -84,7 +71,7 @@ export default function PaymentMethod() {
 			customer.paymentMethod = "COD";
 			sweetAlertSuccess(customer);
 		} else {
-			navigate("/checkout/method/online");
+			navigate("/checkout/method/Online");
 		}
 	};
 	return (

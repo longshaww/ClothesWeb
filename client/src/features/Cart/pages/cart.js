@@ -17,41 +17,18 @@ function Cart({ cart, setCart }) {
 	const handleDelClick = (productId) => {
 		deleteCart(productId._id);
 	};
-	const deleteCart = useCallback(
-		(productId) => {
-			async function axiosCart() {
-				const data = await axiosMethod(
-					`cart/${productId}`,
-					"delete",
-					{
-						id: productId,
-					}
-				);
-				const cartQty = data.cart.reduce((a, b) => {
-					return a + b.qty;
-				}, 0);
-				const cartTotal = data.cart.reduce((a, b) => {
-					return a + b._id.price * b.qty;
-				}, 0);
-				setCart(cartQty, data, cartTotal);
-				Toast.fire({
-					title: "Đã xóa sản phẩm khỏi giỏ hàng",
-					icon: "success",
-				});
-				return data;
-			}
-			axiosCart();
-		},
-		[setCart]
-	);
-
-	useLayoutEffect(() => {
-		if (firstUpdate) {
-			firstUpdate.current = false;
-			return;
+	async function deleteCart(productId) {
+		const data = await axiosMethod(`cart/${productId}`, "delete", {
+			id: productId,
+		});
+		if (data.success) {
+			setCart(data.cartQty, data, data.cartTotal);
+			Toast.fire({
+				title: "Đã xóa sản phẩm khỏi giỏ hàng",
+				icon: "success",
+			});
 		}
-		deleteCart();
-	}, [deleteCart]);
+	}
 
 	return (
 		<>

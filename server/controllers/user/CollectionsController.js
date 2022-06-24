@@ -55,7 +55,6 @@ class CollectionsController {
 		})
 			.skip(skip)
 			.limit(pageSize);
-		console.log(tops);
 		tops
 			? res.status(202).json(tops)
 			: res.status(404).json({

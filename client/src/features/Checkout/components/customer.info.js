@@ -36,6 +36,7 @@ function CustomerInfo({ cart }) {
 		phoneNumber: "",
 		address: "",
 		idDelivery: "",
+		detailInputHidden: false,
 	});
 
 	const [changeInfo, setChangeInfo] = useState({
@@ -94,17 +95,36 @@ function CustomerInfo({ cart }) {
 	};
 
 	const validation = () => {
-		if (
-			!inputs.nameCustomer ||
-			!inputs.email ||
-			!inputs.phoneNumber ||
-			!inputs.address ||
-			!detailAddress.city ||
-			!detailAddress.ward ||
-			!detailAddress.province
-		)
-			return true;
+		if (!cookies.user) {
+			if (
+				!inputs.nameCustomer ||
+				!inputs.email ||
+				!inputs.phoneNumber ||
+				!inputs.address ||
+				!detailAddress.city ||
+				!detailAddress.ward ||
+				!detailAddress.province
+			) {
+				return true;
+			}
+		} else {
+			if (
+				!inputs.nameCustomer ||
+				!inputs.email ||
+				!inputs.phoneNumber ||
+				!inputs.address ||
+				!detailAddress.city ||
+				!detailAddress.ward ||
+				!detailAddress.province
+			) {
+				if (inputs.detailInputHidden) {
+					return false;
+				}
+				return true;
+			}
+		}
 	};
+
 	//Submit Form
 	const handleSubmit = (event) => {
 		event.preventDefault();
@@ -129,7 +149,11 @@ function CustomerInfo({ cart }) {
 		if (cookies.user) {
 			data.userID = cookies.user.id;
 		}
-		data.address = `${inputs.address} ${detailAddress.ward},${detailAddress.province},${detailAddress.city}`;
+		if (!inputs.address.includes("Phường")) {
+			if (!inputs.address.includes("Xã")) {
+				data.address = `${inputs.address} ${detailAddress.ward},${detailAddress.province},${detailAddress.city}`;
+			}
+		}
 
 		localStorage.setItem("customer", JSON.stringify(data));
 		MySwal.fire({
@@ -170,6 +194,7 @@ function CustomerInfo({ cart }) {
 			phoneNumber: data.phoneNumber,
 			address: data.address,
 			idDelivery: changeInfo.checkedInfo,
+			detailInputHidden: !inputs.detailInputHidden,
 		});
 		Toast.fire({
 			title: "Cập nhật thông tin thành công",
@@ -178,6 +203,12 @@ function CustomerInfo({ cart }) {
 	};
 
 	const onDeleteInfoClick = async (id) => {
+		if (cookies.user.id === id) {
+			return Toast.fire({
+				title: "Không thể xóa thông tin mặc định",
+				icon: "warning",
+			});
+		}
 		const deleteInfo = await axiosMethod(`bill/info/${id}`, "delete");
 		if (deleteInfo.success) {
 			const findById = changeInfo.listInfo.find((a) => a._id === id);
@@ -265,10 +296,13 @@ function CustomerInfo({ cart }) {
 					onChange={handleChange}
 					placeholder="Địa chỉ"
 				></input>
-				<DetailAddress
-					detailAddress={detailAddress}
-					setDetailAddress={setDetailAddress}
-				/>
+				{!inputs.detailInputHidden && (
+					<DetailAddress
+						detailAddress={detailAddress}
+						setDetailAddress={setDetailAddress}
+					/>
+				)}
+
 				{cookies.user && (
 					<div class="form-check form-switch">
 						<input
@@ -356,15 +390,28 @@ function CustomerInfo({ cart }) {
 														style={{
 															cursor: "pointer",
 														}}
-														onClick={() =>
+														onClick={() => {
+															if (
+																cookies
+																	.user
+																	.id ===
+																item._id
+															) {
+																return Toast.fire(
+																	{
+																		title: "Không thể sửa thông tin mặc định",
+																		icon: "warning",
+																	}
+																);
+															}
 															setChangeInfo(
 																{
 																	...changeInfo,
 																	modalEdit:
 																		!changeInfo.modalEdit,
 																}
-															)
-														}
+															);
+														}}
 													/>
 													<DeleteIcon
 														className="ms-2"

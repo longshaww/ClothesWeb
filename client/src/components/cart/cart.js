@@ -5,15 +5,10 @@ import ClearIcon from "@mui/icons-material/Clear";
 import Box from "@mui/material/Box";
 import { Link } from "react-router-dom";
 import globalStateAndAction from "../../container/global.state.action";
-import {
-	useState,
-	useEffect,
-	useRef,
-	useCallback,
-	useLayoutEffect,
-} from "react";
+import { useState, useEffect } from "react";
 import axiosMethod from "../../middlewares/axios";
 import Toast from "../../utils/toast";
+import { useCookies } from "react-cookie";
 
 function PopupCart({ cart, setCart }) {
 	//Get state from redux
@@ -23,62 +18,37 @@ function PopupCart({ cart, setCart }) {
 
 	//Local state
 	const [anchorEl, setAnchorEl] = useState(null);
-	const firstUpdate = useRef(true);
 
-	//Get Cart at the first
+	const [cookie, setCookie, removeCookie] = useCookies(["sessionId"]);
+	//Get Cart at first
 
 	useEffect(() => {
 		async function getCart() {
 			const data = await axiosMethod("cart", "get");
-			const cartQty = data.cart.reduce((a, b) => {
-				return a + b.qty;
-			}, 0);
-
-			const cartTotal = data.cart.reduce((a, b) => {
-				return a + b._id.price * b.qty;
-			}, 0);
-			setCart(cartQty, data, cartTotal);
+			if (!data) {
+				Toast.fire({ title: "Lỗi giỏ hàng", icon: "error" });
+				removeCookie("sessionId", { path: "/" });
+			}
+			if (data.success) {
+				setCart(data.cartQty, data, data.cartTotal);
+			}
 		}
 		getCart();
 	}, [setCart]);
 
 	//Handle Delete Cart
 
-	const deleteCart = useCallback(
-		(productId) => {
-			async function axiosCart() {
-				const data = await axiosMethod(
-					`cart/${productId}`,
-					"delete",
-					{
-						id: productId,
-					}
-				);
-				const cartQty = data.cart.reduce((a, b) => {
-					return a + b.qty;
-				}, 0);
-				const cartTotal = data.cart.reduce((a, b) => {
-					return a + b._id.price * b.qty;
-				}, 0);
-				setCart(cartQty, data, cartTotal);
-				Toast.fire({
-					title: "Đã xóa sản phẩm khỏi giỏ hàng",
-					icon: "success",
-				});
-				return data;
-			}
-			axiosCart();
-		},
-		[setCart]
-	);
-
-	useLayoutEffect(() => {
-		if (firstUpdate) {
-			firstUpdate.current = false;
-			return;
-		}
-		deleteCart();
-	}, [deleteCart]);
+	async function deleteCart(productId) {
+		const data = await axiosMethod(`cart/${productId}`, "delete", {
+			id: productId,
+		});
+		setCart(data.cartQty, data, data.cartTotal);
+		Toast.fire({
+			title: "Đã xóa sản phẩm khỏi giỏ hàng",
+			icon: "success",
+		});
+		return data;
+	}
 
 	// Cart handle
 	const handleClick = (event) => {
@@ -102,6 +72,7 @@ function PopupCart({ cart, setCart }) {
 	return (
 		<Badge badgeContent={cartCount} color="primary">
 			<ShoppingCartIcon
+				style={{ cursor: "pointer" }}
 				onClick={handleClick}
 				aria-describedby={id}
 				variant="contained"

@@ -50,18 +50,13 @@ export default function Detail() {
 			qty,
 			size: checked,
 		});
-		const cartQty = data.cart.reduce((a, b) => {
-			return a + b.qty;
-		}, 0);
-		const cartTotal = data.cart.reduce((a, b) => {
-			return a + b._id.price * b.qty;
-		}, 0);
-		dispatch(setCart(cartQty, data, cartTotal));
-		Toast.fire({
-			title: "Thêm vào giỏ hàng thành công",
-			icon: "success",
-		});
-		return data;
+		if (data.success) {
+			dispatch(setCart(data.cartQty, data, data.cartTotal));
+			Toast.fire({
+				title: "Thêm vào giỏ hàng thành công",
+				icon: "success",
+			});
+		}
 	}
 
 	const handleCheckout = () => {

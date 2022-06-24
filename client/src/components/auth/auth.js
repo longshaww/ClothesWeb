@@ -205,6 +205,7 @@ function Auth() {
 	return (
 		<Badge color="primary">
 			<AccountCircleIcon
+				style={{ cursor: "pointer" }}
 				onClick={handleClick}
 				aria-describedby={id}
 				variant="contained"
