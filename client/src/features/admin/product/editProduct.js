@@ -68,7 +68,7 @@ export default function EditProduct({ infoProduct,idProduct,accessToken}) {
               />
             </div>
             <div className="userUpdateItem  mt-4" style={{width: '250px'}}>
-              <select class="form-select" value={inputs.idCollection} onChange={handleChangeSelectBox}>
+              <select className="form-select" value={inputs.idCollection} onChange={handleChangeSelectBox}>
               {options.map(item => {
                   return (<option key={item.id} value={item.id}>{item.typeName}</option>);
               })}

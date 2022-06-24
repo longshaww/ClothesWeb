@@ -23,7 +23,6 @@ export default function DetailProduct() {
         },
       });
       setDataDetail(data.customData);
-      console.log(dataDetail)
     };
     getData();
 
@@ -35,7 +34,7 @@ export default function DetailProduct() {
           return (
             <>
             <div className="userContainer">
-              <InfoProduct infoProduct={dataDetail}/>
+              <InfoProduct infoProduct={dataDetail} idProduct={id} accessToken={cookies.accessToken} />
               <EditProduct infoProduct={dataDetail} idProduct={id} accessToken={cookies.accessToken}/>
 
             </div>
@@ -47,7 +46,7 @@ export default function DetailProduct() {
     <>
     <div className="user">
       <div className="userTitleContainer">
-        <h1 className="userTitle">Chi Tiết Món Ăn</h1>
+        <h1 className="userTitle">Chi Tiết Sản Phẩm</h1>
       </div>
       {renderProduct()}
     </div>
