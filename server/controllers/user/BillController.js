@@ -1,6 +1,7 @@
 const DeliveryInfo = require("../../models/DeliveryInfo");
 const UserWeb = require("../../models/UserWeb");
 const BillWeb = require("../../models/BillWeb");
+const Session = require("../../models/Sessions");
 class BillController {
 	async addNewInfoUser(req, res) {
 		const { userID, nameCustomer, address, phoneNumber } = req.body;
@@ -78,7 +79,32 @@ class BillController {
 			res.status(400).json({ success: false, message: err });
 		}
 	}
+
+	async getBill(req, res) {
+		const { id } = req.params;
+		if (!id) {
+			return res.status(404).json({
+				success: false,
+				message: "Cannot post without id",
+			});
+		}
+		try {
+			const bill = await BillWeb.findById(id)
+				.populate("userID")
+				.populate("deliveryID")
+				.populate("listProduct._id");
+			return res.status(200).json({
+				success: true,
+				body: bill,
+			});
+		} catch (err) {
+			res.status(400).json({ success: false, message: err });
+		}
+	}
+
 	async postBill(req, res) {
+		const sessionId = req.signedCookies.sessionId;
+
 		const {
 			userID,
 			nameCustomer,
@@ -122,6 +148,12 @@ class BillController {
 				email,
 			});
 			newBillWeb.deliveryID = newInfo.id;
+		}
+
+		const currentSession = await Session.findById(sessionId);
+		if (currentSession) {
+			currentSession.cart = [];
+			currentSession.save();
 		}
 		res.status(200).send({
 			success: true,

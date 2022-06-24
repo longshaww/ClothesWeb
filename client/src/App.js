@@ -15,7 +15,7 @@ import Checkout from "./features/Checkout/pages/checkout";
 import { Routes, Route, Navigate } from "react-router-dom";
 import PaymentSuccess from "./features/Payment/pages/success";
 import CustomerInfo from "./features/Checkout/components/customer.info";
-import PaymentMethod from "./features/Checkout/components/payment.method";
+import PaymentMethod from "./features/Checkout/pages/payment.method";
 import OnlinePayment from "./features/Payment/pages/index";
 import { useCookies } from "react-cookie";
 import LayoutAdmin from "./layouts/layoutAdmin";

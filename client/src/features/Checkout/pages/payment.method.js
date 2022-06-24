@@ -1,15 +1,15 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import axiosMethod from "../../../middlewares/axios";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import Toast from "../../../utils/toast";
 
 export default function PaymentMethod() {
 	const MySwal = withReactContent(Swal);
 	const navigate = useNavigate();
 	const [checkedPayment, setCheckedPayment] = useState(1);
 	const checkedShipping = "Phí vận chuyển";
-
+	const customer = localStorage.getItem("customer");
 	const radio = [
 		{
 			id: 1,
@@ -20,11 +20,16 @@ export default function PaymentMethod() {
 
 	const shippingChange = () => {};
 
-	//Handle POST
-	async function postPayment(data) {
-		const req = await axiosMethod("bill", "post", data);
-		return req;
-	}
+	useEffect(() => {
+		if (!customer) {
+			navigate("/checkout");
+			Toast.fire({
+				title: "Bạn chưa nhập thông tin thanh toán",
+				icon: "warning",
+			});
+		}
+	}, []);
+
 	//Alert if success
 	const sweetAlertSuccess = async (customer) => {
 		await MySwal.fire({

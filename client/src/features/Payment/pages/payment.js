@@ -61,7 +61,7 @@ export default function PaymentForm() {
 			elements,
 			confirmParams: {
 				// Make sure to change this to your payment completion page
-				return_url: `${process.env.REACT_APP_URL}checkout/method/online/success`,
+				return_url: `${window.location.origin}/checkout/method/Online/success`,
 			},
 		});
 

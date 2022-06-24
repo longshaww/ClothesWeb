@@ -3,7 +3,7 @@ import "../../../assets/styles/cart.detail.css";
 import ReplyIcon from "@mui/icons-material/Reply";
 import { Link } from "react-router-dom";
 import ClearIcon from "@mui/icons-material/Clear";
-import { useRef, useCallback, useLayoutEffect } from "react";
+import { useRef } from "react";
 import axiosMethod from "../../../middlewares/axios";
 import { Breadcrumb, BreadcrumbItem } from "reactstrap";
 import Toast from "../../../utils/toast";
@@ -12,7 +12,6 @@ function Cart({ cart, setCart }) {
 	const cartCount = cart.cartCount;
 	const cartStore = cart.cartStore;
 	const cartTotalPrice = cart.cartTotalPrice;
-	const firstUpdate = useRef(true);
 
 	const handleDelClick = (productId) => {
 		deleteCart(productId._id);
