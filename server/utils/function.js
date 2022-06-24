@@ -44,8 +44,12 @@ module.exports = {
             cb(null,'public')
         },
         filename : (req,file,cb) =>{
-            console.log(file);
+            let ext = path.extname(file.originalname);
+            if (ext !== ".jpg" && ext !== ".jpeg" && ext !== ".png") {
+                cb(new Error("File type is not supported"), false);
+                return;
+            }
             cb(null,Date.now()+ path.extname(file.originalname));
         }
-    }),
+    })
 }
