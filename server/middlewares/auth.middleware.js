@@ -33,7 +33,6 @@ module.exports = {
         const authHeader = req.headers.authorization;
         
         if (authHeader) {
-            console.log(authHeader);
             const token = authHeader.split(" ")[1];
             jwt.verify(token, "mySecretKey", (err, dataUser) => {
                 if (err) {
@@ -41,12 +40,8 @@ module.exports = {
                         {"success" : false,
                          msg : "token không được định nghĩa"});
                 } else {
-             
-                    console.log("thanh cong")
                     req.customer = dataUser;
                     next();
-
-
                 }
             });
         } else {

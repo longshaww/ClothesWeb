@@ -52,8 +52,6 @@ class BillAdminController {
                 msg: err.message
             })
         }
-
-
     }
 }
 module.exports = new BillAdminController()
