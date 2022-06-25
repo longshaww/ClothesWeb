@@ -100,7 +100,7 @@ function Cart({ cart, setCart }) {
 																}
 															</span>
 															<div className="fw-bold">
-																{`${item.total},000đ`}
+																{`${item.total.toLocaleString()},000đ`}
 															</div>
 														</div>
 														<div className="cart-btn-del">
@@ -208,7 +208,7 @@ function Cart({ cart, setCart }) {
 							<p className="py-2 border-bottom fw-bold">
 								Tổng tiền:
 								<span className="float-end text-danger">
-									{`${cartTotalPrice},000đ`}
+									{`${cartTotalPrice.toLocaleString()},000đ`}
 								</span>
 							</p>
 							<p>

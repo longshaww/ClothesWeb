@@ -3,6 +3,7 @@ import { DataGrid } from "@material-ui/data-grid";
 import { useState ,useEffect} from "react";
 import axios from 'axios';
 import { useCookies } from "react-cookie";
+import Toast from '../../../utils/toast';
 export default function ListUser() {
   const [dataUser, setData] = useState([]);
   const [cookies] = useCookies();
@@ -38,7 +39,10 @@ export default function ListUser() {
 			});
     if(res.data.success === true )
     {
-      alert("MỞ BLOCK USER THÀNH CÔNG")
+      Toast.fire({
+        title: "MỞ BLOCK USER THÀNH CÔNG",
+        icon: "success",
+      });
     }
   };
   
@@ -54,7 +58,10 @@ export default function ListUser() {
 			});
     if(res.data.success === true )
     {
-      alert("BLOCK USER THÀNH CÔNG")
+      Toast.fire({
+        title: "BLOCK USER THÀNH CÔNG",
+        icon: "success",
+      });
     }
   }
 

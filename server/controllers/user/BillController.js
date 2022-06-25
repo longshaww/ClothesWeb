@@ -133,7 +133,7 @@ class BillController {
 			paymentMethod,
 			qtyProduct: listProduct.reduce((a, b) => a + b.qty, 0),
 			total: listProduct.reduce((a, b) => a + b.sum, 0),
-			status: true,
+			status: false,
 		});
 		if (userID) {
 			newBillWeb.userID = userID;
@@ -159,6 +159,29 @@ class BillController {
 			success: true,
 			body: await newBillWeb.save(),
 		});
+	}
+
+
+	async getDetailBill(req,res,next){
+		try{	
+			const bill = await BillWeb.findOne({"_id": req.params.id})
+										.populate("userID")
+										.populate("deliveryID")
+										.populate("listProduct._id");
+			let listBillCustom = [];
+			res.status(200).json({
+				success: true,
+				bill
+			})
+		}
+		catch(err)
+		{
+			res.status(404).json({
+				success: false,
+				msg : err.message
+			})
+		}
+		
 	}
 }
 

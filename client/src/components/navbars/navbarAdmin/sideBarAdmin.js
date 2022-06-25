@@ -13,12 +13,12 @@
       <div className="sidebar">
         <div className="sidebarWrapper">
           <div className="sidebarMenu">
-            <h3 className="sidebarTitle">Dashboard</h3>
+            <h3 className="sidebarTitle">Thống Kê</h3>
             <ul className="sidebarList">
               <Link to="/admin/dashboard" className="link">
               <li className="sidebarListItem active">
                 <LineStyle className="sidebarIcon" />
-                Home
+                Thống Kê
               </li>
               </Link>
         
@@ -26,24 +26,27 @@
             </ul>
           </div>
           <div className="sidebarMenu">
-            <h3 className="sidebarTitle">Quick Menu</h3>
+            <h3 className="sidebarTitle">Quản Lý</h3>
             <ul className="sidebarList">
               <Link to="/admin/users" className="link">
                 <li className="sidebarListItem">
                   <PermIdentity className="sidebarIcon" />
-                  Users
+                  Người Dùng
                 </li>
               </Link>
               <Link to="/admin/products" className="link">
                 <li className="sidebarListItem">
                   <Storefront className="sidebarIcon" />
-                  Products
+                  Sản Phẩm
                 </li>
               </Link>
-              <li className="sidebarListItem">
-                <AttachMoney className="sidebarIcon" />
-                Transactions
-              </li>
+              <Link to="/admin/bills" className="link">
+                <li className="sidebarListItem">
+                  <AttachMoney className="sidebarIcon" />
+                  Hóa Đơn
+                </li>
+              </Link>
+            
             
             </ul>
           </div>
