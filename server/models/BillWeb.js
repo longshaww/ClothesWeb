@@ -25,7 +25,9 @@ const BillWeb = new mongoose.Schema(
 			},
 		],
 		qtyProduct: { type: Number, required: true },
+		subTotal: { type: Number, required: true },
 		total: { type: Number, required: true },
+		shippingFee: { type: Number, required: true },
 		paymentMethod: {
 			type: String,
 			required: true,

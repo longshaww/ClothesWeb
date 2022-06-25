@@ -175,6 +175,57 @@ const BillComponent = ({ bill }) => {
 										</div>
 									</td>
 								</tr>
+
+								<tr>
+									<td
+										colSpan={3}
+										className="text-end"
+									>
+										<div>Shipping</div>
+									</td>
+									<td>
+										<div>
+											{formatPrice(
+												bill.shippingFee
+											)}
+										</div>
+									</td>
+								</tr>
+
+								{bill.voucherID && (
+									<tr>
+										<td
+											colSpan={3}
+											className="text-end"
+										>
+											<div>Discount</div>
+										</td>
+										<td>
+											<div>
+												{
+													bill.voucherID
+														.discount
+												}
+												%
+											</div>
+										</td>
+									</tr>
+								)}
+								<tr>
+									<td
+										colSpan={3}
+										className="text-end"
+									>
+										<div>Sub total</div>
+									</td>
+									<td>
+										<div>
+											{formatPrice(
+												bill.subTotal
+											)}
+										</div>
+									</td>
+								</tr>
 								<tr>
 									<td
 										colSpan={3}

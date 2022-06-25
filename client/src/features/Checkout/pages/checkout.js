@@ -35,39 +35,49 @@ function Checkout({ cart, setTotal }) {
 				icon: "error",
 			});
 		}
-		const checkCondition = await axiosMethod(
-			`voucher?code=${voucher.voucherInput}&amount=${cartTotalPrice}`,
-			"get"
-		);
-		if (!checkCondition.success) {
-			return Toast.fire({
-				title: checkCondition.message,
-				icon: "error",
-			});
-		}
-		const applyVoucher = await axiosMethod("voucher/apply", "post", {
-			amount: cartTotalPrice,
-			code: voucher.voucherInput,
-		});
-		if (!applyVoucher.success) {
-			return Toast.fire({
-				title: applyVoucher.message,
-				icon: "error",
-			});
-		}
-		if (customer) {
-			localStorage.setItem(
-				"customer",
-				JSON.stringify({
-					...JSON.parse(customer),
-					total: total - applyVoucher.body.discount,
-				})
+		try {
+			await axiosMethod(
+				`voucher?code=${voucher.voucherInput}&amount=${cartTotalPrice}`,
+				"get"
 			);
+		} catch (err) {
+			return Toast.fire({
+				title: err.response.data.message,
+				icon: "error",
+			});
 		}
-		localStorage.setItem("voucher", voucher.voucherInput);
-		Toast.fire({ title: applyVoucher.message, icon: "success" });
-		setVoucher({ ...voucher, voucherState: !voucher.voucherState });
-		setTotal(total - applyVoucher.body.discount);
+		try {
+			const applyVoucher = await axiosMethod("voucher/apply", "post", {
+				amount: cartTotalPrice,
+				code: voucher.voucherInput,
+			});
+			if (applyVoucher.success) {
+				Toast.fire({
+					title: applyVoucher.message,
+					icon: "success",
+				});
+			}
+			if (customer) {
+				localStorage.setItem(
+					"customer",
+					JSON.stringify({
+						...JSON.parse(customer),
+						total: total - applyVoucher.body.discount,
+					})
+				);
+			}
+			localStorage.setItem("voucher", voucher.voucherInput);
+			setVoucher({
+				...voucher,
+				voucherState: !voucher.voucherState,
+			});
+			setTotal(total - applyVoucher.body.discount);
+		} catch (err) {
+			return Toast.fire({
+				title: err.response.data.message,
+				icon: "error",
+			});
+		}
 	};
 
 	return (

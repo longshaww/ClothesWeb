@@ -92,8 +92,9 @@ class BillController {
 			const bill = await BillWeb.findById(id)
 				.populate("userID")
 				.populate("deliveryID")
-				.populate("listProduct._id");
-			return res.status(200).json({
+				.populate("listProduct._id")
+				.populate("voucherID");
+			res.status(200).json({
 				success: true,
 				body: bill,
 			});
@@ -131,40 +132,52 @@ class BillController {
 				message: "Cannot post without body !",
 			});
 		}
-		const newBillWeb = new BillWeb({
-			listProduct,
-			paymentMethod,
-			total,
-			qtyProduct: listProduct.reduce((a, b) => a + b.qty, 0),
-			status: false,
-		});
-		if (voucherID) {
-			newBillWeb.voucherID = voucherID;
-		}
-		if (userID) {
-			newBillWeb.userID = userID;
-			if (idDelivery) {
-				newBillWeb.deliveryID = idDelivery;
-			}
-		} else {
-			const newInfo = await DeliveryInfo.create({
-				nameCustomer,
-				address,
-				phoneNumber,
-				email,
+		try {
+			const newBillWeb = new BillWeb({
+				listProduct,
+				paymentMethod,
+				total,
+				subTotal: listProduct.reduce((a, b) => a + b.sum, 0),
+				qtyProduct: listProduct.reduce((a, b) => a + b.qty, 0),
+				status: paymentMethod === "COD" ? false : true,
+				shippingFee: 35,
 			});
-			newBillWeb.deliveryID = newInfo.id;
-		}
+			if (voucherID) {
+				newBillWeb.voucherID = voucherID;
+			}
+			if (userID) {
+				newBillWeb.userID = userID;
+				if (idDelivery) {
+					newBillWeb.deliveryID = idDelivery;
+				}
+			} else {
+				const newInfo = await DeliveryInfo.create({
+					nameCustomer,
+					address,
+					phoneNumber,
+					email,
+				});
+				newBillWeb.deliveryID = newInfo.id;
+			}
 
-		const currentSession = await Session.findById(sessionId);
-		if (currentSession) {
-			currentSession.cart = [];
-			currentSession.save();
+			const currentSession = await Session.findById(sessionId);
+			if (currentSession) {
+				currentSession.cart = [];
+				currentSession.save();
+			}
+			await newBillWeb.save();
+			const billResult = await BillWeb.findById(newBillWeb._id)
+				.populate("userID")
+				.populate("deliveryID")
+				.populate("listProduct._id")
+				.populate("voucherID");
+			res.status(200).send({
+				success: true,
+				body: billResult,
+			});
+		} catch (err) {
+			res.status(404).send({ success: false, message: err.message });
 		}
-		res.status(200).send({
-			success: true,
-			body: await newBillWeb.save(),
-		});
 	}
 }
 
