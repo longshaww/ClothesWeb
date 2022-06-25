@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const UserWeb = require("../models/UserWeb");
 const DeliveryInfo = require("../models/DeliveryInfo");
+const Vouchers = require("../models/Vouchers");
 const { Schema } = mongoose;
 
 const BillWeb = new mongoose.Schema(
@@ -10,6 +11,7 @@ const BillWeb = new mongoose.Schema(
 			type: Schema.Types.ObjectId,
 			ref: "DeliveryInfo",
 		},
+		voucherID: { type: Schema.Types.ObjectId, ref: "Vouchers" },
 		listProduct: [
 			{
 				_id: {

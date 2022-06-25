@@ -3,6 +3,7 @@ import {
 	SET_CART_STORE,
 	SET_PRODUCT_CART_PRICE,
 	SET_CART_TOTAL_PRICE,
+	SET_TOTAL,
 } from "../constants/constants";
 
 const initialState = {
@@ -10,6 +11,7 @@ const initialState = {
 	cartStore: {},
 	cartProductPrice: 0,
 	cartTotalPrice: 0,
+	total: 0,
 };
 
 export const cartReducer = (state = initialState, action) => {
@@ -33,6 +35,11 @@ export const cartReducer = (state = initialState, action) => {
 			return {
 				...state,
 				cartTotalPrice: action.payload,
+			};
+		case SET_TOTAL:
+			return {
+				...state,
+				total: action.payload,
 			};
 		default:
 			return { ...state };

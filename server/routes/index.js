@@ -10,6 +10,8 @@ const productAdminRoute = require("../routes/admin/product.admin.route");
 const userAdminRoute = require("../routes/admin/user.admin.route");
 const dashboardAdminRoute = require("../routes/admin/dashboard.admin.route");
 const androidRoute = require("../routes/android/android.route");
+const voucherRoute = require("../routes/user/voucher.route");
+
 function route(app) {
 	app.use("/", siteRoute);
 	app.use("/android", androidRoute);
@@ -17,6 +19,7 @@ function route(app) {
 	app.use("/product", productRoute);
 	app.use("/cart", cartRoute);
 	app.use("/bill", billRoute);
+	app.use("/voucher", voucherRoute);
 
 	app.use("/authJWT", authJWTRoute);
 	app.use("/admin/bills", verifyAdmin, billAdminRoute);

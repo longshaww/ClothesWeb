@@ -13,7 +13,7 @@ const SET_CART_COUNT = "SET_CART_COUNT";
 const SET_CART_STORE = "SET_CART_STORE";
 const SET_PRODUCT_CART_PRICE = "SET_PRODUCT_CART_PRICE";
 const SET_CART_TOTAL_PRICE = "SET_CART_TOTAL_PRICE";
-
+const SET_TOTAL = "SET_TOTAL";
 //Checkout & Payment
 const SET_CUSTOMER = "SET_CUSTOMER";
 const SET_METHOD = "SET_METHOD";
@@ -24,11 +24,9 @@ const SET_USER = "SET_USER";
 
 const searchInput = true;
 
+//ADMIN
 
-
-//ADMIN	 
-
-const SET_DATA_DASHBOARD=  "SET_DATA_DASHBOARD";
+const SET_DATA_DASHBOARD = "SET_DATA_DASHBOARD";
 
 export {
 	collectionsEndpoint,
@@ -49,5 +47,6 @@ export {
 	SET_USER,
 	SET_CUSTOMER,
 	SET_METHOD,
-	SET_DATA_DASHBOARD
+	SET_DATA_DASHBOARD,
+	SET_TOTAL,
 };

@@ -2,11 +2,73 @@ import globalStateAndAction from "../../../container/global.state.action";
 import { Link, Outlet } from "react-router-dom";
 import "../../../assets/styles/checkout.css";
 import { useCookies } from "react-cookie";
+import { useState, useEffect } from "react";
+import axiosMethod from "../../../middlewares/axios";
+import Toast from "../../../utils/toast";
 
-function Checkout({ cart }) {
+function Checkout({ cart, setTotal }) {
 	const cartStore = cart.cartStore;
 	const cartTotalPrice = cart.cartTotalPrice;
+	const total = cart.total;
+	const customer = localStorage.getItem("customer");
 	const [cookies] = useCookies(["user"]);
+	const [voucher, setVoucher] = useState({
+		voucherInput: "",
+		voucherState: false,
+	});
+	const shippingFee = 35;
+	useEffect(() => {
+		if (cartTotalPrice == 0) return;
+		setTotal(cartTotalPrice + shippingFee);
+	}, [cartTotalPrice]);
+
+	const handleSubmitVoucher = async () => {
+		if (voucher.voucherState) {
+			return Toast.fire({
+				title: "Bạn đã áp mã rồi",
+				icon: "error",
+			});
+		}
+		if (!voucher.voucherInput) {
+			return Toast.fire({
+				title: "Bạn chưa nhập mã voucher",
+				icon: "error",
+			});
+		}
+		const checkCondition = await axiosMethod(
+			`voucher?code=${voucher.voucherInput}&amount=${cartTotalPrice}`,
+			"get"
+		);
+		if (!checkCondition.success) {
+			return Toast.fire({
+				title: checkCondition.message,
+				icon: "error",
+			});
+		}
+		const applyVoucher = await axiosMethod("voucher/apply", "post", {
+			amount: cartTotalPrice,
+			code: voucher.voucherInput,
+		});
+		if (!applyVoucher.success) {
+			return Toast.fire({
+				title: applyVoucher.message,
+				icon: "error",
+			});
+		}
+		if (customer) {
+			localStorage.setItem(
+				"customer",
+				JSON.stringify({
+					...JSON.parse(customer),
+					total: total - applyVoucher.body.discount,
+				})
+			);
+		}
+		localStorage.setItem("voucher", voucher.voucherInput);
+		Toast.fire({ title: applyVoucher.message, icon: "success" });
+		setVoucher({ ...voucher, voucherState: !voucher.voucherState });
+		setTotal(total - applyVoucher.body.discount);
+	};
 
 	return (
 		<div className="container pe-5 my-5">
@@ -76,10 +138,21 @@ function Checkout({ cart }) {
 								type="text"
 								className="form-control voucher-input"
 								placeholder="Mã giảm giá"
-							></input>
+								value={voucher.voucherInput}
+								onChange={(e) =>
+									setVoucher({
+										...voucher,
+										voucherInput: e.target.value,
+									})
+								}
+							/>
 						</div>
 						<div className="col-3">
-							<button className="btn btn-secondary">
+							<button
+								className="btn btn-secondary"
+								type="button"
+								onClick={handleSubmitVoucher}
+							>
 								Sử dụng
 							</button>
 						</div>
@@ -104,15 +177,23 @@ function Checkout({ cart }) {
 						<tbody>
 							<tr>
 								<td>Tạm tính</td>
-								<td>{cartTotalPrice.toLocaleString()},000đ</td>
+								<td>
+									{cartTotalPrice.toLocaleString()}
+									,000đ
+								</td>
 							</tr>
 							<tr className="border-bottom">
 								<td>Phí vận chuyển</td>
-								<td>--</td>
+								<td>
+									{shippingFee.toLocaleString()},000đ
+								</td>
 							</tr>
 							<tr>
 								<td>Tổng cộng</td>
-								<td>{cartTotalPrice.toLocaleString()},000đ</td>
+								<td>
+									{total.toLocaleString()}
+									,000đ
+								</td>
 							</tr>
 						</tbody>
 					</table>

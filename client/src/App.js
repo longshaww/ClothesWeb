@@ -20,7 +20,7 @@ import OnlinePayment from "./features/Payment/pages/index";
 import { useCookies } from "react-cookie";
 import LayoutAdmin from "./layouts/layoutAdmin";
 import Register from "./components/auth/register";
-import Home from "./features/home/home";
+import Home from "./features/Home/home";
 import Dashboard from "./features/admin/dashboard/dashboard";
 import ListUser from "./features/admin/user/listUser";
 import ProductList from "./features/admin/product/productList";
@@ -126,22 +126,19 @@ function App() {
 						path="products"
 						element={<ProductList />}
 					></Route>
-				
+
 					<Route
 						path="products/:id"
 						element={<DetailProduct />}
 					></Route>
 					<Route
 						path="products/create"
-						element={<CreateProduct/>}
+						element={<CreateProduct />}
 					></Route>
-					<Route
-						path="bills"
-						element={<ListBill/>}
-					></Route>
+					<Route path="bills" element={<ListBill />}></Route>
 					<Route
 						path="bills/:id"
-						element={<DetailBill/>}
+						element={<DetailBill />}
 					></Route>
 				</Route>
 			</Routes>
