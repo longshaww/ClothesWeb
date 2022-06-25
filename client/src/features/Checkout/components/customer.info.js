@@ -16,6 +16,8 @@ import { useCookies } from "react-cookie";
 
 function CustomerInfo({ cart }) {
 	const cartStore = cart.cartStore;
+	const cartCount = cart.cartCount;
+	const total = cart.total;
 	const navigate = useNavigate();
 	const MySwal = withReactContent(Swal);
 
@@ -48,6 +50,9 @@ function CustomerInfo({ cart }) {
 	});
 
 	useEffect(() => {
+		if (cartCount && cartCount === 0) {
+			navigate("/");
+		}
 		if (cookies.user) {
 			setInputs({
 				...inputs,
@@ -145,6 +150,7 @@ function CustomerInfo({ cart }) {
 					sum: el.total,
 				};
 			}),
+			total,
 		};
 		if (cookies.user) {
 			data.userID = cookies.user.id;

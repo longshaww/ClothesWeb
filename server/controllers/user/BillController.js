@@ -114,6 +114,8 @@ class BillController {
 			listProduct,
 			paymentMethod,
 			idDelivery,
+			voucherID,
+			total,
 		} = req.body;
 		if (
 			!nameCustomer ||
@@ -121,7 +123,8 @@ class BillController {
 			!phoneNumber ||
 			!listProduct ||
 			!email ||
-			!paymentMethod
+			!paymentMethod ||
+			!total
 		) {
 			return res.status(400).json({
 				success: false,
@@ -131,10 +134,13 @@ class BillController {
 		const newBillWeb = new BillWeb({
 			listProduct,
 			paymentMethod,
+			total,
 			qtyProduct: listProduct.reduce((a, b) => a + b.qty, 0),
-			total: listProduct.reduce((a, b) => a + b.sum, 0),
 			status: false,
 		});
+		if (voucherID) {
+			newBillWeb.voucherID = voucherID;
+		}
 		if (userID) {
 			newBillWeb.userID = userID;
 			if (idDelivery) {

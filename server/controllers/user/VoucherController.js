@@ -39,7 +39,6 @@ class VoucherController {
 			maxDiscount,
 			qualifyAmount,
 			qty,
-			usingStatus,
 		} = req.body;
 		if (
 			!discount ||
@@ -47,8 +46,7 @@ class VoucherController {
 			!dateEnd ||
 			!maxDiscount ||
 			!qualifyAmount ||
-			!qty ||
-			!usingStatus
+			!qty
 		) {
 			return res.status(400).json({
 				success: false,
@@ -63,7 +61,6 @@ class VoucherController {
 			editVoucher.maxDiscount = maxDiscount;
 			editVoucher.qualifyAmount = qualifyAmount;
 			editVoucher.qty = qty;
-			editVoucher.usingStatus = usingStatus;
 			res.status(200).json({
 				success: true,
 				body: editVoucher.save(),
@@ -97,12 +94,6 @@ class VoucherController {
 		try {
 			if (code && amount) {
 				const voucher = await Voucher.findById(code);
-				if (voucher.usingStatus) {
-					return res.status(400).json({
-						success: false,
-						message: "Voucher đang được sử dụng",
-					});
-				}
 				if (!voucher.qty > 0) {
 					return res.status(400).json({
 						success: false,
@@ -161,7 +152,6 @@ class VoucherController {
 			if (discount > voucher.maxDiscount) {
 				discount = voucher.maxDiscount;
 			}
-			voucher.usingStatus = true;
 			await voucher.save();
 			return res.status(200).json({
 				success: true,
@@ -173,27 +163,20 @@ class VoucherController {
 		}
 	}
 
-	async cancelVoucher(req, res) {
-		const { code } = req.body;
-		if (!code) {
-			res.status(400).json({
+	async updateQtyVoucher(req, res) {
+		const { code, amount } = req.body;
+		if (!code || !amount) {
+			return res.status(400).json({
 				success: false,
-				message: "Hủy voucher thất bại",
+				message: "Cannot post without body",
 			});
 		}
 		try {
 			const voucher = await Voucher.findById(code);
-			voucher.usingStatus = false;
-			await voucher.save();
-			res.status(200).json({
-				success: true,
-				message: "Hủy voucher thành công",
-			});
+			voucher.qty = voucher.qty - 1;
+			res.status(200).json({ success: true, body: voucher.save() });
 		} catch (err) {
-			res.status(400).json({
-				success: false,
-				message: err.message,
-			});
+			res.status(400).json({ success: false, message: err.message });
 		}
 	}
 

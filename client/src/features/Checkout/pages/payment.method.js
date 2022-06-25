@@ -3,12 +3,14 @@ import { Link, useNavigate } from "react-router-dom";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import Toast from "../../../utils/toast";
+import { useSelector } from "react-redux";
 
 export default function PaymentMethod() {
 	const MySwal = withReactContent(Swal);
 	const navigate = useNavigate();
 	const [checkedPayment, setCheckedPayment] = useState(1);
 	const checkedShipping = "Phí vận chuyển";
+	const cartCount = useSelector((state) => state.cart.cartCount);
 	const customer = localStorage.getItem("customer");
 	const radio = [
 		{
@@ -21,10 +23,10 @@ export default function PaymentMethod() {
 	const shippingChange = () => {};
 
 	useEffect(() => {
-		if (!customer) {
+		if (!customer || cartCount === 0) {
 			navigate("/checkout");
 			Toast.fire({
-				title: "Bạn chưa nhập thông tin thanh toán",
+				title: "Bạn chưa nhập thông tin thanh toán hoặc giỏ hàng rỗng",
 				icon: "warning",
 			});
 		}
@@ -44,7 +46,7 @@ export default function PaymentMethod() {
 
 	//alert if error
 	const sweetAlertError = () => {
-		if (!localStorage.getItem("customer")) {
+		if (!customer) {
 			MySwal.fire({
 				icon: "warning",
 				title: (
@@ -69,12 +71,12 @@ export default function PaymentMethod() {
 	//Handle submit
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		const customer = JSON.parse(localStorage.getItem("customer"));
+		const cus = JSON.parse(customer);
 		if (sweetAlertError()) return;
 
 		if (checkedPayment === 1) {
-			customer.paymentMethod = "COD";
-			sweetAlertSuccess(customer);
+			cus.paymentMethod = "COD";
+			sweetAlertSuccess(cus);
 		} else {
 			navigate("/checkout/method/Online");
 		}
