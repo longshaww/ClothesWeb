@@ -9,6 +9,7 @@ const Vouchers = new mongoose.Schema(
 		maxDiscount: { type: Number, required: true },
 		qualifyAmount: { type: Number, required: true },
 		qty: { type: Number, required: true },
+		usingStatus: { type: Boolean, required: true, default: false },
 	},
 	{
 		timestamps: true,
