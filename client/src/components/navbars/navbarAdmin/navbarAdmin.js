@@ -4,7 +4,7 @@ import Logo from "../../../assets/images/hyperX.jpeg";
 
 import Auth from "../../auth/auth";
 
-
+import {Link} from "react-router-dom"
 export default function NavbarAppAdmin() {
  
 	return (
@@ -12,21 +12,20 @@ export default function NavbarAppAdmin() {
         <div className="topbarWrapper">
           <div className="topLeft">
             <span className="logo"><div id="center-logo" className="mt-4">
-					<img
+          <Link to="/">
+          <img
 						id="logo"
 						src={Logo}
 						alt=""
 						className="logo-Img"
 					></img>
+          </Link>
+					
 				</div></span>
           </div>
           <div className="topRight">
             <div className="topbarIconContainer">
               <NotificationsNone />
-              <span className="topIconBadge">2</span>
-            </div>
-            <div className="topbarIconContainer">
-              <Language />
               <span className="topIconBadge">2</span>
             </div>
             <div className="topbarIconContainer" >

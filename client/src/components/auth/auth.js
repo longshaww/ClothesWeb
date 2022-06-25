@@ -8,7 +8,7 @@ import { useCookies } from "react-cookie";
 import { Link } from "react-router-dom";
 import jwtDecode from "jwt-decode";
 import Toast from "../../utils/toast";
-
+import "../../assets/styles/auth.css"
 function Auth() {
 	const [cookies, setCookie, removeCookie] = useCookies([
 		"user",
@@ -163,25 +163,31 @@ function Auth() {
 				<Box
 					sx={{
 						width: "250px",
-						height: "150px",
+						height: "180px",
 						padding: "20px 15px",
 					}}
 				>
 					<div id="cart-container" className="px-3">
 						<h6 className="text-center">
-							THÔNG TIN TÀI KHOẢN
+							 TÀI KHOẢN
 						</h6>
 						<hr className="mt-2"></hr>
 						<div>
-							<span>{cookies.user.information.name}</span>
+							<span >{cookies.user.information.name}</span>
 						</div>
 						<div className="mt-1">
 							<span>Tài khoản của tôi</span>
 						</div>
+						<Link to="/admin/dashboard">
+						{cookies.user.isAdmin ? <div className="mt-1">
+									<span>Quản lý</span>
+						</div> : null}
+						</Link>
+				
 						<div className="mt-1">
-							<span onClick={handleClickLogOut}>
+							<a href="#!"><span onClick={handleClickLogOut}>
 								Đăng xuất
-							</span>
+							</span></a>
 						</div>
 					</div>
 				</Box>

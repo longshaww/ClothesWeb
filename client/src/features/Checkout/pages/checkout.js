@@ -55,7 +55,7 @@ function Checkout({ cart }) {
 													<span className="cart-qty">
 														{item.qty}
 													</span>
-													<div className="fw-bold">{`${item.total},000đ`}</div>
+													<div className="fw-bold">{`${item.total.toLocaleString()},000đ`}</div>
 												</div>
 											</td>
 										</tr>
@@ -104,7 +104,7 @@ function Checkout({ cart }) {
 						<tbody>
 							<tr>
 								<td>Tạm tính</td>
-								<td>{cartTotalPrice},000đ</td>
+								<td>{cartTotalPrice.toLocaleString()},000đ</td>
 							</tr>
 							<tr className="border-bottom">
 								<td>Phí vận chuyển</td>
@@ -112,7 +112,7 @@ function Checkout({ cart }) {
 							</tr>
 							<tr>
 								<td>Tổng cộng</td>
-								<td>{cartTotalPrice},000đ</td>
+								<td>{cartTotalPrice.toLocaleString()},000đ</td>
 							</tr>
 						</tbody>
 					</table>

@@ -13,7 +13,7 @@
       <div className="sidebar">
         <div className="sidebarWrapper">
           <div className="sidebarMenu">
-            <h3 className="sidebarTitle">Dashboard</h3>
+            <h3 className="sidebarTitle">Thống Kê</h3>
             <ul className="sidebarList">
               <Link to="/admin/dashboard" className="link">
               <li className="sidebarListItem active">
@@ -26,7 +26,7 @@
             </ul>
           </div>
           <div className="sidebarMenu">
-            <h3 className="sidebarTitle">Quick Menu</h3>
+            <h3 className="sidebarTitle">Quản Lý</h3>
             <ul className="sidebarList">
               <Link to="/admin/users" className="link">
                 <li className="sidebarListItem">
