@@ -3,5 +3,5 @@ const router = express.Router();
 
 const billAdminController = require("../../controllers/admin/BillAdminController");
 router.get("/getAllBill",billAdminController.getAllBill);
-router.get("/update-bill",billAdminController.updateStatus);
+router.put("/update-bill/:id",billAdminController.updateStatus);
 module.exports = router;

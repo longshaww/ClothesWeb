@@ -18,7 +18,7 @@
               <Link to="/admin/dashboard" className="link">
               <li className="sidebarListItem active">
                 <LineStyle className="sidebarIcon" />
-                Home
+                Thống Kê
               </li>
               </Link>
         
@@ -31,19 +31,22 @@
               <Link to="/admin/users" className="link">
                 <li className="sidebarListItem">
                   <PermIdentity className="sidebarIcon" />
-                  Users
+                  Người Dùng
                 </li>
               </Link>
               <Link to="/admin/products" className="link">
                 <li className="sidebarListItem">
                   <Storefront className="sidebarIcon" />
-                  Products
+                  Sản Phẩm
                 </li>
               </Link>
-              <li className="sidebarListItem">
-                <AttachMoney className="sidebarIcon" />
-                Transactions
-              </li>
+              <Link to="/admin/bill" className="link">
+                <li className="sidebarListItem">
+                  <AttachMoney className="sidebarIcon" />
+                  Hóa Đơn
+                </li>
+              </Link>
+            
             
             </ul>
           </div>

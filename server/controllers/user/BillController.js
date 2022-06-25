@@ -133,7 +133,7 @@ class BillController {
 			paymentMethod,
 			qtyProduct: listProduct.reduce((a, b) => a + b.qty, 0),
 			total: listProduct.reduce((a, b) => a + b.sum, 0),
-			status: true,
+			status: false,
 		});
 		if (userID) {
 			newBillWeb.userID = userID;

@@ -97,7 +97,7 @@ import Toast from '../../../utils/toast';
         return (
           <>
             <Link to={ params.row.id}>
-              <button className="productListEdit">Edit</button>
+              <button className="productListEdit">Sữa</button>
             </Link>
             <DeleteOutline
               className="productListDelete"
@@ -120,7 +120,6 @@ import Toast from '../../../utils/toast';
         disableSelectionOnClick
         columns={columns}
         pageSize={8}
-        checkboxSelection
       />
     </div>
   );

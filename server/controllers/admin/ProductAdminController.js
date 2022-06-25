@@ -33,7 +33,6 @@ class ProductAdminController {
 
     async createProduct(req, res, next) {
         try {
-            console.log()
             const customData = {
                 nameProduct: req.body.nameProduct,
                 price : req.body.price,
