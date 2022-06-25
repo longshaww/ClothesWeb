@@ -40,7 +40,7 @@
                   Sản Phẩm
                 </li>
               </Link>
-              <Link to="/admin/bill" className="link">
+              <Link to="/admin/bills" className="link">
                 <li className="sidebarListItem">
                   <AttachMoney className="sidebarIcon" />
                   Hóa Đơn
