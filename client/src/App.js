@@ -32,6 +32,7 @@ import VerifyOtp from "./components/auth/otp";
 import ListVoucher from "./features/admin/voucher/listVoucher";
 import CreateVoucher from "./features/admin/voucher/createVoucher";
 import EditVoucher from "./features/admin/voucher/editVoucher";
+import DetailVoucher from "./features/admin/voucher/detailVoucher";
 function App() {
 	const [cookies] = useCookies(["user"]);
 	let user;
@@ -153,7 +154,10 @@ function App() {
 						path="vouchers"
 						element={<ListVoucher />}
 					></Route>
-					<Route path="vouchers/:id"></Route>
+					<Route
+						path="vouchers/:id"
+						element={<DetailVoucher />}
+					></Route>
 					<Route
 						path="vouchers/create"
 						element={<CreateVoucher />}

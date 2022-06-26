@@ -5,6 +5,7 @@ import "../../../assets/styles/admin/productList.css";
 import axiosMethod from "../../../middlewares/axios";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import Toast from "../../../utils/toast";
 import { deleteConfirm } from "../../../utils/delete.confirm";
 
@@ -83,6 +84,9 @@ export default function ListVoucher() {
 			renderCell: (params) => {
 				return (
 					<div className="d-flex">
+						<Link to={`${params.row._id}`} className="me-3">
+							<RemoveRedEyeIcon />
+						</Link>
 						<Link to={`edit/${params.row._id}`}>
 							<EditIcon />
 						</Link>
