@@ -26,7 +26,7 @@ export default function DetailProduct() {
     };
     getData();
 
-  }, [dataDetail,id,cookies.accessToken]);
+  }, []);
 
   const renderProduct = ()=>{
         if(dataDetail!==null)
@@ -34,8 +34,8 @@ export default function DetailProduct() {
           return (
             <>
             <div className="userContainer">
-              <InfoProduct infoProduct={dataDetail} idProduct={id} accessToken={cookies.accessToken} />
-              <EditProduct infoProduct={dataDetail} idProduct={id} accessToken={cookies.accessToken}/>
+              <InfoProduct infoProduct={dataDetail} idProduct={id} accessToken={cookies.accessToken} setDataDetail={setDataDetail} />
+              <EditProduct infoProduct={dataDetail} idProduct={id} accessToken={cookies.accessToken} setDataDetail={setDataDetail}/>
 
             </div>
           </>

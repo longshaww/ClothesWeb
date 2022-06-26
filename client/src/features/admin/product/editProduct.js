@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Toast from "../../../utils/toast";
 import axios from "axios"
-export default function EditProduct({ infoProduct,idProduct,accessToken}) {
+export default function EditProduct({ infoProduct,idProduct,accessToken,setDataDetail}) {
   const [inputs, setInputs] = useState(infoProduct);
   const options = [
     { id: "621c506fbae8653bcb4564ac", typeName: "Tops" },
@@ -36,6 +36,7 @@ export default function EditProduct({ infoProduct,idProduct,accessToken}) {
           },
         });
         if(data.success){
+           setDataDetail(data.customData);
            Toast.fire({
             title: "Cập Nhật Thành Công",
             icon: "success",

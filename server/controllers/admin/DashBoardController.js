@@ -1,5 +1,5 @@
 const User = require("../../models/UserWeb");
-const Bill = require("../../models/Bills");
+const Bill = require("../../models/BillWeb");
 const Product = require("../../models/Product");
 const moment = require("moment");
 class DashBoardController {
