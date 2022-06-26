@@ -183,36 +183,47 @@ class AuthenticationController {
 		try{
 			let {userId, otp} = req.body;
 			if(!userId || !otp){
+
 				throw Error("Empty otp details are not allowed");
 			}
 			else
 			{
+
 				const UserOTPVerificationRecords = await UserOTPVerification.find({userId,});
 				if(UserOTPVerificationRecords.length <= 0 )
 				{
+
 					throw Error("Account record doesn't exist or has been verified already ")
 				}
 				else
 				{
+
 					const {expiresAt} = UserOTPVerificationRecords[0];
 					const crytoOTP = UserOTPVerificationRecords[0].otp;
 					if(expiresAt < Date.now())
 					{
+						
 						// user otp record has expired
 						await UserOTPVerification.deleteMany({userId});	
 						throw new Error("Code has expired please request again");
 					}
 					else
 					{
-						if(md5(otp) === crytoOTP )
+						if(md5(String(otp)) === crytoOTP )
 						{
 							// sucess
-							console.log("vao")
 							await User.updateOne({_id:userId},{verify : true});
 							await UserOTPVerification.deleteMany({userId});
 							res.status(200).json({
 								success : true,
 								msg : "Verify Successfully"
+							})
+						}
+						else
+						{
+							res.status(400).json({
+								success : false,
+								msg : "Verify error"
 							})
 						}
 					}
