@@ -16,6 +16,7 @@ const UserWeb = new mongoose.Schema(
 		},
 		isAdmin: { type: Boolean, required: true, default: false },
 		myPoint: { type: Number, required: true, default: 0 },
+		verify :  { type: Boolean, required: true, default: false },
 	},
 	{
 		timestamps: true,
