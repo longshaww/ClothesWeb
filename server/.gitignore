@@ -1,2 +1,4 @@
 node_modules
 /yarn.lock
+.env.AUTH_EMAIL
+.env.AUTH_PASSWORD
