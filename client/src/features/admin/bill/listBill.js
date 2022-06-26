@@ -23,7 +23,7 @@ export default function ListBill() {
 			setData(data.listBillCustom);
 		};
 		getData();
-	}, []);
+	}, [cookies.accessToken]);
 
 	const renderVerify = (status, id) => {
 		if (status === false) {
