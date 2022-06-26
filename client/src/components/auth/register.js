@@ -1,128 +1,266 @@
 import { useState } from "react";
 import axiosMethod from "../../middlewares/axios";
 import "../../assets/styles/register.css";
+import {
+  isDate,
+  checkIsValidName,
+  validatePhoneNumber,
+  ValidateEmail,
+  validatePassword,
+} from "../../utils/functionValidate";
+import Toast from "../../utils/toast";
+import withReactContent from "sweetalert2-react-content";
+import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
+
+const radio = [
+  {
+    value: true,
+    name: "Nam",
+  },
+  { value: false, name: "Nữ" },
+];
+
 export default function Register() {
+  const MySwal = withReactContent(Swal);
+  const navigate = useNavigate();
+  const [inputs, setInputs] = useState({
+    name: "",
+    dateOfBirth: "",
+    address: "",
+    phoneNumber: "",
+    email: "",
+    password: "",
+  });
+  const [checkedGender,setCheckedGender] = useState(true);
+  const handleChange = (event) => {
+    const value = event.target.value;
+    setInputs({
+      ...inputs,
+      [event.target.name]: value,
+    });
+  };
+  const validate = () => {
+    if (
+      inputs.name === "" ||
+      inputs.dateOfBirth === "" ||
+      inputs.address === "" ||
+      inputs.phoneNumber === "" ||
+      inputs.email === "" ||
+      inputs.password === ""
+    ) {
+      return Toast.fire({
+        title: "Vui Lòng Nhập Đầy Đủ Thông Tin",
+        icon: "error",
+      });
+    } else if (!isDate(inputs.dateOfBirth)) {
+      return Toast.fire({
+        title: "Nhập Sai Ngày Sinh",
+        icon: "error",
+      });
+    } else if (checkIsValidName(inputs.name)) {
+      return Toast.fire({
+        title: "Nhập Sai Tên",
+        icon: "error",
+      });
+    } else if (!validatePhoneNumber(inputs.phoneNumber)) {
+      return Toast.fire({
+        title: "Nhập Sai Số",
+        icon: "error",
+      });
+    } else if (!ValidateEmail(inputs.email)) {
+      return Toast.fire({
+        title: "Nhập Sai Email",
+        icon: "error",
+      });
+    } else if (!validatePassword(inputs.password)) {
+      return Toast.fire({
+        title: "Tăng Độ Bảo Mật Cho Tài Khoản, ( > 6 kí tự)",
+        icon: "error",
+      });
+    }
+    else return true;
+  };
+  const handleClicKRegister = async () => {
+    try{
+      if(validate())
+      {
+        const data = {
+          ...inputs,
+          gender : checkedGender
+        }
+         const result = await axiosMethod(`authJWT/register`,"post",data);
+         if(result.success === true)
+         {
+          localStorage.setItem('emailRegister',JSON.stringify(result.data.email));
+          MySwal.fire({
+            title: <p>Chuyển Đến Xác Thực OTP</p>,
+            didOpen: () => {
+              MySwal.showLoading();
+            },
+            timer: 1000,
+          }).then(() => {
+            navigate(`/account/verify/${result.data.userId}`);
+          });
+         }
+         else
+         {
+          Toast.fire({
+            title: "Tài Khoản Đã Tồn Tại",
+            icon: "error",
+          });
+         }
+       
+      }
+      else
+      {
+
+      }
+      
+    }
+    catch(err)
+    {
+      return Toast.fire({
+        title: "Đã Có Lỗi Xảy",
+        icon: "error",
+      });
+    }
+    
+
+  };
   return (
     <>
-      <div class="container-fluid mt-5">
-        <div class="row">
-          <div class="col-md-5 col-xs-12 wrapbox-heading-account">
-            <div class="header-page clearfix">
+      <div className="container-fluid mt-5">
+        <div className="row">
+          <div className="col-md-5 col-xs-12 wrapbox-heading-account">
+            <div className="header-page clearfix">
               <h1>Tạo tài khoản</h1>
             </div>
           </div>
-          <div class="col-md-2 col-xs-12 wrapbox-heading-account">
-            <div class="vr"></div>
+          <div className="col-md-2 col-xs-12 wrapbox-heading-account">
+            <div className="vr"></div>
           </div>
 
-          <div class="col-md-4 col-xs-12 wrapbox-content-account ">
+          <div className="col-md-4 col-xs-12 wrapbox-content-account ">
             <div className="userbox">
-              <form
-                accept-charset="UTF-8"
-                action="/account"
-                id="create_customer"
-                method="post"
-              >
+              <form id="create_customer">
                 <input name="form_type" type="hidden" value="create_customer" />
                 <input name="utf8" type="hidden" value="✓" />
 
-                <div id="form-last_name" class="clearfix large_form">
-                  <label for="last_name" class="label icon-field">
-                    <i class="icon-login icon-user "></i>
+                <div id="form-last_name" className="clearfix large_form">
+                  <label className="label icon-field">
+                    <i className="icon-login icon-user "></i>
                   </label>
                   <input
                     required=""
                     type="text"
+                    name="name"
+                    value={inputs.name}
                     placeholder="Họ Tên "
                     id="last_name"
-                    class="text"
+                    className="text"
+                    onChange={handleChange}
                     size="30"
                   />
                 </div>
-                <div id="form-first_name" class="clearfix large_form">
-                  <label for="first_name" class="label icon-field">
-                    <i class="icon-login icon-user "></i>
+                <div id="form-first_name" className="clearfix large_form">
+                  <label className="label icon-field">
+                    <i className="icon-login icon-user "></i>
                   </label>
                   <input
                     required=""
                     type="text"
-                    name="customer[first_name]"
+                    name="address"
+                    value={inputs.address}
                     placeholder="Địa Chỉ"
                     id="first_name"
-                    class="text"
+                    className="text"
+                    onChange={handleChange}
                     size="30"
                   />
                 </div>
-                <div id="form-first_name" class="clearfix large_form">
-                  <label for="first_name" class="label icon-field">
-                    <i class="icon-login icon-user "></i>
+                <div id="form-first_name" className="clearfix large_form">
+                  <label className="label icon-field">
+                    <i className="icon-login icon-user "></i>
                   </label>
                   <input
                     type="number"
+                    value={inputs.phoneNumber}
+                    name="phoneNumber"
                     placeholder="Số điện thoại"
+                    onChange={handleChange}
                   />
                 </div>
-                <div id="form-gender" class="clearfix large_form">
-                  <input
-                    id="radio1"
-                    type="radio"
-                    value="0"
-                    name="customer[gender]"
-                  />
-                  <label for="radio1">Nữ</label>
-                  <input
-                    id="radio2"
-                    type="radio"
-                    value="1"
-                    name="customer[gender]"
-                  />
-                  <label for="radio2">Nam</label>
+                <div id="form-gender" className="clearfix large_form">
+                  {radio.map((el, index) => {
+                    return (
+                      <>
+                        <input
+                          type="radio"
+                          name="gender"
+                          onChange={() =>
+                            setCheckedGender(el.value)}
+                          checked={
+                            checkedGender === el.value
+                          }
+                    
+                        />
+                        <label htmlFor="genderData">{el.name}</label>
+                      </>
+                    );
+                  })}
                 </div>
-                <div id="form-birthday" class="clearfix large_form">
-                  <label for="birthday" class="label icon-field">
-                    <i class="icon-login icon-envelope "></i>
+                <div id="form-birthday" className="clearfix large_form">
+                  <label className="label icon-field">
+                    <i className="icon-login icon-envelope "></i>
                   </label>
                   <input
                     type="text"
                     placeholder="mm/dd/yyyy"
-                    name="customer[birthday]"
+                    value={inputs.dateOfBirth}
+                    name="dateOfBirth"
                     id="birthday"
-                    class="text"
+                    className="text"
                     size="30"
+                    onChange={handleChange}
                   />
                 </div>
-                <div id="form-email" class="clearfix large_form">
-                  <label for="email" class="label icon-field">
-                    <i class="icon-login icon-envelope "></i>
+                <div id="form-email" className="clearfix large_form">
+                  <label className="label icon-field">
+                    <i className="icon-login icon-envelope "></i>
                   </label>
                   <input
                     required=""
                     type="email"
                     placeholder="Email"
-                    name="customer[email]"
+                    name="email"
+                    value={inputs.email}
                     id="email"
-                    class="text"
+                    className="text"
                     size="30"
+                    onChange={handleChange}
                   />
                 </div>
                 <div
                   id="form-password"
-                  class="clearfix large_form large_form-mr10"
+                  className="clearfix large_form large_form-mr10"
                 >
-                  <label for="password" class="label icon-field">
-                    <i class="icon-login icon-shield "></i>
+                  <label className="label icon-field">
+                    <i className="icon-login icon-shield "></i>
                   </label>
                   <input
                     required=""
                     type="password"
                     placeholder="Mật khẩu"
-                    name="customer[password]"
+                    name="password"
+                    value={inputs.password}
                     id="password"
-                    class="password text"
+                    className="password text"
                     size="30"
+                    onChange={handleChange}
                   />
                 </div>
-                <div class="clearfix large_form sitebox-recaptcha">
+                <div className="clearfix large_form sitebox-recaptcha">
                   This site is protected by reCAPTCHA and the Google
                   <a
                     href="https://policies.google.com/privacy"
@@ -141,15 +279,15 @@ export default function Register() {
                   </a>{" "}
                   apply.
                 </div>
-                <div class="d-flex justify-content-center">
-            
-                  <button type="button" class="btn btn-dark" style={{width:"100px;", height:"50px"}}>Đăng Ký</button>
-             
-                </div>
-                <div class="clearfix req_pass ">
-                  <a class="come-back" href="https://highclub.vn">
-                    <i class="fa fa-long-arrow-left"></i> Quay lại trang chủ
-                  </a>
+                <div className="d-flex justify-content-center mb-5">
+                  <button
+                    type="button"
+                    className="btn btn-dark"
+                    style={{ width: "100px", height: "50px" }}
+                    onClick={handleClicKRegister}
+                  >
+                    Đăng Ký
+                  </button>
                 </div>
 
                 <input
