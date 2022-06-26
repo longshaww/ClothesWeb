@@ -2,7 +2,7 @@ const Product = require("../../models/Product");
 const Bill = require("../../models/Bills");
 const moment = require("moment");
 var ObjectId = require("mongodb").ObjectId;
-
+const {detailProduct} = require("../../utils/responseData");
 class ProductAdminController {
     async getAllProduct(req, res, next) {
         const listProduct = await Product.find()
@@ -99,10 +99,7 @@ class ProductAdminController {
                         "description.collection": req.body.idCollection
                     }
                 })
-            product ? res.status(200).json({
-                success: true,
-                product
-            }) : res.status(404).json({
+            product ?  detailProduct(req.params.id,res,next) : res.status(404).json({
                 success: false,
                 msg: "FAILED"
             })
@@ -117,25 +114,28 @@ class ProductAdminController {
     }
 
     async ProductDetail(req, res, next) {
-
-        const product = await Product.findOne({ "_id": ObjectId(req.params.id) }).populate('description.collection').exec()
-
-        let customData = {
-            nameProduct: product.nameProduct,
-            price: product.price,
-            sizeM: product.size[2].qty,
-            sizeL: product.size[1].qty,
-            sizeXL: product.size[0].qty,
-            image1: product.description.imageList[0],
-            image2: product.description.imageList[1],
-            description: product.description.productDes,
-            collection: product.description.collection.typeName
-
-        };
-        res.status(200).json({
-            success: true,
-            customData
-        })
+        try{
+            const idProduct = req.params.id;
+            if(idProduct !=="" || idProduct !== undefined || idProduct !== null) {
+                detailProduct(idProduct,res,next);
+            }
+            else
+            {
+                res.status(404).json({
+                    success: false,
+                    msg : "Param bị lỗi"
+                })
+            }
+         
+        }
+        catch(err)
+        {
+            res.status(404).json({
+                success: false,
+                msg : err.message
+            })
+        }
+     
     }
     async deleteProduct(req, res, next) {
         Product.deleteOne({ "_id": ObjectId(req.params.id) })
