@@ -29,6 +29,9 @@ import CreateProduct from "./features/admin/product/createProduct";
 import ListBill from "./features/admin/bill/listBill";
 import DetailBill from "./features/admin/bill/detailBill";
 import VerifyOtp from "./components/auth/otp";
+import ListVoucher from "./features/admin/voucher/listVoucher";
+import CreateVoucher from "./features/admin/voucher/createVoucher";
+import EditVoucher from "./features/admin/voucher/editVoucher";
 function App() {
 	const [cookies] = useCookies(["user"]);
 	let user;
@@ -145,6 +148,19 @@ function App() {
 					<Route
 						path="products/create"
 						element={<CreateProduct />}
+					></Route>
+					<Route
+						path="vouchers"
+						element={<ListVoucher />}
+					></Route>
+					<Route path="vouchers/:id"></Route>
+					<Route
+						path="vouchers/create"
+						element={<CreateVoucher />}
+					></Route>
+					<Route
+						path="vouchers/edit/:id"
+						element={<EditVoucher />}
 					></Route>
 					<Route path="bills" element={<ListBill />}></Route>
 					<Route
