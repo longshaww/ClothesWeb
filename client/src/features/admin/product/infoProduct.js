@@ -4,7 +4,7 @@ import CollectionsBookmarkIcon from "@mui/icons-material/CollectionsBookmark";
 import { useState } from "react";
 import Toast from '../../../utils/toast';
 import axios from 'axios';
-export default function InfoProduct({ infoProduct, idProduct, accessToken,setDataDetail }) {
+export default function InfoProduct({ infoProduct, idProduct, accessToken, setDataDetail }) {
   const [statusShow, setStatusShow] = useState({
     image1: false,
     image2: false,
@@ -32,13 +32,13 @@ export default function InfoProduct({ infoProduct, idProduct, accessToken,setDat
     });
 
   };
-  const excuteFunctionPutImage = async (index)=>{
-    const image = index === "1" ? showImage.showImage1 :showImage.showImage2 ;
+  const excuteFunctionPutImage = async (index) => {
+    const image = index === "1" ? showImage.showImage1 : showImage.showImage2;
     console.log(image);
     if (image !== null) {
       let file = await fetch(image)
         .then(r => r.blob())
-        .then(blobFile => new File([blobFile],index === "1"?`image1${idProduct}.png`:`image2${idProduct}.png`, { type: "image/png" }))
+        .then(blobFile => new File([blobFile], index === "1" ? `image1${idProduct}.png` : `image2${idProduct}.png`, { type: "image/png" }))
       const formData = new FormData();
       formData.append("image", file);
       formData.append("index", index);
@@ -49,25 +49,22 @@ export default function InfoProduct({ infoProduct, idProduct, accessToken,setDat
               "Bearer " + accessToken,
           },
         });
-        if(data.success === true) 
-        {
-          setShowImage({showImage1:null});
-          setDataDetail(data.customData);
-          Toast.fire({
-            title: "Cập Nhật Thành Công",
-            icon: "success",
-          })
-        } 
-        else
-        {
-          Toast.fire({
-            title: "Cập Nhật Thất Bại",
-            icon: "error",
-          })
-        }
+      if (data.success === true) {
+        setShowImage({ showImage1: null });
+        setDataDetail(data.customData);
+        Toast.fire({
+          title: "Cập Nhật Thành Công",
+          icon: "success",
+        })
+      }
+      else {
+        Toast.fire({
+          title: "Cập Nhật Thất Bại",
+          icon: "error",
+        })
+      }
     }
-    else
-    {
+    else {
       Toast.fire({
         title: "Chọn hình ảnh để cập nhật",
         icon: "error",
@@ -156,20 +153,27 @@ export default function InfoProduct({ infoProduct, idProduct, accessToken,setDat
                     onChange={handleChangeImage}
                     id="imgInp"
                   />
-                  <img
-                    className="userUpdateImg mt-3"
-                    id="blah"
-                    src={showImage.showImage1}
-                    alt="Hình Ảnh Của Bạn"
-                  />
-                  <button
-                    type="button"
-                    class="btn btn-success"
-                    value="1"
-                    onClick={handleClickUpdateImage}
-                  >
-                    Cập Nhật
-                  </button>
+                  {
+                    showImage.showImage1 ?
+                      <>
+                        <img
+                          className="userUpdateImg mt-3"
+                          id="blah"
+                          src={showImage.showImage1}
+                          alt="Hình Ảnh Của Bạn"
+                        />
+                        <button
+                          type="button"
+                          class="btn btn-success"
+                          value="1"
+                          onClick={handleClickUpdateImage}
+                        >
+                          Cập Nhật
+                        </button>
+                      </>
+                      : null
+                  }
+
                 </div>
               </Collapse>
             </div>
@@ -190,23 +194,28 @@ export default function InfoProduct({ infoProduct, idProduct, accessToken,setDat
                     type="file"
                     id="imgInp"
                     name="showImage2"
+                    className="mt-2"
                     onChange={handleChangeImage}
                     title=" "
                   />
-                  <img
-                    className="userUpdateImg mt-3"
-                    id="blah"
-                    src={showImage.showImage2}
-                    alt="Hình Ảnh Của Bạn"
-                  />
-                  <button
-                    type="button"
-                    class="btn btn-success"
-                    value="2"
-                    onClick={handleClickUpdateImage}
-                  >
-                    Cập Nhật
-                  </button>
+                  {showImage.showImage2 !== null ? <>
+                    <img
+                      className="userUpdateImg mt-3"
+                      id="blah"
+                      src={showImage.showImage2}
+                      alt="Hình Ảnh Của Bạn"
+                    />
+                    <button
+                      type="button"
+                      class="btn btn-success"
+                      value="2"
+                      onClick={handleClickUpdateImage}
+                    >
+                      Cập Nhật
+                    </button>
+                  </> : null}
+
+
                 </div>
               </Collapse>
             </div>
