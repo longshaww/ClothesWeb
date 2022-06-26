@@ -1,5 +1,6 @@
 const Voucher = require("../../models/Vouchers");
 const moment = require("moment");
+
 class VoucherController {
 	async createVoucher(req, res) {
 		const {
@@ -55,6 +56,12 @@ class VoucherController {
 		}
 		try {
 			const editVoucher = await Voucher.findById(id);
+			if (!editVoucher) {
+				return res.status(404).json({
+					success: false,
+					message: "Mã voucher không tồn tại",
+				});
+			}
 			editVoucher.discount = discount;
 			editVoucher.dateStart = dateStart;
 			editVoucher.dateEnd = dateEnd;
@@ -80,6 +87,12 @@ class VoucherController {
 		}
 		try {
 			const deleteVoucher = await Voucher.findByIdAndDelete(id);
+			if (!deleteVoucher) {
+				res.status(404).json({
+					success: false,
+					message: "Mã voucher không tồn tại",
+				});
+			}
 			res.status(200).json({ success: true, body: deleteVoucher });
 		} catch (err) {
 			res.status(400).json({
@@ -94,6 +107,12 @@ class VoucherController {
 		try {
 			if (code && amount) {
 				const voucher = await Voucher.findById(code);
+				if (!voucher) {
+					return res.status(404).json({
+						success: false,
+						message: "Mã voucher không tồn tại",
+					});
+				}
 				if (!voucher.qty > 0) {
 					return res.status(400).json({
 						success: false,
@@ -148,12 +167,18 @@ class VoucherController {
 		}
 		try {
 			const voucher = await Voucher.findById(code);
+			if (!voucher) {
+				res.status(404).json({
+					success: false,
+					message: "Mã voucher không tồn tại",
+				});
+			}
 			let discount = (amount * voucher.discount) / 100;
 			if (discount > voucher.maxDiscount) {
 				discount = voucher.maxDiscount;
 			}
 			await voucher.save();
-			return res.status(200).json({
+			res.status(200).json({
 				success: true,
 				message: "Áp dụng voucher thành công",
 				body: { discount, amount: amount - discount },
@@ -164,15 +189,21 @@ class VoucherController {
 	}
 
 	async updateQtyVoucher(req, res) {
-		const { code, amount } = req.body;
-		if (!code || !amount) {
+		const { id } = req.params;
+		if (!id) {
 			return res.status(400).json({
 				success: false,
 				message: "Cannot post without body",
 			});
 		}
 		try {
-			const voucher = await Voucher.findById(code);
+			const voucher = await Voucher.findById(id);
+			if (!voucher) {
+				res.status(404).json({
+					success: false,
+					message: "Mã voucher không tồn tại",
+				});
+			}
 			voucher.qty = voucher.qty - 1;
 			res.status(200).json({ success: true, body: voucher.save() });
 		} catch (err) {
@@ -190,6 +221,12 @@ class VoucherController {
 		}
 		try {
 			const voucher = await Voucher.findById(id);
+			if (!voucher) {
+				res.status(404).json({
+					success: false,
+					message: "Mã voucher không tồn tại",
+				});
+			}
 			res.status(200).json({ success: true, body: voucher });
 		} catch (err) {
 			res.status(400).json({
