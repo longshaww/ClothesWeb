@@ -15,6 +15,9 @@ mongoose.connect(process.env.MONGO_URL, {
 	dbName: "Clothes",
 });
 
+
+
+
 app.use(express.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: false })); // support encoded bodies
 var corsOptions = {

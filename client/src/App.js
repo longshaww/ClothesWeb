@@ -20,7 +20,7 @@ import OnlinePayment from "./features/Payment/pages/index";
 import { useCookies } from "react-cookie";
 import LayoutAdmin from "./layouts/layoutAdmin";
 import Register from "./components/auth/register";
-import Home from "./features/Home/home";
+import Home from "./features/home/home";
 import Dashboard from "./features/admin/dashboard/dashboard";
 import ListUser from "./features/admin/user/listUser";
 import ProductList from "./features/admin/product/productList";
@@ -28,6 +28,7 @@ import DetailProduct from "./features/admin/product/productDetail";
 import CreateProduct from "./features/admin/product/createProduct";
 import ListBill from "./features/admin/bill/listBill";
 import DetailBill from "./features/admin/bill/detailBill";
+import VerifyOtp from './components/auth/otp';
 function App() {
 	const [cookies] = useCookies(["user"]);
 	let user;
@@ -88,6 +89,16 @@ function App() {
 					<Route
 						path="account/register"
 						element={<Register />}
+					></Route>
+					<Route
+						path="account/verify/:id"
+						element={<VerifyOtp />}
+					></Route>
+
+					<Route
+						path="checkout/method/:payment/success"
+						index
+						element={<PaymentSuccess />}
 					></Route>
 					<Route path="search">
 						<Route index element={<Search />}></Route>
