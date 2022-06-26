@@ -34,7 +34,7 @@ export default function DetailProduct() {
           return (
             <>
             <div className="userContainer">
-              <InfoProduct infoProduct={dataDetail} idProduct={id} accessToken={cookies.accessToken} />
+              <InfoProduct infoProduct={dataDetail} idProduct={id} accessToken={cookies.accessToken} setDataDetail={setDataDetail} />
               <EditProduct infoProduct={dataDetail} idProduct={id} accessToken={cookies.accessToken} setDataDetail={setDataDetail}/>
 
             </div>

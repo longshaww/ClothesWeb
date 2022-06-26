@@ -2,40 +2,17 @@ const Product = require("../../models/Product");
 const Bill = require("../../models/Bills");
 const moment = require("moment");
 var ObjectId = require("mongodb").ObjectId;
-const {detailProduct} = require("../../utils/responseData");
+const { detailProduct, getListProduct } = require("../../utils/responseDataUpdateState");
 class ProductAdminController {
     async getAllProduct(req, res, next) {
-        const listProduct = await Product.find()
-            .populate('description.collection').exec()
-
-        let listDataCustom = [];
-        let count = 0;
-        
-        Promise.all(listProduct.map(async (el) => {
-            let customData = {
-                id: el['_id'],
-                nameProduct: el['nameProduct'],
-                price: el['price'] + ",000 VND",
-                image: el.description.imageList[0],
-                collections: el.description.collection.typeName,
-                sizeXL: el.size[0].qty,
-                sizeL: el.size[1].qty,
-                sizeM: el.size[2].qty,
-            }
-            await listDataCustom.push(customData);
-
-        }))
-        res.status(200).json({
-            success: true,
-            listDataCustom
-        })
+        return getListProduct(req, res, next);
     }
 
     async createProduct(req, res, next) {
         try {
             const customData = {
                 nameProduct: req.body.nameProduct,
-                price : req.body.price,
+                price: req.body.price,
                 size: [{
                     sizeName: "XL",
                     qty: req.body.sizeXL
@@ -99,7 +76,7 @@ class ProductAdminController {
                         "description.collection": req.body.idCollection
                     }
                 })
-            product ?  detailProduct(req.params.id,res,next) : res.status(404).json({
+            return product ? detailProduct(req.params.id, res, next) : res.status(404).json({
                 success: false,
                 msg: "FAILED"
             })
@@ -114,36 +91,31 @@ class ProductAdminController {
     }
 
     async ProductDetail(req, res, next) {
-        try{
+        try {
             const idProduct = req.params.id;
-            if(idProduct !=="" || idProduct !== undefined || idProduct !== null) {
-                detailProduct(idProduct,res,next);
+            if (idProduct !== "" || idProduct !== undefined || idProduct !== null) {
+                return detailProduct(idProduct, res, next);
             }
-            else
-            {
+            else {
                 res.status(404).json({
                     success: false,
-                    msg : "Param bị lỗi"
+                    msg: "Param bị lỗi"
                 })
             }
-         
+
         }
-        catch(err)
-        {
+        catch (err) {
             res.status(404).json({
                 success: false,
-                msg : err.message
+                msg: err.message
             })
         }
-     
+
     }
     async deleteProduct(req, res, next) {
         Product.deleteOne({ "_id": ObjectId(req.params.id) })
             .then(() => {
-                res.status(200).json({
-                    success: true,
-                    msg: "SUCCESS"
-                })
+                return getListProduct(req, res, next)
             })
             .catch(next)
     }
@@ -151,46 +123,47 @@ class ProductAdminController {
         try {
             const filename = req.file.filename;
             const index = req.body.index;
-            if (index === "1") {
-                const product = await Product.findOne({ "_id": req.params.id });
-                let customArray = [
-                    `${process.env.API_HOST}${filename}`,
-                    product.description.imageList[1]
-                ]
-                const productUpdate = await Product.updateOne({ "_id": req.params.id },
-                    {
-                        $set: {
-                            "description.imageList": customArray
-                        }
+            if (req.params.id !== "" || req.params.id !== undefined || req.params.id !== null) {
+                if (index === "1") {
+                    const product = await Product.findOne({ "_id": req.params.id });
+                    let customArray = [
+                        `${process.env.API_HOST}${filename}`,
+                        product.description.imageList[1]
+                    ]
+                    const productUpdate = await Product.updateOne({ "_id": req.params.id },
+                        {
+                            $set: {
+                                "description.imageList": customArray
+                            }
+                        })
+                    await productUpdate ? detailProduct(req.params.id, res, next) : res.status(404).json({
+                        success: false,
+                        msg: "FAILED"
                     })
+                }
+                else {
+                    const product = await Product.findOne({ "_id": req.params.id });
+                    let customArray = [
+                        product.description.imageList[0],
+                        `${process.env.API_HOST}${filename}`,
+                    ];
+                    const productUpdate = await Product.updateOne({ "_id": req.params.id },
+                        {
+                            $set: {
+                                "description.imageList": customArray
+                            }
+                        })
 
-                product ? res.status(200).json({
-                    success: true,
-                    productUpdate
-                }) : res.status(404).json({
-                    success: false,
-                    msg: "FAILED"
-                })
+                    await productUpdate ? detailProduct(req.params.id, res, next) : res.status(404).json({
+                        success: false,
+                        msg: "FAILED"
+                    })
+                }
             }
             else {
-                const product = await Product.findOne({ "_id": req.params.id });
-                let customArray = [
-                    product.description.imageList[0],
-                    `${process.env.API_HOST}${filename}`,
-                ];
-                const productUpdate = await Product.updateOne({ "_id": req.params.id },
-                    {
-                        $set: {
-                            "description.imageList": customArray
-                        }
-                    })
-
-                product ? res.status(200).json({
-                    success: true,
-                    productUpdate
-                }) : res.status(404).json({
+                res.status(404).json({
                     success: false,
-                    msg: "FAILED"
+                    msg: "Param bị lỗi"
                 })
             }
         }

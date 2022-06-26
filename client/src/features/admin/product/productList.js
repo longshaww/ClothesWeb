@@ -36,6 +36,7 @@ function ProductList() {
 			},
 		});
 		if (res.data.success === true) {
+			setData(data.listDataCustom);
 			Toast.fire({
 				title: "Xóa Thành Công",
 				icon: "success",
@@ -113,13 +114,13 @@ function ProductList() {
 					Tạo Sản Phẩm
 				</button>
 			</Link>
-
-			<DataGrid
+			{data ? <DataGrid
 				rows={data}
 				disableSelectionOnClick
 				columns={columns}
 				pageSize={8}
-			/>
+			/> : null }
+			
 		</div>
 	);
 }

@@ -4,7 +4,7 @@ import CollectionsBookmarkIcon from "@mui/icons-material/CollectionsBookmark";
 import { useState } from "react";
 import Toast from '../../../utils/toast';
 import axios from 'axios';
-export default function InfoProduct({ infoProduct, idProduct, accessToken }) {
+export default function InfoProduct({ infoProduct, idProduct, accessToken,setDataDetail }) {
   const [statusShow, setStatusShow] = useState({
     image1: false,
     image2: false,
@@ -51,7 +51,8 @@ export default function InfoProduct({ infoProduct, idProduct, accessToken }) {
         });
         if(data.success === true) 
         {
-          setShowImage({showImage1:null})
+          setShowImage({showImage1:null});
+          setDataDetail(data.customData);
           Toast.fire({
             title: "Cập Nhật Thành Công",
             icon: "success",
