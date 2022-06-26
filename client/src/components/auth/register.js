@@ -82,49 +82,47 @@ export default function Register() {
     else return true;
   };
   const handleClicKRegister = async () => {
-    try{
       if(validate())
       {
-        const data = {
-          ...inputs,
-          gender : checkedGender
+        try{
+          const data = {
+            ...inputs,
+            gender : checkedGender
+          }
+           const result = await axiosMethod(`authJWT/register`,"post",data);
+           if(result.success === true)
+           {
+            localStorage.setItem('emailRegister',JSON.stringify(result.data.email));
+            MySwal.fire({
+              title: <p>Chuyển Đến Xác Thực OTP</p>,
+              didOpen: () => {
+                MySwal.showLoading();
+              },
+              timer: 1000,
+            }).then(() => {
+              navigate(`/account/verify/${result.data.userId}`);
+            });
+           }
+           else
+           {
+            Toast.fire({
+              title: "Tài Khoản Đã Tồn Tại",
+              icon: "error",
+            });
+           }
         }
-         const result = await axiosMethod(`authJWT/register`,"post",data);
-         if(result.success === true)
-         {
-          localStorage.setItem('emailRegister',JSON.stringify(result.data.email));
-          MySwal.fire({
-            title: <p>Chuyển Đến Xác Thực OTP</p>,
-            didOpen: () => {
-              MySwal.showLoading();
-            },
-            timer: 1000,
-          }).then(() => {
-            navigate(`/account/verify/${result.data.userId}`);
-          });
-         }
-         else
-         {
+        catch(err)
+        {
           Toast.fire({
-            title: "Tài Khoản Đã Tồn Tại",
+            title: "Đã xảy ra lỗi",
             icon: "error",
           });
-         }
+        }
+       
        
       }
-      else
-      {
-
-      }
       
-    }
-    catch(err)
-    {
-      return Toast.fire({
-        title: "Đã Có Lỗi Xảy",
-        icon: "error",
-      });
-    }
+   
     
 
   };
