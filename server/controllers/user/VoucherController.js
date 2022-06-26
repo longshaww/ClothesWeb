@@ -1,5 +1,6 @@
 const Voucher = require("../../models/Vouchers");
 const moment = require("moment");
+const ObjectId = require("mongoose").Types.ObjectId;
 
 class VoucherController {
 	async createVoucher(req, res) {
@@ -106,6 +107,12 @@ class VoucherController {
 		const { code, amount } = req.query;
 		try {
 			if (code && amount) {
+				if (!ObjectId.isValid(code)) {
+					return res.status(400).json({
+						success: false,
+						message: "Mã voucher không đúng định dạng",
+					});
+				}
 				const voucher = await Voucher.findById(code);
 				if (!voucher) {
 					return res.status(404).json({

@@ -60,6 +60,7 @@ function CustomerInfo({ cart }) {
 				email: cookies.user.email,
 				phoneNumber: cookies.user.information.phoneNumber,
 				address: cookies.user.information.address,
+				detailInputHidden: !inputs.detailInputHidden,
 			});
 		} else {
 			setInputs({
@@ -200,7 +201,6 @@ function CustomerInfo({ cart }) {
 			phoneNumber: data.phoneNumber,
 			address: data.address,
 			idDelivery: changeInfo.checkedInfo,
-			detailInputHidden: !inputs.detailInputHidden,
 		});
 		Toast.fire({
 			title: "Cập nhật thông tin thành công",
