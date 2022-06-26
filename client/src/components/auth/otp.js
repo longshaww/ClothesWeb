@@ -36,7 +36,7 @@ export default function VerifyOtp() {
             const otp = Number(digitOtp.number1 + digitOtp.number2 + digitOtp.number3 + digitOtp.number4);
             const data = {
                 userId : id,
-                otp
+                otp : `${otp}`
             }
             const result = await axiosMethod("authJWT/verifyOTP","post",data);
             if(result.success)
@@ -50,7 +50,7 @@ export default function VerifyOtp() {
             else
             {
                 Toast.fire({
-                    title: "OTP hết hạn",
+                    title: "OTP Không Đúng",
                     icon: "error",
                   });
                   navigate(`/account/register`)
@@ -58,13 +58,16 @@ export default function VerifyOtp() {
         }
         catch(err)
         {
-            console.log("vao")
             Toast.fire({
-                title: "Đã có lỗi xảy ra",
+                title: "OTP hết hạn",
                 icon: "error",
               });
+              navigate(`/account/register`)
         }
      }
+  }
+  const handleReSendOTP = ()=>{
+     
   }
   return (
     <>
