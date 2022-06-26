@@ -5,7 +5,7 @@ import axiosMethod from "../../middlewares/axios";
 import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 export default function VerifyOtp() {
-	let emailRegister = localStorage.getItem("emailRegister");
+	let emailRegister = JSON.parse(localStorage.getItem("emailRegister"));
 	const [email, setEmail] = useState();
 
 	const { id } = useParams();
@@ -21,11 +21,11 @@ export default function VerifyOtp() {
 			return navigate("/");
 		}
 		setEmail(
-			JSON.parse(
+		
 				emailRegister.substring(emailRegister.lastIndexOf("@") - 3)
-			)
+
 		);
-	}, []);
+	}, [emailRegister,navigate]);
 
 	const handleChange = (event) => {
 		const value = event.target.value;
@@ -55,7 +55,7 @@ export default function VerifyOtp() {
 				);
 				const data = {
 					userId: id,
-					otp: `${otp}`,
+					otp: otp,
 				};
 				const result = await axiosMethod(
 					"authJWT/verifyOTP",
@@ -84,15 +84,46 @@ export default function VerifyOtp() {
 			}
 		}
 	};
-	const handleReSendOTP = () => {};
+  const handleReSendOTP = async ()=>{
+    try{
+     const data = {
+         userId : id,
+         email: emailRegister
+     }
+       const result = await axiosMethod("authJWT/resendOTP","post",data);
+       if(result.success)
+       {
+         Toast.fire({
+           title: "Gửi Mã Thành Công",
+           icon: "success",
+         });
+       }
+       else
+       {
+         Toast.fire({
+           title: "Gửi Mã Thất Bại",
+           icon: "error",
+         });
+       }
+       
+    }
+    catch(err)
+    {
+     Toast.fire({
+       title: "Đã Xảy Ra Lỗi",
+       icon: "error",
+     });
+     navigate(`/account/register`)
+    }
+ }
 	return (
 		<>
 			<div
-				class="container  d-flex justify-content-center align-items-center"
+				className="container  d-flex justify-content-center align-items-center"
 				style={{ marginTop: "150px" }}
 			>
-				<div class="position-relative">
-					<div class="card-3 p-2 text-center">
+				<div className="position-relative">
+					<div className="card-3 p-2 text-center">
 						<h6>Xác thực mã OTP</h6>
 						<div>
 							<span>Mã xác thực đã được gửi qua</span>{" "}
@@ -100,10 +131,10 @@ export default function VerifyOtp() {
 						</div>
 						<div
 							id="otp"
-							class="inputs d-flex flex-row justify-content-center mt-2"
+							className="inputs d-flex flex-row justify-content-center mt-2"
 						>
 							<input
-								class="m-2 text-center form-control rounded"
+								className="m-2 text-center form-control rounded"
 								type="text"
 								id="first"
 								name="number1"
@@ -112,7 +143,7 @@ export default function VerifyOtp() {
 								maxLength="1"
 							/>
 							<input
-								class="m-2 text-center form-control rounded"
+								className="m-2 text-center form-control rounded"
 								type="text"
 								id="second"
 								name="number2"
@@ -121,7 +152,7 @@ export default function VerifyOtp() {
 								maxLength="1"
 							/>
 							<input
-								class="m-2 text-center form-control rounded"
+								className="m-2 text-center form-control rounded"
 								type="text"
 								id="third"
 								name="number3"
@@ -130,7 +161,7 @@ export default function VerifyOtp() {
 								maxLength="1"
 							/>
 							<input
-								class="m-2 text-center form-control rounded"
+								className="m-2 text-center form-control rounded"
 								type="text"
 								id="fourth"
 								name="number4"
@@ -139,17 +170,20 @@ export default function VerifyOtp() {
 								maxLength="1"
 							/>
 						</div>
-						<div class="mt-4">
+						<div className="mt-4">
 							<button
-								class="btn btn-dark px-4 validate"
+								className="btn btn-dark px-4 validate"
 								type="button"
 								onClick={handleVerify}
 							>
 								Xác Thực
 							</button>
-							<a href="#!" className="mt-2">
+              <div className="mt-2">
+              <a onClick={handleReSendOTP} >
 								Gửi Lại Mã Xác Thực
 							</a>
+              </div>
+					
 						</div>
 					</div>
 				</div>
