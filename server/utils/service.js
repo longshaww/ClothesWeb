@@ -2,6 +2,7 @@ const { restart } = require("nodemon");
 const Product = require("../models/Product");
 var ObjectId = require("mongodb").ObjectId;
 const User = require("../models/UserWeb");
+const {generateAccessToken} = require("../utils/function");
 module.exports = {
     detailProduct: async (id, res, next) => {
         try {
@@ -70,13 +71,19 @@ module.exports = {
     getUser : async (id,res,next) =>{
         try{
             const user = await User.findOne({"_id" : ObjectId(id) });
-            console.log(id);
-            console.log(user)
+            const customData = {
+                _id : user._id,
+                email : user.email,
+                isAdmin : user.isAdmin,
+                information : user.information
+            }
+            const accessToken = generateAccessToken(customData);
             if(user)
             {
                 res.status(200).json({
                     success : true,
-                    user
+                    user : customData,
+                    accessToken
                 })
             }   
             else
