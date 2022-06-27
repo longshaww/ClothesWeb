@@ -235,7 +235,7 @@ function CustomerInfo({ cart }) {
 	return (
 		<>
 			<div className="header pb-2">
-				<h2 className="m-0">HYPERX</h2>
+				<h2 className="m-0">HIGHCLUB</h2>
 				<nav aria-label="breadcrumb">
 					<ol className="breadcrumb mb-0 mt-2">
 						<li className="breadcrumb-item">
