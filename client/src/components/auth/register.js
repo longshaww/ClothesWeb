@@ -104,22 +104,34 @@ export default function Register() {
 					"post",
 					data
 				);
-				console.log(result);
-				if (result.success === true) {
-					localStorage.setItem(
-						"emailRegister",
-						JSON.stringify(result.data.email)
-					);
-					MySwal.fire({
-						title: <p>Chuyển Đến Xác Thực OTP</p>,
-						didOpen: () => {
-							MySwal.showLoading();
-						},
-						timer: 1000,
-					}).then(() => {
+				MySwal.fire({
+					title: <p>Chuyển Đến Xác Thực OTP</p>,
+					didOpen: () => {
+						MySwal.showLoading();
+					},
+					timer: 1000,
+				}).then(() => {
+					if (result.success === true) {
+						localStorage.setItem(
+							"emailRegister",
+							JSON.stringify(result.data.email)
+						);
+						Toast.fire({
+							title: "Đăng Ký Thành Công",
+							icon: "success",
+						  });
 						navigate(`/account/verify/${result.data.userId}`);
-					});
-				}
+					}
+					else
+					{
+						Toast.fire({
+							title: "Tài Khoản Đã Tồn Tại",
+							icon: "error",
+						  })
+					}
+		
+				});
+			
 			} catch (err) {
 				Toast.fire({
 					title: "Đã xảy ra lỗi",
