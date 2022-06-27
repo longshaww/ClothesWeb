@@ -73,6 +73,7 @@ class ProductAdminController {
                         "nameProduct": req.body.nameProduct,
                         "price": req.body.price,
                         "size": customArraySize,
+                        "description.productDes" : req.body.description,
                         "description.collection": req.body.idCollection
                     }
                 })

@@ -332,7 +332,7 @@ export default function DetailBill() {
 												<span
 													style={{
 														fontSize:
-															"25px",
+															"20px",
 													}}
 												>
 													{(
