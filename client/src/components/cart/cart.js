@@ -19,22 +19,25 @@ function PopupCart({ cart, setCart }) {
 	//Local state
 	const [anchorEl, setAnchorEl] = useState(null);
 
-	const [cookie, setCookie, removeCookie] = useCookies(["sessionId"]);
+	const [cookie] = useCookies(["sessionId"]);
 	//Get Cart at first
 
 	useEffect(() => {
 		async function getCart() {
-			const data = await axiosMethod("cart", "get");
-			if (!data) {
-				Toast.fire({ title: "Lỗi giỏ hàng", icon: "error" });
-				removeCookie("sessionId", { path: "/" });
-			}
-			if (data.success) {
-				setCart(data.cartQty, data, data.cartTotal);
+			try {
+				const data = await axiosMethod("cart", "get");
+				if (data.success) {
+					setCart(data.cartQty, data, data.cartTotal);
+				}
+			} catch (err) {
+				Toast.fire({
+					title: "Session đã dược khôi phục",
+					icon: "success",
+				});
 			}
 		}
 		getCart();
-	}, [setCart]);
+	}, [cookie.sessionId]);
 
 	//Handle Delete Cart
 

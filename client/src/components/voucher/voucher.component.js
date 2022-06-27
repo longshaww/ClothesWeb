@@ -9,6 +9,7 @@ export default function VoucherComponent({ voucher }) {
 		if (!cookies.user) {
 			return Toast.fire({
 				title: "Bạn phải đăng nhập để lấy voucher",
+				icon: "warning",
 			});
 		}
 		try {
@@ -38,8 +39,8 @@ export default function VoucherComponent({ voucher }) {
 				</div>
 				<div className="row pt-2">
 					<div className="col-6 col-lg-4">
-						<div className="fw-bold fs-5">
-							Mã {voucher._id}
+						<div className="fw-bold fs-5 text-center">
+							Số lượng {voucher.qty}
 						</div>
 						<img
 							src="https://ngaymoi24h.vn/upload/images/AN-09-04/An-05-05/voucher.png"

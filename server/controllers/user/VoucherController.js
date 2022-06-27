@@ -259,20 +259,19 @@ class VoucherController {
 		try {
 			const voucher = await Voucher.findById(id);
 			if (!voucher) {
-				res.status(404).json({
+				return res.status(404).json({
 					success: false,
 					message: "Mã voucher không tồn tại",
 				});
 			}
-			const user = voucher.listUser.find((user) => user === userID);
-			voucher.listUser.splice(user, 1);
-			if (!user) {
+			const user = voucher.listUser.indexOf(userID);
+			if (user == -1) {
 				return res.status(400).json({
 					success: false,
 					message: "Không tìm thấy user",
 				});
 			}
-			user.remove();
+			voucher.listUser.splice(user, 1);
 			voucher.qty = voucher.qty - 1;
 			res.status(200).json({ success: true, body: voucher.save() });
 		} catch (err) {

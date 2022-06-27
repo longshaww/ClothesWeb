@@ -11,13 +11,14 @@ const userAdminRoute = require("../routes/admin/user.admin.route");
 const dashboardAdminRoute = require("../routes/admin/dashboard.admin.route");
 const androidRoute = require("../routes/android/android.route");
 const voucherRoute = require("../routes/user/voucher.route");
+const sessionMiddleware = require("../middlewares/session.middleware");
 
 function route(app) {
 	app.use("/", siteRoute);
 	app.use("/android", androidRoute);
 	app.use("/collections", collectionsRoute);
 	app.use("/product", productRoute);
-	app.use("/cart", cartRoute);
+	app.use("/cart", sessionMiddleware, cartRoute);
 	app.use("/bill", billRoute);
 	app.use("/voucher", voucherRoute);
 
