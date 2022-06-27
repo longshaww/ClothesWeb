@@ -131,7 +131,7 @@ export default function EditProduct({ infoProduct,idProduct,accessToken,setDataD
               <textarea
                 name="description"
                 style={{ width: "500px", height: "200px" }}
-                value={infoProduct.description}
+                value={inputs.description}
                 onChange={handleChangeEditProduct}
               />
             </div>
