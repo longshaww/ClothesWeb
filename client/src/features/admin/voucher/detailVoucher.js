@@ -19,7 +19,7 @@ export default function DetailVoucher() {
 		<>
 			{voucher._id && (
 				<div style={{ flex: 4 }}>
-					<VoucherComponent voucher={voucher} />
+					<VoucherComponent voucher={voucher} allowCopy={true} />
 				</div>
 			)}
 		</>

@@ -3,13 +3,20 @@ import moment from "moment";
 import Toast from "../../utils/toast";
 import { useCookies } from "react-cookie";
 import axiosMethod from "../../middlewares/axios";
-export default function VoucherComponent({ voucher }) {
+export default function VoucherComponent({ voucher, allowCopy }) {
 	const [cookies] = useCookies(["user"]);
 	const onCopyCodeClick = async (id) => {
 		if (!cookies.user) {
 			return Toast.fire({
 				title: "Bạn phải đăng nhập để lấy voucher",
 				icon: "warning",
+			});
+		}
+		if (allowCopy) {
+			navigator.clipboard.writeText(id);
+			return Toast.fire({
+				title: "Sao chép mã thành công",
+				icon: "success",
 			});
 		}
 		try {
