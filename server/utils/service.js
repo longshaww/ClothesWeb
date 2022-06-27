@@ -69,7 +69,9 @@ module.exports = {
 
     getUser : async (id,res,next) =>{
         try{
-            const user = await User.findOne({"_id" : id,verify : true });
+            const user = await User.findOne({"_id" : ObjectId(id) });
+            console.log(id);
+            console.log(user)
             if(user)
             {
                 res.status(200).json({

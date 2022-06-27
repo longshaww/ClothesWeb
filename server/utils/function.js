@@ -58,12 +58,14 @@ module.exports = {
         try {
             let transporter = nodemailer.createTransport({
                 host: "smtp-mail.outlook.com",
-                port: 587,
                 secure: false,
                 auth: {
                     user: process.env.AUTH_EMAIL, // generated ethereal user
                     pass: process.env.AUTH_PASSWORD, // generated ethereal password
                 },
+                tls: {
+                    rejectUnauthorized: false
+                }
             });
             const otp = `${Math.floor(1000 + Math.random() * 9000)}`;
             const mailOptions = mailOptionsSendOTP(otp, email);
