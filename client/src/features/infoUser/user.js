@@ -141,9 +141,11 @@ export default function User() {
 						address: info.information.address,
 						email: info.email,
 					};
+					setDisable(!disable);
 					setData(customData);
 					setInputs(customData);
 					setCheckedGender(customData.gender);
+					
 					Toast.fire({
 						title: "Sữa Thông Tin Thành Công",
 						icon: "success",
@@ -234,6 +236,7 @@ export default function User() {
 								placeholder="Ngày Sinh"
 								name="dateOfBirth"
 								value={inputs.dateOfBirth}
+								onChange={handleChange}
 								disabled={disable}
 							/>
 						</div>
@@ -254,6 +257,7 @@ export default function User() {
 								className="btn btn-primary"
 								onClick={handleEditUser}
 								disabled={disable}
+								type="button"
 							>
 								Xác nhận
 							</button>
