@@ -3,9 +3,36 @@ import BusinessRoundedIcon from "@mui/icons-material/BusinessRounded";
 import SideBarUser from "./sideBar";
 import Moment from "react-moment";
 import "../../assets/styles/userInfo.css";
+import { useEffect ,useState} from 'react';
+import { Toast } from "reactstrap";
+import axios from "axios";
+import { useCookies } from 'react-cookie';
 export default function User() {
+  const [cookies] = useCookies();
+  const [data,setData] = useState(null);
+  useEffect(()=>{
+    const getData = async ()=>{
+        try{
+            const {data} = await axios.get(`${process.env.REACT_APP_API_URL}user/getUser/62b8d18a4f133081e64d360e`,{
+              headers: {
+                authorization: "Bearer " + cookies.accessToken,
+              }
+            })
+            setData(data.user);
+        }
+        catch(err)
+        {
+          Toast.fire({
+            title: "Có gì đó không đúng ~ !",
+            icon: "error",  
+          });
+        }
+    }
+    getData();
+  },[])
   return (
     <>
+    {data!== null ? 
       <div class="mainContent-theme ">
         <div class="layout-info-account">
           <div class="title-infor-account text-center mt-5">
@@ -20,14 +47,14 @@ export default function User() {
                   <div class="col-xs-12" id="customer_sidebar">
                     <h5 class="title-detail">Thông tin tài khoản</h5>
                     <div>
-                      <h2 class="name_account">Phu Pham</h2>
-                      <div class="email">ngocphupham682001@gmail.com</div>
-                      <div class="email">2031223</div>
-                      <div class="email">Nữ</div>
-                      <Moment format="DD/MM/YYYY" class="email">
+                      <h2 class="name_account">Tên :  Phu Pham</h2>
+                      <div class="email">Email : ngocphupham682001@gmail.com</div>
+                      <div class="email">SĐT : 2031223</div>
+                      <div class="email">Giới Tính : Nữ</div>
+                      Sinh Năm: <Moment format="DD/MM/YYYY" class="email">
                         2022-12-02T17:00:00.000+00:00
                       </Moment>
-                      <div class="email">Nữ</div>
+                      <div class="email"> Địa Chỉ : Nữ</div>
                     </div>
                   </div>
                   <div
@@ -132,7 +159,7 @@ export default function User() {
             </div>
           </div>
         </div>
-      </div>
+      </div> : null }
     </>
   );
 }

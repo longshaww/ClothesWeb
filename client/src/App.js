@@ -37,8 +37,10 @@ import User from "./features/infoUser/user";
 function App() {
 	const [cookies] = useCookies(["user"]);
 	let user;
+	let userLogin;
 	if (cookies.user !== undefined) {
 		user = cookies.user.isAdmin;
+		userLogin = cookies.user
 	}
 	return (
 		<div>
@@ -132,7 +134,7 @@ function App() {
 					<Route 
 						path="user/info"
 						index
-						element={<User />}
+						element={userLogin ? <User />: <Navigate to="/" />}
 					>
 						
 					</Route>

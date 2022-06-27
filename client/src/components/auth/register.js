@@ -49,35 +49,41 @@ export default function Register() {
       inputs.email === "" ||
       inputs.password === ""
     ) {
-      return Toast.fire({
+       Toast.fire({
         title: "Vui Lòng Nhập Đầy Đủ Thông Tin",
         icon: "error",
       });
+      return false;
     } else if (!isDate(inputs.dateOfBirth)) {
-      return Toast.fire({
+       Toast.fire({
         title: "Nhập Sai Ngày Sinh",
         icon: "error",
       });
+       return false;
     } else if (checkIsValidName(inputs.name)) {
-      return Toast.fire({
+       Toast.fire({
         title: "Nhập Sai Tên",
         icon: "error",
       });
+      return false;
     } else if (!validatePhoneNumber(inputs.phoneNumber)) {
-      return Toast.fire({
+       Toast.fire({
         title: "Nhập Sai Số",
         icon: "error",
       });
+      return false;
     } else if (!ValidateEmail(inputs.email)) {
-      return Toast.fire({
+       Toast.fire({
         title: "Nhập Sai Email",
         icon: "error",
       });
+      return false;
     } else if (!validatePassword(inputs.password)) {
-      return Toast.fire({
-        title: "Tăng Độ Bảo Mật Cho Tài Khoản, ( > 6 kí tự)",
+       Toast.fire({
+        title: "Tăng Độ Bảo Mật Cho Tài Khoản Có Hoa Thường Và Kí Tự Đặc Biệt ( VD : NgocPhu@123), ( > 6 kí tự)",
         icon: "error",
       });
+      return false;
     }
     else return true;
   };
