@@ -10,4 +10,5 @@ router.get("/:id", voucherController.detailVoucher);
 router.post("/apply", voucherController.applyVoucher);
 router.post("/getVoucher", voucherController.userGetVoucher);
 router.put("/updateState/:id", voucherController.updateState);
+router.get("/myVoucher/:id", voucherController.myVoucher);
 module.exports = router;

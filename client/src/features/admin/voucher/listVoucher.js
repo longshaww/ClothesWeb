@@ -8,6 +8,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import Toast from "../../../utils/toast";
 import { deleteConfirm } from "../../../utils/delete.confirm";
+import moment from "moment";
 
 export default function ListVoucher() {
 	const [listVoucher, setListVoucher] = useState([]);
@@ -56,11 +57,27 @@ export default function ListVoucher() {
 			field: "dateStart",
 			headerName: "Date Start",
 			width: 200,
+			renderCell: (params) => {
+				return (
+					<div>
+						{moment(params.row.dateStart).format(
+							"DD/MM/YYYY"
+						)}
+					</div>
+				);
+			},
 		},
 		{
 			field: "dateEnd",
 			headerName: "Date End",
 			width: 200,
+			renderCell: (params) => {
+				return (
+					<div>
+						{moment(params.row.dateEnd).format("DD/MM/YYYY")}
+					</div>
+				);
+			},
 		},
 		{
 			field: "maxDiscount",
