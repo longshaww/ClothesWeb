@@ -141,7 +141,16 @@ function ModalEditInfo({
 				>
 					Sửa
 				</Button>
-				<Button>Thoát</Button>
+				<Button
+					onClick={() =>
+						setChangeInfo({
+							...changeInfo,
+							modalEdit: !changeInfo.modalEdit,
+						})
+					}
+				>
+					Thoát
+				</Button>
 			</ModalFooter>
 		</Modal>
 	);
