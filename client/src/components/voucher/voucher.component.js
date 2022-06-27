@@ -48,6 +48,7 @@ export default function VoucherComponent({ voucher }) {
 									<img
 										src="https://ngaymoi24h.vn/upload/images/AN-09-04/An-05-05/voucher.png"
 										className="img-fluid rounded"
+										alt=""
 									/>
 								</div>
 								<div className="col px-4 py-2 rounded-3 border">

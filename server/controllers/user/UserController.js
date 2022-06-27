@@ -1,5 +1,6 @@
 const {getUser} = require("../../utils/service");
 const User = require("../../models/UserWeb");
+const Bill = require("../../models/BillWeb");
 class UserController
 { 
     async getUser(req,res,next)
@@ -38,6 +39,27 @@ class UserController
             res.status(404).json({ 
                 success : false,
                 msg : err.message
+            })
+        }
+    }
+
+
+    async getBillUser(req,res,next){
+        try{
+            const bill = await Bill.find({"userID" : req.params.id })
+            bill ? res.status(200).json({
+                success : true,
+                listBill : bill
+            }) : res.status(404).json({
+                success : false,
+                msg : "Không Tìm Thấy"
+            })
+        }
+        catch(er)
+        {
+            res.status(404).json({
+                success: false,
+                msg : er.message
             })
         }
     }

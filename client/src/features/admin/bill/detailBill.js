@@ -255,7 +255,7 @@ export default function DetailBill() {
 														<span>
 															{el._id.price.toLocaleString()}
 															,000
-															VND
+															đ
 														</span>
 													</p>
 												</div>
@@ -276,7 +276,7 @@ export default function DetailBill() {
 														<span>
 															{el.sum.toLocaleString()}
 															,000
-															VND
+															đ
 														</span>
 													</p>
 												</div>
@@ -300,8 +300,8 @@ export default function DetailBill() {
 														Tổng :
 													</span>
 													<span>
-														{data.total.toLocaleString()}
-														,000 VND
+														{(data.total- 35).toLocaleString()}
+														,000 đ
 													</span>
 												</li>
 												<li className="text-muted ms-3 mt-2">
@@ -314,7 +314,7 @@ export default function DetailBill() {
 																"10px",
 														}}
 													>
-														35,000 VND
+														35,000 đ
 													</span>
 												</li>
 											</ul>
@@ -336,10 +336,9 @@ export default function DetailBill() {
 													}}
 												>
 													{(
-														data.total +
-														35
+														data.total
 													).toLocaleString()}
-													,000 VND
+													,000 đ
 												</span>
 											</p>
 										</div>
