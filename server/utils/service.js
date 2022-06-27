@@ -2,6 +2,7 @@ const { restart } = require("nodemon");
 const Product = require("../models/Product");
 var ObjectId = require("mongodb").ObjectId;
 const User = require("../models/UserWeb");
+const moment = require("moment")
 const {generateAccessToken} = require("../utils/function");
 module.exports = {
     detailProduct: async (id, res, next) => {
@@ -101,5 +102,48 @@ module.exports = {
                 msg : err.message
             })
         }    
+    },
+    getListUser : async (req,res,next) =>{
+        try{
+            const listUser = await User.find({"isAdmin":false});
+            const listUserBan = await User.findDeleted({})
+            let listUserCustom = []; 
+            listUser.map(async(el)=>{
+                let customData = {
+                      id : el._id,
+                      name  : el.information.name,
+                      phone : el.information.phoneNumber,
+                      dateOfBirth : moment(el.information.dateOfBirth,"MM-DD-YYYY").format("l") ,
+                      point : el.myPoint,
+                      email : el.email,
+                      bans : false
+                }
+                listUserCustom.push(customData);
+            })
+            listUserBan.map((el)=>{
+                let customData = {
+                    id : el._id,
+                    name  : el.information.name,
+                    phone : el.information.phoneNumber,
+                    dateOfBirth : moment(el.information.dateOfBirth,"MM-DD-YYYY").format("l") ,
+                    point : el.myPoint,
+                    email : el.email,
+                    bans : true
+              }
+              listUserCustom.push(customData);
+            })
+    
+            res.status(200).json({
+                success: true,
+                listUserCustom
+            })
+        }
+        catch(err)
+        {
+            res.staus(404).json({
+                success : false,
+                msg : err.message
+            })
+        }
     }
 }

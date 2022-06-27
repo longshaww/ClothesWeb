@@ -188,12 +188,15 @@ export default function CreateProduct() {
               onChange={handleChangeImage}
               title=" "
             />
-            <img
+            {
+              showImage.showImage1 ? <img
               className="userUpdateImg mt-3"
               id="blah"
               src={showImage.showImage1}
               alt="Hình Ảnh Của Bạn"
-            />
+            /> : null
+            }
+            
           </div>
           <div className="mt-5">
             <input
@@ -204,12 +207,16 @@ export default function CreateProduct() {
               onChange={handleChangeImage}
               title=" "
             />
-            <img
+            {
+              showImage.showImage2 ?
+              <img
               className="userUpdateImg mt-3"
               id="blah"
               src={showImage.showImage2}
               alt="Hình Ảnh Của Bạn"
-            />
+            /> : null
+            }
+            
           </div>
         </div>
       </div>

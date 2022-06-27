@@ -133,7 +133,6 @@ export default function ListVoucher() {
 						columns={columns}
 						pageSize={9}
 						getRowId={(row) => row._id}
-						checkboxSelection
 					/>
 				)}
 			</div>
