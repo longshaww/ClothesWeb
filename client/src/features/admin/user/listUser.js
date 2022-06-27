@@ -32,10 +32,12 @@ export default function ListUser() {
 			},
 		});
 		if (res.data.success === true) {
+			setData(res.data.listUserCustom);
 			Toast.fire({
 				title: "MỞ BLOCK USER THÀNH CÔNG",
 				icon: "success",
 			});
+				
 		}
 	};
 
@@ -48,6 +50,7 @@ export default function ListUser() {
 			},
 		});
 		if (res.data.success === true) {
+			setData(res.data.listUserCustom);
 			Toast.fire({
 				title: "BLOCK USER THÀNH CÔNG",
 				icon: "success",
@@ -130,7 +133,6 @@ export default function ListUser() {
 				disableSelectionOnClick
 				columns={columns}
 				pageSize={9}
-				checkboxSelection
 			/> : null}
 			
 		</div>
