@@ -3,8 +3,8 @@ import { Link, Outlet } from "react-router-dom";
 import "../../../assets/styles/checkout.css";
 import { useCookies } from "react-cookie";
 import { useState, useEffect } from "react";
-import axiosMethod from "../../../middlewares/axios";
 import Toast from "../../../utils/toast";
+import axios from "axios";
 
 function Checkout({ cart, setTotal }) {
 	const cartStore = cart.cartStore;
@@ -35,11 +35,20 @@ function Checkout({ cart, setTotal }) {
 				icon: "error",
 			});
 		}
+		if (!cookies.user) {
+			return Toast.fire({
+				title: "Bạn phải đăng nhập để áp dụng voucher",
+				icon: "warning",
+			});
+		}
 		try {
-			await axiosMethod(
-				`voucher?code=${voucher.voucherInput}&amount=${cartTotalPrice}`,
-				"get"
-			);
+			await axios({
+				url: `${process.env.REACT_APP_API_URL}voucher?code=${voucher.voucherInput}&amount=${cartTotalPrice}`,
+				method: "get",
+				headers: {
+					user: cookies.user.id,
+				},
+			});
 		} catch (err) {
 			return Toast.fire({
 				title: err.response.data.message,
@@ -47,13 +56,20 @@ function Checkout({ cart, setTotal }) {
 			});
 		}
 		try {
-			const applyVoucher = await axiosMethod("voucher/apply", "post", {
-				amount: cartTotalPrice,
-				code: voucher.voucherInput,
+			const applyVoucher = await axios({
+				url: `${process.env.REACT_APP_API_URL}voucher/apply`,
+				method: "post",
+				headers: {
+					user: cookies.user.id,
+				},
+				data: {
+					amount: cartTotalPrice,
+					code: voucher.voucherInput,
+				},
 			});
-			if (applyVoucher.success) {
+			if (applyVoucher.data.success) {
 				Toast.fire({
-					title: applyVoucher.message,
+					title: applyVoucher.data.message,
 					icon: "success",
 				});
 			}
@@ -62,7 +78,7 @@ function Checkout({ cart, setTotal }) {
 					"customer",
 					JSON.stringify({
 						...JSON.parse(customer),
-						total: total - applyVoucher.body.discount,
+						total: total - applyVoucher.data.body.discount,
 					})
 				);
 			}
@@ -71,7 +87,7 @@ function Checkout({ cart, setTotal }) {
 				...voucher,
 				voucherState: !voucher.voucherState,
 			});
-			setTotal(total - applyVoucher.body.discount);
+			setTotal(total - applyVoucher.data.body.discount);
 		} catch (err) {
 			return Toast.fire({
 				title: err.response.data.message,

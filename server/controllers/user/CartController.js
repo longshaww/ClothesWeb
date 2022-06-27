@@ -7,33 +7,44 @@ class CartController {
 		const product = await Product.findById(id);
 		const productPrice = product.price;
 		const sessionId = req.signedCookies.sessionId;
-		const currentSession = await Session.findById(sessionId);
-
-		if (!currentSession) {
-			res.status(400).json({
+		if (!sessionId) {
+			return res.status(400).json({
 				success: false,
-				message: "Session not found",
+				message: "Session không được định nghĩa",
 			});
 		}
+		const currentSession = await Session.findById(sessionId);
+		if (!currentSession) {
+			return res.status(400).json({
+				success: false,
+				message: "Session đã bị xóa",
+			});
+		}
+
 		const findExisted = currentSession.cart.find((item) => {
 			return item.id === id;
 		});
 
 		if (findExisted !== undefined) {
 			let subDoc = currentSession.cart.id(id);
-			subDoc.set({ qty: subDoc.qty + qty });
-			subDoc.set({ total: productPrice * subDoc.qty });
-			await currentSession.save();
+			if (subDoc.size !== size) {
+				let newSize = `${subDoc.size},${size}`;
+				subDoc.set({ size: newSize });
+			}
+			subDoc.set({
+				qty: subDoc.qty + qty,
+				total: productPrice * subDoc.qty,
+			});
 		} else {
-			await Session.updateOne(
-				{ _id: sessionId },
-				{
-					$push: {
-						cart: { _id: id, qty, size, total: productPrice },
-					},
-				}
-			);
+			currentSession.cart.push({
+				_id: id,
+				qty,
+				size,
+				total: productPrice,
+			});
 		}
+		await currentSession.save();
+
 		const thisSession = await Session.findById(sessionId).populate(
 			"cart._id"
 		);
@@ -42,19 +53,50 @@ class CartController {
 	async getCart(req, res, next) {
 		try {
 			const sessionId = req.signedCookies.sessionId;
+			if (!sessionId) {
+				return res.status(400).json({
+					success: false,
+					message: "Session không được định nghĩa",
+				});
+			}
 			const thisSession = await Session.findById(sessionId).populate(
 				"cart._id"
 			);
+			if (!thisSession) {
+				const session = await Session.create({});
+				return res
+					.status(400)
+					.cookie("sessionId", session.id, {
+						signed: true,
+					})
+					.json({
+						success: false,
+						message: "Session đã bị xóa",
+					});
+			}
+
 			res.status(200).json(getCartUtil(thisSession));
 		} catch (err) {
-			res.status(400).json({ success: false, message: err });
+			res.status(400).json({ success: false, message: err.message });
 		}
 	}
 	async deleteProduct(req, res, next) {
 		const { productId } = req.params;
 		try {
 			const sessionId = req.signedCookies.sessionId;
+			if (!sessionId) {
+				return res.status(400).json({
+					success: false,
+					message: "Session không được định nghĩa",
+				});
+			}
 			const currentSession = await Session.findById(sessionId);
+			if (!currentSession) {
+				return res.status(400).json({
+					success: false,
+					message: "Session đã bị xóa",
+				});
+			}
 			let subDoc = currentSession.cart.id(productId);
 			if (subDoc) {
 				subDoc.remove();

@@ -105,14 +105,11 @@ export default function ListVoucher() {
 	];
 	return (
 		<>
-			{listVoucher.length && (
-				<div className="productList">
-					<Link
-						to="create"
-						className="btn btn-primary ms-2 mb-2"
-					>
-						Create
-					</Link>
+			<div className="productList">
+				<Link to="create" className="btn btn-primary ms-2 mb-2">
+					Create
+				</Link>
+				{listVoucher.length > 0 && (
 					<DataGrid
 						rows={listVoucher}
 						disableSelectionOnClick
@@ -121,8 +118,8 @@ export default function ListVoucher() {
 						getRowId={(row) => row._id}
 						checkboxSelection
 					/>
-				</div>
-			)}
+				)}
+			</div>
 		</>
 	);
 }
