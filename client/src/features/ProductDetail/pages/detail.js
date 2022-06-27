@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { setCart } from "../../../actions/cart";
@@ -175,13 +175,22 @@ export default function Detail() {
 									</button>
 								</div>
 								<div className="product-description">
-									<p className="fs-6 fw-bold text-decoration-underline pb-3 border-bottom">
+									<div className="fs-6 fw-bold text-decoration-underline pb-3 border-bottom">
 										Mô tả sản phẩm
-									</p>
-									<p className="fs-6 pb-3 border-bottom">
+									</div>
+									<div className="mb-3">
+										{
+											productDetail.description
+												.productDes
+										}
+									</div>
+									<Link
+										to="cart"
+										className="fs-6 pb-3 border-bottom  fw-bold text-decoration-underline"
+									>
 										CHINH SÁCH GIAO HÀNG & ĐỔI TRẢ
 										HÀNG
-									</p>
+									</Link>
 								</div>
 							</div>
 						</div>
