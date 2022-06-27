@@ -7,7 +7,7 @@ import { useCookies } from "react-cookie";
 import Toast from "../../../utils/toast";
 import InfoIcon from "@mui/icons-material/Info";
 export default function ListBill() {
-	const [data, setData] = useState([]);
+	const [data, setData] = useState(null);
 	const [cookies] = useCookies();
 
 	useEffect(() => {
@@ -23,7 +23,7 @@ export default function ListBill() {
 			setData(data.listBillCustom);
 		};
 		getData();
-	}, [cookies.accessToken]);
+	}, []);
 
 	const renderVerify = (status, id) => {
 		if (status === false) {
@@ -109,12 +109,13 @@ export default function ListBill() {
 
 	return (
 		<div className="productList">
-			<DataGrid
+			{data !== null ? <DataGrid
 				rows={data}
 				disableSelectionOnClick
 				columns={columns}
 				pageSize={8}
-			/>
+			/> : null }
+			
 		</div>
 	);
 }
