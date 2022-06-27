@@ -49,10 +49,11 @@ export default function Register() {
 			inputs.email === "" ||
 			inputs.password === ""
 		) {
-			return Toast.fire({
+			 Toast.fire({
 				title: "Vui Lòng Nhập Đầy Đủ Thông Tin",
 				icon: "error",
 			});
+			return false;
 		}
 		if (!isDate(inputs.dateOfBirth)) {
 			Toast.fire({

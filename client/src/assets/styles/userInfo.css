@@ -1,0 +1,88 @@
+
+.main-header.header-style {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 999;
+}
+.layout-info-account {
+    padding-bottom: 50px;
+}
+.header-style + .mainContent-theme {
+    padding-top: var(--header-height);
+    min-height: 80vh;
+}
+* {
+    font-family: 'Quicksand', sans-serif!important;
+    margin: 0;
+    padding: 0;
+}
+.title-infor-account {
+    padding: 30px 15px;
+    border-bottom: 1px solid #ededed;
+    margin-bottom: 60px;
+}
+.AccountTitle {
+    text-transform: uppercase;
+    margin-bottom: 30px;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    position: relative;
+}
+.list-unstyled {
+    padding-left: 0;
+    list-style: none;
+}
+#customer_orders, #order_payment, #order_shipping {
+    margin-bottom: 30px;
+    margin-top: 30px;
+}
+.customer-table-bg {
+    background: #fff;
+    padding: 10px;
+}
+
+#customer_sidebar p {
+    margin-bottom: 0;
+    font-size: 14px;
+}
+.title-detail {
+    text-transform: uppercase;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    position: relative;
+    border-bottom: 1px solid #ededed;
+    padding-bottom: 8px;
+}
+.name_account {
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 21px;
+    margin: 10px 0 5px;
+}
+#customer_orders, #order_payment, #order_shipping {
+    margin-bottom: 30px;
+    margin-top: 30px;
+}
+.customer-table-bg {
+    background: #fff;
+    padding: 10px;
+}
+
+.customer-table-wrap {
+    background: #bdbaba;
+    padding: 10px;
+}
+
+
+
+
+
+
+
+
+
+

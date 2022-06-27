@@ -65,5 +65,5 @@ export const ValidateEmail = (mail) => {
 };
 
 export const validatePassword = (pw) => {
-	return /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/.test(pw) && pw.length > 4;
+	return /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/.test(pw) && pw.length > 6;
 };
