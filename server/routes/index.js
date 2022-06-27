@@ -21,6 +21,7 @@ function route(app) {
 	app.use("/cart", sessionMiddleware, cartRoute);
 	app.use("/bill", billRoute);
 	app.use("/voucher", voucherRoute);
+	
 	app.use("/user",verify,userRoute);
 
 	app.use("/authJWT", authJWTRoute);
