@@ -54,6 +54,7 @@ export default function ListBill() {
 				}
 			);
 			if (res.data.success === true) {
+				await setData(res.data.listBillCustom);
 				Toast.fire({
 					title: "Xác Nhận Thành Công",
 					icon: "success",
