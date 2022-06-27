@@ -186,11 +186,11 @@ export default function Detail() {
 							</div>
 						</div>
 					</div>
-					<div className="container">
+					{/* <div className="container">
 						<h4 className=" pb-3 border-bottom text-center">
 							SẢN PHẨM LIÊN QUAN
 						</h4>
-					</div>
+					</div> */}
 				</>
 			)}
 		</>

@@ -108,6 +108,12 @@ class VoucherController {
 		const { user } = req.headers;
 		try {
 			if (code && amount) {
+				if (!ObjectId.isValid(code)) {
+					return res.status(400).json({
+						success: false,
+						message: "Mã voucher không đúng định dạng",
+					});
+				}
 				const voucher = await Voucher.findById(code);
 				if (!voucher) {
 					return res.status(404).json({
@@ -115,10 +121,8 @@ class VoucherController {
 						message: "Mã voucher không tồn tại",
 					});
 				}
-				const existed = voucher.listUser.find(
-					(user) => user === user
-				);
-				if (!existed) {
+				const existed = voucher.listUser.indexOf(user);
+				if (existed == -1) {
 					return res.status(400).json({
 						success: false,
 						message: "Bạn không sở hữu voucher này",
@@ -130,12 +134,6 @@ class VoucherController {
 						message: "Bạn phải đăng nhập để sử dụng voucher",
 					});
 				}
-				if (!ObjectId.isValid(code)) {
-					return res.status(400).json({
-						success: false,
-						message: "Mã voucher không đúng định dạng",
-					});
-				}
 
 				if (!voucher.qty > 0) {
 					return res.status(400).json({
@@ -143,11 +141,23 @@ class VoucherController {
 						message: "Số lượng voucher đã hết",
 					});
 				}
-				const diffDays = moment(voucher.dateEnd).diff(
+				const diffDayStart = moment().diff(
+					moment(voucher.dateStart),
+					"days"
+				);
+				const diffDaysEnd = moment(voucher.dateEnd).diff(
 					moment(),
 					"days"
 				);
-				if (diffDays <= 0) {
+				if (diffDayStart < 0) {
+					return res.status(400).json({
+						success: false,
+						message: `Voucher khả dụng vào ngày ${moment(
+							voucher.dateEnd
+						).format("ll")}`,
+					});
+				}
+				if (diffDaysEnd <= 0) {
 					return res.status(400).json({
 						success: false,
 						message: "Voucher đã hết hạn",
@@ -229,8 +239,8 @@ class VoucherController {
 					message: "Voucher không tồn tại",
 				});
 			}
-			const existed = voucher.listUser.find((user) => user === user);
-			if (existed) {
+			const existed = voucher.listUser.indexOf(user);
+			if (existed !== -1) {
 				return res.status(400).json({
 					success: false,
 					message: "Bạn đã lấy voucher này rồi",
@@ -265,13 +275,13 @@ class VoucherController {
 				});
 			}
 			const user = voucher.listUser.indexOf(userID);
-			if (user == -1) {
+			if (user === -1) {
 				return res.status(400).json({
 					success: false,
 					message: "Không tìm thấy user",
 				});
 			}
-			voucher.listUser.splice(user, 1);
+			voucher.listUser.splice(userID, 1);
 			voucher.qty = voucher.qty - 1;
 			res.status(200).json({ success: true, body: voucher.save() });
 		} catch (err) {
@@ -301,6 +311,30 @@ class VoucherController {
 				success: false,
 				message: err.message,
 			});
+		}
+	}
+
+	async myVoucher(req, res) {
+		const { id } = req.params;
+		if (!id) {
+			return res.status(404).json({
+				success: false,
+				message: "Không thể lấy danh sách voucher",
+			});
+		}
+		try {
+			const vouchers = await Voucher.find({
+				listUser: id,
+			});
+			if (!vouchers) {
+				return res.status(400).json({
+					success: false,
+					message: "Bạn không có voucher nào",
+				});
+			}
+			res.status(200).json({ success: true, body: vouchers });
+		} catch (err) {
+			res.status(400).json({ success: false, message: err.message });
 		}
 	}
 }

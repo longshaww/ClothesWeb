@@ -14,7 +14,7 @@ export default function Sale() {
 	}, []);
 	return (
 		<>
-			{listVoucher.length &&
+			{listVoucher.length > 0 &&
 				listVoucher.map((voucher) => {
 					return <VoucherComponent voucher={voucher} />;
 				})}
