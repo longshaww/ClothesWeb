@@ -1,105 +1,94 @@
-const { restart } = require("nodemon");
-const Product = require("../models/Product");
-var ObjectId = require("mongodb").ObjectId;
-const User = require("../models/UserWeb");
-const {generateAccessToken} = require("../utils/function");
+const jwt = require("jsonwebtoken");
+const multer = require("multer");
+const path = require("path");
+const UserOTPVerification = require("../models/UserOTPVerification");
+const md5 = require("md5");
+const nodemailer = require("nodemailer");
+const { mailOptionsSendOTP } = require("./mailer");
 module.exports = {
-    detailProduct: async (id, res, next) => {
-        try {
-            const product = await Product.findOne({ "_id": ObjectId(id) }).populate('description.collection').exec()
-
-            let customData = {
-                nameProduct: product.nameProduct,
-                price: product.price,
-                sizeM: product.size[2].qty,
-                sizeL: product.size[1].qty,
-                sizeXL: product.size[0].qty,
-                image1: product.description.imageList[0],
-                image2: product.description.imageList[1],
-                description: product.description.productDes,
-                collection: product.description.collection.typeName
-
-            };
-            res.status(200).json({
-                success: true,
-                customData
-            })
-        }
-        catch (err) {
-            res.status(404).json({
-                success: false,
-                msg: err.message
-            })
-        }
-
+    generateAccessToken: (user) => {
+        const dataSign = {
+            id: user["_id"],
+            email: user["email"],
+            information: user["information"],
+            isAdmin: user["isAdmin"],
+        };
+        // tạo ra token
+        return jwt.sign(dataSign, "mySecretKey", {
+            expiresIn: "90 days",
+        });
     },
-    getListProduct: async (req, res, next) => {
+    generateRefreshToken: (user) => {
+        const dataSign = {
+            id: user["_id"],
+            email: user["email"],
+            information: user["information"],
+            isAdmin: user["isAdmin"],
+        };
+        return jwt.sign(dataSign, "myRefreshToken");
+    },
+
+    checkIfNameOrNot: (ascending, descending, list) => {
+        if (ascending === "true") {
+            list.sort((a, b) => {
+                return a.price - b.price;
+            });
+        }
+        if (descending === "true") {
+            list.sort((a, b) => {
+                return b.price - a.price;
+            });
+        }
+        return list;
+    },
+    storage: multer.diskStorage({
+        destination: (req, file, cb) => {
+            cb(null, "public");
+        },
+        filename: (req, file, cb) => {
+            let ext = path.extname(file.originalname);
+            if (ext !== ".jpg" && ext !== ".jpeg" && ext !== ".png") {
+                cb(new Error("File type is not supported"), false);
+                return;
+            }
+            cb(null, Date.now() + path.extname(file.originalname));
+        },
+    }),
+    sendOTPVerification: async ({ _id, email }, res) => {
         try {
-            const listProduct = await Product.find()
-                .populate('description.collection').exec()
-
-            let listDataCustom = [];
-
-            Promise.all(listProduct.map(async (el) => {
-                let customData = {
-                    id: el['_id'],
-                    nameProduct: el['nameProduct'],
-                    price: el['price'] + ",000 VND",
-                    image: el.description.imageList[0],
-                    collections: el.description.collection.typeName,
-                    sizeXL: el.size[0].qty,
-                    sizeL: el.size[1].qty,
-                    sizeM: el.size[2].qty,
+            let transporter = nodemailer.createTransport({
+                host: "smtp-mail.outlook.com",
+                secure: false,
+                auth: {
+                    user: process.env.AUTH_EMAIL, // generated ethereal user
+                    pass: process.env.AUTH_PASSWORD, // generated ethereal password
+                },
+                tls: {
+                    rejectUnauthorized: false
                 }
-                await listDataCustom.push(customData);
-
-            }))
-            res.status(200).json({
+            });
+            const otp = `${Math.floor(1000 + Math.random() * 9000)}`;
+            const mailOptions = mailOptionsSendOTP(otp, email);
+            const newUserOTP = await new UserOTPVerification({
+                userId: _id,
+                otp: md5(otp),
+                expiresAt: Date.now() + 3600000,
+            });
+            await newUserOTP.save();
+            await transporter.sendMail(mailOptions);
+            res.json({
                 success: true,
-                listDataCustom
-            })
-        }
-        catch (err) {
-            res.json(404).staus({
+                msg: "Verify otp email sent",
+                data: {
+                    userId: _id,
+                    email,
+                },
+            });
+        } catch (err) {
+            res.json({
                 success: false,
-                msg: err.message
-            })
+                msg: err.message,
+            });
         }
-
     },
-
-    getUser : async (id,res,next) =>{
-        try{
-            const user = await User.findOne({"_id" : ObjectId(id) });
-            const customData = {
-                _id : user._id,
-                email : user.email,
-                isAdmin : user.isAdmin,
-                information : user.information
-            }
-            const accessToken = generateAccessToken(customData);
-            if(user)
-            {
-                res.status(200).json({
-                    success : true,
-                    user : customData,
-                    accessToken
-                })
-            }   
-            else
-            {
-                res.status(404).json({
-                    success: false,
-                    msg : "Tài Khoản Không Tổn Tại"
-                })
-            }
-        }   
-        catch(err)
-        {
-            res.status(404).json({
-                success: false,
-                msg : err.message
-            })
-        }    
-    }
-}
+};
