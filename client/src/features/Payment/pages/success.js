@@ -4,8 +4,11 @@ import { useParams, useSearchParams } from "react-router-dom";
 import axiosMethod from "../../../middlewares/axios";
 import Toast from "../../../utils/toast";
 import BillComponent from "../../../components/Bill/bill";
+import axios from "axios";
+import { useCookies } from "react-cookie";
 
 function PaymentSuccess({ setCart }) {
+	const [cookies] = useCookies(["user"]);
 	const { payment } = useParams();
 	const customer = JSON.parse(localStorage.getItem("customer"));
 	const voucher = localStorage.getItem("voucher");
@@ -22,12 +25,17 @@ function PaymentSuccess({ setCart }) {
 			}
 			if (voucher) {
 				customer.voucherID = voucher;
-				const updateQty = await axiosMethod(
-					`voucher/updateQty/${voucher}`,
-					"put"
-				);
-				if (updateQty.success) {
-					localStorage.removeItem("voucher");
+				try {
+					const updateQty = await axios({
+						url: `${process.env.REACT_APP_API_URL}voucher/updateState/${voucher}`,
+						method: "put",
+						headers: { user: cookies.user.id },
+					});
+					if (updateQty.success) {
+						localStorage.removeItem("voucher");
+					}
+				} catch (err) {
+					console.log(err.response);
 				}
 			}
 			if (customer) {

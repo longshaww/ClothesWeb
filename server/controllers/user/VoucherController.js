@@ -105,14 +105,9 @@ class VoucherController {
 
 	async listVoucher(req, res) {
 		const { code, amount } = req.query;
+		const { user } = req.headers;
 		try {
 			if (code && amount) {
-				if (!ObjectId.isValid(code)) {
-					return res.status(400).json({
-						success: false,
-						message: "Mã voucher không đúng định dạng",
-					});
-				}
 				const voucher = await Voucher.findById(code);
 				if (!voucher) {
 					return res.status(404).json({
@@ -120,6 +115,28 @@ class VoucherController {
 						message: "Mã voucher không tồn tại",
 					});
 				}
+				const existed = voucher.listUser.find(
+					(user) => user === user
+				);
+				if (!existed) {
+					return res.status(400).json({
+						success: false,
+						message: "Bạn không sở hữu voucher này",
+					});
+				}
+				if (!user) {
+					return res.status(400).json({
+						success: false,
+						message: "Bạn phải đăng nhập để sử dụng voucher",
+					});
+				}
+				if (!ObjectId.isValid(code)) {
+					return res.status(400).json({
+						success: false,
+						message: "Mã voucher không đúng định dạng",
+					});
+				}
+
 				if (!voucher.qty > 0) {
 					return res.status(400).json({
 						success: false,
@@ -150,13 +167,13 @@ class VoucherController {
 					success: true,
 					message: "Voucher khả dụng",
 				});
+			} else {
+				const listVoucher = await Voucher.find();
+				return res.status(200).json({
+					success: true,
+					body: listVoucher,
+				});
 			}
-
-			const listVoucher = await Voucher.find();
-			return res.status(200).json({
-				success: true,
-				body: listVoucher,
-			});
 		} catch (err) {
 			res.status(400).json({
 				success: false,
@@ -166,10 +183,11 @@ class VoucherController {
 	}
 	async applyVoucher(req, res) {
 		const { code, amount } = req.body;
-		if (!code || !amount) {
+		const { user } = req.headers;
+		if (!code || !amount || !user) {
 			return res.status(400).json({
 				success: false,
-				message: "Cannot post without body",
+				message: "Voucher không khả dụng",
 			});
 		}
 		try {
@@ -195,12 +213,47 @@ class VoucherController {
 		}
 	}
 
-	async updateQtyVoucher(req, res) {
+	async userGetVoucher(req, res) {
+		const { code } = req.body;
+		const { user } = req.headers;
+		if (!code || !user) {
+			return res
+				.status(400)
+				.json({ success: false, message: "Lấy voucher thất bại" });
+		}
+		try {
+			const voucher = await Voucher.findById(code);
+			if (!voucher) {
+				return res.status(400).json({
+					success: false,
+					message: "Voucher không tồn tại",
+				});
+			}
+			const existed = voucher.listUser.find((user) => user === user);
+			if (existed) {
+				return res.status(400).json({
+					success: false,
+					message: "Bạn đã lấy voucher này rồi",
+				});
+			}
+			voucher.listUser.push(user);
+			res.status(200).json({
+				success: true,
+				body: voucher.save(),
+				message: "Lấy voucher thành công",
+			});
+		} catch (err) {
+			res.status(400).json({ success: false, message: err.message });
+		}
+	}
+
+	async updateState(req, res) {
 		const { id } = req.params;
-		if (!id) {
+		const userID = req.headers.user;
+		if (!id || !userID) {
 			return res.status(400).json({
 				success: false,
-				message: "Cannot post without body",
+				message: "Cập nhật trạng thái voucher thất bại",
 			});
 		}
 		try {
@@ -211,6 +264,15 @@ class VoucherController {
 					message: "Mã voucher không tồn tại",
 				});
 			}
+			const user = voucher.listUser.find((user) => user === userID);
+			voucher.listUser.splice(user, 1);
+			if (!user) {
+				return res.status(400).json({
+					success: false,
+					message: "Không tìm thấy user",
+				});
+			}
+			user.remove();
 			voucher.qty = voucher.qty - 1;
 			res.status(200).json({ success: true, body: voucher.save() });
 		} catch (err) {

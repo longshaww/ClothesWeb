@@ -1,11 +1,34 @@
 import { formatPrice } from "../../utils/format.price";
 import moment from "moment";
 import Toast from "../../utils/toast";
-
+import axios from "axios";
+import { useCookies } from "react-cookie";
 export default function VoucherComponent({ voucher }) {
-	const onCopyCodeClick = (id) => {
-		navigator.clipboard.writeText(id);
-		Toast.fire({ title: "Lấy mã thành công", icon: "success" });
+	const [cookies] = useCookies(["user"]);
+	const onCopyCodeClick = async (id) => {
+		if (!cookies.user) {
+			return Toast.fire({
+				title: "Bạn phải đăng nhập để lấy voucher",
+			});
+		}
+		try {
+			const getVoucher = await axios({
+				url: `${process.env.REACT_APP_API_URL}voucher/getVoucher`,
+				method: "post",
+				headers: {
+					user: cookies.user.id,
+				},
+				data: {
+					code: id,
+				},
+			});
+			if (getVoucher.data.success) {
+				navigator.clipboard.writeText(id);
+				Toast.fire({ title: "Lấy mã thành công", icon: "success" });
+			}
+		} catch (err) {
+			Toast.fire({ title: err.response.data.message, icon: "error" });
+		}
 	};
 	return (
 		<div className="d-flex justify-content-center mt-3">

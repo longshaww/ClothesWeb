@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const UserWeb = require("./UserWeb");
 const { Schema } = mongoose;
 
 const Vouchers = new mongoose.Schema(
@@ -9,6 +10,7 @@ const Vouchers = new mongoose.Schema(
 		maxDiscount: { type: Number, required: true },
 		qualifyAmount: { type: Number, required: true },
 		qty: { type: Number, required: true },
+		listUser: [{ type: Schema.Types.ObjectId, ref: "UserWeb" }],
 	},
 	{
 		timestamps: true,
