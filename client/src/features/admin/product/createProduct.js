@@ -38,6 +38,7 @@ export default function CreateProduct() {
 		});
 	};
 
+<<<<<<< HEAD
 	const handleChangeDataProduct = (e) => {
 		const value = e.target.value;
 		setDataProduct({
@@ -262,4 +263,202 @@ export default function CreateProduct() {
 			</div>
 		</div>
 	);
+=======
+  const handleChangeImage = async (e) => {
+    const value = e.target.files[0];
+    setShowImage({
+      ...showImage,
+      [e.target.name]: URL.createObjectURL(value),
+    });
+  };
+  
+  const handleChangeDataProduct =(e) =>{
+    const value = e.target.value;
+    setDataProduct({
+      ...dataProduct,
+      [e.target.name]: value,
+    });
+  }
+  const handleClickCreate = async ()=>{
+    try{
+        if(dataProduct.idCollection===""||dataProduct.nameProduct===""||dataProduct.price===""||
+           dataProduct.productDes===""|| dataProduct.sizeL === "" || dataProduct.sizeM === ""||
+           dataProduct.sizeXL===""|| showImage.showImage1 === null || showImage.showImage2 === null)
+          {
+            Toast.fire({
+              title: "Vui Lòng Điền Đầy Đủ Thông Tin",
+              icon: "error",
+            });
+          }
+          else
+          {
+            let file1 = await fetch(showImage.showImage1)
+            .then(r => r.blob())
+            .then(blobFile => new File([blobFile],`image1${uuidv4()}.png`, { type: "image/png" }));
+            let file2 = await fetch(showImage.showImage2)
+            .then(r => r.blob())
+            .then(blobFile => new File([blobFile],`image2${uuidv4()}.png`, { type: "image/png" }))
+            const formData = new FormData();
+            formData.append("image",file1);
+            formData.append("image",file2);
+            formData.append("nameProduct",dataProduct.nameProduct);
+            formData.append("idCollection",dataProduct.idCollection);
+            formData.append("price",dataProduct.price);
+            formData.append("productDes",dataProduct.productDes);
+            formData.append("sizeM",dataProduct.sizeM);
+            formData.append("sizeL",dataProduct.sizeL);
+            formData.append("sizeXL",dataProduct.sizeXL);
+            const { data } = await axios.post(`${process.env.REACT_APP_API_URL}admin/products/createProduct`,formData,{
+              headers: {
+                authorization: "Bearer " + cookies.accessToken,
+              },
+            });
+            if(data.success){
+               Toast.fire({
+                title: "Cập Nhật Thành Công",
+                icon: "success",
+              });
+              setDataProduct({
+                nameProduct: "",
+                idCollection: "621c506fbae8653bcb4564ac",
+                price: "",
+                productDes: "",
+                sizeM: "",
+                sizeL: "",
+                sizeXL: "",
+              })  
+              setShowImage({
+                showImage1: null,
+                showImage2: null,
+              })  
+              window.location.href = `/admin/products/${data.product._id}`;
+            }
+          }
+    }
+    catch(err)
+    {
+      Toast.fire({
+        title: "Đã xảy ra lỗi",
+        icon: "error",
+      });
+    }
+  }
+  return (
+    <div className="newUser">
+      <h1 className="newUserTitle">Tạo Sản Phẩm</h1>
+      <div className="newUserForm">
+        <div className="newUserItem">
+          <label>Tên Sản Phẩm</label>
+          <input
+            type="text"
+            placeholder="VD :T-SHIRT HIGHCLUB"
+            name="nameProduct"
+            value={dataProduct.nameProduct}
+            onChange={handleChangeDataProduct}
+          />
+        </div>
+        <div className="newUserItem ">
+          <label>Loại</label>
+          <select
+            value={dataProduct.idCollection}
+            onChange={handleChangeSelectBox}
+          >
+            {options.map((item) => {
+              return (
+                <option key={item.id} value={item.id}>
+                  {item.typeName}
+                </option>
+              );
+            })}
+          </select>
+        </div>
+        <div className="newUserItem">
+          <label>Giá Giao Động</label>
+          <input type="number" placeholder="VD :600" name="price" 
+                value={dataProduct.price}
+                   onChange={handleChangeDataProduct}/>
+        </div>
+        <div className="newUserItem">
+          <label>size M</label>
+          <input
+            type="number"
+            name="sizeM"
+            value={dataProduct.sizeM}
+            onChange={handleChangeDataProduct}
+          />
+        </div>
+        <div className="newUserItem">
+          <label>size L</label>
+          <input
+            type="number"
+            name="sizeL"
+            value={dataProduct.sizeL}
+            onChange={handleChangeDataProduct}
+          />
+        </div>
+        <div className="newUserItem">
+          <label>size XL</label>
+          <input
+            type="number"
+            name="sizeXL"
+            value={dataProduct.sizeXL}
+            onChange={handleChangeDataProduct}
+          />
+        </div>
+        <div className="d-flex ">
+          <div className="newUserItem">
+            <label>Giới Thiệu</label>
+            <textarea name="productDes"
+                     value={dataProduct.productDes}
+                     onChange={handleChangeDataProduct} />
+          </div>
+          <div className="mt-5" style={{marginLeft:"40px"}}>
+            <input
+              accept="image/*"
+              type="file"
+              id="imgInp"
+              name="showImage1"
+              onChange={handleChangeImage}
+              title=" "
+            />
+            {
+              showImage.showImage1 ? <img
+              className="userUpdateImg mt-3"
+              id="blah"
+              src={showImage.showImage1}
+              alt="Hình Ảnh Của Bạn"
+            /> : null
+            }
+            
+          </div>
+          <div className="mt-5">
+            <input
+              accept="image/*"
+              type="file"
+              id="imgInp"
+              name="showImage2"
+              onChange={handleChangeImage}
+              title=" "
+            />
+            {
+              showImage.showImage2 ?
+              <img
+              className="userUpdateImg mt-3"
+              id="blah"
+              src={showImage.showImage2}
+              alt="Hình Ảnh Của Bạn"
+            /> : null
+            }
+            
+          </div>
+        </div>
+      </div>
+      <div className="text-center mt-5">
+        <button type="button" className="btn btn-success" onClick={handleClickCreate}style={{width:"200px",height:"50px"}}>
+            Tạo
+        </button>
+      </div>
+    </div>
+  );
+>>>>>>> 1c0b1fa00f0a9fbc2c1ebc20c226161a8492cf9d
 }

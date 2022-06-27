@@ -34,9 +34,6 @@ export default function SideBarUser() {
 								Lịch Sử
 							</Link>
 						</li>
-						<li class="last mt-3">
-							<Link to="">Đăng xuất</Link>
-						</li>
 					</ul>
 				</div>
 			</div>
