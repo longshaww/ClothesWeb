@@ -33,6 +33,7 @@ import ListVoucher from "./features/admin/voucher/listVoucher";
 import CreateVoucher from "./features/admin/voucher/createVoucher";
 import EditVoucher from "./features/admin/voucher/editVoucher";
 import DetailVoucher from "./features/admin/voucher/detailVoucher";
+import User from "./features/infoUser/user";
 function App() {
 	const [cookies] = useCookies(["user"]);
 	let user;
@@ -127,6 +128,14 @@ function App() {
 						index
 						element={<PaymentSuccess />}
 					></Route>
+
+					<Route 
+						path="user/info"
+						index
+						element={<User />}
+					>
+						
+					</Route>
 				</Route>
 				<Route
 					path="/admin"
