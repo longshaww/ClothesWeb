@@ -1,5 +1,7 @@
+const { restart } = require("nodemon");
 const Product = require("../models/Product");
 var ObjectId = require("mongodb").ObjectId;
+const User = require("../models/UserWeb");
 module.exports = {
     detailProduct: async (id, res, next) => {
         try {
@@ -63,5 +65,32 @@ module.exports = {
             })
         }
 
+    },
+
+    getUser : async (id,res,next) =>{
+        try{
+            const user = await User.findOne({"_id" : id,verify : true });
+            if(user)
+            {
+                res.status(200).json({
+                    success : true,
+                    user
+                })
+            }   
+            else
+            {
+                res.status(404).json({
+                    success: false,
+                    msg : "Tài Khoản Không Tổn Tại"
+                })
+            }
+        }   
+        catch(err)
+        {
+            res.status(404).json({
+                success: false,
+                msg : err.message
+            })
+        }    
     }
 }

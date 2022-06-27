@@ -2,7 +2,7 @@ const Product = require("../../models/Product");
 const Bill = require("../../models/Bills");
 const moment = require("moment");
 var ObjectId = require("mongodb").ObjectId;
-const { detailProduct, getListProduct } = require("../../utils/responseDataUpdateState");
+const { detailProduct, getListProduct } = require("../../utils/service");
 class ProductAdminController {
     async getAllProduct(req, res, next) {
         return getListProduct(req, res, next);
