@@ -1,4 +1,6 @@
 import { Outlet, useLocation } from "react-router-dom";
+import { useEffect } from "react";
+
 // import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 // import { useState } from "react";
 // import TopsAddForm from "../../Tops/components/tops.addform";
@@ -8,6 +10,9 @@ import "../../../assets/styles/collections.nav.css";
 export default function CollectionsLayout() {
 	// const [modal, setModal] = useState(false);
 	// const toggle = () => setModal(!modal);
+	useEffect(() => {
+		localStorage.removeItem("voucher");
+	}, []);
 	const location = useLocation();
 	let param = location.pathname.split("/");
 	if (param.length > 2) {

@@ -34,7 +34,7 @@ import CreateVoucher from "./features/admin/voucher/createVoucher";
 import EditVoucher from "./features/admin/voucher/editVoucher";
 import DetailVoucher from "./features/admin/voucher/detailVoucher";
 import User from "./features/infoUser/user";
-import VoucherMe from "./components/voucher/voucher.me";
+import VoucherMe from "./features/infoUser/voucher.me";
 import LayoutUser from "./layouts/layoutUser";
 function App() {
 	const [cookies] = useCookies(["user"]);

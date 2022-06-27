@@ -170,9 +170,6 @@ function Auth() {
 					<div id="cart-container" className="px-3">
 						<h6 className="text-center">TÀI KHOẢN</h6>
 						<hr className="mt-2"></hr>
-						<div>
-							<span>{cookies.user.information.name}</span>
-						</div>
 						<Link to="/user">
 							<div className="mt-1">
 								<span>Tài khoản của tôi</span>
@@ -220,6 +217,7 @@ function Auth() {
 				onClick={handleClick}
 				aria-describedby={id}
 				variant="contained"
+				className="mt-1"
 			/>
 			<Popover
 				id={id}

@@ -75,6 +75,7 @@ function PopupCart({ cart, setCart }) {
 	return (
 		<Badge badgeContent={cartCount} color="primary">
 			<ShoppingCartIcon
+				className="mt-1"
 				style={{ cursor: "pointer" }}
 				onClick={handleClick}
 				aria-describedby={id}

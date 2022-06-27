@@ -5,17 +5,17 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import PostFilterForm from "./search";
 import PopupCart from "../../cart/cart";
-import Auth from '../../auth/auth';
+import Auth from "../../auth/auth";
+import { useCookies } from "react-cookie";
 
 export default function NavbarApp() {
 	//State define
 	const [isOpen, setIsOpen] = useState(false);
 	//Navbar toggle
 	const toggle = () => setIsOpen(!isOpen);
-
+	const [cookies] = useCookies(["user"]);
 	return (
 		<Navbar expand="md" light>
-			
 			<Link to="/">
 				<div id="center-logo" className="mt-4">
 					<img
@@ -69,18 +69,25 @@ export default function NavbarApp() {
 					</NavItem>
 					<NavItem>
 						<Link to="/collections/sale" className="nav-link">
-							SALE
+							VOUCHER
 						</Link>
 					</NavItem>
-					<NavItem>
+					<NavItem className="mx-2">
 						<PostFilterForm />
 					</NavItem>
-					<NavItem>
+					<NavItem className="px-2 ms-1">
 						<PopupCart></PopupCart>
 					</NavItem>
-					<NavItem>
-						<Auth/>
+					<NavItem className="px-1">
+						<Auth />
 					</NavItem>
+					{cookies.user && (
+						<NavItem>
+							<div className="fs-5 fw-bold">
+								{cookies.user.information.name}
+							</div>
+						</NavItem>
+					)}
 				</Nav>
 			</Collapse>
 		</Navbar>
