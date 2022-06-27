@@ -1,5 +1,6 @@
 import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
 import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+import moment from "moment";
 import "../../assets/styles/bill.css";
 import { formatPrice } from "../../utils/format.price";
 
@@ -12,13 +13,9 @@ const BillComponent = ({ bill }) => {
 						<div className="col-xs-6 col-sm-6 col-md-6">
 							<div className="receipt-left">
 								<img
-									className="img-fluid rounded-circle"
-									style={{
-										width: "80px",
-										height: "80px",
-									}}
+									className="img-fluid rounded-circle w-50"
 									alt="iamgurdeeposahan"
-									src="https://www.kindpng.com/picc/m/650-6505340_html5-icon-traveloka-hd-png-download.png"
+									src="/static/media/hyperX.11f5c37bcb2b1acf1059.jpeg"
 								/>
 							</div>
 						</div>
@@ -95,8 +92,9 @@ const BillComponent = ({ bill }) => {
 							)}
 						</div>
 						<div className="col-xs-6 col-sm-6 col-md-6">
-							<div className="receipt-left">
-								<h3>INVOICE #ID bill</h3>
+							<div className="receipt-left fw-bold fs-5">
+								<div>Hóa đơn</div>
+								<div>#{bill._id}</div>
 							</div>
 						</div>
 					</div>
@@ -105,10 +103,10 @@ const BillComponent = ({ bill }) => {
 						<table className="table table-bordered">
 							<thead>
 								<tr>
-									<th>Products</th>
-									<th>Quantiy</th>
+									<th>Sản phẩm</th>
+									<th>Số lượng</th>
 									<th>Size</th>
-									<th>Amount</th>
+									<th>Giá</th>
 								</tr>
 							</thead>
 							<tbody>
@@ -157,7 +155,7 @@ const BillComponent = ({ bill }) => {
 										colSpan={3}
 										className="text-end"
 									>
-										<div>Status</div>
+										<div>Trạng thái</div>
 									</td>
 									<td>
 										<div>
@@ -181,7 +179,7 @@ const BillComponent = ({ bill }) => {
 										colSpan={3}
 										className="text-end"
 									>
-										<div>Shipping</div>
+										<div>Phí ship</div>
 									</td>
 									<td>
 										<div>
@@ -198,7 +196,7 @@ const BillComponent = ({ bill }) => {
 											colSpan={3}
 											className="text-end"
 										>
-											<div>Discount</div>
+											<div>Giảm</div>
 										</td>
 										<td>
 											<div>
@@ -216,7 +214,7 @@ const BillComponent = ({ bill }) => {
 										colSpan={3}
 										className="text-end"
 									>
-										<div>Sub total</div>
+										<div>Giá ban đầu</div>
 									</td>
 									<td>
 										<div>
@@ -231,7 +229,7 @@ const BillComponent = ({ bill }) => {
 										colSpan={3}
 										className="text-end"
 									>
-										<div>Total</div>
+										<div>Tổng tiền</div>
 									</td>
 									<td>
 										<div>
@@ -249,15 +247,17 @@ const BillComponent = ({ bill }) => {
 								<div className="receipt-right">
 									<p>
 										<b>Date :</b>
-										Ngay
+										{moment(
+											bill.createdAt
+										).format("ll")}
 									</p>
 									<h5
 										style={{
 											color: " rgb(140, 140, 140)",
 										}}
 									>
-										Thanks you for choosen our
-										service !
+										Cảm ơn bạn đã sử dụng dịch vụ
+										của chúng tôi !
 									</h5>
 								</div>
 							</div>

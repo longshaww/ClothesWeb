@@ -5,7 +5,7 @@ import axios from "axios";
 import { useCookies } from "react-cookie";
 import Toast from "../../../utils/toast";
 export default function ListUser() {
-	const [dataUser, setData] = useState([]);
+	const [dataUser, setData] = useState(null);
 	const [cookies] = useCookies();
 
 	useEffect(() => {
@@ -125,13 +125,14 @@ export default function ListUser() {
 
 	return (
 		<div className="userList">
-			<DataGrid
+			{dataUser !== null ? <DataGrid
 				rows={dataUser}
 				disableSelectionOnClick
 				columns={columns}
 				pageSize={9}
 				checkboxSelection
-			/>
+			/> : null}
+			
 		</div>
 	);
 }

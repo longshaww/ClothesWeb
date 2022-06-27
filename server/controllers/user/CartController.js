@@ -33,7 +33,7 @@ class CartController {
 			}
 			subDoc.set({
 				qty: subDoc.qty + qty,
-				total: productPrice * subDoc.qty,
+				total: productPrice * (subDoc.qty + qty),
 			});
 		} else {
 			currentSession.cart.push({

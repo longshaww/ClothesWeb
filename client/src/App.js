@@ -20,7 +20,7 @@ import OnlinePayment from "./features/Payment/pages/index";
 import { useCookies } from "react-cookie";
 import LayoutAdmin from "./layouts/layoutAdmin";
 import Register from "./components/auth/register";
-import Home from "./features/home/home";
+import Home from "./features/Home/home";
 import Dashboard from "./features/admin/dashboard/dashboard";
 import ListUser from "./features/admin/user/listUser";
 import ProductList from "./features/admin/product/productList";
@@ -34,13 +34,15 @@ import CreateVoucher from "./features/admin/voucher/createVoucher";
 import EditVoucher from "./features/admin/voucher/editVoucher";
 import DetailVoucher from "./features/admin/voucher/detailVoucher";
 import User from "./features/infoUser/user";
+import VoucherMe from "./features/infoUser/voucher.me";
+import LayoutUser from "./layouts/layoutUser";
 function App() {
 	const [cookies] = useCookies(["user"]);
 	let user;
 	let userLogin;
 	if (cookies.user !== undefined) {
 		user = cookies.user.isAdmin;
-		userLogin = cookies.user
+		userLogin = cookies.user;
 	}
 	return (
 		<div>
@@ -131,12 +133,21 @@ function App() {
 						element={<PaymentSuccess />}
 					></Route>
 
-					<Route 
-						path="user/info"
-						index
-						element={userLogin ? <User />: <Navigate to="/" />}
+					<Route
+						path="user"
+						element={
+							userLogin ? (
+								<LayoutUser />
+							) : (
+								<Navigate to="/" />
+							)
+						}
 					>
-						
+						<Route index element={<User />}></Route>
+						<Route
+							path="voucher"
+							element={<VoucherMe />}
+						></Route>
 					</Route>
 				</Route>
 				<Route

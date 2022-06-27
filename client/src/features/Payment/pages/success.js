@@ -26,11 +26,12 @@ function PaymentSuccess({ setCart }) {
 			if (voucher) {
 				customer.voucherID = voucher;
 				try {
-					const updateQty = await axios({
-						url: `${process.env.REACT_APP_API_URL}voucher/updateState/${voucher}`,
-						method: "put",
-						headers: { user: cookies.user.id },
-					});
+					const updateQty = await axiosMethod(
+						`voucher/updateState/${voucher}`,
+						"put",
+						null,
+						{ user: cookies.user.id }
+					);
 					if (updateQty.success) {
 						localStorage.removeItem("voucher");
 					}

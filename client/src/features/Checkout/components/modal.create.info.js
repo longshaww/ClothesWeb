@@ -112,7 +112,16 @@ function ModalCreateInfo({
 				>
 					Thêm
 				</Button>
-				<Button>Thoát</Button>
+				<Button
+					onClick={() =>
+						setChangeInfo({
+							...changeInfo,
+							modalCreate: !changeInfo.modalCreate,
+						})
+					}
+				>
+					Thoát
+				</Button>
 			</ModalFooter>
 		</Modal>
 	);
