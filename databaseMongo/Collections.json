@@ -18,4 +18,9 @@
     "$oid": "621c50e0bae8653bcb4564b4"
   },
   "typeName": "Accessories"
+},{
+  "_id": {
+    "$oid": "6295e2c2edafd2b5ebe66cd3"
+  },
+  "typeName": "NewArrivals"
 }]

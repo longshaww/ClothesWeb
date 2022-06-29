@@ -1,0 +1,26 @@
+[{
+  "_id": {
+    "$oid": "62b2a8d9fa77c57faf615ed1"
+  },
+  "email": "ngocphu@gmail.com",
+  "password": "202cb962ac59075b964b07152d234b70",
+  "information": {
+    "name": "ngocphu",
+    "phoneNumber": "0987654321",
+    "dateOfBirth": {
+      "$date": "2001-11-30T17:00:00Z"
+    },
+    "gender": false,
+    "address": "123 ly thuong kiet"
+  },
+  "isAdmin": true,
+  "myPoint": 0,
+  "deleted": false,
+  "createdAt": {
+    "$date": "2022-06-19T05:30:01.586Z"
+  },
+  "updatedAt": {
+    "$date": "2022-06-27T21:03:24.980Z"
+  },
+  "verify": true
+}]
