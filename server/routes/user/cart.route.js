@@ -5,6 +5,6 @@ const cartCollection = require("../../controllers/user/CartController");
 
 router.post("/", cartCollection.addToCart);
 router.get("/", cartCollection.getCart);
-router.delete("/:productId", cartCollection.deleteProduct);
+router.delete("/:idProduct", cartCollection.deleteProduct);
 
 module.exports = router;

@@ -6,10 +6,13 @@ const Sessions = new Schema(
 	{
 		cart: [
 			{
-				_id: { type: Schema.Types.ObjectId, ref: "Products" },
+				idProduct: { type: Schema.Types.ObjectId, ref: "Products" },
+				img: String,
+				name: String,
 				qty: Number,
 				size: String,
 				total: Number,
+				price: Number,
 			},
 		],
 	},

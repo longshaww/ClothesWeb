@@ -3,8 +3,8 @@ const Product = require("../../models/Product");
 const getCartUtil = require("../../utils/cart.util");
 class CartController {
 	async addToCart(req, res, next) {
-		let { id, qty, size } = req.body;
-		const product = await Product.findById(id);
+		let { idProduct, qty, size, img, name, price } = req.body;
+		const product = await Product.findById(idProduct);
 		const productPrice = product.price;
 		const sessionId = req.signedCookies.sessionId;
 		if (!sessionId) {
@@ -21,34 +21,38 @@ class CartController {
 			});
 		}
 
-		const findExisted = currentSession.cart.find((item) => {
-			return item.id === id;
+		const productExisted = currentSession.cart.find((item) => {
+			return item.idProduct.equals(idProduct);
 		});
-
-		if (findExisted !== undefined) {
-			let subDoc = currentSession.cart.id(id);
-			if (subDoc.size !== size) {
-				let newSize = `${subDoc.size},${size}`;
-				subDoc.set({ size: newSize });
-			}
-			subDoc.set({
-				qty: subDoc.qty + qty,
-				total: productPrice * (subDoc.qty + qty),
-			});
-		} else {
+		if (!productExisted) {
 			currentSession.cart.push({
-				_id: id,
+				idProduct,
 				qty,
 				size,
 				total: productPrice,
+				img,
+				name,
+				price,
 			});
+		} else {
+			if (size !== productExisted.size) {
+				currentSession.cart.push({
+					idProduct,
+					qty,
+					size,
+					total: productPrice,
+					img,
+					name,
+					price,
+				});
+			} else {
+				productExisted.set({
+					qty: productExisted.qty + qty,
+					total: productPrice * (productExisted.qty + qty),
+				});
+			}
 		}
-		await currentSession.save();
-
-		const thisSession = await Session.findById(sessionId).populate(
-			"cart._id"
-		);
-		res.status(200).json(getCartUtil(thisSession));
+		res.status(200).json(getCartUtil(await currentSession.save()));
 	}
 	async getCart(req, res, next) {
 		try {
@@ -59,9 +63,7 @@ class CartController {
 					message: "Session không được định nghĩa",
 				});
 			}
-			const thisSession = await Session.findById(sessionId).populate(
-				"cart._id"
-			);
+			const thisSession = await Session.findById(sessionId);
 			if (!thisSession) {
 				const session = await Session.create({});
 				return res
@@ -74,15 +76,27 @@ class CartController {
 						message: "Session đã bị xóa",
 					});
 			}
-
 			res.status(200).json(getCartUtil(thisSession));
 		} catch (err) {
 			res.status(400).json({ success: false, message: err.message });
 		}
 	}
 	async deleteProduct(req, res, next) {
-		const { productId } = req.params;
+		const { idProduct } = req.params;
+		const { size } = req.body;
 		try {
+			if (!idProduct) {
+				return res.status(404).json({
+					success: false,
+					message: "Lỗi không có param",
+				});
+			}
+			if (!size) {
+				return res.status(404).json({
+					success: false,
+					message: "Thiếu size",
+				});
+			}
 			const sessionId = req.signedCookies.sessionId;
 			if (!sessionId) {
 				return res.status(400).json({
@@ -97,22 +111,21 @@ class CartController {
 					message: "Session đã bị xóa",
 				});
 			}
-			let subDoc = currentSession.cart.id(productId);
-			if (subDoc) {
-				subDoc.remove();
-				await currentSession.save();
-			}
-
-			const thisSession = await Session.findById(sessionId).populate(
-				"cart._id"
+			let subDoc = currentSession.cart.find(
+				(item) =>
+					item.idProduct.equals(idProduct) && item.size === size
 			);
-
-			res.status(200).json(getCartUtil(thisSession));
+			if (!subDoc) {
+				return res
+					.status(404)
+					.json({ success: false, message: "Not found" });
+			}
+			subDoc.remove();
+			res.status(200).json(getCartUtil(await currentSession.save()));
 		} catch (err) {
-			console.log(err);
 			res.status(400).json({
 				success: false,
-				message: err,
+				message: err.message,
 			});
 		}
 	}
