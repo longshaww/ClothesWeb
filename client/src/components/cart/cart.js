@@ -41,16 +41,22 @@ function PopupCart({ cart, setCart }) {
 
 	//Handle Delete Cart
 
-	async function deleteCart(productId) {
-		const data = await axiosMethod(`cart/${productId}`, "delete", {
-			id: productId,
-		});
-		setCart(data.cartQty, data, data.cartTotal);
-		Toast.fire({
-			title: "Đã xóa sản phẩm khỏi giỏ hàng",
-			icon: "success",
-		});
-		return data;
+	async function deleteCart(idProduct, size) {
+		try {
+			const data = await axiosMethod(`cart/${idProduct}`, "delete", {
+				size,
+			});
+			if (data.success) {
+				setCart(data.cartQty, data, data.cartTotal);
+				Toast.fire({
+					title: "Đã xóa sản phẩm khỏi giỏ hàng",
+					icon: "success",
+				});
+			}
+			return data;
+		} catch (err) {
+			Toast.fire({ title: "Xóa thất bại", icon: "error" });
+		}
 	}
 
 	// Cart handle
@@ -63,8 +69,8 @@ function PopupCart({ cart, setCart }) {
 	};
 
 	//Cart Delete Event
-	const handleDelClick = (productId) => {
-		deleteCart(productId._id);
+	const handleDelClick = (idProduct, size) => {
+		deleteCart(idProduct, size);
 	};
 
 	//MUI Cart Open handle
@@ -112,10 +118,7 @@ function PopupCart({ cart, setCart }) {
 													<td className="cart-product-img">
 														<img
 															src={
-																item
-																	._id
-																	.description
-																	.imageList[0]
+																item.img
 															}
 															alt=""
 															className="border"
@@ -124,13 +127,11 @@ function PopupCart({ cart, setCart }) {
 													<td className="cart-product-content">
 														<p className="cart-name-size">
 															<Link
-																to={`product/${item._id._id}`}
+																to={`product/${item.idProduct}`}
 																className="d-block"
 															>
 																{
-																	item
-																		._id
-																		.nameProduct
+																	item.name
 																}
 															</Link>
 															<span>
@@ -153,7 +154,8 @@ function PopupCart({ cart, setCart }) {
 															<ClearIcon
 																onClick={() =>
 																	handleDelClick(
-																		item._id
+																		item.idProduct,
+																		item.size
 																	)
 																}
 															></ClearIcon>

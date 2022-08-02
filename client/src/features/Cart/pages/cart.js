@@ -13,12 +13,12 @@ function Cart({ cart, setCart }) {
 	const cartStore = cart.cartStore;
 	const cartTotalPrice = cart.cartTotalPrice;
 
-	const handleDelClick = (productId) => {
-		deleteCart(productId._id);
+	const handleDelClick = (idProduct, size) => {
+		deleteCart(idProduct, size);
 	};
-	async function deleteCart(productId) {
-		const data = await axiosMethod(`cart/${productId}`, "delete", {
-			id: productId,
+	async function deleteCart(idProduct, size) {
+		const data = await axiosMethod(`cart/${idProduct}`, "delete", {
+			size,
 		});
 		if (data.success) {
 			setCart(data.cartQty, data, data.cartTotal);
@@ -66,10 +66,7 @@ function Cart({ cart, setCart }) {
 													<td className="cart-product-img">
 														<img
 															src={
-																item
-																	._id
-																	.description
-																	.imageList[0]
+																item.img
 															}
 															alt=""
 															className="border"
@@ -78,13 +75,11 @@ function Cart({ cart, setCart }) {
 													<td className="cart-product-content">
 														<p className="cart-name-size">
 															<Link
-																to={`/product/${item._id._id}`}
+																to={`/product/${item.idProduct}`}
 																className="d-block"
 															>
 																{
-																	item
-																		._id
-																		.nameProduct
+																	item.name
 																}
 															</Link>
 															<span>
@@ -107,7 +102,8 @@ function Cart({ cart, setCart }) {
 															<ClearIcon
 																onClick={() =>
 																	handleDelClick(
-																		item._id
+																		item.idProduct,
+																		item.size
 																	)
 																}
 															></ClearIcon>

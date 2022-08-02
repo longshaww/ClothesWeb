@@ -46,9 +46,12 @@ export default function Detail() {
 	//post cart
 	async function postCart() {
 		const data = await axiosMethod("cart", "post", {
-			id: productId,
+			idProduct: productId,
 			qty,
 			size: checked,
+			img: productDetail.description.imageList[0],
+			name: productDetail.nameProduct,
+			price: productDetail.price,
 		});
 		if (data.success) {
 			dispatch(setCart(data.cartQty, data, data.cartTotal));
