@@ -22,7 +22,7 @@ class CartController {
 		}
 
 		const productExisted = currentSession.cart.find((item) => {
-			return item.idProduct.equals(idProduct);
+			return item.idProduct.equals(idProduct) && item.size === size;
 		});
 		if (!productExisted) {
 			currentSession.cart.push({

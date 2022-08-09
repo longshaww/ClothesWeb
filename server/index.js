@@ -8,11 +8,16 @@ const bodyParser = require("body-parser");
 const port = 4000 || 5000;
 const route = require("./routes/index");
 const mongoose = require("mongoose");
-mongoose.connect(process.env.MONGO_URL, {
-	useNewUrlParser: true,
-	useUnifiedTopology: true,
-	dbName: "Clothes",
-});
+
+try {
+	mongoose.connect(process.env.MONGO_URL, {
+		useNewUrlParser: true,
+		useUnifiedTopology: true,
+		dbName: "Clothes",
+	});
+} catch (err) {
+	console.log(err);
+}
 
 app.use(express.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: false })); // support encoded bodies
