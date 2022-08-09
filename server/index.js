@@ -21,15 +21,12 @@ try {
 
 app.use(express.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: false })); // support encoded bodies
-var corsOptions = {
-	origin: process.env.URL_FRONTEND,
-	credentials: true,
-};
-app.use(cors(corsOptions));
+
+app.use(cors());
 app.use(cookieParser(process.env.signed_cookie));
 app.use(express.static("public"));
 route(app);
 
 app.listen(port, () => {
-	console.log(`Example app listening at http://localhost:${port}`);
+	console.log(`Example app listening at port ${port}`);
 });
