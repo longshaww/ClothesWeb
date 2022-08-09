@@ -5,7 +5,7 @@ const express = require("express");
 const app = express();
 const cors = require("cors");
 const bodyParser = require("body-parser");
-const port = 4000 || 5000;
+const port = 2000 || 2001;
 const route = require("./routes/index");
 const mongoose = require("mongoose");
 
@@ -22,7 +22,7 @@ try {
 app.use(express.json()); // support json encoded bodies
 app.use(bodyParser.urlencoded({ extended: false })); // support encoded bodies
 var corsOptions = {
-	origin: "http://localhost:3000",
+	origin: process.env.URL_FRONTEND,
 	credentials: true,
 };
 app.use(cors(corsOptions));
