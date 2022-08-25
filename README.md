@@ -2,6 +2,7 @@
 # ClothesWeb-MERNSTACK
 ---
 * Member : Ngoc Phu , Thanh Long 
+* Function : Authentication(JWT),Send OTP, Cart,Payment method stripe,CRUD(item,promotion,account user),Statistical table,Search,..  
 ## CONFIG 
 *  1.IMPORT DATAMONGO
 *  2.FILL .ENV
