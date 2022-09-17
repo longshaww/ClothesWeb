@@ -1,10 +1,9 @@
 const ProductsModel = require("../../models/Product");
 const fs = require("fs");
-const name = require("../../crawldata/data/datadangkyvitir.json");
-// const cloudinary = require("../utils/cloudinary");
+const name = require("../../utils/datadangkyvitir.json");
 const { checkIfNameOrNot } = require("../../utils/function");
 const stripe = require("stripe")(process.env.STRIPE_KEY);
-const calculateOrderAmount = require("../../utils/calculate.amount");
+const {calculateOrderAmount} = require("../../utils/helper.js");
 
 class SiteController {
 	async getProducts(req, res) {

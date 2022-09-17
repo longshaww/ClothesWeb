@@ -1,6 +1,6 @@
 const Session = require("../../models/Sessions");
 const Product = require("../../models/Product");
-const getCartUtil = require("../../utils/cart.util");
+const {getCartUtil} = require("../../utils/helper.js");
 class CartController {
 	async addToCart(req, res, next) {
 		let { idProduct, qty, size, img, name, price } = req.body;
