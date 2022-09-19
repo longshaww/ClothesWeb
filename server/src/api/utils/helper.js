@@ -16,5 +16,5 @@ module.exports = {
             }, 0) / 23;
         const total = parseInt(reduce.toFixed(2).replace('.', ''));
         return total;
-    },
+    }
 };

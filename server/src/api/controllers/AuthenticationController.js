@@ -60,7 +60,7 @@ class AuthenticationController {
 				}
 				else
 				{
-					res.json({
+					res.status(404).json({
 						success: false,
 						msg: "FAILED EMAIL ALREADY EXIST",
 					});

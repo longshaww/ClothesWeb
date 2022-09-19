@@ -7,16 +7,22 @@ const nodemailer = require('nodemailer');
 const { mailOptionsSendOTP } = require('./mailer');
 module.exports = {
     generateAccessToken: (user) => {
-        const dataSign = {
-            id: user['_id'],
-            email: user['email'],
-            information: user['information'],
-            isAdmin: user['isAdmin'],
-        };
-        // tạo ra token/
-        return jwt.sign(dataSign, 'mySecretKey', {
-            expiresIn: '90 days',
-        });
+        try{
+            const dataSign = {
+                id: user['_id'],
+                email: user['email'],
+                information: user['information'],
+                isAdmin: user['isAdmin'],
+            };
+            // tạo ra token/
+            return jwt.sign(dataSign, 'mySecretKey', {
+                expiresIn: '90 days',
+            });
+        }
+        catch(err)
+        {
+            console.log(err);
+        }
     },
     generateRefreshToken: (user) => {
         const dataSign = {
@@ -63,9 +69,6 @@ module.exports = {
                     user: process.env.AUTH_EMAIL, // generated ethereal user
                     pass: process.env.AUTH_PASSWORD, // generated ethereal password
                 },
-                tls: {
-                    rejectUnauthorized: false,
-                },
             });
             const otp = `${Math.floor(1000 + Math.random() * 9000)}`;
             const mailOptions = mailOptionsSendOTP(otp, email);
@@ -76,7 +79,7 @@ module.exports = {
             });
             await newUserOTP.save();
             await transporter.sendMail(mailOptions);
-            res.json({
+            res.status(200).json({
                 success: true,
                 msg: 'Verify otp email sent',
                 data: {
@@ -85,7 +88,7 @@ module.exports = {
                 },
             });
         } catch (err) {
-            res.json({
+            res.status(404).json({
                 success: false,
                 msg: err.message,
             });
