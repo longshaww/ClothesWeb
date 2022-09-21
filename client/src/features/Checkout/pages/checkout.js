@@ -108,11 +108,7 @@ function Checkout({ cart, setTotal }) {
 										<tr key={index}>
 											<td className="cart-product-img">
 												<img
-													src={
-														item._id
-															.description
-															.imageList[0]
-													}
+													src={item.img}
 													alt=""
 													className="border"
 												></img>
@@ -124,9 +120,7 @@ function Checkout({ cart, setTotal }) {
 														className="d-block"
 													>
 														{
-															item
-																._id
-																.nameProduct
+															item.name
 														}
 													</Link>
 													<span>
