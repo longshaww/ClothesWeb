@@ -103,6 +103,7 @@ class BillController {
 		}
 	}
 
+
 	async postBill(req, res) {
 		const sessionId = req.signedCookies.sessionId;
 
