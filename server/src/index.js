@@ -6,5 +6,5 @@ const loader = require('./config/index');
 loader(app);
 
 app.listen(PORT, () => {
-    console.log(`Example app listening at port ${PORT}`);
+    console.log(`HighClub Service is listening at port ${PORT}`);
 });

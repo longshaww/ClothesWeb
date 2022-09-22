@@ -5,7 +5,10 @@ import { useCookies } from "react-cookie";
 import { useState, useEffect } from "react";
 import Toast from "../../../utils/toast";
 import axiosMethod from "../../../middlewares/axios";
+import { useNavigate } from "react-router-dom";
+
 function Checkout({ cart, setTotal }) {
+	const navigate = useNavigate();
 	const cartStore = cart.cartStore;
 	const cartTotalPrice = cart.cartTotalPrice;
 	const total = cart.total;
@@ -17,7 +20,13 @@ function Checkout({ cart, setTotal }) {
 	});
 	const shippingFee = 35;
 	useEffect(() => {
-		if (cartTotalPrice == 0) return;
+		if (cartTotalPrice == 0) {
+			navigate("/");
+			return Toast.fire({
+				title: "Bạn chưa có sản phẩm nào trong giỏ hàng",
+				icon: "error",
+			});
+		}
 		setTotal(cartTotalPrice + shippingFee);
 	}, [cartTotalPrice]);
 

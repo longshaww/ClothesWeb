@@ -118,10 +118,7 @@ const BillComponent = ({ bill }) => {
 													<div className="col-md-auto">
 														<img
 															src={
-																el
-																	._id
-																	.description
-																	.imageList[0]
+																el.img
 															}
 															className="img-fluid rounded-circle border border-dark"
 															style={{
@@ -132,11 +129,7 @@ const BillComponent = ({ bill }) => {
 														/>
 													</div>
 													<div className="ms-2 col">
-														{
-															el
-																._id
-																.nameProduct
-														}
+														{el.name}
 													</div>
 												</div>
 											</td>

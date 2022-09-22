@@ -29,12 +29,7 @@ function PopupCart({ cart, setCart }) {
 				if (data.success) {
 					setCart(data.cartQty, data, data.cartTotal);
 				}
-			} catch (err) {
-				Toast.fire({
-					title: "Session đã dược khôi phục",
-					icon: "success",
-				});
-			}
+			} catch (err) {}
 		}
 		getCart();
 	}, [cookie.sessionId]);
