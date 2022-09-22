@@ -15,7 +15,7 @@ const Sessions = new Schema(
                 price: Number,
             },
         ],
-        expireAt: { type: Date, default: Date.now(), expires: '15s' },
+        // expireAt: { type: Date, default: Date.now },
     },
     {
         timestamps: true,
@@ -23,5 +23,4 @@ const Sessions = new Schema(
         versionKey: false,
     }
 );
-
 module.exports = mongoose.model('Sessions', Sessions);
