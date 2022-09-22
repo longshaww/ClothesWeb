@@ -15,7 +15,7 @@ const Sessions = new Schema(
                 price: Number,
             },
         ],
-        expireAt: { type: Date, default: Date.now(), expires: '15s' },
+        expireAt: { type: Date, default: Date.now(), expires: '1d' },
     },
     {
         timestamps: true,
