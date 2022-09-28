@@ -3,6 +3,7 @@ const  Bottoms = require('./list/bottoms');
 const NewArrivals = require('./list/new-arrivals');
 const  Outerwears = require('./list/outerwears');
 const Tops = require('./list/tops');
+// FACTORY || PRODUCT
 
 class CollectionsService {
     constructor(type)
