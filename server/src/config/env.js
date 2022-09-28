@@ -9,5 +9,12 @@ module.exports = {
     API_HOST : process.env.API_HOST,
     URL_FRONTEND : process.env.URL_FRONTEND,
     AUTH_EMAIL : process.env.AUTH_EMAIL,
-    AUTH_PASSWORD : process.env.AUTH_PASSWORD
+    AUTH_PASSWORD : process.env.AUTH_PASSWORD,
+    SIZE_PAGE : process.env.SIZE_PAGE,
+    BOTTOMS : process.env.BOTTOMS,
+    ACCESSORIES : process.env.ACCESSORIES,
+    NEW : process.env.NEWARRIVALS,
+    OUTERWEARS : process.env.OUTERWEARS,
+    TOPS : process.env.TOPS,
+    NEWARRIVALS : process.env.NEWARRIVALS,
 };
