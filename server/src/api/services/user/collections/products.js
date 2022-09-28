@@ -1,6 +1,8 @@
 const {SIZE_PAGE} = require('../../../../config/env');
 const ProductModel = require("../../../models/Product");
 const ObjectId = require('mongodb').ObjectId;
+//  Creator
+
 class ProductsObject {
     constructor(idCollection)
     {

@@ -1,5 +1,6 @@
 const {NEWARRIVALS} = require('../../../../../config/env');
 const ProductsObject = require('../products');
+// Concrete Creator
 
 class NewArrivals extends ProductsObject{
     constructor () {
