@@ -32,5 +32,11 @@
         "request": "^2.88.2",
         "request-promise": "^4.2.6",
         "stripe": "^9.0.0"
+    },
+    "devDependencies": {
+        "eslint": "^8.24.0",
+        "eslint-config-airbnb-base": "^15.0.0",
+        "eslint-plugin-import": "^2.26.0",
+        "morgan": "^1.10.0"
     }
 }
