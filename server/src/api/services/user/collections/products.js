@@ -1,6 +1,7 @@
 const {SIZE_PAGE} = require('../../../../config/env');
 const ProductModel = require("../../../models/Product");
 const ObjectId = require('mongodb').ObjectId;
+const validator = require('../../../utils/validator');
 //  Creator
 
 class ProductsObject {
@@ -27,6 +28,5 @@ class ProductsObject {
         }
      
     } 
-
 }
 module.exports =  ProductsObject;
