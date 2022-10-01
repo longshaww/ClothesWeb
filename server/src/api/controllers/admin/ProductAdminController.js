@@ -1,180 +1,201 @@
-const Product = require("../../models/Product");
-const Bill = require("../../models/Bills");
-const moment = require("moment");
-var ObjectId = require("mongodb").ObjectId;
-const { detailProduct, getListProduct } = require("../../utils/service");
+const Product = require('../../models/Product');
+const Bill = require('../../models/Bills');
+const moment = require('moment');
+var ObjectId = require('mongodb').ObjectId;
+const { detailProduct, getListProduct } = require('../../utils/service');
+const ProductMangerService = require('../../services/admin/product/index');
+const CommandCreate = require('../../services/admin/product/action/CommandCreate');
+const CommandEditProduct = require('../../services/admin/product/action/CommandEditProduct');
+const CommandView = require('../../services/admin/product/action/CommandView');
+const CommandDelete = require('../../services/admin/product/action/CommandDelete');
 class ProductAdminController {
     async getAllProduct(req, res, next) {
-        return getListProduct(req, res, next);
+        const listDataCustom = await getListProduct();
+        res.status(200).json({
+            success: true,
+            listDataCustom,
+        });
     }
 
     async createProduct(req, res, next) {
         try {
-            const customData = {
-                nameProduct: req.body.nameProduct,
-                price: req.body.price,
-                size: [{
-                    sizeName: "XL",
-                    qty: req.body.sizeXL
-                },
-                {
-                    sizeName: "L",
-                    qty: req.body.sizeL
-                },
-                {
-                    sizeName: "M",
-                    qty: req.body.sizeM
-                }],
-                description: {
-                    imageList: [`${process.env.API_HOST}${req.files[0].filename}`, `${process.env.API_HOST}${req.files[1].filename}`],
-                    productDes: req.body.productDes,
-                    price: req.body.price,
-                    type: null,
-                    collection: req.body.idCollection
-                },
-                discount: null
-            }
-            const product = await new Product(customData);
-            await product.save();
-            res.status(202).json({
-                success: true,
-                msg: "SUCCESS",
-                product
-            })
-        }
-        catch (err) {
-            console.log(err)
+            let dataBody = req.body,
+                file1 = req.files[0].filename,
+                file2 = req.files[1].filename;
+            let create = new CommandCreate(dataBody, file1, file2);
+            let productMnager = new ProductMangerService(create);
+            const data = await productMnager.run();
+            data
+                ? res.status(202).json({
+                      success: true,
+                      msg: 'SUCCESS',
+                      product: data,
+                  })
+                : res.status(404).json({
+                      success: false,
+                      msg: 'CREATE FAILED',
+                  });
+        } catch (err) {
+            console.log(err);
             res.status(404).json({
                 success: false,
-                msg: "FAILED"
-            })
+                msg: err.message,
+            });
         }
     }
     async editProduct(req, res, next) {
         try {
-            let customArraySize = [
-                {
-                    sizeName: "XL",
-                    qty: req.body.sizeXL
-                },
-                {
-                    sizeName: "L",
-                    qty: req.body.sizeL
-                },
-                {
-                    sizeName: "M",
-                    qty: req.body.sizeM
-                }
-            ]
-
-            const product = await Product.updateOne({ "_id": req.params.id },
-                {
-                    $set: {
-                        "nameProduct": req.body.nameProduct,
-                        "price": req.body.price,
-                        "size": customArraySize,
-                        "description.productDes" : req.body.description,
-                        "description.collection": req.body.idCollection
-                    }
-                })
-            return product ? detailProduct(req.params.id, res, next) : res.status(404).json({
-                success: false,
-                msg: "FAILED"
-            })
-        }
-        catch (err) {
+            let dataBody = req.body,
+                idProduct = req.params.id;
+            let edit = new CommandEditProduct(dataBody, idProduct);
+            let productMnagerEdit = new ProductMangerService(edit);
+            const status = await productMnagerEdit.run();
+            if (!status) {
+                res.status(404).json({
+                    success: false,
+                    msg: 'FAILED',
+                });
+            }
+            const detail = new CommandView(idProduct);
+            const productMnagerDetail = new ProductMangerService(detail);
+            let product = await productMnagerDetail.run();
+            product
+                ? res.status(200).json({
+                      success: true,
+                      customData: product,
+                  })
+                : res.status(404).json({
+                      success: false,
+                      msg: 'Not found',
+                  });
+        } catch (err) {
             console.log(err);
             res.status(404).json({
                 success: false,
-                msg: err.message
-            })
+                msg: err.message,
+            });
         }
     }
 
     async ProductDetail(req, res, next) {
         try {
             const idProduct = req.params.id;
-            if (idProduct !== "" || idProduct !== undefined || idProduct !== null) {
-                return detailProduct(idProduct, res, next);
-            }
-            else {
+            if (idProduct !== '' || idProduct !== undefined || idProduct !== null) {
+                const detail = new CommandView(idProduct);
+                const productMnagerDetail = new ProductMangerService(detail);
+                let product = await productMnagerDetail.run();
+                product
+                    ? res.status(200).json({
+                          success: true,
+                          customData: product,
+                      })
+                    : res.status(404).json({
+                          success: false,
+                          msg: 'Not found',
+                      });
+            } else {
                 res.status(404).json({
                     success: false,
-                    msg: "Param bị lỗi"
-                })
+                    msg: 'Param error',
+                });
             }
-
-        }
-        catch (err) {
+        } catch (err) {
             res.status(404).json({
                 success: false,
-                msg: err.message
-            })
+                msg: err.message,
+            });
         }
-
     }
     async deleteProduct(req, res, next) {
-        Product.deleteOne({ "_id": ObjectId(req.params.id) })
-            .then(() => {
-                return getListProduct(req, res, next)
-            })
-            .catch(next)
+        try {
+            const idProduct = req.params.id;
+            if (idProduct === '' || idProduct === undefined || idProduct === null) {
+                res.status(404).json({
+                    success: false,
+                    msg: 'Failed delete',
+                });
+            }
+            let deleteProduct = new CommandDelete(idProduct);
+            let productMnagerDeleted = new ProductMangerService(deleteProduct);
+            let status = await productMnagerDeleted.run();
+            if (!status) {
+                res.status(404).json({
+                    success: false,
+                    msg: 'Failed delete',
+                });
+            }
+
+            const listDataCustom = await getListProduct();
+            res.status(200).json({
+                success: true,
+                listDataCustom: listDataCustom,
+            });
+        } catch (err) {
+            res.status(404).json({
+                success: false,
+                msg: err.message,
+            });
+        }
     }
     async editImage(req, res, next) {
         try {
             const filename = req.file.filename;
             const index = req.body.index;
-            if (req.params.id !== "" || req.params.id !== undefined || req.params.id !== null) {
-                if (index === "1") {
-                    const product = await Product.findOne({ "_id": req.params.id });
+            if (req.params.id !== '' || req.params.id !== undefined || req.params.id !== null) {
+                if (index === '1') {
+                    const product = await Product.findOne({ _id: req.params.id });
                     let customArray = [
                         `${process.env.API_HOST}${filename}`,
-                        product.description.imageList[1]
-                    ]
-                    const productUpdate = await Product.updateOne({ "_id": req.params.id },
+                        product.description.imageList[1],
+                    ];
+                    const productUpdate = await Product.updateOne(
+                        { _id: req.params.id },
                         {
                             $set: {
-                                "description.imageList": customArray
-                            }
-                        })
-                    await productUpdate ? detailProduct(req.params.id, res, next) : res.status(404).json({
-                        success: false,
-                        msg: "FAILED"
-                    })
-                }
-                else {
-                    const product = await Product.findOne({ "_id": req.params.id });
+                                'description.imageList': customArray,
+                            },
+                        }
+                    );
+                    (await productUpdate)
+                        ? detailProduct(req.params.id, res, next)
+                        : res.status(404).json({
+                              success: false,
+                              msg: 'FAILED',
+                          });
+                } else {
+                    const product = await Product.findOne({ _id: req.params.id });
                     let customArray = [
                         product.description.imageList[0],
                         `${process.env.API_HOST}${filename}`,
                     ];
-                    const productUpdate = await Product.updateOne({ "_id": req.params.id },
+                    const productUpdate = await Product.updateOne(
+                        { _id: req.params.id },
                         {
                             $set: {
-                                "description.imageList": customArray
-                            }
-                        })
+                                'description.imageList': customArray,
+                            },
+                        }
+                    );
 
-                    await productUpdate ? detailProduct(req.params.id, res, next) : res.status(404).json({
-                        success: false,
-                        msg: "FAILED"
-                    })
+                    (await productUpdate)
+                        ? detailProduct(req.params.id, res, next)
+                        : res.status(404).json({
+                              success: false,
+                              msg: 'FAILED',
+                          });
                 }
-            }
-            else {
+            } else {
                 res.status(404).json({
                     success: false,
-                    msg: "Param bị lỗi"
-                })
+                    msg: 'Param bị lỗi',
+                });
             }
-        }
-        catch (err) {
+        } catch (err) {
             res.status(404).json({
                 success: false,
-                msg: err.message
-            })
+                msg: err.message,
+            });
         }
-
     }
 }
 module.exports = new ProductAdminController();
