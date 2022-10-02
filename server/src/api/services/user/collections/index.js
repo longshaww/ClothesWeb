@@ -3,6 +3,7 @@ const  Bottoms = require('./list/bottoms');
 const NewArrivals = require('./list/new-arrivals');
 const  Outerwears = require('./list/outerwears');
 const Tops = require('./list/tops');
+const ProductsObject = require('./products');
 // FACTORY || PRODUCT
 
 class CollectionsService {
@@ -35,5 +36,20 @@ class CollectionsService {
        } 
   }
 
+  async  getListProduct(pageNow)
+  {
+    try{
+      const productObject = new ProductsObject();
+      const products = await productObject.getListProduct(pageNow);
+      if(!validator(products,'isEmpty'))
+      {
+        return null;
+      }
+      return products;
+    }
+    catch(err){
+      return null;
+    }
+  }
 }
 module.exports = CollectionsService
