@@ -8,6 +8,7 @@ const CommandCreate = require('../../services/admin/product/action/CommandCreate
 const CommandEditProduct = require('../../services/admin/product/action/CommandEditProduct');
 const CommandView = require('../../services/admin/product/action/CommandView');
 const CommandDelete = require('../../services/admin/product/action/CommandDelete');
+const CommandEditImage = require('../../services/admin/product/action/CommandEditImage');
 class ProductAdminController {
     async getAllProduct(req, res, next) {
         const listDataCustom = await getListProduct();
@@ -141,49 +142,29 @@ class ProductAdminController {
         try {
             const filename = req.file.filename;
             const index = req.body.index;
-            if (req.params.id !== '' || req.params.id !== undefined || req.params.id !== null) {
-                if (index === '1') {
-                    const product = await Product.findOne({ _id: req.params.id });
-                    let customArray = [
-                        `${process.env.API_HOST}${filename}`,
-                        product.description.imageList[1],
-                    ];
-                    const productUpdate = await Product.updateOne(
-                        { _id: req.params.id },
-                        {
-                            $set: {
-                                'description.imageList': customArray,
-                            },
-                        }
-                    );
-                    (await productUpdate)
-                        ? detailProduct(req.params.id, res, next)
-                        : res.status(404).json({
-                              success: false,
-                              msg: 'FAILED',
-                          });
-                } else {
-                    const product = await Product.findOne({ _id: req.params.id });
-                    let customArray = [
-                        product.description.imageList[0],
-                        `${process.env.API_HOST}${filename}`,
-                    ];
-                    const productUpdate = await Product.updateOne(
-                        { _id: req.params.id },
-                        {
-                            $set: {
-                                'description.imageList': customArray,
-                            },
-                        }
-                    );
-
-                    (await productUpdate)
-                        ? detailProduct(req.params.id, res, next)
-                        : res.status(404).json({
-                              success: false,
-                              msg: 'FAILED',
-                          });
+            const paramsId = req.params.id;
+            if (paramsId !== '' || paramsId !== undefined || paramsId !== null) {
+                let editImage = new CommandEditImage(filename, index, paramsId);
+                let productMnager = new ProductMangerService(editImage);
+                let status = await productMnager.run();
+                if (!status) {
+                    res.status(404).json({
+                        success: false,
+                        msg: 'Failed edit',
+                    });
                 }
+                const detail = new CommandView(paramsId);
+                const productMnagerDetail = new ProductMangerService(detail);
+                let product = await productMnagerDetail.run();
+                product
+                    ? res.status(200).json({
+                          success: true,
+                          customData: product,
+                      })
+                    : res.status(404).json({
+                          success: false,
+                          msg: 'Not found',
+                      });
             } else {
                 res.status(404).json({
                     success: false,

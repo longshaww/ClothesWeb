@@ -110,9 +110,50 @@ class ProductManager {
         }
     }
 
-    async editImage()
-    {
-        
+    async editImage(filename, index, paramsId) {
+        try{
+            if (index === '1') {
+                const product = await ProductModel.findOne({ _id: paramsId });
+                let customArray = [
+                    `${process.env.API_HOST}${filename}`,
+                    product.description.imageList[1],
+                ];
+                const productUpdate = await ProductModel.updateOne(
+                    { _id: paramsId },
+                    {
+                        $set: {
+                            'description.imageList': customArray,
+                        },
+                    }
+                );
+                return (await productUpdate)
+                    ? true
+                    : false
+            } else {
+                const product = await ProductModel.findOne({ _id: paramsId });
+                let customArray = [
+                    product.description.imageList[0],
+                    `${process.env.API_HOST}${filename}`,
+                ];
+                const productUpdate = await ProductModel.updateOne(
+                    { _id: paramsId },
+                    {
+                        $set: {
+                            'description.imageList': customArray,
+                        },
+                    }
+                );
+    
+                return (await productUpdate)
+                    ? true
+                    : false
+            }
+        }
+        catch(err)
+        {
+            return false
+        }
+     
     }
 }
 
