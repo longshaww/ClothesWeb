@@ -36,7 +36,7 @@ function ProductList() {
 			},
 		});
 		if (res.data.success === true) {
-			setData(data.listDataCustom);
+			setData(res.data.listDataCustom);
 			Toast.fire({
 				title: "Xóa Thành Công",
 				icon: "success",

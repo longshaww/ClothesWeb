@@ -49,7 +49,7 @@ module.exports = {
     },
     storage: multer.diskStorage({
         destination: (req, file, cb) => {
-            cb(null, 'public');
+            cb(null, path.join(__dirname,'../public'));
         },
         filename: (req, file, cb) => {
             let ext = path.extname(file.originalname);
