@@ -1,3 +1,4 @@
+const { BOTTOMS, ACCESSORIES, NEWARRIVALS, OUTERWEARS, TOPS } = require('../../config/env');
 module.exports = {
     getCartUtil: (thisSession) => {
         const cart = thisSession.cart;
@@ -16,5 +17,22 @@ module.exports = {
             }, 0) / 23;
         const total = parseInt(reduce.toFixed(2).replace('.', ''));
         return total;
+    },
+    returnIdCollection: (nameCollection) => {
+        switch (nameCollection) {
+            case 'new-arrivals':
+                return NEWARRIVALS;
+            case 'tops':
+                return TOPS;
+            case 'bottoms':
+                return BOTTOMS;
+            case 'outerwears':
+                return OUTERWEARS;
+            case 'accessories':
+                return ACCESSORIES;
+
+            default:
+                return null;
+        }
     },
 };

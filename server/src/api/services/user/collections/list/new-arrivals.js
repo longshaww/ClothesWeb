@@ -12,7 +12,6 @@ class NewArrivals extends ProductsObject {
 
     async getProductLimit15() {
         try {
-            console.log(this.idCollection);
             const newArrivals = await ProductModel.find({
                 'description.collection': ObjectId(this.idCollection),
             });
