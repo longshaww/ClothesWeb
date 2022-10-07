@@ -20,7 +20,7 @@ class CollectionsController {
                 listProduct = await collectionsService.createCollection().then((object) => {
                     return object.findProducts(pageNow);
                 });
-            } else if (type === 'ascending' || type === 'descending') {
+            } else if (type === 'ascending' || type === 'descending' || type === 'bestseller') {
                 const idCollection = returnIdCollection(keyWordParams);
                 if (idCollection === null) {
                     res.status(404).json({
@@ -51,10 +51,10 @@ class CollectionsController {
         }
     }
     // GETNEWARRIVALS 15 PRODUCTS
-    async get15NewArrivals(req, res) {
+    async getHots(req, res) {
         try {
-            const newArrivalsObject = new NewArrivals();
-            const listProduct = await newArrivalsObject.getProductLimit15();
+            const collectionService = new CollectionsService();
+            const listProduct = await collectionService.getProductHots();
             validator(listProduct, 'isEmpty')
                 ? res.status(200).json({
                       success: true,

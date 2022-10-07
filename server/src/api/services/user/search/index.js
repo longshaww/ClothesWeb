@@ -1,6 +1,8 @@
 const SearchKeyword = require('./ConcreteStrategy/SearchKeyWord');
 const SearchPriceDescending = require('./ConcreteStrategy/SearchPriceDescending');
 const SearchPriceAscending = require('./ConcreteStrategy/SearchPriceAscending');
+const SearchBestSeller = require('./ConcreteStrategy/SearchBestSeller');
+
 class SearchService {
     constructor(dataInput) {
         switch (dataInput.methodType) {
@@ -16,13 +18,17 @@ class SearchService {
             case 'all':
                 this.strategy = new SearchKeyword(dataInput.keyWord, dataInput.pageNow);
                 break;
+            case 'bestseller':
+                this.strategy = new SearchBestSeller(dataInput.idCollection, dataInput.pageNow);
+                break;
             default:
                 this.strategy = new SearchKeyword(dataInput.keyWord, dataInput.pageNow);
+                break;
         }
     }
 
-    execute() {
-        return this.strategy.search();
+    async execute() {
+        return await this.strategy.search();
     }
 }
 module.exports = SearchService;
