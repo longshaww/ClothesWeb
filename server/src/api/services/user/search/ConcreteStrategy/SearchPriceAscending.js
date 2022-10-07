@@ -3,6 +3,8 @@ const { SIZE_PAGE } = require('../../../../../config/env');
 const ProductModel = require('../../../../models/Product');
 const ObjectId = require('mongodb').ObjectId;
 const IStrategy = require('../IStrategy');
+const { filterQty } = require('../../../../utils/helper');
+
 class SearchPriceAscending extends IStrategy {
     constructor(idCollection, pageNow) {
         super();
@@ -18,11 +20,11 @@ class SearchPriceAscending extends IStrategy {
             const listProducts = await ProductModel.find({
                 'description.collection': ObjectId(idCollection),
             });
-
+            listProducts = await filterQty(listProducts);
             await listProducts.sort((a, b) => {
                 return a.price - b.price;
             });
-
+            
             return await listProducts.splice(skip, limit);
         } catch (err) {
             throw new Error(err);

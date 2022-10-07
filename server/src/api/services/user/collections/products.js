@@ -3,7 +3,7 @@ const ProductModel = require('../../../models/Product');
 const ObjectId = require('mongodb').ObjectId;
 const validator = require('../../../utils/validator');
 //  Creator
-
+const { filterQty } = require('../../../utils/helper');
 class ProductsObject {
     constructor(idCollection) {
         this.pageSize = parseInt(SIZE_PAGE);
@@ -13,11 +13,12 @@ class ProductsObject {
     async findProducts(pageNow) {
         try {
             const skip = (pageNow - 1) * this.pageSize;
-            const listProducts = await ProductModel.find({
+            let listProducts = await ProductModel.find({
                 'description.collection': ObjectId(this.idCollection),
             })
                 .skip(skip)
                 .limit(this.pageSize);
+            listProducts = await filterQty(listProducts);
             return listProducts ?? null;
         } catch (err) {
             return null;
@@ -31,7 +32,5 @@ class ProductsObject {
             return null;
         }
     }
-
-
 }
 module.exports = ProductsObject;
