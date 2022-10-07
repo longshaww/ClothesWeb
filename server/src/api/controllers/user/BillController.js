@@ -2,6 +2,12 @@ const DeliveryInfo = require('../../models/DeliveryInfo');
 const UserWeb = require('../../models/UserWeb');
 const BillWeb = require('../../models/BillWeb');
 const Session = require('../../models/Sessions');
+const ProductModel = require('../../models/Product');
+const CommandAdd = require('../../services/user/bill/delivery/Command/CommandAdd');
+const CommandEdit = require('../../services/user/bill/delivery/Command/CommandEdit');
+const DeliveryUserService = require('../../services/user/bill/delivery/index');
+const CommandDelete = require('../../services/user/bill/delivery/Command/CommandDelete');
+const CommandView = require('../../services/user/bill/delivery/Command/CommandView');
 class BillController {
     async addNewInfoUser(req, res) {
         const { userID, nameCustomer, address, phoneNumber } = req.body;
@@ -12,7 +18,9 @@ class BillController {
             });
         }
         try {
-            const newDeliveryInfo = await DeliveryInfo.create(req.body);
+            let create = new CommandAdd(req.body);
+            let deliveryMangerService = new DeliveryUserService(create);
+            const newDeliveryInfo = await deliveryMangerService.run();
             res.status(200).json({ success: true, body: newDeliveryInfo });
         } catch (err) {
             res.status(400).json({ success: false, message: err });
@@ -28,13 +36,18 @@ class BillController {
             });
         }
         try {
-            const deliveryInfo = await DeliveryInfo.findById(id);
-            deliveryInfo.nameCustomer = nameCustomer;
-            deliveryInfo.address = address;
-            deliveryInfo.phoneNumber = phoneNumber;
+            const infoUser = {
+                nameCustomer,
+                address,
+                phoneNumber,
+                id,
+            };
+            let edit = new CommandEdit(infoUser);
+            let deliveryMangerService = new DeliveryUserService(edit);
+            const data = await deliveryMangerService.run(req.body);
             res.status(200).json({
                 success: true,
-                body: await deliveryInfo.save(),
+                body: data,
             });
         } catch (err) {
             res.status(400).json({ success: false, message: err });
@@ -49,8 +62,10 @@ class BillController {
             });
         }
         try {
-            const deliveryInfo = await DeliveryInfo.findByIdAndDelete(id);
-            res.status(200).json({ success: true, body: deliveryInfo });
+            let actionDelete = new CommandDelete(id);
+            let deliveryMangerService = new DeliveryUserService(actionDelete);
+            const data = await deliveryMangerService.run();
+            res.status(200).json({ success: true, body: data });
         } catch (err) {
             res.status(400).json({ success: false, message: err });
         }
@@ -65,15 +80,9 @@ class BillController {
             });
         }
         try {
-            const user = await UserWeb.findById(userID);
-            const customize = {
-                _id: user._id,
-                nameCustomer: user.information.name,
-                address: user.information.address,
-                phoneNumber: user.information.phoneNumber,
-            };
-            const listInfo = await DeliveryInfo.find({ userID: userID });
-            listInfo.unshift(customize);
+            let view = new CommandView(userID);
+            let deliveryMangerService = new DeliveryUserService(view);
+            let listInfo = await deliveryMangerService.run();
             res.status(200).json({ success: true, body: listInfo });
         } catch (err) {
             res.status(400).json({ success: false, message: err });
@@ -133,6 +142,7 @@ class BillController {
             });
         }
         try {
+            // tao bill
             const newBillWeb = new BillWeb({
                 listProduct,
                 paymentMethod,
@@ -159,19 +169,20 @@ class BillController {
                 });
                 newBillWeb.deliveryID = newInfo.id;
             }
-
             const currentSession = await Session.findById(sessionId);
             if (currentSession) {
                 currentSession.cart = [];
                 currentSession.save();
             }
             await newBillWeb.save();
-            const billResult = await BillWeb.findById(newBillWeb._id)
+            const idBillWeb = newBillWeb._id;
+            const billResult = await BillWeb.findById(idBillWeb)
                 .populate('userID')
                 .populate('deliveryID')
                 .populate('listProduct._id')
                 .populate('voucherID');
-            res.status(200).send({
+
+            res.status(200).json({
                 success: true,
                 body: billResult,
             });
