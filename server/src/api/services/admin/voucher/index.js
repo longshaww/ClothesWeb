@@ -1,250 +1,108 @@
 const Voucher = require('../../../models/Vouchers');
+const moment = require('moment');
 
 module.exports = {
-    createVoucher: async function (req, res) {
-        const { discount, dateStart, dateEnd, maxDiscount, qualifyAmount, qty } = req.body;
-        if (!discount || !dateStart || !dateEnd || !maxDiscount || !qualifyAmount || !qty) {
-            return res.status(400).json({
-                success: false,
-                message: 'Cannot post without body',
-            });
-        }
-        const newVoucher = await Voucher.create(req.body);
-        return res.status(201).json({ success: true, body: newVoucher });
+    createVoucher: async function (body) {
+        const newVoucher = await Voucher.create(body);
+        return newVoucher.save();
     },
-    editVoucher: async function (req, res) {
-        const { id } = req.params;
-        const { discount, dateStart, dateEnd, maxDiscount, qualifyAmount, qty } = req.body;
-        if (!discount || !dateStart || !dateEnd || !maxDiscount || !qualifyAmount || !qty) {
-            return res.status(400).json({
-                success: false,
-                message: 'Cannot post without body',
-            });
-        }
+    editVoucher: async function (id, body) {
         const editVoucher = await Voucher.findById(id);
-        if (!editVoucher) {
-            return res.status(404).json({
-                success: false,
-                message: 'Mã voucher không tồn tại',
-            });
-        }
-        editVoucher.discount = discount;
-        editVoucher.dateStart = dateStart;
-        editVoucher.dateEnd = dateEnd;
-        editVoucher.maxDiscount = maxDiscount;
-        editVoucher.qualifyAmount = qualifyAmount;
-        editVoucher.qty = qty;
-        return res.status(200).json({
-            success: true,
-            body: editVoucher.save(),
-        });
+        editVoucher.discount = body.discount;
+        editVoucher.dateStart = body.dateStart;
+        editVoucher.dateEnd = body.dateEnd;
+        editVoucher.maxDiscount = body.maxDiscount;
+        editVoucher.qualifyAmount = body.qualifyAmount;
+        editVoucher.qty = body.qty;
+        return editVoucher.save();
     },
-    deleteVoucher: async function (req, res) {
-        const { id } = req.params;
-
-        if (!id) {
-            return res.status(404).json({
-                success: false,
-                message: 'Cannot post without ID',
-            });
-        }
+    deleteVoucher: async function (id) {
         const deleteVoucher = await Voucher.findByIdAndDelete(id);
-        if (!deleteVoucher) {
-            res.status(404).json({
-                success: false,
-                message: 'Mã voucher không tồn tại',
-            });
-        }
-        return res.status(200).json({ success: true, message: 'Deleted' });
+        return deleteVoucher;
     },
-    listVoucher: async function (req, res) {
-        const { code, amount } = req.query;
-        const { user } = req.headers;
+    listVoucher: async function (code, amount, user) {
         if (code && amount) {
             if (!ObjectId.isValid(code)) {
-                return res.status(400).json({
-                    success: false,
-                    message: 'Mã voucher không đúng định dạng',
-                });
+                return 'Mã voucher không đúng định dạng';
             }
             const voucher = await Voucher.findById(code);
             if (!voucher) {
-                return res.status(404).json({
-                    success: false,
-                    message: 'Mã voucher không tồn tại',
-                });
+                return 'Mã voucher không tồn tại';
             }
             const existed = voucher.listUser.indexOf(user);
             if (existed == -1) {
-                return res.status(400).json({
-                    success: false,
-                    message: 'Bạn không sở hữu voucher này',
-                });
+                return 'Bạn không sở hữu voucher này';
             }
             if (!user) {
-                return res.status(400).json({
-                    success: false,
-                    message: 'Bạn phải đăng nhập để sử dụng voucher',
-                });
+                return 'Bạn phải đăng nhập để sử dụng voucher';
             }
 
             if (!voucher.qty > 0) {
-                return res.status(400).json({
-                    success: false,
-                    message: 'Số lượng voucher đã hết',
-                });
+                return 'Số lượng voucher đã hết';
             }
             const diffDayStart = moment().diff(moment(voucher.dateStart), 'days');
             const diffDaysEnd = moment(voucher.dateEnd).diff(moment(), 'days');
             if (diffDayStart < 0) {
-                return res.status(400).json({
-                    success: false,
-                    message: `Voucher khả dụng vào ngày ${moment(voucher.dateEnd).format('ll')}`,
-                });
+                return `Voucher khả dụng vào ngày ${moment(voucher.dateEnd).format('ll')}`;
             }
             if (diffDaysEnd <= 0) {
-                return res.status(400).json({
-                    success: false,
-                    message: 'Voucher đã hết hạn',
-                });
+                return 'Voucher đã hết hạn';
             }
             if (amount < voucher.qualifyAmount) {
-                return res.status(400).json({
-                    success: false,
-                    message: 'Voucher không đủ điều kiện',
-                });
+                return 'Voucher không đủ điều kiện';
             }
             let discount = (amount * voucher.discount) / 100;
             if (discount > voucher.maxDiscount) {
                 discount = voucher.maxDiscount;
             }
-            return res.status(200).json({
-                success: true,
-                message: 'Voucher khả dụng',
-            });
+            return true;
         } else {
             const listVoucher = await Voucher.find();
-            return res.status(200).json({
-                success: true,
-                body: listVoucher,
-            });
+            return listVoucher;
         }
     },
-    applyVoucher: async function (req, res) {
-        const { code, amount } = req.body;
-        const { user } = req.headers;
-        if (!code || !amount || !user) {
-            return res.status(400).json({
-                success: false,
-                message: 'Voucher không khả dụng',
-            });
-        }
+    applyVoucher: async function (code, amount) {
         const voucher = await Voucher.findById(code);
-        if (!voucher) {
-            res.status(404).json({
-                success: false,
-                message: 'Mã voucher không tồn tại',
-            });
-        }
         let discount = (amount * voucher.discount) / 100;
         if (discount > voucher.maxDiscount) {
             discount = voucher.maxDiscount;
         }
         await voucher.save();
-        return res.status(200).json({
-            success: true,
-            message: 'Áp dụng voucher thành công',
-            body: { discount, amount: amount - discount },
-        });
+        return { discount, amount: amount - discount };
     },
-    userGetVoucher: async function (req, res) {
-        const { code } = req.body;
-        const { user } = req.headers;
-        if (!code || !user) {
-            return res.status(400).json({ success: false, message: 'Lấy voucher thất bại' });
-        }
+    userGetVoucher: async function (code, user) {
         const voucher = await Voucher.findById(code);
         if (!voucher) {
-            return res.status(400).json({
-                success: false,
-                message: 'Voucher không tồn tại',
-            });
+            return 'Voucher không tồn tại';
         }
         const existed = voucher.listUser.indexOf(user);
         if (existed !== -1) {
-            return res.status(400).json({
-                success: false,
-                message: 'Bạn đã lấy voucher này rồi',
-            });
+            return ' Bạn đã lấy voucher này rồi';
         }
         voucher.listUser.push(user);
-        return res.status(200).json({
-            success: true,
-            body: voucher.save(),
-            message: 'Lấy voucher thành công',
-        });
+        return voucher.save();
     },
-    updateState: async function (req, res) {
-        const { id } = req.params;
-        const userID = req.headers.user;
-        if (!id || !userID) {
-            return res.status(400).json({
-                success: false,
-                message: 'Cập nhật trạng thái voucher thất bại',
-            });
-        }
+    updateState: async function (id, userID) {
         const voucher = await Voucher.findById(id);
         if (!voucher) {
-            return res.status(404).json({
-                success: false,
-                message: 'Mã voucher không tồn tại',
-            });
+            return 'Mã voucher không tồn tại';
         }
         const user = voucher.listUser.indexOf(userID);
         if (user === -1) {
-            return res.status(400).json({
-                success: false,
-                message: 'Không tìm thấy user',
-            });
+            return 'Không tìm thấy user';
         }
         voucher.listUser.splice(userID, 1);
         voucher.qty = voucher.qty - 1;
-        return res.status(200).json({ success: true, body: voucher.save() });
+        return voucher.save();
     },
-    detailVoucher: async function (req, res) {
-        const { id } = req.params;
-        if (!id) {
-            return res.status(404).json({
-                success: false,
-                message: 'Cannot post without ID',
-            });
-        }
+    detailVoucher: async function (id) {
         const voucher = await Voucher.findById(id);
-        if (!voucher) {
-            res.status(404).json({
-                success: false,
-                message: 'Mã voucher không tồn tại',
-            });
-        }
-        return res.status(200).json({ success: true, body: voucher });
+        return voucher;
     },
-    myVoucher: async function (req, res) {
-        const { id } = req.params;
-        if (!id) {
-            return res.status(404).json({
-                success: false,
-                message: 'Không thể lấy danh sách voucher',
-            });
-        }
+    myVoucher: async function (id) {
         const vouchers = await Voucher.find({
             listUser: id,
         });
-        if (!vouchers) {
-            return res.status(400).json({
-                success: false,
-                message: 'Bạn không có voucher nào',
-            });
-        }
-        return res.status(200).json({ success: true, body: vouchers });
+        return vouchers;
     },
 };

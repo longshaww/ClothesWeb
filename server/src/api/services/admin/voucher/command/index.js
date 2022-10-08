@@ -1,7 +1,7 @@
 class Command {
     constructor() {}
-    execute(command) {
-        command.execute();
+    async execute(command) {
+        return await command.execute();
     }
 }
 
