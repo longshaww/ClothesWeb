@@ -112,7 +112,6 @@ class BillController {
 
     async postBill(req, res) {
         const sessionId = req.signedCookies.sessionId;
-
         const {
             userID,
             nameCustomer,
@@ -153,7 +152,6 @@ class BillController {
                 total
             );
             const billResult = await billService.createBill(sessionId);
-
             billResult
                 ? res.status(200).json({
                       success: true,

@@ -1,6 +1,7 @@
 const BillWeb = require('../../../../models/BillWeb');
 const DeliveryInfo = require('../../../../models/DeliveryInfo');
 const Session = require('../../../../models/Sessions');
+const Product = require('../../../../models/Product');
 class BillUserService {
     constructor(
         userID,
@@ -28,6 +29,10 @@ class BillUserService {
 
     async createBill(sessionId) {
         try {
+            const flag = await this.minusProduct();
+            if (!flag) {
+                return null;
+            }
             const newBillWeb = new BillWeb({
                 listProduct: this._listProduct,
                 paymentMethod: this._paymentMethod,
@@ -56,13 +61,73 @@ class BillUserService {
             }
             const currentSession = await Session.findById(sessionId);
             if (currentSession) {
-                currentSession.cart = [];
-                currentSession.save();
+                await Session.updateOne(
+                    { _id: sessionId },
+                    {
+                        $set: {
+                            cart: [],
+                        },
+                    }
+                );
             }
             await newBillWeb.save();
             const idBillWeb = newBillWeb._id;
             let bill = await this.getBill(idBillWeb);
             return bill ?? null;
+        } catch (err) {
+            console.log(err);
+            return null;
+        }
+    }
+
+    async minusProduct() {
+        try {
+            const listProduct = this._listProduct;
+            for (let el of listProduct) {
+                const idProduct = el.idProduct;
+                const qtyProductUserBuy = el.qty;
+                const sizeNameUserBuy = el.size;
+                const flag = await this.executeMinus(idProduct, qtyProductUserBuy, sizeNameUserBuy);
+                if (!flag) return false;
+            }
+            return await true;
+        } catch (err) {
+            console.log(err);
+            return false;
+        }
+    }
+    // private
+    async executeMinus(idProduct, qtyProductUserBuy, sizeNameUserBuy) {
+        try {
+            const productInfo = await Product.findById(idProduct);
+            const sizeVariables = productInfo.size;
+            let flagCatchError = true;
+            const buyedResult = productInfo.buyed + qtyProductUserBuy;
+            await sizeVariables.forEach(async (el) => {
+                const sizeName = el.sizeName;
+                const qtyProduct = el.qty;
+                if (sizeNameUserBuy === sizeName) {
+                    const resultQty = qtyProduct - qtyProductUserBuy;
+                    if (resultQty >= 0) {
+                        el.qty = resultQty;
+                        return;
+                    }
+                    flagCatchError = false;
+                    return;
+                }
+            });
+            if (!flagCatchError) return false;
+
+            const product = await Product.updateOne(
+                { _id: idProduct },
+                {
+                    $set: {
+                        size: sizeVariables,
+                        buyed: buyedResult,
+                    },
+                }
+            );
+            return product ? true : false;
         } catch (err) {
             console.log(err);
             return null;
