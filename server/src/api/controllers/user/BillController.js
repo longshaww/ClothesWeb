@@ -8,6 +8,7 @@ const CommandEdit = require('../../services/user/bill/delivery/Command/CommandEd
 const DeliveryUserService = require('../../services/user/bill/delivery/index');
 const CommandDelete = require('../../services/user/bill/delivery/Command/CommandDelete');
 const CommandView = require('../../services/user/bill/delivery/Command/CommandView');
+const BillService = require('../../services/user/bill/serviceBill/index');
 class BillController {
     async addNewInfoUser(req, res) {
         const { userID, nameCustomer, address, phoneNumber } = req.body;
@@ -98,11 +99,8 @@ class BillController {
             });
         }
         try {
-            const bill = await BillWeb.findById(id)
-                .populate('userID')
-                .populate('deliveryID')
-                .populate('listProduct._id')
-                .populate('voucherID');
+            const billService = new BillService();
+            const bill = await billService.getBill(id);
             res.status(200).json({
                 success: true,
                 body: bill,
@@ -142,50 +140,29 @@ class BillController {
             });
         }
         try {
-            // tao bill
-            const newBillWeb = new BillWeb({
+            const billService = new BillService(
+                userID,
+                nameCustomer,
+                address,
+                phoneNumber,
+                email,
                 listProduct,
                 paymentMethod,
-                total,
-                subTotal: listProduct.reduce((a, b) => a + b.sum, 0),
-                qtyProduct: listProduct.reduce((a, b) => a + b.qty, 0),
-                status: paymentMethod === 'COD' ? false : true,
-                shippingFee: 35,
-            });
-            if (voucherID) {
-                newBillWeb.voucherID = voucherID;
-            }
-            if (userID) {
-                newBillWeb.userID = userID;
-                if (idDelivery) {
-                    newBillWeb.deliveryID = idDelivery;
-                }
-            } else {
-                const newInfo = await DeliveryInfo.create({
-                    nameCustomer,
-                    address,
-                    phoneNumber,
-                    email,
-                });
-                newBillWeb.deliveryID = newInfo.id;
-            }
-            const currentSession = await Session.findById(sessionId);
-            if (currentSession) {
-                currentSession.cart = [];
-                currentSession.save();
-            }
-            await newBillWeb.save();
-            const idBillWeb = newBillWeb._id;
-            const billResult = await BillWeb.findById(idBillWeb)
-                .populate('userID')
-                .populate('deliveryID')
-                .populate('listProduct._id')
-                .populate('voucherID');
+                idDelivery,
+                voucherID,
+                total
+            );
+            const billResult = await billService.createBill(sessionId);
 
-            res.status(200).json({
-                success: true,
-                body: billResult,
-            });
+            billResult
+                ? res.status(200).json({
+                      success: true,
+                      body: billResult,
+                  })
+                : res.status(401).json({
+                      success: false,
+                      msg: 'failed',
+                  });
         } catch (err) {
             res.status(404).send({ success: false, message: err.message });
         }
