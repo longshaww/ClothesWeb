@@ -1,342 +1,168 @@
-const Voucher = require("../../models/Vouchers");
-const moment = require("moment");
-const ObjectId = require("mongoose").Types.ObjectId;
-
+const ObjectId = require('mongoose').Types.ObjectId;
+const {
+    CreateVoucher,
+    ApplyVoucher,
+    DeleteVoucher,
+    DetailVoucher,
+    EditVoucher,
+    ListVoucher,
+    MyVoucher,
+    UpdateState,
+    UserGetVoucher,
+} = require('../../services/admin/voucher/command/crud');
+const Command = require('../../services/admin/voucher/command/');
+const { throwErr, successRes } = require('../../utils/HandleResponse');
+const command = new Command();
+const Voucher = require('../../models/Vouchers');
 class VoucherController {
-	async createVoucher(req, res) {
-		const {
-			discount,
-			dateStart,
-			dateEnd,
-			maxDiscount,
-			qualifyAmount,
-			qty,
-		} = req.body;
-		if (
-			!discount ||
-			!dateStart ||
-			!dateEnd ||
-			!maxDiscount ||
-			!qualifyAmount ||
-			!qty
-		) {
-			return res.status(400).json({
-				success: false,
-				message: "Cannot post without body",
-			});
-		}
-		try {
-			const newVoucher = await Voucher.create(req.body);
-			res.status(200).json({ success: true, body: newVoucher });
-		} catch (err) {
-			res.status(400).json({ success: false, message: err.message });
-		}
-	}
-	async editVoucher(req, res) {
-		const { id } = req.params;
-		const {
-			discount,
-			dateStart,
-			dateEnd,
-			maxDiscount,
-			qualifyAmount,
-			qty,
-		} = req.body;
-		if (
-			!discount ||
-			!dateStart ||
-			!dateEnd ||
-			!maxDiscount ||
-			!qualifyAmount ||
-			!qty
-		) {
-			return res.status(400).json({
-				success: false,
-				message: "Cannot post without body",
-			});
-		}
-		try {
-			const editVoucher = await Voucher.findById(id);
-			if (!editVoucher) {
-				return res.status(404).json({
-					success: false,
-					message: "Mã voucher không tồn tại",
-				});
-			}
-			editVoucher.discount = discount;
-			editVoucher.dateStart = dateStart;
-			editVoucher.dateEnd = dateEnd;
-			editVoucher.maxDiscount = maxDiscount;
-			editVoucher.qualifyAmount = qualifyAmount;
-			editVoucher.qty = qty;
-			res.status(200).json({
-				success: true,
-				body: editVoucher.save(),
-			});
-		} catch (err) {
-			res.status(400).json({ success: false, message: err.message });
-		}
-	}
-	async deleteVoucher(req, res) {
-		const { id } = req.params;
+    async createVoucher(req, res) {
+        try {
+            if (Object.keys(req.body).length === 0) {
+                return throwErr(res, 400, 'Cannot post without body');
+            }
+            const newVoucher = await command.execute(new CreateVoucher(req.body));
+            if (!newVoucher) {
+                return throwErr(res, 400, 'Something went wrong ~!');
+            }
+            return successRes(res, 201, newVoucher);
+        } catch (err) {
+            throwErr(res, 400, err.message);
+        }
+    }
+    async editVoucher(req, res) {
+        try {
+            const { id } = req.params;
+            if (Object.keys(req.body).length === 0) {
+                return throwErr(res, 400, 'Cannot post without body');
+            }
+            if (!id) {
+                return throwErr(res, 400, 'Cannot post without id');
+            }
+            const editVoucher = await command.execute(new EditVoucher(id, req.body));
+            if (!editVoucher) {
+                return throwErr(res, 400, 'Cannot find voucher with id ' + id);
+            }
+            return successRes(res, 200, editVoucher);
+        } catch (err) {
+            throwErr(res, 400, false, err.message);
+        }
+    }
+    async deleteVoucher(req, res) {
+        try {
+            const { id } = req.params;
+            if (!id) {
+                return throwErr(res, 400, 'Cannot post without body');
+            }
+            const deleteVoucher = await command.execute(new DeleteVoucher(id));
+            if (!deleteVoucher) {
+                throwErr(res, 400, 'Cannot find voucher with id ' + id);
+            }
+            return successRes(res, 200, deleteVoucher);
+        } catch (err) {
+            throwErr(res, 400, err.message);
+        }
+    }
 
-		if (!id) {
-			return res.status(404).json({
-				success: false,
-				message: "Cannot post without ID",
-			});
-		}
-		try {
-			const deleteVoucher = await Voucher.findByIdAndDelete(id);
-			if (!deleteVoucher) {
-				res.status(404).json({
-					success: false,
-					message: "Mã voucher không tồn tại",
-				});
-			}
-			res.status(200).json({ success: true, body: deleteVoucher });
-		} catch (err) {
-			res.status(400).json({
-				success: false,
-				message: err.message,
-			});
-		}
-	}
+    async listVoucher(req, res) {
+        try {
+            const { code, amount } = req.query;
+            const { user } = req.headers;
+            const listVoucher = await command.execute(new ListVoucher(code, amount, user));
+            if (typeof listVoucher === 'string') {
+                return throwErr(res, 400, listVoucher);
+            }
+            if (code && amount) {
+                return successRes(res, 200, 'Voucher khả dụng');
+            }
+            return successRes(res, 200, listVoucher);
+        } catch (err) {
+            throwErr(res, 400, err.message);
+        }
+    }
+    async applyVoucher(req, res) {
+        try {
+            const { code, amount } = req.body;
+            const { user } = req.headers;
+            if (!code || !amount || !user) {
+                return throwErr(res, 400, 'Voucher không khả dụng');
+            }
 
-	async listVoucher(req, res) {
-		const { code, amount } = req.query;
-		const { user } = req.headers;
-		try {
-			if (code && amount) {
-				if (!ObjectId.isValid(code)) {
-					return res.status(400).json({
-						success: false,
-						message: "Mã voucher không đúng định dạng",
-					});
-				}
-				const voucher = await Voucher.findById(code);
-				if (!voucher) {
-					return res.status(404).json({
-						success: false,
-						message: "Mã voucher không tồn tại",
-					});
-				}
-				const existed = voucher.listUser.indexOf(user);
-				if (existed == -1) {
-					return res.status(400).json({
-						success: false,
-						message: "Bạn không sở hữu voucher này",
-					});
-				}
-				if (!user) {
-					return res.status(400).json({
-						success: false,
-						message: "Bạn phải đăng nhập để sử dụng voucher",
-					});
-				}
+            const applyVoucher = await command.execute(new ApplyVoucher(req, res));
+            return successRes(res, 200, 'Áp dụng voucher thành công', applyVoucher);
+        } catch (err) {
+            throwErr(res, 400, err.message);
+        }
+    }
 
-				if (!voucher.qty > 0) {
-					return res.status(400).json({
-						success: false,
-						message: "Số lượng voucher đã hết",
-					});
-				}
-				const diffDayStart = moment().diff(
-					moment(voucher.dateStart),
-					"days"
-				);
-				const diffDaysEnd = moment(voucher.dateEnd).diff(
-					moment(),
-					"days"
-				);
-				if (diffDayStart < 0) {
-					return res.status(400).json({
-						success: false,
-						message: `Voucher khả dụng vào ngày ${moment(
-							voucher.dateEnd
-						).format("ll")}`,
-					});
-				}
-				if (diffDaysEnd <= 0) {
-					return res.status(400).json({
-						success: false,
-						message: "Voucher đã hết hạn",
-					});
-				}
-				if (amount < voucher.qualifyAmount) {
-					return res.status(400).json({
-						success: false,
-						message: "Voucher không đủ điều kiện",
-					});
-				}
-				let discount = (amount * voucher.discount) / 100;
-				if (discount > voucher.maxDiscount) {
-					discount = voucher.maxDiscount;
-				}
-				return res.status(200).json({
-					success: true,
-					message: "Voucher khả dụng",
-				});
-			} else {
-				const listVoucher = await Voucher.find();
-				return res.status(200).json({
-					success: true,
-					body: listVoucher,
-				});
-			}
-		} catch (err) {
-			res.status(400).json({
-				success: false,
-				message: err.message,
-			});
-		}
-	}
-	async applyVoucher(req, res) {
-		const { code, amount } = req.body;
-		const { user } = req.headers;
-		if (!code || !amount || !user) {
-			return res.status(400).json({
-				success: false,
-				message: "Voucher không khả dụng",
-			});
-		}
-		try {
-			const voucher = await Voucher.findById(code);
-			if (!voucher) {
-				res.status(404).json({
-					success: false,
-					message: "Mã voucher không tồn tại",
-				});
-			}
-			let discount = (amount * voucher.discount) / 100;
-			if (discount > voucher.maxDiscount) {
-				discount = voucher.maxDiscount;
-			}
-			await voucher.save();
-			res.status(200).json({
-				success: true,
-				message: "Áp dụng voucher thành công",
-				body: { discount, amount: amount - discount },
-			});
-		} catch (err) {
-			res.status(400).json({ success: false, message: err.message });
-		}
-	}
+    async userGetVoucher(req, res) {
+        try {
+            const { code } = req.body;
+            const { user } = req.headers;
+            if (!code || !user) {
+                return res.status(400).json({ success: false, message: 'Lấy voucher thất bại' });
+            }
 
-	async userGetVoucher(req, res) {
-		const { code } = req.body;
-		const { user } = req.headers;
-		if (!code || !user) {
-			return res
-				.status(400)
-				.json({ success: false, message: "Lấy voucher thất bại" });
-		}
-		try {
-			const voucher = await Voucher.findById(code);
-			if (!voucher) {
-				return res.status(400).json({
-					success: false,
-					message: "Voucher không tồn tại",
-				});
-			}
-			const existed = voucher.listUser.indexOf(user);
-			if (existed !== -1) {
-				return res.status(400).json({
-					success: false,
-					message: "Bạn đã lấy voucher này rồi",
-				});
-			}
-			voucher.listUser.push(user);
-			res.status(200).json({
-				success: true,
-				body: voucher.save(),
-				message: "Lấy voucher thành công",
-			});
-		} catch (err) {
-			res.status(400).json({ success: false, message: err.message });
-		}
-	}
+            const userGetVoucher = await command.execute(new UserGetVoucher(code, user));
+            if (typeof userGetVoucher === 'string') {
+                return throwErr(res, 400, userGetVoucher);
+            }
+            return successRes(res, 200, userGetVoucher, 'Lấy voucher thành công');
+        } catch (err) {
+            res.status(400).json({
+                success: false,
+                message: err.message,
+            });
+        }
+    }
 
-	async updateState(req, res) {
-		const { id } = req.params;
-		const userID = req.headers.user;
-		if (!id || !userID) {
-			return res.status(400).json({
-				success: false,
-				message: "Cập nhật trạng thái voucher thất bại",
-			});
-		}
-		try {
-			const voucher = await Voucher.findById(id);
-			if (!voucher) {
-				return res.status(404).json({
-					success: false,
-					message: "Mã voucher không tồn tại",
-				});
-			}
-			const user = voucher.listUser.indexOf(userID);
-			if (user === -1) {
-				return res.status(400).json({
-					success: false,
-					message: "Không tìm thấy user",
-				});
-			}
-			voucher.listUser.splice(userID, 1);
-			voucher.qty = voucher.qty - 1;
-			res.status(200).json({ success: true, body: voucher.save() });
-		} catch (err) {
-			res.status(400).json({ success: false, message: err.message });
-		}
-	}
+    async updateState(req, res) {
+        try {
+            const { id } = req.params;
+            const userID = req.headers.user;
+            if (!id || !userID) {
+                return throwErr(res, 400, 'Cập nhật trạng thái voucher thất bại');
+            }
 
-	async detailVoucher(req, res) {
-		const { id } = req.params;
-		if (!id) {
-			return res.status(404).json({
-				success: false,
-				message: "Cannot post without ID",
-			});
-		}
-		try {
-			const voucher = await Voucher.findById(id);
-			if (!voucher) {
-				res.status(404).json({
-					success: false,
-					message: "Mã voucher không tồn tại",
-				});
-			}
-			res.status(200).json({ success: true, body: voucher });
-		} catch (err) {
-			res.status(400).json({
-				success: false,
-				message: err.message,
-			});
-		}
-	}
+            const updateState = await command.execute(new UpdateState(id, userID));
+            if (typeof updateState === 'string') {
+                return throwErr(res, 400, updateState);
+            }
+            return successRes(res, 200, updateState);
+        } catch (err) {
+            throwErr(res, 400, err.message);
+        }
+    }
 
-	async myVoucher(req, res) {
-		const { id } = req.params;
-		if (!id) {
-			return res.status(404).json({
-				success: false,
-				message: "Không thể lấy danh sách voucher",
-			});
-		}
-		try {
-			const vouchers = await Voucher.find({
-				listUser: id,
-			});
-			if (!vouchers) {
-				return res.status(400).json({
-					success: false,
-					message: "Bạn không có voucher nào",
-				});
-			}
-			res.status(200).json({ success: true, body: vouchers });
-		} catch (err) {
-			res.status(400).json({ success: false, message: err.message });
-		}
-	}
+    async detailVoucher(req, res) {
+        try {
+            const { id } = req.params;
+            if (!id) {
+                throwErr(res, 400, 'Cannot post without ID');
+            }
+
+            const detailVoucher = await command.execute(new DetailVoucher(id));
+            if (!detailVoucher) {
+                throwErr(res, 400, 'Cannot find voucher id ' + id);
+            }
+            return successRes(res, 200, detailVoucher);
+        } catch (err) {
+            throwErr(res, 400, err.message);
+        }
+    }
+
+    async myVoucher(req, res) {
+        try {
+            const { id } = req.params;
+            if (!id) {
+                throwErr(res, 400, 'Không thể lấy danh sách voucher');
+            }
+
+            const myVoucher = await command.execute(new MyVoucher(id));
+            return successRes(res, 200, myVoucher);
+        } catch (err) {
+            throwErr(res, 400, err.message);
+        }
+    }
 }
 
 module.exports = new VoucherController();
