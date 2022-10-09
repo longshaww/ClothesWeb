@@ -1,4 +1,3 @@
-const ObjectId = require('mongoose').Types.ObjectId;
 const {
     CreateVoucher,
     ApplyVoucher,
@@ -10,7 +9,7 @@ const {
     UpdateState,
     UserGetVoucher,
 } = require('../../services/admin/voucher/command/crud');
-const Command = require('../../services/admin/voucher/command/');
+const Command = require('../../services/admin/voucher/command');
 const { throwErr, successRes } = require('../../utils/HandleResponse');
 const command = new Command();
 const Voucher = require('../../models/Vouchers');
@@ -87,8 +86,14 @@ class VoucherController {
                 return throwErr(res, 400, 'Voucher không khả dụng');
             }
 
-            const applyVoucher = await command.execute(new ApplyVoucher(req, res));
-            return successRes(res, 200, 'Áp dụng voucher thành công', applyVoucher);
+            const applyVoucher = await command.execute(new ApplyVoucher(code, amount));
+            if (typeof applyVoucher === 'string') {
+                return throwErr(res, 400, applyVoucher);
+            }
+            if (!applyVoucher) {
+                return throwErr(res, 400, 'Áp dụng voucher thất bại');
+            }
+            return successRes(res, 200, applyVoucher, 'Áp dụng voucher thành công');
         } catch (err) {
             throwErr(res, 400, err.message);
         }
