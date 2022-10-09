@@ -11,9 +11,14 @@ const {
 } = require('..');
 
 const Command = require('./');
+class IActionVoucher {
+    constructor() {}
+    execute() {}
+}
 
-class CreateVoucher {
+class CreateVoucher extends IActionVoucher {
     constructor(body) {
+        super();
         this.body = body;
     }
     async execute() {
@@ -21,8 +26,9 @@ class CreateVoucher {
     }
 }
 
-class EditVoucher {
+class EditVoucher extends IActionVoucher {
     constructor(id, body) {
+        super();
         this.id = id;
         this.body = body;
     }
@@ -31,8 +37,9 @@ class EditVoucher {
     }
 }
 
-class DeleteVoucher {
+class DeleteVoucher extends IActionVoucher {
     constructor(id) {
+        super();
         this.id = id;
     }
     async execute() {
@@ -40,8 +47,9 @@ class DeleteVoucher {
     }
 }
 
-class ListVoucher {
+class ListVoucher extends IActionVoucher {
     constructor(code, amount, user) {
+        super();
         this.code = code;
         this.amount = amount;
         this.user = user;
@@ -50,8 +58,9 @@ class ListVoucher {
         return await listVoucher(this.code, this.amount, this.user);
     }
 }
-class ApplyVoucher {
+class ApplyVoucher extends IActionVoucher {
     constructor(code, amount) {
+        super();
         this.code = code;
         this.amount = amount;
     }
@@ -59,8 +68,9 @@ class ApplyVoucher {
         return await applyVoucher(this.code, this.amount);
     }
 }
-class UserGetVoucher {
+class UserGetVoucher extends IActionVoucher {
     constructor(code, user) {
+        super();
         this.code = code;
         this.user = user;
     }
@@ -68,7 +78,7 @@ class UserGetVoucher {
         return await userGetVoucher(this.code, this.user);
     }
 }
-class UpdateState {
+class UpdateState extends IActionVoucher {
     constructor(id, userID) {
         this.id = id;
         this.userID = userID;
@@ -77,16 +87,18 @@ class UpdateState {
         return await updateState(this.id, this.userID);
     }
 }
-class DetailVoucher {
+class DetailVoucher extends IActionVoucher {
     constructor(id) {
+        super();
         this.id = id;
     }
     async execute() {
         return await detailVoucher(this.id);
     }
 }
-class MyVoucher {
+class MyVoucher extends IActionVoucher {
     constructor(id) {
+        super();
         this.id = id;
     }
     async execute() {
