@@ -8,13 +8,13 @@ module.exports = {
             const token = authHeader.split(' ')[1];
             jwt.verify(token, 'mySecretKey', (err, dataUser) => {
                 if (err) {
-                    return res.status(401).json('Token không được định nghĩa');
+                    return res.status(401).json('Token not undefined');
                 } else {
                     if (dataUser.isAdmin) {
                         req.user = dataUser;
                         next();
                     } else {
-                        res.json({ success: false, msg: 'Bạn không phải ADMIN' });
+                        res.json({ success: false, msg: 'YOU NOT ROLE ADMIN' });
                     }
                 }
             });
@@ -26,33 +26,70 @@ module.exports = {
         }
     },
     verify: async (req, res, next) => {
-        const authHeader = req.headers.authorization;
-        if (authHeader) {
-            const token = authHeader.split(' ')[1];
-            jwt.verify(token, 'mySecretKey', (err, dataUser) => {
-                if (err) {
-                    return res.json({ success: false, msg: 'token không được định nghĩa' });
-                } else {
-                    req.customer = dataUser;
-                    next();
-                }
-            });
-        } else {
-            res.json({
+        try {
+            const authHeader = req.headers.authorization;
+
+            if (authHeader) {
+                const token = authHeader.split(' ')[1];
+                jwt.verify(token, 'mySecretKey', (err, dataUser) => {
+                    if (err) {
+                        return res.json({ success: false, msg: 'token not defined' });
+                    } else {
+                        req.customer = dataUser;
+                        next();
+                    }
+                });
+            } else {
+                res.json({
+                    success: false,
+                    msg: 'You are not authenticated',
+                });
+            }
+        } catch (err) {}
+    },
+    validate: async (req, res, next) => {
+        try {
+            const validatorService = new ValidatorService();
+            const { email, password } = req.body;
+            const model = {
+                email,
+                password,
+                currentStep: 'VALIDATE_LOGIN',
+            };
+            const flag = await validatorService.performValidation(model);
+            flag
+                ? next()
+                : res.status(404).json({
+                      success: false,
+                      msg: 'Login failed',
+                  });
+        } catch (err) {
+            res.status(404).json({
                 success: false,
-                msg: 'You are not authenticated',
+                msg: err.message,
             });
         }
     },
-    validate: async (req, res, next) => {
-        const validatorService = new ValidatorService();
-        const { email, password } = req.body;
-        const test = {
-            email,
-            password,
-            currentStep: 'ACCOUNT_INFO',
-        };
-        const flag = await validatorService.performValidation(test);
-        console.log(flag);
+    validateToken: async (req, res, next) => {
+        try {
+            const validatorService = new ValidatorService();
+            const headers = req.headers;
+            const model = {
+                headers,
+                currentStep: 'VALIDATE_REQUEST',
+            };
+            const flag = await validatorService.performValidation(model);
+            flag
+                ? next()
+                : res.status(404).json({
+                      success: false,
+                      msg: 'REQUEST failed',
+                  });
+        } catch (err) {
+            res.status(404).json({
+                success: false,
+                msg: err.message,
+            });
+        }
     },
 };

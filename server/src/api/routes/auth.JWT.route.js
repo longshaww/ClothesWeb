@@ -4,7 +4,7 @@ const { verifyAdmin, verify,validate } = require('../middlewares/auth.middleware
 const authenticationController = require('../controllers/AuthenticationController');
 const ValidatorService = require('../services/authenticator/index');
 
-router.post('/register', authenticationController.register);
+router.post('/register',validate, authenticationController.register);
 
 router.post('/login',validate, authenticationController.postLogin);
 
