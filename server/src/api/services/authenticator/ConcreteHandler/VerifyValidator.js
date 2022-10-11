@@ -1,22 +1,25 @@
 const jwt = require('jsonwebtoken');
-const AbtractValidator = require('../../authenticator/AbtractValidator')
+const AbtractValidator = require('../../authenticator/AbtractValidator');
 class VerifyValidator extends AbtractValidator {
-    getAuthorization = (model) => model.authorization;
+    getAuthorization = (model) => {
+        const author = model.headers.authorization;
+        return author.split(' ')[1];
+    };
 
     isValid(model) {
-        const authHeader = this.getAuthorization(model);
-        if (authHeader) {
-            const token = authHeader.split(' ')[1];
-            jwt.verify(token, 'mySecretKey', (err, dataUser) => {
+        const accessToken = this.getAuthorization(model);
+
+        if (accessToken) {
+            jwt.verify(accessToken, 'mySecretKey', (err, dataUser) => {
                 if (err) {
-                    return null;
+                    return false;
                 } else {
                     return dataUser;
                 }
             });
         } else {
-            return null;
+            return false;
         }
     }
 }
-module.exports = VerifyValidator
+module.exports = VerifyValidator;

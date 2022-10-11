@@ -10,13 +10,13 @@ class VerifyAdminValidator extends AbtractValidator {
             const token = authHeader.split(' ')[1];
             jwt.verify(token, 'mySecretKey', (err, dataUser) => {
                 if (err) {
-                    return null;
+                    return false;
                 } else {
                     return dataUser;
                 }
             });
         } else {
-            return null;
+            return false;
         }
     }
 }

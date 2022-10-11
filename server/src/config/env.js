@@ -17,4 +17,5 @@ module.exports = {
     OUTERWEARS : process.env.OUTERWEARS,
     TOPS : process.env.TOPS,
     NEWARRIVALS : process.env.NEWARRIVALS,
+    MIN_PASSWORD_LENGTH : process.env.MIN_PASSWORD_LENGTH,
 };

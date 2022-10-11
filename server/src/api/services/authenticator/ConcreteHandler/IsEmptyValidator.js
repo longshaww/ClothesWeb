@@ -1,9 +1,7 @@
 const jwt = require('jsonwebtoken');
 const AbtractValidator = require('../AbtractValidator');
 
-class VerifyValidator extends AbtractValidator {
-    getEmail = (model) => model.email;
-    getPassword = (model) => model.password;
+class IsEmptyValidator extends AbtractValidator {
     async isValid(model) {
         const email = await this.getEmail(model).trim();
         const password = await this.getPassword(model).trim();
@@ -16,7 +14,13 @@ class VerifyValidator extends AbtractValidator {
         ) {
             return false;
         }
-        return await super.isValid(model);
+        return super.isValid(model);
+    }
+    getEmail(model) {
+        return model.email;
+    }
+    getPassword(model) {
+        return model.password;
     }
 }
-module.exports = VerifyValidator;
+module.exports = IsEmptyValidator;
