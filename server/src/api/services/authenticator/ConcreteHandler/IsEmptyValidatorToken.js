@@ -5,7 +5,6 @@ class IsEmptyValidatorToken extends AbtractValidator {
     async isValid(model) {
         try {
             const token = await this.getAccessToken(model).trim();
-            console.log(token);
             if (
                 token.length === 0 ||
                 token === undefined ||
@@ -16,7 +15,6 @@ class IsEmptyValidatorToken extends AbtractValidator {
             ) {
                 return false;
             }
-
             return super.isValid(model);
         } catch (err) {
             throw new Error(err.message);
@@ -24,7 +22,6 @@ class IsEmptyValidatorToken extends AbtractValidator {
     }
     getAccessToken(model) {
         const author = model.headers.authorization;
-        console.log(model);
         return author.split(' ')[1];
     }
 }
