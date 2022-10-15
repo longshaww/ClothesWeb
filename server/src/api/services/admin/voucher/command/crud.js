@@ -64,8 +64,8 @@ class ApplyVoucher extends IActionVoucher {
         this.code = code;
         this.amount = amount;
     }
-    execute() {
-        applyVoucher(this.code, this.amount);
+    async execute() {
+        return await applyVoucher(this.code, this.amount);
     }
 }
 class UserGetVoucher extends IActionVoucher {

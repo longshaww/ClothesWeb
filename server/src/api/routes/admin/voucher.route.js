@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const voucherController = require('../../controllers/user/VoucherController');
+const voucherController = require('../../controllers/admin/VoucherController');
 
 router.post('/', voucherController.createVoucher);
 router.get('/', voucherController.listVoucher);

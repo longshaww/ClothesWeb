@@ -29,8 +29,9 @@ class BillUserService {
 
     async createBill(sessionId) {
         try {
-            const flag = await this.minusProduct();
-            if (!flag) {
+            const flag1 = await this.minusProduct();
+            const flag2 = await this.postReward();
+            if (!flag1) {
                 return null;
             }
             const newBillWeb = new BillWeb({

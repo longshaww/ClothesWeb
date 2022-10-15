@@ -16,6 +16,7 @@ const Products = new mongoose.Schema(
                 ref: 'Collections',
             },
         },
+        isForReward: { type: Schema.Types.Boolean, default: false },
         buyed: { type: Number, default: 0 },
     },
     {

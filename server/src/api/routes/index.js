@@ -10,10 +10,9 @@ const productAdminRoute = require('../routes/admin/product.admin.route');
 const userAdminRoute = require('../routes/admin/user.admin.route');
 const dashboardAdminRoute = require('../routes/admin/dashboard.admin.route');
 const androidRoute = require('../routes/android/android.route');
-const voucherRoute = require('../routes/user/voucher.route');
+const voucherRoute = require('../routes/admin/voucher.route');
 const sessionMiddleware = require('../middlewares/session.middleware');
 const userRoute = require('../routes/user/user.route');
-
 function route(app) {
     app.use('/', siteRoute);
     app.use('/android', androidRoute);
