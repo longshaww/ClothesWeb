@@ -11,7 +11,7 @@ class RewardController {
             if (typeof data === 'string') {
                 return throwErr(res, 400, data);
             }
-            if (!data) {
+            if (!data.length) {
                 return throwErr(res, 400, 'There is no available item for exchange');
             }
             return successRes(res, 200, data, 'Successfully get exchange items');

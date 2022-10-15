@@ -1,12 +1,10 @@
 const UserWeb = require('../../../models/UserWeb');
 const Voucher = require('../../../models/Vouchers');
-const Product = require('../../../models/Product');
-const validation = require('./validation');
+const validation = require('../../authenticator/ValidationReward');
 
 module.exports = {
     availableForExchange: async (id) => {
         let listVoucher = [];
-        let listProduct = undefined;
         const data = await validation.validationReward(UserWeb, id);
         if (typeof data === 'string') return data;
         if (data.reward >= 50) {
@@ -19,23 +17,24 @@ module.exports = {
             if (!voucher) return;
             listVoucher.push(voucher);
         }
-        //This is a field recently added , for admin panel please add this field as a switch to define if a product is exchangeable or not
-        if (data.reward >= 200) {
-            const products = await Product.find({ isForReward: true });
-            listProduct = products;
-            if (!products.length) {
-                listProduct = await Product.find({ price: { $lt: 300 } });
-            }
-        }
-        return { listVoucher, listProduct };
+        return listVoucher;
     },
     exchangeVoucher: async (userID, voucherID) => {
         const data = await validation.validationReward(UserWeb, userID);
-        let myPoint = data.user.myPoint;
+        let myPoint = data.reward;
         if (typeof data === 'string') return data;
-        if (!data.reward >= 50) return `Your reward have to be larger than 50 to gain a voucher`;
         const voucher = await Voucher.findById(voucherID);
         if (!voucher) return `Voucher doest not exist`;
+        const discount = voucher.discount;
+
+        if (discount <= 10) {
+            if (!myPoint >= 50) return `Your reward have to be larger than 50 to gain this voucher`;
+        }
+        if (discount >= 20) {
+            if (!myPoint >= 100)
+                return `Your reward have to be larger than 50 to gain this voucher`;
+        }
+
         if (voucher.listUser.includes(userID))
             return `You already have this voucher.Please choose other option`;
         voucher.listUser.push(userID);
@@ -50,5 +49,4 @@ module.exports = {
         await recentUser.save();
         return await voucher.save();
     },
-    exchangeProduct: async (userID, productID) => {},
 };
