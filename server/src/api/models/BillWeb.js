@@ -31,7 +31,18 @@ const BillWeb = new mongoose.Schema(
             required: true,
             enum: ['COD', 'Online'],
         },
-        status: { type: Boolean, required: true },
+        status: {
+            type: String,
+            required: true,
+            default: 'PENDING',
+            enum: [
+                'PENDING',
+                'DELIVERY',
+                'SUCCESSFUL_DELIVERY_CONFIRMATION',
+                'FAILED_DELIVERY_CONFIRMATION',
+                'CANCEL_BILL',
+            ],
+        },
     },
     {
         timestamps: true,

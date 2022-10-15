@@ -16,7 +16,7 @@ class SearchPriceDescending extends IStrategy {
             const idCollection = this._idCollection;
             const skip = (this._pageNow - 1) * this._pageSize;
             const limit = skip + this._pageSize;
-            const listProducts = await ProductModel.find({
+            let listProducts = await ProductModel.find({
                 'description.collection': ObjectId(idCollection),
             });
             listProducts = await filterQty(listProducts);
