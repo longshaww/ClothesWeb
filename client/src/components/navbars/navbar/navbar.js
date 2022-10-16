@@ -7,6 +7,7 @@ import PostFilterForm from './search';
 import PopupCart from '../../cart/cart';
 import Auth from '../../auth/auth';
 import { useCookies } from 'react-cookie';
+import 'boxicons';
 
 export default function NavbarApp() {
     //State define
@@ -30,34 +31,41 @@ export default function NavbarApp() {
                             TRANG CHỦ
                         </Link>
                     </NavItem>
-
-                    <NavItem>
-                        <Link to="/collections/new-arrivals" className="nav-link">
-                            NEW ARRIVALS
+                    <NavItem className="sub-nav">
+                        <Link to="/categories/new-arrivals" className="nav-link ">
+                            DANH MỤC SẢN PHẨM
+                            <i class="bx bx-chevron-down"></i>
                         </Link>
+                        <div className="sub-nav-content">
+                            <NavItem>
+                                <Link to="/categories/new-arrivals" className="sub-nav-link">
+                                    NEW ARRIVALS
+                                </Link>
+                            </NavItem>
+                            <NavItem>
+                                <Link to="/categories/tops" className="sub-nav-link">
+                                    TOPS
+                                </Link>
+                            </NavItem>
+                            <NavItem>
+                                <Link to="/categories/bottoms" className="sub-nav-link">
+                                    BOTTOMS
+                                </Link>
+                            </NavItem>
+                            <NavItem>
+                                <Link to="/categories/outerwears" className="sub-nav-link">
+                                    OUTERWEARS
+                                </Link>
+                            </NavItem>
+                        </div>
                     </NavItem>
                     <NavItem>
-                        <Link to="/collections/tops" className="nav-link">
-                            TOPS
-                        </Link>
-                    </NavItem>
-                    <NavItem>
-                        <Link to="/collections/bottoms" className="nav-link">
-                            BOTTOMS
-                        </Link>
-                    </NavItem>
-                    <NavItem>
-                        <Link to="/collections/outerwears" className="nav-link">
-                            OUTERWEARS
-                        </Link>
-                    </NavItem>
-                    <NavItem>
-                        <Link to="/collections/accessories" className="nav-link">
+                        <Link to="/categories/accessories" className="nav-link">
                             ACCESSORIES
                         </Link>
                     </NavItem>
                     <NavItem>
-                        <Link to="/collections/sale" className="nav-link">
+                        <Link to="/categories/sale" className="nav-link">
                             VOUCHER
                         </Link>
                     </NavItem>
