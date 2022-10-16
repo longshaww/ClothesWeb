@@ -9,8 +9,9 @@ class PasswordValidator extends AbtractValidator {
         if (email === 'ngocphu@gmail.com') {
             return await super.isValid(model);
         } else if (
-            password.length < MIN_PASSWORD_LENGTH &&
-            !/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/.test(password)
+            (password.length < MIN_PASSWORD_LENGTH &&
+                !/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,20}$/.test(password)) ||
+            password.length === 0
         ) {
             return false;
         }

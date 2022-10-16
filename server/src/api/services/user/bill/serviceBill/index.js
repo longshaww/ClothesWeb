@@ -39,9 +39,9 @@ class BillUserService {
                 total: this._total,
                 subTotal: this._listProduct.reduce((a, b) => a + b.sum, 0),
                 qtyProduct: this._listProduct.reduce((a, b) => a + b.qty, 0),
-                status: this._paymentMethod === 'COD' ? false : true,
                 shippingFee: 35,
             });
+
             if (this._voucherID) {
                 newBillWeb.voucherID = this._voucherID;
             }
@@ -70,6 +70,7 @@ class BillUserService {
                     }
                 );
             }
+            console.log('vao');
             await newBillWeb.save();
             const idBillWeb = newBillWeb._id;
             let bill = await this.getBill(idBillWeb);
