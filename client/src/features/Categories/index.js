@@ -1,10 +1,10 @@
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
 import React, { useEffect, useState } from 'react';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Breadcrumb, BreadcrumbItem, Col, Row } from 'reactstrap';
-import '../../assets/styles/collections.nav.css';
+import { useLocation, useNavigate } from 'react-router-dom';
+import { Col, Row } from 'reactstrap';
 import ProductList from '../../components/ProductList';
+import MBreadcrumb from '../../components/Breadcrumb';
 import Loading from '../../components/loading';
 import { Select } from 'antd';
 import axiosMethod from '../../middlewares/axios';
@@ -19,7 +19,7 @@ const Categories = () => {
 
     const [type, setType] = useState(null);
     const [page, setPage] = useState(1);
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const handleChange = (payload) => {
         setType(payload);
     };
@@ -40,37 +40,20 @@ const Categories = () => {
                 setCollections(data);
             } catch (error) {
                 console.log(error);
-                navigate('/');
+                // navigate('/');
             }
         }
         fetchData();
     }, [param, type, page]);
     const { Option } = Select;
+    const breadcrumbList = [
+        { isActive: true, text: 'Trang chủ', url: '/' },
+        { isActive: true, text: 'Danh mục', url: '/collections' },
+        { isActive: false, text: `${param}`, url: `/categories/${param}` },
+    ];
     return (
         <div>
-            <div className="container">
-                <Breadcrumb className="bg-light breadcrumb-styled">
-                    <BreadcrumbItem>
-                        <Link to="/" className="breadcrumb-link">
-                            Trang chủ
-                        </Link>
-                    </BreadcrumbItem>
-                    <BreadcrumbItem>
-                        <Link to="/collections" className="breadcrumb-link">
-                            Danh mục
-                        </Link>
-                    </BreadcrumbItem>
-                    <BreadcrumbItem>
-                        <Link
-                            to={`/categories/${param}`}
-                            className="breadcrumb-link disabled text-muted"
-                        >
-                            {param}
-                        </Link>
-                    </BreadcrumbItem>
-                </Breadcrumb>
-            </div>
-
+            <MBreadcrumb breadcrumbList={breadcrumbList} />
             <div className="container">
                 <div className="border-bottom border-dark mt-4">
                     <h1>{param}</h1>
