@@ -40,5 +40,5 @@ module.exports = {
             return el.size[0].qty !== 0 && el.size[1].qty !== 0 && el.size[2].qty !== 0;
         });
         return listProduct
-    }
+    },
 };

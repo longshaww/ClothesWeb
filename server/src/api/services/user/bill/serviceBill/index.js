@@ -2,6 +2,7 @@ const BillWeb = require('../../../../models/BillWeb');
 const DeliveryInfo = require('../../../../models/DeliveryInfo');
 const Session = require('../../../../models/Sessions');
 const Product = require('../../../../models/Product');
+const User = require('../../../../models/UserWeb');
 class BillUserService {
     constructor(
         userID,
@@ -30,7 +31,6 @@ class BillUserService {
     async createBill(sessionId) {
         try {
             const flag1 = await this.minusProduct();
-            const flag2 = await this.postReward();
             if (!flag1) {
                 return null;
             }
@@ -71,8 +71,15 @@ class BillUserService {
                     }
                 );
             }
-            console.log('vao');
             await newBillWeb.save();
+            if (
+                newBillWeb.userID !== undefined ||
+                newBillWeb.userID !== null ||
+                newBillWeb.userID.length !== 0
+            ) {
+                const flag2 = await this.postReward(newBillWeb.userID, newBillWeb.total);
+                if (!flag2) return null;
+            }
             const idBillWeb = newBillWeb._id;
             let bill = await this.getBill(idBillWeb);
             return bill ?? null;
@@ -90,6 +97,7 @@ class BillUserService {
                 const qtyProductUserBuy = el.qty;
                 const sizeNameUserBuy = el.size;
                 const flag = await this.executeMinus(idProduct, qtyProductUserBuy, sizeNameUserBuy);
+                console.log(flag);
                 if (!flag) return false;
             }
             return await true;
@@ -133,6 +141,36 @@ class BillUserService {
         } catch (err) {
             console.log(err);
             return null;
+        }
+    }
+    async postReward(idUser, totalMoney) {
+        try {
+            const reward = await this.returnReward(totalMoney);
+            if (reward > 0) {
+                const user = await User.findById(idUser);
+                const myPointNow = user.myPoint;
+                user.myPoint = myPointNow + reward;
+                return await user.save().then((data) => {
+                    return data ? true : false;
+                });
+            }
+        } catch (err) {
+            console.log(err);
+            return true;
+        }
+    }
+
+    async returnReward(totalMoney) {
+        let point = totalMoney;
+        switch (true) {
+            case point >= 500:
+                return 10;
+            case point >= 1000 && point < 2000:
+                return 20;
+            case point >= 2000:
+                return 50;
+            default:
+                return 0;
         }
     }
 
