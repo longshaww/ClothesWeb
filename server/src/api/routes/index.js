@@ -17,19 +17,6 @@ const {
 } = require('./admin');
 
 const authJWTRoute = require('./auth.JWT.route');
-const { sessionMiddleware, authMiddleware } = require('../middlewares');
-const androidRoute = require('./android/android.route');
-
-const { validateToken, verifyAdmin, verify } = authMiddleware;
-
-function route(app) {
-    app.use('/', siteRoute);
-    app.use('/android', androidRoute);
-    app.use('/collections', collectionRoute);
-    app.use('/product', productRoute);
-    app.use('/cart', sessionMiddleware, cartRoute);
-    app.use('/bill', billRoute);
-    app.use('/voucher', voucherRoute);
 const billRoute = require('./user/bill.route');
 const { validateToken, verifyAdmin, verify } = require('../middlewares/auth.middleware');
 const billAdminRoute = require('../routes/admin/bill.admin.route');
@@ -49,7 +36,6 @@ function route(app) {
     app.use('/bill', billRoute);
     app.use('/voucher', voucherRoute);
 
->>>>>>> e0b0896fa0056b97f6b2ff0b999debdb17cddbb4
     app.use('/user', validateToken, verify, userRoute);
 
     app.use('/authJWT', authJWTRoute);
