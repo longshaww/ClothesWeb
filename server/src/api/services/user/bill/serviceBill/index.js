@@ -3,6 +3,7 @@ const DeliveryInfo = require('../../../../models/DeliveryInfo');
 const Session = require('../../../../models/Sessions');
 const Product = require('../../../../models/Product');
 const User = require('../../../../models/UserWeb');
+const CancelBills = require('../../../../models/CancelBill');
 class BillUserService {
     constructor(
         userID,
@@ -84,8 +85,7 @@ class BillUserService {
             let bill = await this.getBill(idBillWeb);
             return bill ?? null;
         } catch (err) {
-            console.log(err);
-            return null;
+            throw new Error(err.message);
         }
     }
 
@@ -102,8 +102,7 @@ class BillUserService {
             }
             return await true;
         } catch (err) {
-            console.log(err);
-            return false;
+            throw new Error(err.message);
         }
     }
     // private
@@ -139,8 +138,7 @@ class BillUserService {
             );
             return product ? true : false;
         } catch (err) {
-            console.log(err);
-            return null;
+            throw new Error(err.message);
         }
     }
     async postReward(idUser, totalMoney) {
@@ -155,8 +153,7 @@ class BillUserService {
                 });
             }
         } catch (err) {
-            console.log(err);
-            return true;
+            throw new Error(err.message);
         }
     }
 
@@ -183,8 +180,84 @@ class BillUserService {
                 .populate('voucherID');
             return await billResult;
         } catch (err) {
-            console.log(err);
+            throw new Error(err.message);
+        }
+    }
+
+    async cancelBill(idBill, reason) {
+        try {
+            const bill = await BillWeb.findById(idBill);
+            if (bill.status === 'PENDING') {
+                bill.status = 'CANCEL_BILL';
+                return await bill.save().then(async (dataBill) => {
+                    return await this.createBillCancel(bill._id, bill.paymentMethod, reason).then(
+                        async () => {
+                            return await this.addQtyProduct(bill.listProduct).then(async () => {
+                                return dataBill;
+                            });
+                        }
+                    );
+                });
+            }
             return null;
+        } catch (err) {
+            throw new Error(err.message);
+        }
+    }
+
+    async createBillCancel(idBill, paymentMethod, reason) {
+        try {
+            const cancelBill = new CancelBills({
+                billID: idBill,
+                reason: reason,
+                moneyStatus: paymentMethod === 'COD' ? 'NO_REFUNDS' : 'NEED_REFUNDS',
+            });
+            await cancelBill.save();
+            return cancelBill ?? null;
+        } catch (err) {
+            throw new Error(err.message);
+        }
+    }
+
+    async addQtyProduct(listProductBill) {
+        return listProductBill.forEach(async (el) => {
+            await this.executeAddProduct(el.idProduct, el.qty, el.size);
+        });
+    }
+
+    async executeAddProduct(idProduct, qty, size) {
+        try {
+            const productInfo = await Product.findById(idProduct);
+            const sizeVariables = productInfo.size;
+            let flagCatchError = true;
+            const buyedResult = productInfo.buyed - qty;
+            await sizeVariables.forEach(async (el) => {
+                const sizeName = el.sizeName;
+                const qtyProduct = el.qty;
+                if (size === sizeName) {
+                    const resultQty = qtyProduct + qty;
+                    if (resultQty < 0) {
+                        el.qty = resultQty;
+                        return;
+                    }
+                    flagCatchError = false;
+                    return;
+                }
+            });
+            if (!flagCatchError) return false;
+
+            const product = await Product.updateOne(
+                { _id: idProduct },
+                {
+                    $set: {
+                        size: sizeVariables,
+                        buyed: buyedResult,
+                    },
+                }
+            );
+            return product ? true : false;
+        } catch (err) {
+            return Error(err.message);
         }
     }
 }
