@@ -48,25 +48,28 @@ const Categories = () => {
     const { Option } = Select;
     return (
         <div>
-            <Breadcrumb className="bg-light">
-                <div className="container">
-                    <BreadcrumbItem className="d-inline-block">
-                        <Link to="/" className="nav-link">
+            <div className="container">
+                <Breadcrumb className="bg-light breadcrumb-styled">
+                    <BreadcrumbItem>
+                        <Link to="/" className="breadcrumb-link">
                             Trang chủ
                         </Link>
                     </BreadcrumbItem>
-                    <BreadcrumbItem className="d-inline-block">
-                        <Link to="/collections" className="nav-link">
+                    <BreadcrumbItem>
+                        <Link to="/collections" className="breadcrumb-link">
                             Danh mục
                         </Link>
                     </BreadcrumbItem>
-                    <BreadcrumbItem className="d-inline-block">
-                        <Link to={`/categories/${param}`} className="nav-link disabled text-muted">
+                    <BreadcrumbItem>
+                        <Link
+                            to={`/categories/${param}`}
+                            className="breadcrumb-link disabled text-muted"
+                        >
                             {param}
                         </Link>
                     </BreadcrumbItem>
-                </div>
-            </Breadcrumb>
+                </Breadcrumb>
+            </div>
 
             <div className="container">
                 <div className="border-bottom border-dark mt-4">
