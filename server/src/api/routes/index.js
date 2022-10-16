@@ -30,7 +30,26 @@ function route(app) {
     app.use('/cart', sessionMiddleware, cartRoute);
     app.use('/bill', billRoute);
     app.use('/voucher', voucherRoute);
+const billRoute = require('./user/bill.route');
+const { validateToken, verifyAdmin, verify } = require('../middlewares/auth.middleware');
+const billAdminRoute = require('../routes/admin/bill.admin.route');
+const productAdminRoute = require('../routes/admin/product.admin.route');
+const userAdminRoute = require('../routes/admin/user.admin.route');
+const dashboardAdminRoute = require('../routes/admin/dashboard.admin.route');
+const androidRoute = require('../routes/android/android.route');
+const voucherRoute = require('../routes/admin/voucher.route');
+const sessionMiddleware = require('../middlewares/session.middleware');
+const userRoute = require('../routes/user/user.route');
+function route(app) {
+    app.use('/', siteRoute);
+    app.use('/android', androidRoute);
+    app.use('/collections', collectionsRoute);
+    app.use('/product', productRoute);
+    app.use('/cart', sessionMiddleware, cartRoute);
+    app.use('/bill', billRoute);
+    app.use('/voucher', voucherRoute);
 
+>>>>>>> e0b0896fa0056b97f6b2ff0b999debdb17cddbb4
     app.use('/user', validateToken, verify, userRoute);
 
     app.use('/authJWT', authJWTRoute);

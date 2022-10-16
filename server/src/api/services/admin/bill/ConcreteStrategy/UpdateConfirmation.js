@@ -1,6 +1,7 @@
 const Bill = require('../../../../models/BillWeb');
 const IStrategy = require('../IStrategy');
-class UpdateConfirmation extends IStrategy{
+
+class UpdateConfirmation extends IStrategy {
     constructor(idBill) {
         super();
         this._idBill = idBill;

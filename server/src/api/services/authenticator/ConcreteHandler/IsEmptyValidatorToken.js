@@ -10,7 +10,8 @@ class IsEmptyValidatorToken extends AbtractValidator {
             }
             return super.isValid(model);
         } catch (err) {
-            throw new Error(err.message);
+            console.log(err);
+            throw Error(err.message);
         }
     }
     getAccessToken(model) {

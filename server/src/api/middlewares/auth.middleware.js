@@ -92,4 +92,28 @@ module.exports = {
             });
         }
     },
+    validateStatusBill: async (req, res, next) => {
+        try {
+            const validatorService = new ValidatorService();
+            const headers = req.headers;
+            const idBill = req.params.idBill;
+            const model = {
+                idBill,
+                headers,
+                currentStep: 'VALIDATE_BILL',
+            };
+            const flag = await validatorService.performValidation(model);
+            flag
+                ? next()
+                : res.status(404).json({
+                      success: false,
+                      msg: 'Request failed',
+                  });
+        } catch (err) {
+            res.status(404).json({
+                success: false,
+                msg: err.message,
+            });
+        }
+    },
 };

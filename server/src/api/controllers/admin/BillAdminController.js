@@ -30,6 +30,7 @@ class BillAdminController {
             const idBill = req.params.idBill;
             const typeUpdate = req.query.typeUpdate;
             const reason = req.body.reason ?? null;
+
             if (idBill == '' || typeUpdate == '' || typeUpdate == null || idBill == null) {
                 res.status(404).json({
                     success: false,
@@ -72,7 +73,7 @@ class BillAdminController {
             }
             const billService = new BillService();
             return await billService.updateStatusMoney(idCancelBill).then((data) => {
-                data
+                return data
                     ? res.status(200).json({
                           success: true,
                           dataCancelBill: data,
