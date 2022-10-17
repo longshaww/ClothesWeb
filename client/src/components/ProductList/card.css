@@ -1,0 +1,21 @@
+.text-cate {
+    color: black;
+    font-weight: bolder;
+    font-size: 12px;
+}
+.ul-category {
+}
+.ul-category-item {
+    display: inline-block;
+    width: 100%;
+    padding: 2px 10px;
+    color: black;
+    cursor: pointer;
+}
+.ul-category-item:hover {
+    color: orange;
+}
+
+.custom-select {
+    width: 100%;
+}
