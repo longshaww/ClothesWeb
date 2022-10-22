@@ -3,7 +3,6 @@ import moment from 'moment';
 import Toast from '../../utils/toast';
 import { useCookies } from 'react-cookie';
 import axiosMethod from '../../middlewares/axios';
-import { useEffect } from 'react';
 export default function VoucherComponent({ voucher, allowCopy }) {
     const [cookies] = useCookies(['user']);
 

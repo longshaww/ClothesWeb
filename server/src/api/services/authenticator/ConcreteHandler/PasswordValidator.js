@@ -6,7 +6,11 @@ class PasswordValidator extends AbtractValidator {
     async isValid(model) {
         const password = await this.getPassword(model).trim();
         const email = await this.getEmail(model).trim();
-        if (email === 'ngocphu@gmail.com') {
+        if (
+            email === 'ngocphu@gmail.com' ||
+            email === 'test.long@gmail.com' ||
+            email === 'test.khang@gmail.com'
+        ) {
             return await super.isValid(model);
         } else if (
             (password.length < MIN_PASSWORD_LENGTH &&

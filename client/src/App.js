@@ -87,17 +87,16 @@ function App() {
                     ></Route>
 
                     <Route path="user" element={userLogin ? <LayoutUser /> : <Navigate to="/" />}>
+                        <Route index element={<User />}></Route>
                         <Route path="historyBill" index element={<BillMe />}></Route>
                         <Route path="detailBill/:id" index element={<DetailBill />}></Route>
-                        <Route index element={<User />}></Route>
-                        <Route path="voucher" element={<VoucherMe />}></Route>
+                        <Route path="voucher" index element={<VoucherMe />}></Route>
                     </Route>
                 </Route>
                 <Route path="/admin" element={user ? <LayoutAdmin /> : <Navigate to="/" />}>
                     <Route path="dashboard" element={<Dashboard />}></Route>
                     <Route path="users" element={<ListUser />}></Route>
                     <Route path="products" element={<ProductList />}></Route>
-
                     <Route path="products/:id" element={<DetailProduct />}></Route>
                     <Route path="products/create" element={<CreateProduct />}></Route>
                     <Route path="vouchers" element={<ListVoucher />}></Route>

@@ -18,6 +18,7 @@ const BillWeb = new mongoose.Schema(
                 img: { type: String, required: true },
                 name: { type: String, required: true },
                 size: { type: String, required: true },
+                price: { type: Number },
                 qty: { type: Number, required: true },
                 sum: { type: Number, required: true },
             },

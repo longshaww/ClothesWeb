@@ -20,7 +20,6 @@ function Checkout({ cart, setTotal }) {
         voucherState: false,
     });
     const shippingFee = 35;
-    console.log(voucher.voucherInput);
     useEffect(() => {
         async function myVoucher() {
             const myVouchers = await axiosMethod(`voucher/myVoucher/${cookies?.user?.id}`);
