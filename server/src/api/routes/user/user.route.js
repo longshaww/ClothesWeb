@@ -10,4 +10,5 @@ router.get('/getBillUser/:id', userController.getBillUser);
 router.get('/availableForExchange/:id', rewardController.availableForExchange);
 router.post('/exchangeVoucher/', rewardController.exchangeVoucher);
 router.post('/rate/:productID', rateController.rateProduct);
+router.put('/changePassword', userController.changePassword);
 module.exports = router;
