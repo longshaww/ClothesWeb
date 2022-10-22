@@ -4,8 +4,8 @@ class PasswordValidator extends AbtractValidator {
     getPassword = (model) => model.password;
     getEmail = (model) => model.email;
     async isValid(model) {
-        const password = await this.getPassword(model).trim();
-        const email = await this.getEmail(model).trim();
+        const password = await this.getPassword(model);
+        const email = await this.getEmail(model);
         if (
             email === 'ngocphu@gmail.com' ||
             email === 'test.long@gmail.com' ||
