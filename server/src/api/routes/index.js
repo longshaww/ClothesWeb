@@ -17,11 +17,9 @@ const {
 } = require('./admin');
 
 const authJWTRoute = require('./auth.JWT.route');
-const { sessionMiddleware, authMiddleware } = require('../middlewares');
-const androidRoute = require('./android/android.route');
-
-const { validateToken, verifyAdmin, verify } = authMiddleware;
-
+const { validateToken, verifyAdmin, verify } = require('../middlewares/auth.middleware');
+const androidRoute = require('../routes/android/android.route');
+const sessionMiddleware = require('../middlewares/session.middleware');
 function route(app) {
     app.use('/', siteRoute);
     app.use('/android', androidRoute);

@@ -1,210 +1,207 @@
-import { useParams, useNavigate, Link } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { useState, useEffect } from "react";
-import { setCart } from "../../../actions/cart";
-import axiosMethod from "../../../middlewares/axios";
-import "../../../assets/styles/detail.css";
-import Toast from "../../../utils/toast";
+import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { useState, useEffect } from 'react';
+import { setCart } from '../../../actions/cart';
+import axiosMethod from '../../../middlewares/axios';
+import '../../../assets/styles/detail.css';
+import Toast from '../../../utils/toast';
 
 export default function Detail() {
-	const dispatch = useDispatch();
-	const navigate = useNavigate();
-	const cartCount = useSelector((state) => state.cart.cartCount);
-	const [productDetail, setProductDetail] = useState();
-	const [imageIndex, setImageIndex] = useState(0);
-	const { id } = useParams();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const cartCount = useSelector((state) => state.cart.cartCount);
+    const [productDetail, setProductDetail] = useState();
+    const [imageIndex, setImageIndex] = useState(0);
+    const { id } = useParams();
 
-	useEffect(() => {
-		async function fetchProductDetail() {
-			const data = await axiosMethod(`product/${id}`, "get");
-			setProductDetail(data);
-			return data;
-		}
-		fetchProductDetail();
-	}, [id]);
+    useEffect(() => {
+        async function fetchProductDetail() {
+            const data = await axiosMethod(`product/${id}`, 'get');
+            setProductDetail(data);
+            return data;
+        }
+        fetchProductDetail();
+    }, [id]);
 
-	let productSize;
-	let productId;
+    let productSize;
+    let productId;
+    let count = 0;
+    if (productDetail) {
+        productSize = [...productDetail.size].reverse();
+        productId = productDetail._id;
 
-	if (productDetail) {
-		productSize = [...productDetail.size].reverse();
-		productId = productDetail._id;
-	}
-	const [checked, setChecked] = useState("M");
-	const [qty, setQty] = useState(1);
+        productDetail?.size.forEach((item) => (count += parseInt(item.qty)));
+    }
 
-	const handleMinus = () => {
-		setQty((prevQty) => (prevQty > 1 ? prevQty - 1 : 1));
-	};
+    const [checked, setChecked] = useState('');
 
-	const handlePlus = () => {
-		setQty((prevQty) => prevQty + 1);
-	};
+    const [qty, setQty] = useState(1);
 
-	const handleQtyChange = (e) => {};
+    const handleMinus = () => {
+        setQty((prevQty) => (prevQty > 1 ? prevQty - 1 : 1));
+    };
 
-	//post cart
-	async function postCart() {
-		const data = await axiosMethod("cart", "post", {
-			idProduct: productId,
-			qty,
-			size: checked,
-			img: productDetail.description.imageList[0],
-			name: productDetail.nameProduct,
-			price: productDetail.price,
-		});
-		if (data.success) {
-			dispatch(setCart(data.cartQty, data, data.cartTotal));
-			Toast.fire({
-				title: "Thêm vào giỏ hàng thành công",
-				icon: "success",
-			});
-		}
-	}
+    const handlePlus = () => {
+        setQty((prevQty) => prevQty + 1);
+    };
 
-	const handleCheckout = () => {
-		if (cartCount === 0) {
-			return Toast.fire({
-				title: "Bạn chưa có sản phẩm nào trong giỏ hàng",
-				icon: "warning",
-			});
-		}
-		navigate("/checkout");
-	};
+    const handleQtyChange = (e) => {};
 
-	const handleAddCart = () => {
-		postCart();
-	};
+    //post cart
+    async function postCart() {
+        const data = await axiosMethod('cart', 'post', {
+            idProduct: productId,
+            qty,
+            size: checked,
+            img: productDetail.description.imageList[0],
+            name: productDetail.nameProduct,
+            price: productDetail.price,
+        });
+        if (data.success) {
+            dispatch(setCart(data.cartQty, data, data.cartTotal));
+            Toast.fire({
+                title: 'Thêm vào giỏ hàng thành công',
+                icon: 'success',
+            });
+        }
+    }
 
-	const handleModalImage = () => {
-		alert("hello");
-	};
+    const handleCheckout = () => {
+        if (cartCount === 0) {
+            return Toast.fire({
+                title: 'Bạn chưa có sản phẩm nào trong giỏ hàng',
+                icon: 'warning',
+            });
+        }
+        navigate('/checkout');
+    };
 
-	return (
-		<>
-			{productDetail && (
-				<>
-					<div className="container">
-						<div className="row row-cols-1 row-cols-lg-2">
-							<div className="col">
-								<img
-									src={
-										productDetail.description
-											.imageList[imageIndex]
-									}
-									onClick={handleModalImage}
-									alt=""
-									className="img-fluid"
-								></img>
-								<div className="gallery d-flex">
-									{productDetail.description.imageList.map(
-										(item, index) => {
-											return (
-												<img
-													key={index}
-													onClick={() =>
-														setImageIndex(
-															index
-														)
-													}
-													src={item}
-													alt=""
-													className="border ms-1 mt-1"
-												></img>
-											);
-										}
-									)}
-								</div>
-							</div>
-							<div className="col">
-								<h4>{productDetail.nameProduct}</h4>
-								<h6 className="mb-3">
-									{productDetail.price},000đ
-								</h6>
-								<div className="d-flex mb-4">
-									{productSize.map((item, index) => (
-										<div
-											key={index}
-											id="radio-list"
-											className="me-3"
-										>
-											<input
-												type="radio"
-												checked={
-													checked ===
-													item.sizeName
-												}
-												onChange={() =>
-													setChecked(
-														item.sizeName
-													)
-												}
-											></input>
-											{item.sizeName}
-										</div>
-									))}
-								</div>
-								<div className="d-inline-flex shadow rounded quantity mb-4">
-									<button
-										onClick={handleMinus}
-										className="btn btn-light"
-									>
-										-
-									</button>
-									<input
-										className="form-control border-0 text-center"
-										onChange={handleQtyChange}
-										value={qty}
-									></input>
-									<button
-										onClick={handlePlus}
-										className="btn btn-light"
-									>
-										+
-									</button>
-								</div>
-								<div className="wrap-btn">
-									<button
-										onClick={handleAddCart}
-										className="btn btn-dark btn-cart d-block mb-3"
-									>
-										Thêm vào giỏ hàng
-									</button>
-									<button
-										onClick={handleCheckout}
-										className="btn btn-dark btn-cart d-block mb-3"
-									>
-										Thanh toán
-									</button>
-								</div>
-								<div className="product-description">
-									<div className="fs-6 fw-bold text-decoration-underline pb-3 border-bottom">
-										Mô tả sản phẩm
-									</div>
-									<div className="mb-3">
-										{
-											productDetail.description
-												.productDes
-										}
-									</div>
-									<Link
-										to="cart"
-										className="fs-6 pb-3 border-bottom  fw-bold text-decoration-underline"
-									>
-										CHINH SÁCH GIAO HÀNG & ĐỔI TRẢ
-										HÀNG
-									</Link>
-								</div>
-							</div>
-						</div>
-					</div>
-					{/* <div className="container">
+    const handleAddCart = () => {
+        postCart();
+    };
+
+    const handleModalImage = () => {
+        alert('hello');
+    };
+
+    return (
+        <>
+            {productDetail && (
+                <>
+                    <div className="container">
+                        <div className="row row-cols-1 row-cols-lg-2">
+                            <div className="col">
+                                <img
+                                    src={productDetail.description.imageList[imageIndex]}
+                                    onClick={handleModalImage}
+                                    alt=""
+                                    className="img-fluid"
+                                ></img>
+                                <div className="gallery d-flex">
+                                    {productDetail.description.imageList.map((item, index) => {
+                                        return (
+                                            <img
+                                                key={index}
+                                                onClick={() => setImageIndex(index)}
+                                                src={item}
+                                                alt=""
+                                                className="border ms-1 mt-1"
+                                            ></img>
+                                        );
+                                    })}
+                                </div>
+                            </div>
+                            <div className="col">
+                                <h4>{productDetail.nameProduct}</h4>
+                                <h6 className="mb-3">{productDetail.price},000đ</h6>
+                                <div className="d-flex mb-4">
+                                    <div className="detail-size">
+                                        {productSize.map((item, index) => (
+                                            <div
+                                                key={index}
+                                                onClick={() => {
+                                                    if (item.qty > 0) setChecked(item.sizeName);
+
+                                                    if (item.qty <= 0 || checked == item.sizeName)
+                                                        setChecked('');
+                                                }}
+                                                className={
+                                                    item.qty > 0
+                                                        ? checked == item.sizeName
+                                                            ? 'size size-active size-action'
+                                                            : 'size  size-action'
+                                                        : 'size'
+                                                }
+                                            >
+                                                {item.sizeName}
+                                                {item.qty <= 0 && (
+                                                    <div className="size-disable">
+                                                        <i className="bx bx-x"></i>
+                                                    </div>
+                                                )}
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                                <div className="d-inline-flex shadow rounded quantity mb-4">
+                                    <button onClick={handleMinus} className="btn btn-light">
+                                        -
+                                    </button>
+                                    <input
+                                        className="form-control border-0 text-center"
+                                        onChange={handleQtyChange}
+                                        value={qty}
+                                    ></input>
+                                    <button onClick={handlePlus} className="btn btn-light">
+                                        +
+                                    </button>
+                                </div>
+                                <div className="wrap-btn">
+                                    {count > 0 ? (
+                                        <div>
+                                            <button
+                                                onClick={handleAddCart}
+                                                className="btn btn-dark btn-cart d-block mb-3"
+                                            >
+                                                Thêm vào giỏ hàng
+                                            </button>
+                                            <button
+                                                onClick={handleCheckout}
+                                                className="btn btn-dark btn-cart d-block mb-3"
+                                            >
+                                                Thanh toán
+                                            </button>
+                                        </div>
+                                    ) : (
+                                        <button className="btn btn-dark btn-cart d-block mb-3">
+                                            Cháy hàng
+                                        </button>
+                                    )}
+                                </div>
+                                <div className="product-description">
+                                    <div className="fs-6 fw-bold text-decoration-underline pb-3 border-bottom">
+                                        Mô tả sản phẩm
+                                    </div>
+                                    <div className="mb-3">
+                                        {productDetail.description.productDes}
+                                    </div>
+                                    <Link
+                                        to="cart"
+                                        className="fs-6 pb-3 border-bottom  fw-bold text-decoration-underline"
+                                    >
+                                        CHINH SÁCH GIAO HÀNG & ĐỔI TRẢ HÀNG
+                                    </Link>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {/* <div className="container">
 						<h4 className=" pb-3 border-bottom text-center">
 							SẢN PHẨM LIÊN QUAN
 						</h4>
 					</div> */}
-				</>
-			)}
-		</>
-	);
+                </>
+            )}
+        </>
+    );
 }

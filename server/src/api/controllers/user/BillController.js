@@ -165,6 +165,30 @@ class BillController {
             res.status(404).send({ success: false, message: err.message });
         }
     }
+
+    async updateCancelBill(req, res, next) {
+        try {
+            const idBill = req.params.idBill;
+            const reason = req.body.reason ?? null;
+
+            if (idBill == '' || idBill === null || idBill === undefined) {
+                res.status(404).json({
+                    success: false,
+                    message: 'ERROR DATA REQUEST',
+                });
+            }
+            const billService = new BillService();
+            const dataBill = await billService.cancelBill(idBill, reason);
+            dataBill
+                ? res.status(200).json({ success: true, data: dataBill })
+                : res.status(404).json({ success: false, msg: 'FAILED UPDATE CANCEL BILL' });
+        } catch (err) {
+            res.status(404).json({
+                success: false,
+                msg: err.message,
+            });
+        }
+    }
 }
 
 module.exports = new BillController();

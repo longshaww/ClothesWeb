@@ -1,63 +1,153 @@
 #logo {
-	font-size : 30 px;
-	width: 12rem;	
+    font-size: 30 px;
+    width: 12rem;
 }
 #center-logo {
-	display: flex;
-	justify-content: center;
-	align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .container-fluid {
-	display: block !important;
+    display: block !important;
 }
 
 #brand-name {
-	padding: 0.5rem;
-	margin-top: 1rem;
+    padding: 0.5rem;
+    margin-top: 1rem;
 }
 
 #searchbar {
-	position: absolute;
-	right: 1rem;
+    position: absolute;
+    right: 1rem;
 }
 
 .cart-qty {
-	display: inline-block;
-	height: 23px;
-	line-height: 23px;
-	min-width: 25px;
-	padding: 0 3px;
-	text-align: center;
-	background: #f5f5f5;
-	font-size: 13px;
-	font-weight: 500;
-	border-radius: 3px;
-	box-shadow: 0 1px 1px rgb(225 227 228 / 20%);
-	margin: 0;
-	appearance: none;
+    display: inline-block;
+    height: 23px;
+    line-height: 23px;
+    min-width: 25px;
+    padding: 0 3px;
+    text-align: center;
+    background: #f5f5f5;
+    font-size: 13px;
+    font-weight: 500;
+    border-radius: 3px;
+    box-shadow: 0 1px 1px rgb(225 227 228 / 20%);
+    margin: 0;
+    appearance: none;
 }
 
 .bottom-cart-button > button {
-	width: 48%;
+    width: 48%;
 }
 
 .cart-product-img > img {
-	width: 5.5rem;
-	height: 6rem;
+    width: 5.5rem;
+    height: 6rem;
 }
 
 .cart-product-img {
-	width: 25%;
+    width: 25%;
 }
 .cart-product-content {
-	position: relative;
+    position: relative;
 }
 .cart-btn-del {
-	position: absolute;
-	top: 10px;
-	right: 10px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
 }
 
 .cart-view-total button {
-	width: 100%;
+    width: 100%;
 }
+
+/*---------------------------------------*/
+/* NAVIGATION BAR STYLE - START */
+/*---------------------------------------*/
+
+/* header fixed */
+.header-custom {
+    position: fixed;
+    z-index: 3;
+    width: 100%;
+    height: 130px;
+    background-color: white;
+    top: 0;
+    box-shadow: rgba(149, 157, 165, 0.1) 0px 8px 24px;
+}
+/* Màu sắc, hiệu ứng hover navbar */
+.navbar-light .navbar-nav .nav-link {
+    display: block;
+    position: relative;
+    color: #417505;
+    font-size: 15px;
+}
+.navbar-light .navbar-nav .nav-link:hover {
+    color: #66b9a7;
+}
+.navbar-light .navbar-nav .nav-link::after {
+    content: '';
+    display: block;
+    width: 0;
+    height: 2px;
+    background: #5c5c5c;
+    transition: width 0.3s;
+}
+.navbar-light .navbar-nav .nav-link:hover::after {
+    width: 100%;
+}
+
+/* menu cha */
+.sub-nav {
+    position: relative;
+}
+
+/* menu con */
+.sub-nav-content {
+    position: absolute;
+    z-index: 2;
+    display: none;
+    white-space: nowrap;
+    background: #fff;
+    top: calc(100% - 10px);
+    left: 0;
+    border-top: 2px solid #5c5c5c;
+    animation: growDown 0.5s ease-in-out forwards;
+    transform-origin: top center;
+    box-shadow: 2px 4px 12px rgb(0 0 0 / 10%);
+}
+
+@keyframes growDown {
+    0% {
+        transform: scaleY(0);
+    }
+    80% {
+        transform: scaleY(1.1);
+    }
+    100% {
+        transform: scaleY(1);
+    }
+}
+.sub-nav:hover .sub-nav-content {
+    display: block;
+}
+/* item trong menu con */
+.sub-nav-link {
+    display: block;
+    position: relative;
+    color: #417505;
+    font-size: 14px;
+    padding: 5px 20px;
+    border-top: 1px solid #ecf0f1;
+}
+.sub-nav-link:not(:first-child) {
+    border-top: 1px solid #ecf0f1;
+}
+.sub-nav-link:hover {
+    color: #66b9a7;
+}
+
+/*---------------------------------------*/
+/* NAVIGATION BAR STYLE - END */
+/*---------------------------------------*/

@@ -7,6 +7,7 @@ import PostFilterForm from './search';
 import PopupCart from '../../cart/cart';
 import Auth from '../../auth/auth';
 import { useCookies } from 'react-cookie';
+import 'boxicons';
 
 export default function NavbarApp() {
     //State define
@@ -15,68 +16,94 @@ export default function NavbarApp() {
     const toggle = () => setIsOpen(!isOpen);
     const [cookies] = useCookies(['user']);
     return (
-        <Navbar expand="md" light>
-            <Link to="/">
-                <div id="center-logo" className="mt-4">
-                    <img id="logo" src={Logo} alt="" className="logo-Img"></img>
-                </div>
-            </Link>
-            <NavbarToggler onClick={toggle} />
+        <header className="header-custom">
+            <Navbar style={{ backgroundColor: 'white' }} expand="md" light>
+                <Link to="/">
+                    <div id="center-logo" className="mt-4">
+                        <img id="logo" src={Logo} alt="" className="logo-Img"></img>
+                    </div>
+                </Link>
+                <NavbarToggler onClick={toggle} />
 
-            <Collapse isOpen={isOpen} navbar>
-                <Nav className="m-auto" navbar>
-                    <NavItem>
-                        <Link to="/" className="nav-link">
-                            TRANG CHỦ
-                        </Link>
-                    </NavItem>
-
-                    <NavItem>
-                        <Link to="/collections/new-arrivals" className="nav-link">
-                            NEW ARRIVALS
-                        </Link>
-                    </NavItem>
-                    <NavItem>
-                        <Link to="/collections/tops" className="nav-link">
-                            TOPS
-                        </Link>
-                    </NavItem>
-                    <NavItem>
-                        <Link to="/collections/bottoms" className="nav-link">
-                            BOTTOMS
-                        </Link>
-                    </NavItem>
-                    <NavItem>
-                        <Link to="/collections/outerwears" className="nav-link">
-                            OUTERWEARS
-                        </Link>
-                    </NavItem>
-                    <NavItem>
-                        <Link to="/collections/accessories" className="nav-link">
-                            ACCESSORIES
-                        </Link>
-                    </NavItem>
-                    <NavItem>
-                        <Link to="/collections/sale" className="nav-link">
-                            VOUCHER
-                        </Link>
-                    </NavItem>
-                    <NavItem className="mx-2">
-                        <PostFilterForm />
-                    </NavItem>
-                    <NavItem className="px-2 ms-1">
-                        <PopupCart></PopupCart>
-                    </NavItem>
-                    <NavItem className="px-1">
-                        <Auth />
-                    </NavItem>
-                    {cookies.user && (
+                <Collapse isOpen={isOpen} navbar>
+                    <Nav className="m-auto" navbar>
                         <NavItem>
-                            <div className="fs-5 fw-bold">{cookies.user.information.name}</div>
+                            <Link to="/" className="nav-link">
+                                TRANG CHỦ
+                            </Link>
                         </NavItem>
-                    )}
-                </Nav>
-            </Collapse>
-        </Navbar>
+                        {/* DANH MỤC */}
+                        <NavItem className="sub-nav">
+                            <Link to="/categories/new-arrivals" className="nav-link ">
+                                DANH MỤC SẢN PHẨM
+                                <i className="bx bx-chevron-down"></i>
+                            </Link>
+                            <div className="sub-nav-content">
+                                <NavItem>
+                                    <Link to="/categories/new-arrivals" className="sub-nav-link">
+                                        Sản phẩm mới︱ NEW ARRIVALS
+                                    </Link>
+                                </NavItem>
+                                <NavItem>
+                                    <Link to="/categories/tops" className="sub-nav-link">
+                                        Áo︱TOPS
+                                    </Link>
+                                </NavItem>
+                                <NavItem>
+                                    <Link to="/categories/bottoms" className="sub-nav-link">
+                                        Quần︱ BOTTOMS
+                                    </Link>
+                                </NavItem>
+                                <NavItem>
+                                    <Link to="/categories/outerwears" className="sub-nav-link">
+                                        Áo khoác︱ OUTERWEARS
+                                    </Link>
+                                </NavItem>
+                                <NavItem>
+                                    <Link to="/categories/accessories" className="sub-nav-link">
+                                        Phụ kiện︱ ACCESSORIES
+                                    </Link>
+                                </NavItem>
+                            </div>
+                        </NavItem>
+                        {/* ĐỊA CHỈ */}
+                        <NavItem className="sub-nav">
+                            <Link to="/address" className="nav-link ">
+                                ĐỊA CHỈ CỬA HÀNG
+                                <i className="bx bx-chevron-down"></i>
+                            </Link>
+                            <div className="sub-nav-content">
+                                <NavItem>
+                                    <Link to="/address" className="sub-nav-link">
+                                        155 Sư Vạn Hạnh, P13, Q10
+                                    </Link>
+                                </NavItem>
+                            </div>
+                        </NavItem>
+                        {/* VOUCHER */}
+                        <NavItem>
+                            <Link to="/collections/sale" className="nav-link">
+                                VOUCHER
+                            </Link>
+                        </NavItem>
+
+                        <NavItem className="mx-2">
+                            <PostFilterForm />
+                        </NavItem>
+                        <NavItem className="px-2 ms-1">
+                            <PopupCart></PopupCart>
+                        </NavItem>
+                        <NavItem className="px-1">
+                            <Auth />
+                        </NavItem>
+                        {cookies.user && (
+                            <NavItem>
+                                <div className="fs-5 fw-bold">{cookies.user.information.name}</div>
+                            </NavItem>
+                        )}
+                    </Nav>
+                </Collapse>
+            </Navbar>
+        </header>
     );
 }

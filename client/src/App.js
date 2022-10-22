@@ -7,6 +7,7 @@ import Sale from './features/Sale/pages/sale';
 import Layout from './layouts/layout';
 import Detail from './features/ProductDetail/pages/detail';
 import CollectionsLayout from './features/Collections/pages/collections.layout';
+import Categories from './features/Categories';
 import DetailLayout from './features/ProductDetail/pages/detail.layout';
 import NewArrivals from './features/New-Arrivals/pages/new.arrivals';
 import Search from './features/Search/search';
@@ -37,6 +38,7 @@ import User from './features/infoUser/user';
 import VoucherMe from './features/infoUser/voucher.me';
 import LayoutUser from './layouts/layoutUser';
 import BillMe from './components/listBill/bill';
+
 function App() {
     const [cookies] = useCookies(['user']);
     let user;
@@ -50,6 +52,7 @@ function App() {
             <Routes>
                 <Route path="/" element={<Layout />}>
                     <Route path="" element={<Home />}></Route>
+                    <Route path="categories/:type" element={<Categories />}></Route>
                     <Route path="collections" element={<CollectionsLayout />}>
                         <Route index element={<Collections />} />
                         <Route path="tops" index element={<Tops />}></Route>
