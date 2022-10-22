@@ -12,11 +12,12 @@ module.exports = {
             userID,
             'listProduct.id': productID,
         });
+        if (!bill) return `You have to buy this product before you can rate it`;
         if (!user) return `User with ID ${userID} not found`;
         if (!product) return `Product with ID ${productID} not found`;
         if (!rate) return `All field is required`;
         if (bill.status !== 'SUCCESSFUL_DELIVERY_CONFIRMATION')
-            return `You don't have permission to rate this product`;
+            return `Your order is delivering or it is failed to delivery or has been canceled`;
 
         const newRate = await Rate.create({
             content,
