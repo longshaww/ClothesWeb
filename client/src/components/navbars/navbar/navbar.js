@@ -87,13 +87,13 @@ export default function NavbarApp() {
                                 </NavItem>
                                 {/* ĐỊA CHỈ */}
                                 <NavItem className="sub-nav">
-                                    <Link to="/address" className="nav-link ">
+                                    <Link to="/" className="nav-link ">
                                         Địa chỉ cửa hàng
                                         <i className="bx bx-chevron-down"></i>
                                     </Link>
                                     <div className="sub-nav-content">
                                         <NavItem>
-                                            <Link to="/address" className="sub-nav-link">
+                                            <Link to="/" className="sub-nav-link">
                                                 155 Sư Vạn Hạnh, P13, Q10
                                             </Link>
                                         </NavItem>
