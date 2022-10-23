@@ -14,7 +14,6 @@ class CheckBillBelongUser extends AbtractValidator {
                     const bill = await Bill.findById(idBill);
                     const userID = JSON.stringify(bill.userID).replace(/\"/g, '');
                     if (userID == dataUser.id) {
-                        console.log('vao');
                         return super.isValid(model);
                     }
                     return false;

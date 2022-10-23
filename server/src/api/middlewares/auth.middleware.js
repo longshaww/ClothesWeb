@@ -115,5 +115,5 @@ module.exports = {
                 msg: err.message,
             });
         }
-    },
+    }
 };

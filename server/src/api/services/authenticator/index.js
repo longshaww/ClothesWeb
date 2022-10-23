@@ -5,6 +5,8 @@ const ValidatorChainBuilder = require('./ValidatorChainBuilder');
 const IsEmptyValidatorToken = require('./ConcreteHandler/IsEmptyValidatorToken');
 const CheckStatusBill = require('./ConcreteHandler/CheckStatusValidator');
 const CheckBillBelongUser = require('./ConcreteHandler/ChecBillBelongUser');
+const CheckVerifyNewPassword = require('./ConcreteHandler/CheckVerifyNewpassword');
+const CheckOldPassword = require('./ConcreteHandler/CheckOldPassword');
 class ValidatorService {
     constructor() {
         this.switch = {
@@ -25,6 +27,13 @@ class ValidatorService {
                 await validators.add(new CheckStatusBill());
                 await validators.add(new IsEmptyValidatorToken());
                 await validators.add(new CheckBillBelongUser());
+                return (this.validators = validators.getFirst());
+            },
+            VALIDATE_CHANGE_PASSWORD: async () => {
+                const validators = new ValidatorChainBuilder();
+                await validators.add(new PasswordValidator());
+                await validators.add(new CheckVerifyNewPassword());
+                await validators.add(new CheckOldPassword());
                 return (this.validators = validators.getFirst());
             },
         };

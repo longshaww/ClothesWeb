@@ -35,10 +35,15 @@ module.exports = {
                 return null;
         }
     },
-    filterQty : async (listProduct)=>{    
-        listProduct = listProduct.filter((el) => {
-            return el.size[0].qty !== 0 && el.size[1].qty !== 0 && el.size[2].qty !== 0;
+    filterQty: async (listProduct) => {
+        const list = [];
+        await listProduct.forEach(async (el) => {
+            if (el.size[0].qty === 0 && el.size[1].qty === 0 && el.size[2].qty === 0) {
+                return;
+            } else {
+                await list.push(el);
+            }
         });
-        return listProduct
+        return list;
     },
 };
