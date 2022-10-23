@@ -4,6 +4,7 @@ const md5 = require('md5');
 class CheckVerifyNewPassword extends AbtractValidator {
     async isValid(model) {
         try {
+            console.log('vai verifyNewPassword');
             const verifyNewPassword = await this.getVerifyNewPassword(model);
             const newPassword = await this.getNewPasswordUser(model);
             if (verifyNewPassword === newPassword) {
