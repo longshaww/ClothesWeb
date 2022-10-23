@@ -38,7 +38,7 @@ import User from './features/infoUser/user';
 import VoucherMe from './features/infoUser/voucher.me';
 import LayoutUser from './layouts/layoutUser';
 import BillMe from './components/listBill/bill';
-
+import ChangePassword  from './features/infoUser/changePassword';
 function App() {
     const [cookies] = useCookies(['user']);
     let user;
@@ -94,6 +94,7 @@ function App() {
                         <Route path="historyBill" index element={<BillMe />}></Route>
                         <Route path="detailBill/:id" index element={<DetailBill />}></Route>
                         <Route path="voucher" index element={<VoucherMe />}></Route>
+                        <Route path="changePassword" index element={<ChangePassword/>}></Route> 
                     </Route>
                 </Route>
                 <Route path="/admin" element={user ? <LayoutAdmin /> : <Navigate to="/" />}>

@@ -19,6 +19,7 @@ const Categories = () => {
 
     const [type, setType] = useState(null);
     const [page, setPage] = useState(1);
+    const [hotProductList, setHotProductList] = useState(undefined);
     // const navigate = useNavigate();
     const handleChange = (payload) => {
         setType(payload);
@@ -30,21 +31,55 @@ const Categories = () => {
     const [collections, setCollections] = useState(undefined);
 
     useEffect(() => {
+        async function fetch() {
+            const res = await axiosMethod('collections/get-15-newarrivals', 'GET');
+            if (res.success === true) {
+                const listId = res?.listProduct?.map((item) => item._id);
+                setHotProductList(listId);
+            }
+        }
+        fetch();
+    }, []);
+
+    // có vấn đề
+    useEffect(() => {
+        setType(null);
+        setPage(1);
+    }, [param]);
+
+    // có vấn đề
+    useEffect(() => {
         async function fetchData() {
             try {
                 let urlRequest = `collections/${param.toLowerCase()}?page=${page}`;
                 if (type)
                     urlRequest = `collections/${param.toLowerCase()}?type=${type}&page=${page}`;
-                const data = await axiosMethod(urlRequest, 'GET');
+                let data = await axiosMethod(urlRequest, 'GET');
 
+                data = data.map((item) => {
+                    const calSize =
+                        parseInt(item.size[0].qty) +
+                        parseInt(item.size[1].qty) +
+                        parseInt(item.size[2].qty);
+                    if (hotProductList?.includes(item._id)) {
+                        return calSize === 0
+                            ? { ...item, lable: 'Cháy hàng' }
+                            : { ...item, lable: 'Hàng hot' };
+                    }
+                    if (!hotProductList?.includes(item._id)) {
+                        return calSize === 0 ? 'hide' : item;
+                    }
+                });
+                data = data.filter((item) => item !== 'hide');
                 setCollections(data);
             } catch (error) {
                 console.log(error);
                 // navigate('/');
             }
         }
-        fetchData();
-    }, [param, type, page]);
+        if (hotProductList) fetchData();
+    }, [param, type, page, hotProductList]);
+    console.log(collections);
     const { Option } = Select;
     const breadcrumbList = [
         { isActive: true, text: 'Trang chủ', url: '/' },
@@ -63,6 +98,7 @@ const Categories = () => {
                 <Row className="pt-2 ">
                     <Col className="ml-2" sm="3" md="3" lg={2}>
                         <Select
+                            allowClear
                             className="custom-select"
                             onChange={(payload) => handleChange(payload)}
                             placeholder="Sắp xếp"

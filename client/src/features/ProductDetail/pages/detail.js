@@ -9,11 +9,12 @@ import Toast from '../../../utils/toast';
 export default function Detail() {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const { id } = useParams();
     const cartCount = useSelector((state) => state.cart.cartCount);
     const [productDetail, setProductDetail] = useState();
     const [imageIndex, setImageIndex] = useState(0);
-    const { id } = useParams();
-
+    const [checked, setChecked] = useState('');
+    const [qty, setQty] = useState(1);
     useEffect(() => {
         async function fetchProductDetail() {
             const data = await axiosMethod(`product/${id}`, 'get');
@@ -33,36 +34,52 @@ export default function Detail() {
         productDetail?.size.forEach((item) => (count += parseInt(item.qty)));
     }
 
-    const [checked, setChecked] = useState('');
-
-    const [qty, setQty] = useState(1);
-
     const handleMinus = () => {
         setQty((prevQty) => (prevQty > 1 ? prevQty - 1 : 1));
     };
 
-    const handlePlus = () => {
-        setQty((prevQty) => prevQty + 1);
+    const handlePlus = (checked) => {
+        if (checked !== '') {
+            const filterDataSizeChecked = productDetail?.size.filter(
+                (item) => item.sizeName === checked
+            );
+
+            if (qty < parseInt(filterDataSizeChecked[0].qty)) setQty((prevQty) => prevQty + 1);
+            else
+                Toast.fire({
+                    title: 'Kho không đủ sản phẩm',
+                    icon: 'error',
+                });
+        } else setQty((prevQty) => prevQty + 1);
     };
 
     const handleQtyChange = (e) => {};
 
     //post cart
     async function postCart() {
-        const data = await axiosMethod('cart', 'post', {
+        const body = {
             idProduct: productId,
             qty,
             size: checked,
             img: productDetail.description.imageList[0],
             name: productDetail.nameProduct,
             price: productDetail.price,
-        });
-        if (data.success) {
-            dispatch(setCart(data.cartQty, data, data.cartTotal));
+        };
+
+        if (body.size === '')
             Toast.fire({
-                title: 'Thêm vào giỏ hàng thành công',
-                icon: 'success',
+                title: 'Bạn chưa chọn size',
+                icon: 'error',
             });
+        else {
+            const data = await axiosMethod('cart', 'post', body);
+            if (data.success) {
+                dispatch(setCart(data.cartQty, data, data.cartTotal));
+                Toast.fire({
+                    title: 'Thêm vào giỏ hàng thành công',
+                    icon: 'success',
+                });
+            }
         }
     }
 
@@ -120,14 +137,14 @@ export default function Detail() {
                                             <div
                                                 key={index}
                                                 onClick={() => {
+                                                    setQty(1);
                                                     if (item.qty > 0) setChecked(item.sizeName);
-
-                                                    if (item.qty <= 0 || checked == item.sizeName)
+                                                    if (item.qty <= 0 || checked === item.sizeName)
                                                         setChecked('');
                                                 }}
                                                 className={
                                                     item.qty > 0
-                                                        ? checked == item.sizeName
+                                                        ? checked === item.sizeName
                                                             ? 'size size-active size-action'
                                                             : 'size  size-action'
                                                         : 'size'
@@ -152,7 +169,10 @@ export default function Detail() {
                                         onChange={handleQtyChange}
                                         value={qty}
                                     ></input>
-                                    <button onClick={handlePlus} className="btn btn-light">
+                                    <button
+                                        onClick={() => handlePlus(checked)}
+                                        className="btn btn-light"
+                                    >
                                         +
                                     </button>
                                 </div>
