@@ -1,3 +1,4 @@
 {
-	"cSpell.words": ["middlewares", "MONGOPASSWORD", "MONGOUSER"]
+	"cSpell.words": ["middlewares", "MONGOPASSWORD", "MONGOUSER"],
+	"git.ignoreLimitWarning": true
 }

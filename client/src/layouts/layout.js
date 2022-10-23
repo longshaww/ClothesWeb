@@ -1,13 +1,16 @@
-import NavbarApp from "../components/navbars/navbar/navbar";
+import NavbarApp from '../components/navbars/navbar/navbar';
 // import Footer from "../components/footer/footer";
-import { Outlet } from "react-router-dom";
-import GoToTop from "../components/GoToTopButton/go.to.top";
+import { Outlet } from 'react-router-dom';
+import GoToTop from '../components/GoToTopButton/go.to.top';
 export default function Layout() {
-	return (
-		<div>
-			<NavbarApp />
-			<GoToTop />
-			<Outlet />
-		</div>
-	);
+    return (
+        <div>
+            <NavbarApp />
+            <GoToTop />
+
+            <div style={{ marginTop: '100px' }}>
+                <Outlet />
+            </div>
+        </div>
+    );
 }

@@ -18,6 +18,7 @@ const BillWeb = new mongoose.Schema(
                 img: { type: String, required: true },
                 name: { type: String, required: true },
                 size: { type: String, required: true },
+                price: { type: Number },
                 qty: { type: Number, required: true },
                 sum: { type: Number, required: true },
             },
@@ -31,7 +32,18 @@ const BillWeb = new mongoose.Schema(
             required: true,
             enum: ['COD', 'Online'],
         },
-        status: { type: Boolean, required: true },
+        status: {
+            type: String,
+            required: true,
+            default: 'PENDING',
+            enum: [
+                'PENDING',
+                'DELIVERY',
+                'SUCCESSFUL_DELIVERY_CONFIRMATION',
+                'FAILED_DELIVERY_CONFIRMATION',
+                'CANCEL_BILL',
+            ],
+        },
     },
     {
         timestamps: true,

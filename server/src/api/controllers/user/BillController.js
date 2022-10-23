@@ -2,6 +2,13 @@ const DeliveryInfo = require('../../models/DeliveryInfo');
 const UserWeb = require('../../models/UserWeb');
 const BillWeb = require('../../models/BillWeb');
 const Session = require('../../models/Sessions');
+const ProductModel = require('../../models/Product');
+const CommandAdd = require('../../services/user/bill/delivery/Command/CommandAdd');
+const CommandEdit = require('../../services/user/bill/delivery/Command/CommandEdit');
+const DeliveryUserService = require('../../services/user/bill/delivery/index');
+const CommandDelete = require('../../services/user/bill/delivery/Command/CommandDelete');
+const CommandView = require('../../services/user/bill/delivery/Command/CommandView');
+const BillService = require('../../services/user/bill/serviceBill/index');
 class BillController {
     async addNewInfoUser(req, res) {
         const { userID, nameCustomer, address, phoneNumber } = req.body;
@@ -12,7 +19,9 @@ class BillController {
             });
         }
         try {
-            const newDeliveryInfo = await DeliveryInfo.create(req.body);
+            let create = new CommandAdd(req.body);
+            let deliveryMangerService = new DeliveryUserService(create);
+            const newDeliveryInfo = await deliveryMangerService.run();
             res.status(200).json({ success: true, body: newDeliveryInfo });
         } catch (err) {
             res.status(400).json({ success: false, message: err });
@@ -28,13 +37,18 @@ class BillController {
             });
         }
         try {
-            const deliveryInfo = await DeliveryInfo.findById(id);
-            deliveryInfo.nameCustomer = nameCustomer;
-            deliveryInfo.address = address;
-            deliveryInfo.phoneNumber = phoneNumber;
+            const infoUser = {
+                nameCustomer,
+                address,
+                phoneNumber,
+                id,
+            };
+            let edit = new CommandEdit(infoUser);
+            let deliveryMangerService = new DeliveryUserService(edit);
+            const data = await deliveryMangerService.run(req.body);
             res.status(200).json({
                 success: true,
-                body: await deliveryInfo.save(),
+                body: data,
             });
         } catch (err) {
             res.status(400).json({ success: false, message: err });
@@ -49,8 +63,10 @@ class BillController {
             });
         }
         try {
-            const deliveryInfo = await DeliveryInfo.findByIdAndDelete(id);
-            res.status(200).json({ success: true, body: deliveryInfo });
+            let actionDelete = new CommandDelete(id);
+            let deliveryMangerService = new DeliveryUserService(actionDelete);
+            const data = await deliveryMangerService.run();
+            res.status(200).json({ success: true, body: data });
         } catch (err) {
             res.status(400).json({ success: false, message: err });
         }
@@ -65,15 +81,9 @@ class BillController {
             });
         }
         try {
-            const user = await UserWeb.findById(userID);
-            const customize = {
-                _id: user._id,
-                nameCustomer: user.information.name,
-                address: user.information.address,
-                phoneNumber: user.information.phoneNumber,
-            };
-            const listInfo = await DeliveryInfo.find({ userID: userID });
-            listInfo.unshift(customize);
+            let view = new CommandView(userID);
+            let deliveryMangerService = new DeliveryUserService(view);
+            let listInfo = await deliveryMangerService.run();
             res.status(200).json({ success: true, body: listInfo });
         } catch (err) {
             res.status(400).json({ success: false, message: err });
@@ -89,11 +99,8 @@ class BillController {
             });
         }
         try {
-            const bill = await BillWeb.findById(id)
-                .populate('userID')
-                .populate('deliveryID')
-                .populate('listProduct._id')
-                .populate('voucherID');
+            const billService = new BillService();
+            const bill = await billService.getBill(id);
             res.status(200).json({
                 success: true,
                 body: bill,
@@ -105,7 +112,6 @@ class BillController {
 
     async postBill(req, res) {
         const sessionId = req.signedCookies.sessionId;
-
         const {
             userID,
             nameCustomer,
@@ -133,50 +139,54 @@ class BillController {
             });
         }
         try {
-            const newBillWeb = new BillWeb({
+            const billService = new BillService(
+                userID,
+                nameCustomer,
+                address,
+                phoneNumber,
+                email,
                 listProduct,
                 paymentMethod,
-                total,
-                subTotal: listProduct.reduce((a, b) => a + b.sum, 0),
-                qtyProduct: listProduct.reduce((a, b) => a + b.qty, 0),
-                status: paymentMethod === 'COD' ? false : true,
-                shippingFee: 35,
-            });
-            if (voucherID) {
-                newBillWeb.voucherID = voucherID;
-            }
-            if (userID) {
-                newBillWeb.userID = userID;
-                if (idDelivery) {
-                    newBillWeb.deliveryID = idDelivery;
-                }
-            } else {
-                const newInfo = await DeliveryInfo.create({
-                    nameCustomer,
-                    address,
-                    phoneNumber,
-                    email,
-                });
-                newBillWeb.deliveryID = newInfo.id;
-            }
-
-            const currentSession = await Session.findById(sessionId);
-            if (currentSession) {
-                currentSession.cart = [];
-                currentSession.save();
-            }
-            await newBillWeb.save();
-            const billResult = await BillWeb.findById(newBillWeb._id)
-                .populate('userID')
-                .populate('deliveryID')
-                .populate('listProduct._id')
-                .populate('voucherID');
-            res.status(200).send({
-                success: true,
-                body: billResult,
-            });
+                idDelivery,
+                voucherID,
+                total
+            );
+            const billResult = await billService.createBill(sessionId);
+            billResult
+                ? res.status(200).json({
+                      success: true,
+                      body: billResult,
+                  })
+                : res.status(401).json({
+                      success: false,
+                      msg: 'failed',
+                  });
         } catch (err) {
             res.status(404).send({ success: false, message: err.message });
+        }
+    }
+
+    async updateCancelBill(req, res, next) {
+        try {
+            const idBill = req.params.idBill;
+            const reason = req.body.reason ?? null;
+
+            if (idBill == '' || idBill === null || idBill === undefined) {
+                res.status(404).json({
+                    success: false,
+                    message: 'ERROR DATA REQUEST',
+                });
+            }
+            const billService = new BillService();
+            const dataBill = await billService.cancelBill(idBill, reason);
+            dataBill
+                ? res.status(200).json({ success: true, data: dataBill })
+                : res.status(404).json({ success: false, msg: 'FAILED UPDATE CANCEL BILL' });
+        } catch (err) {
+            res.status(404).json({
+                success: false,
+                msg: err.message,
+            });
         }
     }
 }

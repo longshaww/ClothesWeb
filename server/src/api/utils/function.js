@@ -7,7 +7,7 @@ const nodemailer = require('nodemailer');
 const { mailOptionsSendOTP } = require('./mailer');
 module.exports = {
     generateAccessToken: (user) => {
-        try{
+        try {
             const dataSign = {
                 id: user['_id'],
                 email: user['email'],
@@ -18,9 +18,7 @@ module.exports = {
             return jwt.sign(dataSign, 'mySecretKey', {
                 expiresIn: '90 days',
             });
-        }
-        catch(err)
-        {
+        } catch (err) {
             console.log(err);
         }
     },
@@ -49,7 +47,7 @@ module.exports = {
     },
     storage: multer.diskStorage({
         destination: (req, file, cb) => {
-            cb(null, 'public');
+            cb(null, path.join(__dirname, '../public'));
         },
         filename: (req, file, cb) => {
             let ext = path.extname(file.originalname);
@@ -62,8 +60,9 @@ module.exports = {
     }),
     sendOTPVerification: async ({ _id, email }, res) => {
         try {
-            let transporter = nodemailer.createTransport({
-                host: 'smtp-mail.outlook.com',
+            let transporter = await nodemailer.createTransport({
+                host: 'smtp.gmail.com',
+                port: 587,
                 secure: false,
                 auth: {
                     user: process.env.AUTH_EMAIL, // generated ethereal user
@@ -88,6 +87,7 @@ module.exports = {
                 },
             });
         } catch (err) {
+            console.log(err);
             res.status(404).json({
                 success: false,
                 msg: err.message,

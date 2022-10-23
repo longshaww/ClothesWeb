@@ -1,70 +1,70 @@
-import { formatPrice } from "../../utils/format.price";
-import moment from "moment";
-import Toast from "../../utils/toast";
-import { useCookies } from "react-cookie";
-import axiosMethod from "../../middlewares/axios";
+import { useCookies } from 'react-cookie';
 import { Link } from 'react-router-dom';
+
+import {
+    cancelBill,
+    deliveryBill,
+    failedDeliveryConfirmation,
+    pendingBill,
+    successFulDeliveryConfirmation,
+} from '../../constants/constants';
+
 export default function BillComponent({ bill }) {
-	const [cookies] = useCookies(["user"]);
-	console.log(bill)
-	return (
-		<>
-					<div className="d-flex justify-content-center mt-3">
-						<div className="p-4 shadow w-75 rounded-3 border">
-							<div className="text-center text-danger">
-								<h3>
-                                         Hóa Đơn
-								</h3>
-							</div>
-							<div className="row pt-2">
-								<div className="col-6 col-lg-4">
-								
-									<img
-										src="https://product.hstatic.net/200000280689/product/3ed2af449b37b3db9f5cef10be482620_cb1bf95947f04207bd8a92d3fbac6f13_master.jpg"
-										className="img-fluid rounded"
-										alt=""
-									/>
-								</div>
-								<div className="col px-4 py-2 rounded-3 border">
-									<h4 className="text-center">
-										Thông tin
-									</h4>
-									<div className="row fs-5">
-										<div className="col">
-											<div>Tổng Số Lượng</div>
-											<div>Phí Ship</div>
-											<div>Tổng Tiền</div>
-										</div>
-										<div className="col-8 text-end">
-											<div>
-												{bill.qtyProduct}
-											</div>
-											<div>
-												{bill.shippingFee},000 đ
-											</div>
-											<div>
-												{bill.subTotal.toLocaleString()},000 đ
-											</div>
-											<div className="mt-2">
-											Trạng Thái : {bill.status ? <span className="text-success" >Đã Xác Nhận</span> : <span className="text-danger" >Chưa Xác Nhận</span>}
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-							<div className="text-center mt-3">
-								<Link to={`/user/detailBill/${bill._id}`}>
-								<button
-									className="btn btn-dark"
-								>
-									Chi Tiêt
-								</button>
-								</Link>
-								
-							</div>
-						</div>
-					</div>
-				)
-		</>
-	);
+    const [cookies] = useCookies(['user']);
+    const handleBillState = (status) => {
+        if (status === pendingBill) {
+            return 'Chờ xác nhận';
+        } else if (status === deliveryBill) {
+            return 'Đang giao';
+        } else if (status === successFulDeliveryConfirmation) {
+            return 'Đã giao';
+        } else if (status === failedDeliveryConfirmation) {
+            return 'Giao thất bại';
+        } else if (status === cancelBill) {
+            return 'Đã hủy';
+        }
+    };
+    return (
+        <>
+            <div className="d-flex justify-content-center mt-3">
+                <div className="p-4 shadow w-75 rounded-3 border">
+                    <div className="text-center text-danger">
+                        <h3 className="fw-bold fs-4">Hóa Đơn</h3>
+                    </div>
+                    <div className="row pt-2">
+                        <div className="col-6 col-lg-4">
+                            <img
+                                src={bill.listProduct[0]?.img}
+                                className="img-fluid rounded border"
+                                alt=""
+                            />
+                        </div>
+                        <div className="col px-4 py-2 rounded-3 border">
+                            <h4 className="text-center">Thông tin</h4>
+                            <div className="row fs-5">
+                                <div className="col">
+                                    <div>Số Lượng</div>
+                                    <div>Phí Ship</div>
+                                    <div>Tổng Tiền</div>
+                                </div>
+                                <div className="col-8 text-end">
+                                    <div>{bill.qtyProduct}</div>
+                                    <div>{bill.shippingFee},000 đ</div>
+                                    <div>{bill.subTotal.toLocaleString()},000 đ</div>
+                                    <div className="mt-2">
+                                        Trạng Thái: {handleBillState(bill.status)}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="text-center mt-3">
+                        <Link to={`/user/detailBill/${bill._id}`}>
+                            <button className="btn btn-dark">Chi Tiêt</button>
+                        </Link>
+                    </div>
+                </div>
+            </div>
+        </>
+    );
 }
