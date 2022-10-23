@@ -14,24 +14,32 @@ const ProductList = (props) => {
                     <div className="row row-cols-1 row-cols-md-3 row-cols-lg-3 ">
                         {props.data.map((collection) => {
                             return (
-                                <Card key={collection._id} className="col border-0 ">
-                                    <CardImg
-                                        alt="Card image cap"
-                                        src={collection.description.imageList[0]}
-                                        width="100%"
-                                    />
-                                    <CardBody>
-                                        <div className="text-center">
-                                            <p>{`${collection.nameProduct}`}</p>
-                                            <p className="text-muted">
-                                                {`${collection.description.price}.000đ`}
-                                            </p>
-                                        </div>
-                                        <Link
-                                            to={`/product/${collection._id}`}
-                                            className="stretched-link"
-                                        ></Link>
-                                    </CardBody>
+                                <Card key={collection._id} className="col border-1 ">
+                                    {collection?.lable != 'hide' && (
+                                        <>
+                                            <span className="text-right">
+                                                {collection.lable && collection.lable}
+                                            </span>
+
+                                            <CardImg
+                                                alt="Card image cap"
+                                                src={collection.description.imageList[0]}
+                                                width="100%"
+                                            />
+                                            <CardBody>
+                                                <div className="text-center">
+                                                    <p>{`${collection.nameProduct}`}</p>
+                                                    <p className="text-muted">
+                                                        {`${collection.description.price}.000đ`}
+                                                    </p>
+                                                </div>
+                                                <Link
+                                                    to={`/product/${collection._id}`}
+                                                    className="stretched-link"
+                                                ></Link>
+                                            </CardBody>
+                                        </>
+                                    )}
                                 </Card>
                             );
                         })}

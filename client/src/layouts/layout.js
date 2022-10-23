@@ -7,8 +7,8 @@ export default function Layout() {
         <div>
             <NavbarApp />
             <GoToTop />
-            {/* height của NavbarApp = 130px, postion-fixed */}
-            <div style={{ marginTop: '130px' }}>
+
+            <div style={{ marginTop: '100px' }}>
                 <Outlet />
             </div>
         </div>

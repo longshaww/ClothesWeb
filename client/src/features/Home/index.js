@@ -3,6 +3,7 @@ import axiosMethod from '../../middlewares/axios';
 import { useEffect } from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import ProductList from '../../components/ProductList';
 export default function Home() {
     const [productNewArrivals, setProductNewArrivals] = useState([]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -10,39 +11,15 @@ export default function Home() {
         async function fetch() {
             const res = await axiosMethod('collections/get-15-newarrivals', 'GET');
             if (res.success === true) {
-                setProductNewArrivals(res.listProduct);
+                const data = res?.listProduct?.map((item) => {
+                    return { ...item, lable: 'Hàng hot' };
+                });
+                setProductNewArrivals(data);
             }
         }
         fetch();
     }, []);
-    const renderNewArrivals = () => {
-        return productNewArrivals.map((el) => {
-            return (
-                <Link to={`/product/${el._id}`} style={{ color: 'black' }} key={el._id}>
-                    <div>
-                        <li className="col">
-                            <div className="product mx-3 my-2">
-                                <img
-                                    src={el.description.imageList[0]}
-                                    alt=""
-                                    className="img-fluid"
-                                />
-                                <img
-                                    src={el.description.imageList[1]}
-                                    alt=""
-                                    className="img-fluid product_back-side"
-                                />
-                            </div>
 
-                            <h4 className="fs-5 mb-2 ">{el.nameProduct}</h4>
-
-                            <p className="">{el.price},000₫</p>
-                        </li>
-                    </div>
-                </Link>
-            );
-        });
-    };
     return (
         <div>
             {/* banner */}
@@ -138,9 +115,8 @@ export default function Home() {
             {/* sản phẩm hot */}
             <div className="">
                 <p className="fs-1 text-uppercase text-center mt-5 mb-3 font_title">Sản phẩm hot</p>
-                <div className="container p-0">
-                    <ul className="row row-cols-3 p-0">{renderNewArrivals()}</ul>
-                </div>
+
+                {productNewArrivals && <ProductList data={productNewArrivals}></ProductList>}
             </div>
             {/*   dynamic style */}
             <div className="container-fluid mb-5">

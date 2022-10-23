@@ -8,3 +8,28 @@
 .breadcrumb {
     padding: 10px 5px !important;
 }
+.search-box {
+    border: 1px solid #417505 !important;
+    display: flex;
+    justify-content: space-around;
+    padding: 0 10px;
+    align-items: center;
+    border-radius: 7px;
+}
+.icon-search {
+    font-size: 20px;
+    display: inline-block;
+    height: 100%;
+    line-height: 100%;
+    cursor: pointer;
+}
+.icon-search:hover {
+    color: #417505;
+}
+.search-styled {
+    border: none !important;
+    overflow: hidden;
+}
+.search-styled:focus {
+    border: none !important;
+}

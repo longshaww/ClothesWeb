@@ -16,7 +16,7 @@ const Products = new mongoose.Schema(
                 ref: 'Collections',
             },
         },
-        label: { type: String, default: 'New' },
+
         buyed: { type: Number, default: 0 },
     },
     {
