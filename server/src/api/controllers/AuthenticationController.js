@@ -6,6 +6,8 @@ const md5 = require('md5');
 const UserOTPVerification = require('../models/UserOTPVerification');
 let refreshTokens = [];
 const { sendOTPVerification } = require('../utils/function');
+const UserService = require('../services/user/account/index');
+const { throwErr, successRes } = require('../utils/HandleResponse');
 class AuthenticationController {
     //[GET] /register
     async register(req, res, next) {
@@ -29,7 +31,7 @@ class AuthenticationController {
                 const user = await new User(customData);
 
                 await user.save();
-                sendOTPVerification(user, res);
+                return await sendOTPVerification(user, res);
             } else {
                 if (sentinelUser.verify === false) {
                     await User.deleteOne({ _id: sentinelUser._id });
@@ -52,7 +54,7 @@ class AuthenticationController {
                     const user = await new User(customData);
 
                     await user.save();
-                    sendOTPVerification(user, res);
+                    return await sendOTPVerification(user, res);
                 } else {
                     res.status(404).json({
                         success: false,
@@ -194,7 +196,7 @@ class AuthenticationController {
                 }
             }
         } catch (err) {
-            res.json({
+            res.status(404).json({
                 success: false,
                 msg: err.message,
             });
@@ -208,13 +210,39 @@ class AuthenticationController {
             } else {
                 // delete existing records and resend
                 await UserOTPVerification.deleteMany({ userId });
-                sendOTPVerification({ _id: userId, email }, res);
+                return await sendOTPVerification({ _id: userId, email }, res);
             }
         } catch (err) {
             res.json({
                 success: false,
                 msg: err.message,
             });
+        }
+    }
+
+    async forgetPassword(req, res, next) {
+        try {
+            let { email } = req.body;
+            if (email === '' || email === undefined) {
+                return throwError(res, 400, 'ERROR REQUEST');
+            }
+            const userService = new UserService();
+            await userService.resetPassword(email);
+            return await successRes(res, 200, 'SEND OTP SUCCESS');
+        } catch (err) {
+            throwErr(res, 400, err.message);
+        }
+    }
+    async verifyOTPForgetPassword(req, res, next) {
+        try {
+            const { email, otp } = req.body;
+            if (email === '' || !email || otp.length < 4) {
+                return throwError(res, 400, 'ERROR REQUEST');
+            }
+            const userService = new UserService();
+            
+        } catch (err) {
+            throwErr(res, 400, err.message);
         }
     }
 }

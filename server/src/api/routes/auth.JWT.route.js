@@ -15,4 +15,6 @@ router.post('/verifyOTP', authenticationController.postVerify);
 
 router.post('/resendOTP', authenticationController.postResendOTP);
 
+router.post('/forgetPassword', authenticationController.forgetPassword);
+router.post('/verifyOTPForgetPassword', authenticationController.verifyOTPForgetPassword);
 module.exports = router;
