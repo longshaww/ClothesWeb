@@ -220,6 +220,7 @@ class AuthenticationController {
         }
     }
 
+    // FORGET PASSWORD
     async forgetPassword(req, res, next) {
         try {
             let { email } = req.body;
@@ -236,13 +237,45 @@ class AuthenticationController {
     async verifyOTPForgetPassword(req, res, next) {
         try {
             const { email, otp } = req.body;
-            if (email === '' || !email || otp.length < 4) {
+            if (email === '' || !email || otp.length < 4 || otp.length > 4) {
                 return throwError(res, 400, 'ERROR REQUEST');
             }
             const userService = new UserService();
-            
+            const cryptoOTP = await userService.verifyOTPForgetPassword(email, otp);
+            await successRes(res, 200, cryptoOTP, 'VERIFY OTP SUCCESS');
         } catch (err) {
             throwErr(res, 400, err.message);
+        }
+    }
+
+    async veriyOTPForgetPasswordStep2(req, res, next) {
+        try {
+            const { email, cryptoOTP, password, verifyNewPassword } = req.body;
+            if (
+                email === '' ||
+                !email ||
+                !cryptoOTP ||
+                cryptoOTP === '' ||
+                password === '' ||
+                !password ||
+                verifyNewPassword === '' ||
+                !verifyNewPassword
+            ) {
+                return throwErr(res, 400, 'ERROR REQUEST');
+            }
+            const model = {
+                email,
+                cryptoOTP,
+                password,
+                verifyNewPassword,
+            };
+            const userService = new UserService();
+            const flag = await userService.verifyOTPForgetPasswordStep2(model);
+            if (flag) {
+                return successRes(res, 200, null, 'Password Reset Successful');
+            }
+        } catch (err) {
+            return throwErr(res, 400, err.message);
         }
     }
 }

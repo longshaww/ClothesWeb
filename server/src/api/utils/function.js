@@ -74,7 +74,7 @@ module.exports = {
             const newUserOTP = await new UserOTPVerification({
                 userId: _id,
                 otp: md5(otp),
-                expiresAt: Date.now() + 90,
+                expiresAt: Date.now() + 360000,
             });
             await newUserOTP.save();
             await transporter.sendMail(mailOptions);
