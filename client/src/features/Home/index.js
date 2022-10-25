@@ -210,12 +210,6 @@ export default function Home() {
                 </ul>
             </div>
 
-            <footer className="bg-dark text-center text-white mt-5">
-                <div className="text-center p-3 color_footer">
-                    © 2020 Copyright:
-                    <span className="text-white">HighClub.vn</span>
-                </div>
-            </footer>
         </div>
     );
 }

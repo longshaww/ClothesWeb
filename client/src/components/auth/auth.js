@@ -137,7 +137,7 @@ function Auth() {
                         </form>
                         <div className="text-center">
                             <Link to="/account/register">Tạo tài khoản</Link>
-                            <Link to="/account/register">Bạn đã quên mật khẩu ?</Link>
+                            <Link to="/account/resetPassword">Bạn đã quên mật khẩu ?</Link>
                         </div>
                     </div>
                 </Box>

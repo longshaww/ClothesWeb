@@ -60,7 +60,7 @@ export default function ChangePassword() {
                 password: password.newPassword.value,
                 verifyNewPassword: password.verifyPassword.value,
             };
-            const {data} = await axios.put(
+            const { data } = await axios.put(
                 `${process.env.REACT_APP_API_URL}user/changePassword`,
                 model,
                 {
@@ -201,7 +201,7 @@ export default function ChangePassword() {
                     onClick={handleClickChangePassword}
                     disabled={disable}
                 >
-                    Đổi Mật Khẩu
+                    <p className="text-resetPassword">Đổi Mật Khẩu</p>
                 </button>
             </div>
         </div>

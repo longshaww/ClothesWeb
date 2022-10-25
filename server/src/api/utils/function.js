@@ -13,6 +13,7 @@ module.exports = {
                 email: user['email'],
                 information: user['information'],
                 isAdmin: user['isAdmin'],
+                myPoint: user['myPoint'],
             };
             // tạo ra token/
             return jwt.sign(dataSign, 'mySecretKey', {
