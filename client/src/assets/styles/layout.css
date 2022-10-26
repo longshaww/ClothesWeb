@@ -1,6 +1,7 @@
 .footer-design {
-    position: fixed;
-    z-index: 3;
+    /* position: fixed; */
+    z-index: 0;
     bottom: 0;
     width: 100%;
+    margin-top: 30px;
 }

@@ -14,9 +14,9 @@ export default function Layout() {
             <div style={{ marginTop: '100px', height: '70% ' }}>
                 <Outlet />
             </div>
-            <div className = "footer-design">
+            {/* <div className = "footer-design">
                 <Footer />
-            </div>
+            </div> */}
         </div>
     );
 }

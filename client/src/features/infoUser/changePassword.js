@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import '../../assets/styles/changePassword.css';
 import { validateNewPassword } from '../../utils/functionValidate';
 import Toast from '../../utils/toast';
@@ -146,7 +147,11 @@ export default function ChangePassword() {
                                 className="eyeIcon"
                                 onClick={() => handleClickShowHidePassword('oldPassword')}
                             >
-                                <VisibilityIcon />
+                                {password.oldPassword.showPassword ? (
+                                    <VisibilityIcon />
+                                ) : (
+                                    <VisibilityOffIcon />
+                                )}
                             </i>
                         </div>
                     </div>
@@ -168,7 +173,11 @@ export default function ChangePassword() {
                                 className="eyeIcon"
                                 onClick={() => handleClickShowHidePassword('newPassword')}
                             >
-                                <VisibilityIcon />
+                                {password.newPassword.showPassword ? (
+                                    <VisibilityIcon />
+                                ) : (
+                                    <VisibilityOffIcon />
+                                )}
                             </i>
                         </div>
                     </div>
@@ -189,7 +198,11 @@ export default function ChangePassword() {
                                 className="eyeIcon"
                                 onClick={() => handleClickShowHidePassword('verifyPassword')}
                             >
-                                <VisibilityIcon />
+                                {password.verifyPassword.showPassword ? (
+                                    <VisibilityIcon />
+                                ) : (
+                                    <VisibilityOffIcon />
+                                )}
                             </i>
                         </div>
                     </div>

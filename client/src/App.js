@@ -41,6 +41,7 @@ import BillMe from './components/listBill/bill';
 import ChangePassword from './features/infoUser/changePassword';
 import ResetPassword from './components/auth/resetPassword';
 import VerifyOTPForgetPassword from './components/auth/verifyOTPForgetPassword';
+import ResetNewPassword from './components/auth/resetNewPassword';
 function App() {
     const [cookies] = useCookies(['user']);
     let user;
@@ -75,6 +76,10 @@ function App() {
                         <Route
                             path="verifyOTPForgetPassword"
                             element={<VerifyOTPForgetPassword />}
+                        ></Route>
+                        <Route
+                            path="resetNewPassword"
+                            element={<ResetNewPassword />}
                         ></Route>
                     </Route>
                     <Route
