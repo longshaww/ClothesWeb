@@ -13,6 +13,7 @@ module.exports = {
                 email: user['email'],
                 information: user['information'],
                 isAdmin: user['isAdmin'],
+                myPoint: user['myPoint'],
             };
             // tạo ra token/
             return jwt.sign(dataSign, 'mySecretKey', {
@@ -74,7 +75,7 @@ module.exports = {
             const newUserOTP = await new UserOTPVerification({
                 userId: _id,
                 otp: md5(otp),
-                expiresAt: Date.now() + 3600000,
+                expiresAt: Date.now() + 360000,
             });
             await newUserOTP.save();
             await transporter.sendMail(mailOptions);
@@ -87,7 +88,6 @@ module.exports = {
                 },
             });
         } catch (err) {
-            console.log(err);
             res.status(404).json({
                 success: false,
                 msg: err.message,

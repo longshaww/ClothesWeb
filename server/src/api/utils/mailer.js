@@ -27,7 +27,7 @@ module.exports = {
 										<td style="font-family:-apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,&quot;Roboto&quot;,&quot;Oxygen&quot;,&quot;Ubuntu&quot;,&quot;Cantarell&quot;,&quot;Fira Sans&quot;,&quot;Droid Sans&quot;,&quot;Helvetica Neue&quot;,sans-serif">
 										  
 											<h1 style="font-weight:normal;margin:0;font-size:30px;color:#333">
-											  <a href="${process.env.URL_FRONTEND}" style="font-size:30px;text-decoration:none;color:#333" target="_blank">HIGHCLUB</a>
+											  <a href="${process.env.URL_FRONTEND}" style="font-size:30px;text-decoration:none;color:#333" target="_blank">HIGHBAR</a>
 											</h1>
 										  
 										</td>
@@ -52,7 +52,7 @@ module.exports = {
 								<tbody><tr>
 								  <td style="font-family:-apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,&quot;Roboto&quot;,&quot;Oxygen&quot;,&quot;Ubuntu&quot;,&quot;Cantarell&quot;,&quot;Fira Sans&quot;,&quot;Droid Sans&quot;,&quot;Helvetica Neue&quot;,sans-serif">
 									
-								  <h2 style="font-weight:normal;margin:0;font-size:24px;margin-bottom:10px;color:black;">Chào mừng bạn đến với HIGHCLUB! </h2>
+								  <h2 style="font-weight:normal;margin:0;font-size:24px;margin-bottom:10px;color:black;">Chào mừng bạn đến với HIGHBAR! </h2>
 								  <p style="margin:0;color:#777;line-height:150%;font-size:16px"><span style="color:#74686f;">Mã Xác Nhận Của Bạn Là:</span><h2 style="font-weight:normal;margin:0;font-size:24px;margin-bottom:10px;color:black;">${otp}</h2></p>								  
 									<table style="border-spacing:0;border-collapse:collapse;width:100%;margin-top:20px">
 									  <tbody><tr>
@@ -81,7 +81,7 @@ module.exports = {
 							  <table style="border-spacing:0;border-collapse:collapse;width:560px;text-align:left;margin:0 auto">
 								<tbody><tr>
 								  <td style="font-family:-apple-system,BlinkMacSystemFont,&quot;Segoe UI&quot;,&quot;Roboto&quot;,&quot;Oxygen&quot;,&quot;Ubuntu&quot;,&quot;Cantarell&quot;,&quot;Fira Sans&quot;,&quot;Droid Sans&quot;,&quot;Helvetica Neue&quot;,sans-serif">
-									<p style="margin:0;color:#999;line-height:150%;font-size:14px">Nếu bạn có bất cứ câu hỏi nào, đừng ngần ngại liên lạc với chúng tôi tại <a href="mailto:highclubvietnam@gmail.com" style="font-size:14px;text-decoration:none;color:#1666a2" target="_blank">highclubvietnam@gmail.com</a></p>
+									<p style="margin:0;color:#999;line-height:150%;font-size:14px">Nếu bạn có bất cứ câu hỏi nào, đừng ngần ngại liên lạc với chúng tôi tại <a href="mailto:ngocphupham03@gmail.com" style="font-size:14px;text-decoration:none;color:#1666a2" target="_blank">ngocphupham03@gmail.com</a></p>
 								  </td>
 								</tr>
 							  </tbody></table>

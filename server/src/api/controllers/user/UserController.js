@@ -2,6 +2,8 @@ const { getUser } = require('../../utils/service');
 const User = require('../../models/UserWeb');
 const Bill = require('../../models/BillWeb');
 const UserService = require('../../services/user/account/index');
+const { successRes, throwErr } = require('../../utils/HandleResponse');
+
 class UserController {
     async getUser(req, res, next) {
         try {
