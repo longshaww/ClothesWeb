@@ -18,6 +18,13 @@ const UserWeb = new mongoose.Schema(
         role: { type: Number, required: true, default: 0 },
         myPoint: { type: Number, required: true, default: 0 },
         verify: { type: Boolean, required: true, default: false },
+        vip: {
+            type: String,
+            required: true,
+            default: 'Bronze',
+            enum: ['Bronze', 'Silver', 'Gold', 'Plantium'],
+        },
+        moneyPayed: { type: Number, required: true, default: 0 },
     },
     {
         timestamps: true,
