@@ -105,6 +105,7 @@ module.exports = {
                     dateOfBirth: moment(el.information.dateOfBirth, 'MM-DD-YYYY').format('l'),
                     point: el.myPoint,
                     email: el.email,
+                    role: el.role === 0 ? 'Khách Hàng' : 'Nhân Viên',
                     bans: false,
                 };
                 listUserCustom.push(customData);
@@ -117,6 +118,7 @@ module.exports = {
                     dateOfBirth: moment(el.information.dateOfBirth, 'MM-DD-YYYY').format('l'),
                     point: el.myPoint,
                     email: el.email,
+                    role: el.role === 0 ? 'Khách Hàng' : 'Nhân Viên',
                     bans: true,
                 };
                 listUserCustom.push(customData);

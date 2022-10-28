@@ -76,7 +76,7 @@ export default function ResetNewPassword() {
                 title: 'OTP hết hạn',
                 icon: 'failed',
             });
-            return navigate('resetPassword', { replace: true });
+            return  window.location.replace(`${process.env.HOSTPORTFE}/account/resetPassword`);;
         }
     };
     const resetState = () => {
