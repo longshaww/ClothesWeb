@@ -59,7 +59,7 @@ module.exports = {
             case point > 5000 :
                 return 'Plantium';
             default: 
-                return 'Copper';
+                return 'Bronze';
         }            
     }
 };

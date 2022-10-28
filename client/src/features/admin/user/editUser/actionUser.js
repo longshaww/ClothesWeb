@@ -4,6 +4,7 @@ import moment from 'moment';
 import axios from 'axios';
 import { Tabs } from 'antd';
 import EditInfoUser from './action/editInfoUser';
+import ChangePasswordUser from './action/changePassword';
 export default function ActionUser({ infoUser, idUser, accessToken, setDataDetail }) {
     return (
         <>
@@ -18,7 +19,11 @@ export default function ActionUser({ infoUser, idUser, accessToken, setDataDetai
                         />
                     </Tabs.TabPane>
                     <Tabs.TabPane tab="Đổi Mật Khẩu" key="2">
-                        Content of Tab Pane 2
+                        <ChangePasswordUser
+                            idUser={idUser}
+                            accessToken={accessToken}
+                            setDataDetail={setDataDetail}
+                        />
                     </Tabs.TabPane>
                 </Tabs>
             </div>

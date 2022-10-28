@@ -28,3 +28,26 @@ export const rankedUser = (moneyPayed) => {
             };
     }
 };
+export const returnMoney = (rank) => {
+    switch (rank) {
+        case 'Bronze':
+            return {
+                text : 'Dưới 500.000đ',
+                point : 0 
+            };
+        case 'Silver':
+            return {
+                text : '500.000 đ đến 1.000.000 đ',
+                point : 500};
+        case 'Gold':
+            return {
+                text : '1.000.000 đ đến 5.000.000 đ ',
+                point : 1000};
+        case 'Platinum':
+            return {
+                text : '5.000.000 đ trở đến ',
+                point : 5000};
+        default:
+            return 0;
+    }
+};

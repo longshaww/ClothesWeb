@@ -72,8 +72,7 @@ class ProductManager {
             );
             return product ? true : false;
         } catch (err) {
-            console.log(err);
-            return false;
+            throw new Error(err.message);
         }
     }
 
@@ -111,7 +110,7 @@ class ProductManager {
     }
 
     async editImage(filename, index, paramsId) {
-        try{
+        try {
             if (index === '1') {
                 const product = await ProductModel.findOne({ _id: paramsId });
                 let customArray = [
@@ -126,9 +125,7 @@ class ProductManager {
                         },
                     }
                 );
-                return (await productUpdate)
-                    ? true
-                    : false
+                return (await productUpdate) ? true : false;
             } else {
                 const product = await ProductModel.findOne({ _id: paramsId });
                 let customArray = [
@@ -143,17 +140,12 @@ class ProductManager {
                         },
                     }
                 );
-    
-                return (await productUpdate)
-                    ? true
-                    : false
+
+                return (await productUpdate) ? true : false;
             }
+        } catch (err) {
+            return false;
         }
-        catch(err)
-        {
-            return false
-        }
-     
     }
 }
 

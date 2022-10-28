@@ -42,6 +42,11 @@ class ValidatorService {
                 await validators.add(new CheckVerifyNewPassword());
                 return (this.validators = validators.getFirst());
             },
+            VALIDATE_NEW_PASSWORD_ADMIN: async () => {
+                const validators = new ValidatorChainBuilder();
+                await validators.add(new PasswordValidator());
+                return (this.validators = validators.getFirst());
+            },
         };
     }
     async performValidation(model) {
