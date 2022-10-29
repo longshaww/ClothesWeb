@@ -8,6 +8,7 @@ import globalStateAndAction from '../../container/global.state.action';
 import { useState, useEffect } from 'react';
 import axiosMethod from '../../middlewares/axios';
 import Toast from '../../utils/toast';
+import 'boxicons';
 import { useCookies } from 'react-cookie';
 
 function PopupCart({ cart, setCart }) {
@@ -74,15 +75,18 @@ function PopupCart({ cart, setCart }) {
     const id = open ? 'simple-popover' : undefined;
 
     return (
-        <Badge badgeContent={cartCount} color="primary">
-            <ShoppingCartIcon
-                className="mt-1"
+        <Badge badgeContent={cartCount ? cartCount : '0'} color="primary">
+            {/* <ShoppingCartIcon
                 style={{ cursor: 'pointer' }}
                 onClick={handleClick}
                 aria-describedby={id}
                 variant="contained"
-            ></ShoppingCartIcon>
-
+            ></ShoppingCartIcon> */}
+            <i
+                style={{ cursor: 'pointer', fontSize: '30px', position: 'relative' }}
+                onClick={handleClick}
+                class="bx bx-cart-alt"
+            ></i>
             <Popover
                 Gio
                 hang

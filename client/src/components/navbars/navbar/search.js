@@ -34,6 +34,7 @@ export default function PostFilterForm(props) {
     return (
         <div className="search-box">
             <input
+                autoComplete="false"
                 className="form-control search-styled"
                 placeholder="Tìm kiếm sản phẩm"
                 value={search}

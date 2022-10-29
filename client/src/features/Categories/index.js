@@ -1,6 +1,6 @@
 import Pagination from '@mui/material/Pagination';
 import Stack from '@mui/material/Stack';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Col, Row } from 'reactstrap';
 import ProductList from '../../components/ProductList';
@@ -10,26 +10,33 @@ import { Select } from 'antd';
 import axiosMethod from '../../middlewares/axios';
 const Categories = () => {
     const location = useLocation();
+    const navigate = useNavigate();
+
+    const [type, setType] = useState(null);
+    const [page, setPage] = useState(1);
+    const [collections, setCollections] = useState();
+    const [hotProductList, setHotProductList] = useState();
+
     let param = location.pathname.split('/');
+
     if (param.length > 2) {
         param = param[2].toUpperCase();
     } else {
         param = param[1].toUpperCase();
     }
 
-    const [type, setType] = useState(null);
-    const [page, setPage] = useState(1);
-    const [hotProductList, setHotProductList] = useState(undefined);
-    // const navigate = useNavigate();
     const handleChange = (payload) => {
         setType(payload);
     };
     const handlePagination = (event, value) => {
         setPage(value);
     };
+    useEffect(() => {
+        setType(null);
+        setPage(1);
+    }, [param]);
 
-    const [collections, setCollections] = useState(undefined);
-
+    //get sản phẩm hot
     useEffect(() => {
         async function fetch() {
             const res = await axiosMethod('collections/get-15-newarrivals', 'GET');
@@ -41,13 +48,6 @@ const Categories = () => {
         fetch();
     }, []);
 
-    // có vấn đề
-    useEffect(() => {
-        setType(null);
-        setPage(1);
-    }, [param]);
-
-    // có vấn đề
     useEffect(() => {
         async function fetchData() {
             try {
@@ -73,13 +73,13 @@ const Categories = () => {
                 data = data.filter((item) => item !== 'hide');
                 setCollections(data);
             } catch (error) {
-                console.log(error);
+                console.log('🚀 ~ file: index.js ~ line 77 ~ fetchData ~ error', error);
                 // navigate('/');
             }
         }
         if (hotProductList) fetchData();
     }, [param, type, page, hotProductList]);
-    console.log(collections);
+
     const { Option } = Select;
     const breadcrumbList = [
         { isActive: true, text: 'Trang chủ', url: '/' },
@@ -95,13 +95,14 @@ const Categories = () => {
                 </div>
 
                 {/* component filter */}
-                <Row className="pt-2 ">
+                <Row className="mt-2 mb-2">
                     <Col className="ml-2" sm="3" md="3" lg={2}>
                         <Select
                             allowClear
                             className="custom-select"
                             onChange={(payload) => handleChange(payload)}
                             placeholder="Sắp xếp"
+                            value={type}
                         >
                             <Option value="bestseller">Bán chạy</Option>
                             <Option value="ascending">Giá tăng dần</Option>
@@ -127,7 +128,7 @@ const Categories = () => {
                                 page={page}
                                 size="large"
                                 variant="outlined"
-                                count={7}
+                                count={3}
                                 color="secondary"
                             />
                         </Stack>

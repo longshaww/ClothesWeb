@@ -1,0 +1,17 @@
+.m-tilte {
+    width: 100%;
+}
+.m-title-text {
+    font-family: Quicksand;
+    font-size: 40px;
+    width: 100%;
+    font-weight: 700;
+    text-align: center;
+}
+.m-border-bot {
+    width: 50px;
+    margin: 5px 0;
+    height: 3px;
+    margin: 0 auto;
+    background-color: black;
+}

@@ -11,6 +11,8 @@ export default function DetailBill() {
         const getData = async () => {
             const endpoint = `bill/${id}`;
             const res = await axiosMethod(endpoint, 'get');
+            console.log('🚀 ~ file: detailBill.js ~ line 14 ~ getData ~ res', res.body);
+
             setData(res.body);
         };
         getData();
@@ -65,7 +67,7 @@ export default function DetailBill() {
                                                             color: '#8f8061',
                                                         }}
                                                     >
-                                                        {data.userID.information.name}
+                                                        {data?.userID?.information?.name}
                                                     </span>
                                                 </li>
                                                 <li className="text-muted">
@@ -76,7 +78,7 @@ export default function DetailBill() {
                                                             color: '#8f8061',
                                                         }}
                                                     >
-                                                        {data.userID.information.address}
+                                                        {data?.userID?.information?.address}
                                                     </span>
                                                 </li>
                                                 <li className="text-muted">
@@ -86,7 +88,7 @@ export default function DetailBill() {
                                                             color: '#8f8061',
                                                         }}
                                                     >
-                                                        {data.userID.information.phoneNumber}
+                                                        {data?.userID?.information?.phoneNumber}
                                                     </span>
                                                 </li>
                                             </ul>

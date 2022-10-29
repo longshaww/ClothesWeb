@@ -39,6 +39,8 @@ import VoucherMe from './features/infoUser/voucher.me';
 import LayoutUser from './layouts/layoutUser';
 import BillMe from './components/listBill/bill';
 import ChangePassword from './features/infoUser/changePassword';
+import MyPoint from './features/infoUser/point';
+import FeedBack from './features/infoUser/feedback';
 import ResetPassword from './components/auth/resetPassword';
 import VerifyOTPForgetPassword from './components/auth/verifyOTPForgetPassword';
 function App() {
@@ -104,6 +106,8 @@ function App() {
                         <Route path="detailBill/:id" index element={<DetailBill />}></Route>
                         <Route path="voucher" index element={<VoucherMe />}></Route>
                         <Route path="changePassword" index element={<ChangePassword />}></Route>
+                        <Route path="my-point" index element={<MyPoint />}></Route>
+                        <Route path="feedback" index element={<FeedBack />}></Route>
                     </Route>
                 </Route>
                 <Route path="/admin" element={user ? <LayoutAdmin /> : <Navigate to="/" />}>

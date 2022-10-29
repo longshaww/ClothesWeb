@@ -6,16 +6,21 @@ import Box from '@mui/material/Box';
 import axiosMethod from '../../middlewares/axios';
 import { useCookies } from 'react-cookie';
 import { Link } from 'react-router-dom';
+import Avatar from '@mui/material/Avatar';
 import jwtDecode from 'jwt-decode';
 import Toast from '../../utils/toast';
 import '../../assets/styles/auth.css';
 function Auth() {
     const [cookies, setCookie, removeCookie] = useCookies(['user', 'accessToken']);
-
+    //MUI Cart Open handle
+    const [anchorEl, setAnchorEl] = useState(null);
+    const [open, setOpen] = useState(false);
+    const id = open ? 'simple-popover' : undefined;
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     // click submit
     const handleSubmit = async (e) => {
+        setOpen(false);
         e.preventDefault();
         try {
             if (email === '' || password === '') {
@@ -48,6 +53,7 @@ function Auth() {
         }
     };
     const handleClickLogOut = async () => {
+        setOpen(false);
         try {
             const res = await axiosMethod('authJWT/logout', 'POST');
             if (res.success === true) {
@@ -179,38 +185,59 @@ function Auth() {
         }
     };
     // HANDLE OPEN TABLE CLOSE TABLE
-    const [anchorEl, setAnchorEl] = useState(null);
 
     const handleClick = (event) => {
+        setOpen(true);
         setAnchorEl(event.currentTarget);
     };
 
     const handleClose = () => {
+        setOpen(false);
         setAnchorEl(null);
     };
 
-    //MUI Cart Open handle
-    const open = Boolean(anchorEl);
-    const id = open ? 'simple-popover' : undefined;
     return (
         <Badge color="primary">
-            <AccountCircleIcon
-                style={{ cursor: 'pointer' }}
-                onClick={handleClick}
-                aria-describedby={id}
-                variant="contained"
-                className="mt-1"
-            />
-
+            {cookies?.user?.information?.name ? (
+                // <AccountCircleIcon
+                //     style={{ cursor: 'pointer' }}
+                //     onClick={handleClick}
+                //     aria-describedby={id}
+                //     variant="contained"
+                // />
+                // <i
+                //     style={{ cursor: 'pointer', fontSize: '30px' }}
+                //     onClick={handleClick}
+                //     class="bx bx-user-check"
+                // ></i>
+                <Avatar
+                    onClick={handleClick}
+                    sx={{ width: 29, height: 29, marginRight: '5px', cursor: 'pointer' }}
+                >
+                    {cookies?.user?.information?.name[0]}
+                </Avatar>
+            ) : (
+                // <AccountCircleIcon
+                //     style={{ cursor: 'pointer' }}
+                //     onClick={handleClick}
+                //     aria-describedby={id}
+                //     variant="contained"
+                // />
+                <i
+                    style={{ cursor: 'pointer', fontSize: '30px' }}
+                    onClick={handleClick}
+                    class="bx bx-user"
+                ></i>
+            )}
             <Popover
                 id={id}
                 open={open}
                 anchorEl={anchorEl}
                 onClose={handleClose}
-                // anchorOrigin={{
-                // 	vertical: "bottom",
-                // 	horizontal: "mid",
-                // }}
+                anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'mid',
+                }}
             >
                 {showAuth()}
             </Popover>
