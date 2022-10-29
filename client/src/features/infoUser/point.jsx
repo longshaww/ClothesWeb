@@ -117,15 +117,15 @@ export default function MyPoint() {
                     </div>
                     <div className="d-flex mt-2">
                         <span className="m-title">
-                            Rank hiện tại: {RANK[cookie?.user?.vip].text}
+                            {/* Rank hiện tại: {RANK[cookie?.user?.vip].text} */}
                         </span>
-                        <img
+                        {/* <img
                             width={'30px'}
                             height={'20px'}
                             src={RANK[cookie?.user?.vip].icon}
                             alt="rank"
                             className="pl-2 xu-balance__img"
-                        ></img>
+                        ></img> */}
                     </div>
                 </div>
                 <div className="row voucher-list mt-5">
