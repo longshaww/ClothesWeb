@@ -43,7 +43,7 @@ export default function PostFilterForm(props) {
                 onChange={handleSearchChange}
             ></input>
 
-            <i onClick={handleSearchIconClick} class="bx icon-search bx-search"></i>
+            <i onClick={handleSearchIconClick} className="bx icon-search bx-search"></i>
         </div>
     );
 }

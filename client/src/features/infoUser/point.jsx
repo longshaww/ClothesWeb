@@ -113,7 +113,7 @@ export default function MyPoint() {
                         <span className="m-title">
                             Số điểm của bạn: {cookie?.user?.myPoint || 0}
                         </span>
-                        <img src={PointIcon} alt="Điểm" class="pl-2 xu-balance__img"></img>
+                        <img src={PointIcon} alt="Điểm" className="pl-2 xu-balance__img"></img>
                     </div>
                     <div className="d-flex mt-2">
                         <span className="m-title">
@@ -124,7 +124,7 @@ export default function MyPoint() {
                             height={'20px'}
                             src={RANK[cookie?.user?.vip].icon}
                             alt="rank"
-                            class="pl-2 xu-balance__img"
+                            className="pl-2 xu-balance__img"
                         ></img>
                     </div>
                 </div>
@@ -152,7 +152,7 @@ export default function MyPoint() {
                                                 width="25px"
                                                 height="25px"
                                                 alt="Điểm"
-                                                class="pl-1 xu-balance__img"
+                                                className="pl-1 xu-balance__img"
                                             ></img>
                                             <span className=" pl-1">để đổi</span>
                                         </div>
@@ -163,7 +163,7 @@ export default function MyPoint() {
                                     <button
                                         type="button"
                                         style={{ backgroundColor: '#333', color: '#fff' }}
-                                        class="btn ml-5"
+                                        className="btn ml-5"
                                         onClick={() =>
                                             handleClick({
                                                 voucherID: item._id,
@@ -179,7 +179,7 @@ export default function MyPoint() {
                         ))
                     ) : (
                         <div className="d-flex flex-column justify-content-center align-items-center">
-                            <img alt="point" class="mascot" src={VoucherIcon}></img>
+                            <img alt="point" className="mascot" src={VoucherIcon}></img>
                         </div>
                     )}
                 </div>
@@ -212,7 +212,7 @@ export default function MyPoint() {
                                 {/* <button
                                     type="button"
                                     style={{ backgroundColor: '#333', color: '#fff' }}
-                                    class="btn ml-5"
+                                    className="btn ml-5"
                                     onClick={() =>
                                         handleClick({
                                             voucherID: item._id,
@@ -228,7 +228,7 @@ export default function MyPoint() {
                     ))
                 ) : (
                     <div className="d-flex flex-column justify-content-center align-items-center">
-                        <img alt="icon" class="mascot" src={VoucherIcon}></img>
+                        <img alt="icon" className="mascot" src={VoucherIcon}></img>
                         <span className="m-title">Bạn chưa có voucher nào</span>
                     </div>
                 )}

@@ -201,7 +201,7 @@ export default function InfoProduct({ infoProduct, idProduct, accessToken, setDa
                                             />
                                             <button
                                                 type="button"
-                                                class="btn btn-success"
+                                                className="btn btn-success"
                                                 value="2"
                                                 onClick={handleClickUpdateImage}
                                             >

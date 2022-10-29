@@ -85,7 +85,7 @@ function PopupCart({ cart, setCart }) {
             <i
                 style={{ cursor: 'pointer', fontSize: '30px', position: 'relative' }}
                 onClick={handleClick}
-                class="bx bx-cart-alt"
+                className="bx bx-cart-alt"
             ></i>
             <Popover
                 Gio

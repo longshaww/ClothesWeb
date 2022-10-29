@@ -208,7 +208,7 @@ function Auth() {
                 // <i
                 //     style={{ cursor: 'pointer', fontSize: '30px' }}
                 //     onClick={handleClick}
-                //     class="bx bx-user-check"
+                //     className="bx bx-user-check"
                 // ></i>
                 <Avatar
                     onClick={handleClick}
@@ -226,7 +226,7 @@ function Auth() {
                 <i
                     style={{ cursor: 'pointer', fontSize: '30px' }}
                     onClick={handleClick}
-                    class="bx bx-user"
+                    className="bx bx-user"
                 ></i>
             )}
             <Popover
