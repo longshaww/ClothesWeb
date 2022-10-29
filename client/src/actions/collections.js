@@ -61,7 +61,6 @@ const filterCollections = () => async (dispatch) => {
 
 const postProduct = (room) => async (dispatch) => {
     const res = await axios.post(`${process.env.REACT_APP_ROOM_API}`, room);
-    console.log(res);
     await MySwal.fire({
         title: <p>Đã thêm phòng mới</p>,
         icon: 'success',

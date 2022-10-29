@@ -132,6 +132,20 @@ export default function NavbarApp() {
                                         </NavItem>
                                     </div>
                                 </NavItem>
+
+                                <NavItem className="sub-nav">
+                                    <div className="nav-link" style={{ pointer: 'cursor' }}>
+                                        Tiện Ích
+                                        <i className="bx bx-chevron-down"></i>
+                                    </div>
+                                    <div className="sub-nav-content">
+                                        <NavItem>
+                                            <Link to="/followOrder" className="sub-nav-link">
+                                                Theo Dõi Đơn Hàng
+                                            </Link>
+                                        </NavItem>
+                                    </div>
+                                </NavItem>
                                 {/* VOUCHER */}
                                 <NavItem>
                                     <Link to="/collections/sale" className="nav-link">

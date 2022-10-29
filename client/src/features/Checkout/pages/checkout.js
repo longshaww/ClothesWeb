@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import Toast from '../../../utils/toast';
 import axiosMethod from '../../../middlewares/axios';
 import { useNavigate } from 'react-router-dom';
+import { returnPercentSale, returnMoneySale } from '../../../utils/returnHTML';
 
 function Checkout({ cart, setTotal }) {
     const navigate = useNavigate();
@@ -205,6 +206,15 @@ function Checkout({ cart, setTotal }) {
                                     ,000đ
                                 </td>
                             </tr>
+                            {cookies.user && (
+                                <>
+                                    <tr>
+                                        <td>Giảm phần trăm theo mức thành viên</td>
+                                        <td>{returnPercentSale(cookies?.user?.vip)}%</td>
+                                    </tr>
+                                </>
+                            )}
+
                             <tr className="border-bottom">
                                 <td>Phí vận chuyển</td>
                                 <td>{shippingFee.toLocaleString()},000đ</td>
@@ -212,7 +222,12 @@ function Checkout({ cart, setTotal }) {
                             <tr>
                                 <td>Tổng cộng</td>
                                 <td>
-                                    {total.toLocaleString()}
+                                    {cookies.user
+                                        ? returnMoneySale(
+                                              total,
+                                              cookies?.user?.vip
+                                          ).toLocaleString()
+                                        : total.toLocaleString()}
                                     ,000đ
                                 </td>
                             </tr>

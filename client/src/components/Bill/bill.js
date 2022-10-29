@@ -3,7 +3,8 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import moment from 'moment';
 import '../../assets/styles/bill.css';
 import { formatPrice } from '../../utils/format.price';
-
+import Logo from '../../assets/images/hyperX.jpeg';
+import { returnStatusOrder } from '../../utils/returnHTML';
 const BillComponent = ({ bill }) => {
     return (
         <div className="col-md-12">
@@ -13,21 +14,22 @@ const BillComponent = ({ bill }) => {
                         <div className="col-xs-6 col-sm-6 col-md-6">
                             <div className="receipt-left">
                                 <img
+                                    id="logo"
+                                    src={Logo}
+                                    alt=""
                                     className="img-fluid rounded-circle w-50"
-                                    alt="iamgurdeeposahan"
-                                    src="/static/media/hyperX.11f5c37bcb2b1acf1059.jpeg"
-                                />
+                                ></img>
                             </div>
                         </div>
                         <div className="col-xs-6 col-sm-6 col-md-6 text-right">
                             <div className="receipt-right">
-                                <h5>HighClub</h5>
+                                <h5>HighBar</h5>
                                 <p>
                                     0966615566
                                     <i className="fa fa-phone"></i>
                                 </p>
                                 <p>
-                                    support@highclub.vn
+                                    support@highbar.vn
                                     <i className="fa fa-envelope-o"></i>
                                 </p>
                                 <p>
@@ -122,19 +124,7 @@ const BillComponent = ({ bill }) => {
                                         <div>Trạng thái</div>
                                     </td>
                                     <td>
-                                        <div>
-                                            {bill.status ? (
-                                                <CheckCircleOutlineIcon
-                                                    className="text-success"
-                                                    size={25}
-                                                />
-                                            ) : (
-                                                <HighlightOffIcon
-                                                    className="text-danger"
-                                                    size={25}
-                                                />
-                                            )}
-                                        </div>
+                                        <div>{returnStatusOrder(bill.status)}</div>
                                     </td>
                                 </tr>
 

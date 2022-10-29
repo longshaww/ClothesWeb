@@ -159,7 +159,7 @@ class BillController {
                   })
                 : res.status(401).json({
                       success: false,
-                      msg: 'failed',
+                      msg: 'failed create bill',
                   });
         } catch (err) {
             res.status(404).send({ success: false, message: err.message });

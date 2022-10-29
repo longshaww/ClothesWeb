@@ -45,6 +45,7 @@ import ResetPassword from './components/auth/resetPassword';
 import VerifyOTPForgetPassword from './components/auth/verifyOTPForgetPassword';
 import ResetNewPassword from './components/auth/resetNewPassword';
 import EditUser from './features/admin/user/editUser/index';
+import FollowOrder from './features/followOrder/index';
 function App() {
     const [cookies] = useCookies(['user']);
     let user;
@@ -59,6 +60,8 @@ function App() {
                 <Route path="/" element={<Layout />}>
                     <Route path="" element={<Home />}></Route>
                     <Route path="categories/:type" element={<Categories />}></Route>
+                    <Route path="/followOrder" element={<FollowOrder />}></Route>
+
                     <Route path="collections" element={<CollectionsLayout />}>
                         <Route index element={<Collections />} />
                         <Route path="tops" index element={<Tops />}></Route>

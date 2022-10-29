@@ -33,7 +33,7 @@ class BillUserService {
         try {
             const flag1 = await this.minusProduct();
             if (!flag1) {
-                return null;
+                throw new Error('Minus product fail');
             }
             const newBillWeb = new BillWeb({
                 listProduct: this._listProduct,
@@ -97,8 +97,7 @@ class BillUserService {
                 const qtyProductUserBuy = el.qty;
                 const sizeNameUserBuy = el.size;
                 const flag = await this.executeMinus(idProduct, qtyProductUserBuy, sizeNameUserBuy);
-                console.log(flag);
-                if (!flag) return false;
+                if (!flag) throw new Error('Minus Product Error');
             }
             return await true;
         } catch (err) {
