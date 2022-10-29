@@ -27,7 +27,7 @@ const RANK = {
         icon: SilverRank,
         text: 'Bạc',
     },
-    Freenium: {
+    Plantinum: {
         icon: Freenium,
         text: 'Kim cương',
     },
@@ -84,11 +84,11 @@ export default function MyPoint() {
                     authorization: `Bearer ${cookie.accessToken}`,
                 });
 
-                console.log(res.body);
-                // setCookie('user', res?.body, { path: '/' });
-                // // setCookie('accessToken', res?.accessToken, {
-                // //     path: '/',
-                // // });
+                const info = await jwtDecode(res.body);
+                setCookie('user', info, { path: '/' });
+                setCookie('accessToken', res.body, {
+                    path: '/',
+                });
 
                 Toast.fire({
                     title: 'Đổi thành công 1 voucher',

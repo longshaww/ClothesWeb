@@ -38,6 +38,7 @@ export default function PostFilterForm(props) {
                 className="form-control search-styled"
                 placeholder="Tìm kiếm sản phẩm"
                 value={search}
+                type="text"
                 onKeyUp={handleSearchKeyUp}
                 onChange={handleSearchChange}
             ></input>
