@@ -88,10 +88,13 @@ class UserService {
             if (!userOTPVFP) throw new Error('OTP NOT FOUND');
             if (md5(String(otp)) === userOTPVFP.otp && userOTPVFP.step == 1) {
                 const refreshOtp = `${Math.floor(1000 + Math.random() * 9000)}`;
-                userOTPVFP.otp = md5(refreshOtp);
-                userOTPVFP.expireAt = Date.now();
-                userOTPVFP.step = 2;
-                await userOTPVFP.save();
+                await UserOTPVerificationForgetPassword.deleteMany({ _id: userOTPVFP._id });
+                const userOTP = new UserOTPVerificationForgetPassword({
+                    userId: idUser,
+                    otp: md5(refreshOtp),
+                    step: 2,
+                });
+                await userOTP.save();
                 return md5(refreshOtp);
             } else {
                 throw new Error('OTP NOT RIGHT');

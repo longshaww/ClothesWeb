@@ -24,3 +24,21 @@
 .m-title {
     font-weight: bolder;
 }
+.voucher-item {
+    height: 120px;
+    position: relative;
+}
+.font-weight-bold {
+    font-weight: bolder;
+    font-size: 14px;
+}
+.font-weight-light {
+    font-size: 13px;
+    color: #787878;
+}
+
+.point-text {
+    font-size: 13px;
+    color: #787878;
+    font-weight: normal;
+}

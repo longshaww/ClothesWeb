@@ -78,3 +78,31 @@ export const validateNewPassword = (model) => {
         return 'Xác nhận lại password không đúng';
     }
 };
+
+export const validateRank = (rank, moneyPayed) => {
+    switch (rank) {
+        case 'Bronze':
+            if (moneyPayed > 500) throw new Error('Số tiền nhập sai quy định rank');
+            break;
+        case 'Silver':
+            if ((moneyPayed >= 500) & (moneyPayed < 1000)) {
+                return;
+            } else {
+                throw new Error('Số tiền nhập sai quy định rank');
+            }
+        case 'Gold':
+            if (moneyPayed >= 1000 && moneyPayed < 5000) {
+                return;
+            } else {
+                throw new Error('Số tiền nhập sai quy định rank');
+            }
+        case 'Plantinum':
+            if (moneyPayed > 5000) {
+                return;
+            } else {
+                throw new Error('Số tiền nhập sai quy định rank');
+            }
+        default:
+            throw new Error('Đã xảy ra lỗi');
+    }
+};

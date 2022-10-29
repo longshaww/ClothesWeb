@@ -26,11 +26,11 @@ const MENU = [
         icon: <StarHalfIcon />,
         url: '/user/my-point',
     },
-    {
-        text: 'Voucher của tôi',
-        icon: <ChatBubbleOutlineIcon />,
-        url: '/user/voucher',
-    },
+    // {
+    //     text: 'Voucher của tôi',
+    //     icon: <ChatBubbleOutlineIcon />,
+    //     url: '/user/voucher',
+    // },
     {
         text: 'Lịch sử',
         icon: <HistoryRoundedIcon />,

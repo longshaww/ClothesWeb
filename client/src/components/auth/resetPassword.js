@@ -8,6 +8,7 @@ import Toast from '../../utils/toast';
 import withReactContent from 'sweetalert2-react-content';
 import Swal from 'sweetalert2';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+
 export default function ResetPassword() {
     const navigate = useNavigate();
     const MySwal = withReactContent(Swal);
@@ -29,9 +30,10 @@ export default function ResetPassword() {
     const handleClick = async (e) => {
         e.preventDefault();
         try {
+            setDisable(true);
             const endPoint = 'authJWT/forgetPassword';
             const data = await axiosMethod(endPoint, 'POST', { email });
-            if (data) {
+            if (data.success) {
                 MySwal.fire({
                     title: <p>OTP ĐÃ ĐƯỢC GỬI ĐẾN EMAIL</p>,
                     didOpen: () => {
@@ -39,14 +41,23 @@ export default function ResetPassword() {
                     },
                     timer: 1000,
                 });
-                return navigate(`/account/verifyOTPForgetPassword?email=${email}`);
+                return navigate(
+                    `/account/verifyOTPForgetPassword?email=${encodeURIComponent(email)}`
+                );
+            } else {
+                await resetState();
             }
         } catch (error) {
+            await resetState();
             Toast.fire({
                 title: 'Tài khoản không tồn tại ',
                 icon: 'error',
             });
         }
+    };
+    const resetState = () => {
+        setEmail('');
+        setDisable(true);
     };
     return (
         <div>
@@ -61,7 +72,7 @@ export default function ResetPassword() {
                                 </Link>
                             </div>
                             <div className="textHeading flex-grow-1">
-                                <h1 className="text-center">Đặt Lại Mật Khẩu</h1>
+                                <h1 className="text-center">Quên Mật Khẩu</h1>
                             </div>
                         </div>
                         <div>

@@ -43,6 +43,8 @@ import MyPoint from './features/infoUser/point';
 import FeedBack from './features/infoUser/feedback';
 import ResetPassword from './components/auth/resetPassword';
 import VerifyOTPForgetPassword from './components/auth/verifyOTPForgetPassword';
+import ResetNewPassword from './components/auth/resetNewPassword';
+import EditUser from './features/admin/user/editUser/index';
 function App() {
     const [cookies] = useCookies(['user']);
     let user;
@@ -78,6 +80,7 @@ function App() {
                             path="verifyOTPForgetPassword"
                             element={<VerifyOTPForgetPassword />}
                         ></Route>
+                        <Route path="resetNewPassword" element={<ResetNewPassword />}></Route>
                     </Route>
                     <Route
                         path="checkout/method/:payment/success"
@@ -113,6 +116,7 @@ function App() {
                 <Route path="/admin" element={user ? <LayoutAdmin /> : <Navigate to="/" />}>
                     <Route path="dashboard" element={<Dashboard />}></Route>
                     <Route path="users" element={<ListUser />}></Route>
+                    <Route path="users/info/:id" element={<EditUser />}></Route>
                     <Route path="products" element={<ProductList />}></Route>
                     <Route path="products/:id" element={<DetailProduct />}></Route>
                     <Route path="products/create" element={<CreateProduct />}></Route>

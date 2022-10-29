@@ -10,15 +10,13 @@ export default function Layout() {
     return (
         <div className="m-main">
             <NavbarApp />
-
             <GoToTop />
-
             <div className="m-article" style={{ marginTop: `${height}px` }}>
                 <Outlet />
             </div>
             <div className="footer-design">
                 <Footer />
-            </div>
+            </div>{' '}
         </div>
     );
 }

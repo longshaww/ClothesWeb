@@ -46,4 +46,20 @@ module.exports = {
         });
         return list;
     },
+    analystVip : async(myPoint)=>{
+        const point = myPoint;
+        switch(true)
+        {
+            case point < 500:
+                return 'Bronze';
+            case  point >= 500 & point < 1000:
+                return 'Silver';
+            case point >= 1000 && point < 5000:
+                return 'Gold';
+            case point > 5000 :
+                return 'Plantium';
+            default: 
+                return 'Bronze';
+        }            
+    }
 };
