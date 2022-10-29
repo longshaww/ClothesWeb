@@ -43,9 +43,14 @@ export default function MyPoint() {
         const fetchData = async () => {
             // `user/availableForExchange/${cookie.user.id}`,
             try {
-                const res = await axiosMethod(`voucher`, 'get', null, {
-                    authorization: `Bearer ${cookie.accessToken}`,
-                });
+                const res = await axiosMethod(
+                    `user/availableForExchange/${cookie.user.id}`,
+                    'get',
+                    null,
+                    {
+                        authorization: `Bearer ${cookie.accessToken}`,
+                    }
+                );
                 const data = res?.body?.filter(
                     (item) => !item?.listUser?.includes(cookie?.user?.id)
                 );
@@ -95,10 +100,18 @@ export default function MyPoint() {
                     icon: 'success',
                 });
             } catch (error) {
-                console.log(error);
+                Toast.fire({
+                    title: 'Đổi voucher thất bại',
+                    icon: 'error',
+                });
             }
         };
-        fetchData();
+        if (!checkDisabled(body.discount, body.myPoint)) {
+            Toast.fire({
+                title: 'Không đủ điểm',
+                icon: 'error',
+            });
+        } else fetchData();
     };
     const MyPointComponent = () => {
         return (
@@ -128,11 +141,11 @@ export default function MyPoint() {
                         ></img>
                     </div>
                 </div>
-                <div className="row voucher-list mt-5">
+                <div className="row justify-content-around voucher-list mt-2">
                     {voucher?.length > 0 ? (
                         voucher.map((item, i) => (
                             <React.Fragment key={i}>
-                                <div className="col-lg-5 d-flex align-items-center flex-row shadow voucher-item">
+                                <div className="col-lg-5 mt-3 d-flex flex-row align-items-center justify-content-center  shadow voucher-item">
                                     <div className="voucher-item-img">
                                         <VoucherImage></VoucherImage>
                                     </div>
@@ -168,13 +181,14 @@ export default function MyPoint() {
                                             handleClick({
                                                 voucherID: item._id,
                                                 userID: cookie.user.id,
+                                                discount: item.discount,
+                                                myPoint: cookie.user.myPoint,
                                             })
                                         }
                                     >
                                         Đổi
                                     </button>
                                 </div>
-                                <div className="col-lg-2"></div>
                             </React.Fragment>
                         ))
                     ) : (
@@ -234,6 +248,12 @@ export default function MyPoint() {
                 )}
             </div>
         );
+    };
+
+    const checkDisabled = (discount, myPoint) => {
+        discount = discount === 10 ? 10 : 20;
+        myPoint = parseInt(myPoint);
+        return myPoint >= discount ? true : false;
     };
     return (
         <>
