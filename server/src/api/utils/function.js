@@ -14,6 +14,7 @@ module.exports = {
                 information: user['information'],
                 isAdmin: user['isAdmin'],
                 myPoint: user['myPoint'],
+                vip: user['vip'],
             };
             // tạo ra token/
             return jwt.sign(dataSign, 'mySecretKey', {

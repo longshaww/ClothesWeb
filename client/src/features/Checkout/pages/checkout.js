@@ -185,18 +185,17 @@ function Checkout({ cart, setTotal }) {
                             </button>
                         </div>
                     </div>
-                    <div className="row py-3 border-bottom">
-                        <div className="col d-flex justify-content-start">
-                            <p className="fs-5">Khách hàng thân thiết</p>
-                        </div>
-                        <div className="col-3">
-                            {cookies.user ? (
-                                <div className="fw-bold fs-5">{cookies.user.information.name}</div>
-                            ) : (
-                                <button className="btn btn-dark">Đăng nhập</button>
-                            )}
-                        </div>
-                    </div>
+
+                    {cookies.user && (
+                        <>
+                            <div className="row py-3 border-bottom">
+                                <div className="col d-flex justify-content-start">
+                                    <p className="ml-2">Khách hàng thân thiết</p>
+                                </div>
+                                <div className="col-5">{cookies.user.information.name}</div>
+                            </div>
+                        </>
+                    )}
                     <table className="table table-borderless">
                         <tbody>
                             <tr>
