@@ -46,7 +46,9 @@ module.exports = {
         }
         const recentUser = await UserWeb.findById(userID);
         recentUser.myPoint = myPoint;
-        await recentUser.save();
-        return await voucher.save();
+        const dataUser = await recentUser.save();
+        return voucher.save().then(() => {
+            return dataUser ?? null;
+        });
     },
 };

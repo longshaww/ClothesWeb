@@ -32,6 +32,7 @@ class RewardController {
             return successRes(
                 res,
                 200,
+                data,
                 `You achieve a voucher with discount ${data.discount}. This voucher is automatically added to your own voucher list`
             );
         } catch (err) {
