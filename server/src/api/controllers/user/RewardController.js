@@ -8,12 +8,6 @@ class RewardController {
                 return throwErr(res, 403, 'Forbidden');
             }
             const data = await rewardService.availableForExchange(id);
-            if (typeof data === 'string') {
-                return throwErr(res, 400, data);
-            }
-            if (!data.length) {
-                return throwErr(res, 400, 'There is no available item for exchange');
-            }
             return successRes(res, 200, data, 'Successfully get exchange items');
         } catch (err) {
             throwErr(res, 400, err.message);
@@ -26,14 +20,11 @@ class RewardController {
                 return throwErr(res, 403, 'Forbidden');
             }
             const data = await rewardService.exchangeVoucher(userID, voucherID);
-            if (typeof data === 'string') {
-                return throwErr(res, 400, data);
-            }
             return successRes(
                 res,
                 200,
                 data,
-                `You achieve a voucher with discount ${data.discount}. This voucher is automatically added to your own voucher list`
+                `Successfully achieve voucher. This voucher is automatically added to your own voucher list`
             );
         } catch (err) {
             throwErr(res, 400, err.message);
