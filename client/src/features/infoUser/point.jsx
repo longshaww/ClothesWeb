@@ -35,8 +35,8 @@ const RANK = {
 
 export default function MyPoint() {
     const [cookie, setCookie, removeCookie] = useCookies();
-    const [voucher, setVoucher] = useState();
-    const [myVoucher, setMyVoucher] = useState();
+    const [voucher, setVoucher] = useState([]);
+    const [myVoucher, setMyVoucher] = useState([]);
 
     //get all voucher
     useEffect(() => {
@@ -51,9 +51,7 @@ export default function MyPoint() {
                         authorization: `Bearer ${cookie.accessToken}`,
                     }
                 );
-                const data = res?.body?.filter(
-                    (item) => !item?.listUser?.includes(cookie?.user?.id)
-                );
+                const data = res?.body;
                 setVoucher(data);
             } catch (error) {
                 console.log(error);
@@ -66,14 +64,7 @@ export default function MyPoint() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await axiosMethod(
-                    `user/availableForExchange/${cookie.user.id}`,
-                    'get',
-                    null,
-                    {
-                        authorization: `Bearer ${cookie.accessToken}`,
-                    }
-                );
+                const res = await axiosMethod(`voucher/myVoucher/${cookie.user.id}`);
 
                 setMyVoucher(res.body);
             } catch (error) {
