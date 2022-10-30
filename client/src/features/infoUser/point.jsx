@@ -121,15 +121,15 @@ export default function MyPoint() {
                     </div>
                     <div className="d-flex mt-2">
                         <span className="m-title">
-                            {/* Rank hiện tại: {RANK[cookie?.user?.vip].text} */}
+                            Rank hiện tại: {RANK[cookie?.user?.vip].text}
                         </span>
-                        {/* <img
+                        <img
                             width={'30px'}
                             height={'20px'}
                             src={RANK[cookie?.user?.vip].icon}
                             alt="rank"
                             className="pl-2 xu-balance__img"
-                        ></img> */}
+                        ></img>
                     </div>
                 </div>
                 <div className="row justify-content-around voucher-list mt-2">
@@ -214,7 +214,7 @@ export default function MyPoint() {
                                         HSD:{moment.utc(item.dateEnd).format('DD/MM/YYYY')}
                                     </span>
                                 </div>
-                                {/* <button
+                                <button
                                     type="button"
                                     style={{ backgroundColor: '#333', color: '#fff' }}
                                     className="btn ml-5"
@@ -226,7 +226,7 @@ export default function MyPoint() {
                                     }
                                 >
                                     Đổi
-                                </button> */}
+                                </button>
                             </div>
                             <div className="col-lg-2"></div>
                         </React.Fragment>

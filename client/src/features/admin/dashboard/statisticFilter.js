@@ -39,10 +39,6 @@ function FilterStatistic({ filter, setFilter }) {
             label: 'Giao thất bại',
         },
         {
-            value: 'FAILED_DELIVERY_CONFIRMATION',
-            label: 'Giao thất bại',
-        },
-        {
             value: 'CANCEL_BILL',
             label: 'Hủy đơn',
         },
