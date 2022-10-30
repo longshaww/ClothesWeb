@@ -22,7 +22,7 @@ const UserWeb = new mongoose.Schema(
             type: String,
             required: true,
             default: 'Bronze',
-            enum: ['Bronze', 'Silver', 'Gold', 'Plantinum'],
+            enum: ['Bronze', 'Silver', 'Gold', 'Platinum'],
         },
         moneyPayed: { type: Number, required: true, default: 0 },
     },

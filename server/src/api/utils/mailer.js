@@ -1,13 +1,13 @@
-const multer = require("multer");
-const path = require("path");
-const nodemailer = require("nodemailer");
+const multer = require('multer');
+const path = require('path');
+const nodemailer = require('nodemailer');
 module.exports = {
-  mailOptionsSendOTP: (otp,email) => {
-    return {
-      from: process.env.AUTH_EMAIL,
-      to: email,
-      subject: "Xác Nhận Email Của Bạn",
-      html: `<div id=":q3" class="ii gt" jslog="20277; u014N:xr6bB; 4:W251bGwsbnVsbCxbXV0."><div id=":q4" class="a3s aiL "><u></u> 
+    mailOptionsSendOTP: (otp, email) => {
+        return {
+            from: process.env.AUTH_EMAIL,
+            to: email,
+            subject: 'Xác Nhận Email Của Bạn',
+            html: `<div id=":q3" className="ii gt" jslog="20277; u014N:xr6bB; 4:W251bGwsbnVsbCxbXV0."><div id=":q4" className="a3s aiL "><u></u> 
 				 <div style="margin:0">
 						  <table style="border-spacing:0;border-collapse:collapse;height:100%!important;width:100%!important">
 							<tbody><tr>
@@ -90,17 +90,14 @@ module.exports = {
 						</tr>
 					  </tbody></table>
 					  
-					  <img src="https://ci4.googleusercontent.com/proxy/AkPYSwbfCTPpa9UY2iemTt-8uuNCxd9wMi-MxiDXCwCclRn4IrvavPQy53Rok8pDmYePvpYw7glbcjctupZqDJjD9WVBMoR1vQ=s0-d-e1-ft#http://hstatic.net/0/0/global/notifications/spacer.png" height="0" style="min-width:600px;height:0" class="CToWUd">
+					  <img src="https://ci4.googleusercontent.com/proxy/AkPYSwbfCTPpa9UY2iemTt-8uuNCxd9wMi-MxiDXCwCclRn4IrvavPQy53Rok8pDmYePvpYw7glbcjctupZqDJjD9WVBMoR1vQ=s0-d-e1-ft#http://hstatic.net/0/0/global/notifications/spacer.png" height="0" style="min-width:600px;height:0" className="CToWUd">
 					  
 							  </td>
 							</tr>
-						  </tbody></table><div class="yj6qo"></div><div class="adL">
+						  </tbody></table><div className="yj6qo"></div><div className="adL">
 						
-					  </div></div><div class="adL">
+					  </div></div><div className="adL">
 					  </div></div></div>`,
-    };
-  },
-  
+        };
+    },
 };
-
-

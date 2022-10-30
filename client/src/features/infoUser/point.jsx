@@ -35,20 +35,23 @@ const RANK = {
 
 export default function MyPoint() {
     const [cookie, setCookie, removeCookie] = useCookies();
-    const [voucher, setVoucher] = useState();
-    const [myVoucher, setMyVoucher] = useState();
+    const [voucher, setVoucher] = useState([]);
+    const [myVoucher, setMyVoucher] = useState([]);
 
     //get all voucher
     useEffect(() => {
         const fetchData = async () => {
             // `user/availableForExchange/${cookie.user.id}`,
             try {
-                const res = await axiosMethod(`voucher`, 'get', null, {
-                    authorization: `Bearer ${cookie.accessToken}`,
-                });
-                const data = res?.body?.filter(
-                    (item) => !item?.listUser?.includes(cookie?.user?.id)
+                const res = await axiosMethod(
+                    `user/availableForExchange/${cookie.user.id}`,
+                    'get',
+                    null,
+                    {
+                        authorization: `Bearer ${cookie.accessToken}`,
+                    }
                 );
+                const data = res?.body;
                 setVoucher(data);
             } catch (error) {
                 console.log(error);
@@ -61,14 +64,7 @@ export default function MyPoint() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await axiosMethod(
-                    `user/availableForExchange/${cookie.user.id}`,
-                    'get',
-                    null,
-                    {
-                        authorization: `Bearer ${cookie.accessToken}`,
-                    }
-                );
+                const res = await axiosMethod(`voucher/myVoucher/${cookie.user.id}`);
 
                 setMyVoucher(res.body);
             } catch (error) {
@@ -95,10 +91,18 @@ export default function MyPoint() {
                     icon: 'success',
                 });
             } catch (error) {
-                console.log(error);
+                Toast.fire({
+                    title: 'Đổi voucher thất bại',
+                    icon: 'error',
+                });
             }
         };
-        fetchData();
+        if (!checkDisabled(body.discount, body.myPoint)) {
+            Toast.fire({
+                title: 'Không đủ điểm',
+                icon: 'error',
+            });
+        } else fetchData();
     };
     const MyPointComponent = () => {
         return (
@@ -113,7 +117,7 @@ export default function MyPoint() {
                         <span className="m-title">
                             Số điểm của bạn: {cookie?.user?.myPoint || 0}
                         </span>
-                        <img src={PointIcon} alt="Điểm" class="pl-2 xu-balance__img"></img>
+                        <img src={PointIcon} alt="Điểm" className="pl-2 xu-balance__img"></img>
                     </div>
                     <div className="d-flex mt-2">
                         <span className="m-title">
@@ -124,15 +128,15 @@ export default function MyPoint() {
                             height={'20px'}
                             src={RANK[cookie?.user?.vip].icon}
                             alt="rank"
-                            class="pl-2 xu-balance__img"
+                            className="pl-2 xu-balance__img"
                         ></img>
                     </div>
                 </div>
-                <div className="row voucher-list mt-5">
+                <div className="row justify-content-around voucher-list mt-2">
                     {voucher?.length > 0 ? (
                         voucher.map((item, i) => (
                             <React.Fragment key={i}>
-                                <div className="col-lg-5 d-flex align-items-center flex-row shadow voucher-item">
+                                <div className="col-lg-5 mt-3 d-flex flex-row align-items-center justify-content-center  shadow voucher-item">
                                     <div className="voucher-item-img">
                                         <VoucherImage></VoucherImage>
                                     </div>
@@ -152,7 +156,7 @@ export default function MyPoint() {
                                                 width="25px"
                                                 height="25px"
                                                 alt="Điểm"
-                                                class="pl-1 xu-balance__img"
+                                                className="pl-1 xu-balance__img"
                                             ></img>
                                             <span className=" pl-1">để đổi</span>
                                         </div>
@@ -163,23 +167,24 @@ export default function MyPoint() {
                                     <button
                                         type="button"
                                         style={{ backgroundColor: '#333', color: '#fff' }}
-                                        class="btn ml-5"
+                                        className="btn ml-5"
                                         onClick={() =>
                                             handleClick({
                                                 voucherID: item._id,
                                                 userID: cookie.user.id,
+                                                discount: item.discount,
+                                                myPoint: cookie.user.myPoint,
                                             })
                                         }
                                     >
                                         Đổi
                                     </button>
                                 </div>
-                                <div className="col-lg-2"></div>
                             </React.Fragment>
                         ))
                     ) : (
                         <div className="d-flex flex-column justify-content-center align-items-center">
-                            <img alt="point" class="mascot" src={VoucherIcon}></img>
+                            <img alt="point" className="mascot" src={VoucherIcon}></img>
                         </div>
                     )}
                 </div>
@@ -209,10 +214,10 @@ export default function MyPoint() {
                                         HSD:{moment.utc(item.dateEnd).format('DD/MM/YYYY')}
                                     </span>
                                 </div>
-                                {/* <button
+                                <button
                                     type="button"
                                     style={{ backgroundColor: '#333', color: '#fff' }}
-                                    class="btn ml-5"
+                                    className="btn ml-5"
                                     onClick={() =>
                                         handleClick({
                                             voucherID: item._id,
@@ -221,19 +226,25 @@ export default function MyPoint() {
                                     }
                                 >
                                     Đổi
-                                </button> */}
+                                </button>
                             </div>
                             <div className="col-lg-2"></div>
                         </React.Fragment>
                     ))
                 ) : (
                     <div className="d-flex flex-column justify-content-center align-items-center">
-                        <img alt="icon" class="mascot" src={VoucherIcon}></img>
+                        <img alt="icon" className="mascot" src={VoucherIcon}></img>
                         <span className="m-title">Bạn chưa có voucher nào</span>
                     </div>
                 )}
             </div>
         );
+    };
+
+    const checkDisabled = (discount, myPoint) => {
+        discount = discount === 10 ? 10 : 20;
+        myPoint = parseInt(myPoint);
+        return myPoint >= discount ? true : false;
     };
     return (
         <>

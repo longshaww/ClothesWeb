@@ -36,11 +36,11 @@ export default function LayoutUser() {
                     <div className="m-border-bot"></div>
                 </div> */}
                 <div className="row mt-5 justify-content-center">
-                    <div style={{ height: '500px' }} className="col-2 shadow ">
+                    <div style={{ minHeight: '500px' }} className="col-2 shadow ">
                         <SideBarUser />
                     </div>
 
-                    <div style={{ height: '500px' }} className="col-9 ml-2 shadow">
+                    <div style={{ minHeight: '500px' }} className="col-9 ml-2 shadow">
                         <Outlet />
                     </div>
                 </div>
