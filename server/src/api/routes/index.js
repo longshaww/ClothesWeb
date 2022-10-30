@@ -10,7 +10,7 @@ const {
 const {
     billAdminRoute,
     userAdminRoute,
-    dashboardAdminRoute,
+    statisticAdminRoute,
     voucherRoute,
     productAdminRoute,
     rateAdminRoute,
@@ -36,6 +36,6 @@ function route(app) {
     app.use('/admin/bills', validateToken, verifyAdmin, billAdminRoute);
     app.use('/admin/products', validateToken, verifyAdmin, productAdminRoute);
     app.use('/admin/users', validateToken, verifyAdmin, userAdminRoute);
-    app.use('/admin/dashboard', validateToken, verifyAdmin, dashboardAdminRoute);
+    app.use('/admin/dashboard', validateToken, verifyAdmin, statisticAdminRoute);
 }
 module.exports = route;
