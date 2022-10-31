@@ -18,10 +18,11 @@ module.exports = {
             });
             bills.forEach((bill) => {
                 products += bill.listProduct.length;
-                if (!listUser.includes(bill.userID.toString())) {
-                    listUser.push(bill.userID.toString());
+                if (!listUser.includes(bill?.userID?.toString()) || bill?.userID === undefined) {
+                    listUser.push(bill?.userID?.toString());
                 }
             });
+            console.log(listUser);
             return {
                 billCount: bills.length,
                 productCount: products,
