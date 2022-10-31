@@ -21,7 +21,7 @@ module.exports = {
                 expiresIn: '90 days',
             });
         } catch (err) {
-            console.log(err);
+            throw new Error(err.message);
         }
     },
     generateRefreshToken: (user) => {

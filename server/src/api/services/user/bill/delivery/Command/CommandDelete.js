@@ -7,7 +7,6 @@ class CommandDelete extends IDeliveryUser {
     }
 
     execute() {
-        console.log('vao');
         const deliveryUserManager = new DeliveryUserManager();
         return deliveryUserManager.delete(this._id);
     }

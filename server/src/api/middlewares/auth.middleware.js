@@ -28,7 +28,6 @@ module.exports = {
     verify: async (req, res, next) => {
         try {
             const authHeader = req.headers.authorization;
-
             if (authHeader) {
                 const token = authHeader.split(' ')[1];
                 jwt.verify(token, 'mySecretKey', (err, dataUser) => {
@@ -45,7 +44,12 @@ module.exports = {
                     msg: 'You are not authenticated',
                 });
             }
-        } catch (err) {}
+        } catch (err) {
+            res.json({
+                success: false,
+                msg: err.message,
+            });
+        }
     },
     validate: async (req, res, next) => {
         try {
@@ -115,5 +119,5 @@ module.exports = {
                 msg: err.message,
             });
         }
-    }
+    },
 };
