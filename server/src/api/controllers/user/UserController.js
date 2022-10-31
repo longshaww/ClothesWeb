@@ -7,7 +7,7 @@ const { successRes, throwErr } = require('../../utils/HandleResponse');
 class UserController {
     async getUser(req, res, next) {
         try {
-            return await getUser(req.params.id, res, next);
+            return getUser(req.params.id, res, next);
         } catch (err) {
             res.status(404).json({
                 success: false,

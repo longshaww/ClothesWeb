@@ -1,12 +1,15 @@
-import { NavbarToggler, Collapse, Nav, NavItem, Navbar, Container, NavbarBrand } from 'reactstrap';
+import { NavbarToggler, Collapse, Nav, NavItem, Navbar, Container } from 'reactstrap';
 import Logo from '../../../assets/images/hyperX.jpeg';
 import '../../../assets/styles/customize.navbar.css';
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import PostFilterForm from './search';
+import { useDispatch } from 'react-redux';
+import { setHeightNav } from '../../../actions/layout';
 import PopupCart from '../../cart/cart';
 import Auth from '../../auth/auth';
 import { useCookies } from 'react-cookie';
+import { useWindowSize } from '../../../CustomHook/useWindowResize';
 import 'boxicons';
 export default function NavbarApp() {
     //State define
@@ -14,25 +17,55 @@ export default function NavbarApp() {
     //Navbar toggle
     const toggle = () => setIsOpen(!isOpen);
     const [cookies] = useCookies(['user']);
+    //=========START== Calculate nav height -->store redux =======
+    const size = useWindowSize();
+    const [height, setHeight] = useState(0);
+    const ref = useRef(null);
+    const dispatch = useDispatch();
+    useEffect(() => {
+        setHeight(ref.current.clientHeight);
+    }, [size?.width]);
+    useEffect(() => {
+        height > 0 && dispatch(setHeightNav(height));
+    }, [height]);
+    //=========END== Calculate nav height -->store redux =======
+
     return (
-        <div className="header-custom">
-            <div className="announcement bg-dark " style={{ height: '30px' }}>
-                <Container className="text-center text-white p-1 d-flex justify-content-center">
-                    Khuyến mãi 20% nhân ngày 20/10
-                </Container>
-            </div>
+        <div ref={ref} className="header-custom">
             <div style={{ backgroundColor: 'white' }} className="m-nav">
                 <div className="container-fluid">
                     <Navbar style={{ backgroundColor: 'white' }} light expand="lg">
-                        <div className="d-lg-none  me-auto mb-2">
-                            <Link to="/">
+                        <div className="d-flex justify-content-between">
+                            <NavbarToggler onClick={toggle} />
+                            <Link className="d-block d-lg-none " to="/">
                                 <img id="logo" src={Logo} alt="" className="logo-Img"></img>
                             </Link>
+                            <div
+                                className="d-flex d-lg-none align-items-center"
+                                style={{ backgroundColor: 'white' }}
+                            >
+                                <div className="mr-2" style={{ listStyle: 'none' }}>
+                                    <PopupCart></PopupCart>
+                                </div>
+                                <div style={{ listStyle: 'none' }}>
+                                    <Auth />
+                                </div>
+                                {cookies.user && (
+                                    <div className="mr-2">
+                                        <div className="fs-5 fw-bold">
+                                            {cookies.user.information.name}
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
                         </div>
-                        <NavbarToggler onClick={toggle} />
+                        <div className="d-block mt-2 d-lg-none">
+                            <PostFilterForm />
+                        </div>
+
                         <Collapse isOpen={isOpen} navbar>
-                            <Nav className="me-auto" navbar>
-                                <NavItem className="d-sm-none d-xs-none  d-lg-block d-xl-block">
+                            <Nav className="me-auto align-items-lg-center" navbar>
+                                <NavItem className="d-none d-lg-block ">
                                     <Link to="/">
                                         <img id="logo" src={Logo} alt="" className="logo-Img"></img>
                                     </Link>
@@ -99,6 +132,20 @@ export default function NavbarApp() {
                                         </NavItem>
                                     </div>
                                 </NavItem>
+
+                                <NavItem className="sub-nav">
+                                    <div className="nav-link" style={{ pointer: 'cursor' }}>
+                                        Tiện Ích
+                                        <i className="bx bx-chevron-down"></i>
+                                    </div>
+                                    <div className="sub-nav-content">
+                                        <NavItem>
+                                            <Link to="/followOrder" className="sub-nav-link">
+                                                Theo Dõi Đơn Hàng
+                                            </Link>
+                                        </NavItem>
+                                    </div>
+                                </NavItem>
                                 {/* VOUCHER */}
                                 <NavItem>
                                     <Link to="/collections/sale" className="nav-link">
@@ -106,7 +153,11 @@ export default function NavbarApp() {
                                     </Link>
                                 </NavItem>
                             </Nav>
-                            <Nav navbar style={{ backgroundColor: 'white' }}>
+                            <Nav
+                                navbar
+                                className="d-none d-lg-flex align-items-center"
+                                style={{ backgroundColor: 'white' }}
+                            >
                                 <NavItem className="mr-2">
                                     <PostFilterForm />
                                 </NavItem>
@@ -118,9 +169,7 @@ export default function NavbarApp() {
                                 </NavItem>
                                 {cookies.user && (
                                     <NavItem className="mr-2">
-                                        <div className="fs-5 fw-bold">
-                                            {cookies.user.information.name}
-                                        </div>
+                                        {cookies.user.information.name}
                                     </NavItem>
                                 )}
                             </Nav>

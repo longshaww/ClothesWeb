@@ -103,7 +103,7 @@ function ProductList() {
     return (
         <div className="productList">
             <Link to="/admin/products/create">
-                <button type="button" class="btn btn-primary mb-2">
+                <button type="button" className="btn btn-primary mb-2">
                     Tạo Sản Phẩm
                 </button>
             </Link>

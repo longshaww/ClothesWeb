@@ -21,6 +21,7 @@ const BillWeb = new mongoose.Schema(
                 price: { type: Number },
                 qty: { type: Number, required: true },
                 sum: { type: Number, required: true },
+                isFeedBack: { type: Boolean, required: true, default: false },
             },
         ],
         qtyProduct: { type: Number, required: true },

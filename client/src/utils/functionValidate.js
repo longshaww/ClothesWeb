@@ -106,3 +106,14 @@ export const validateRank = (rank, moneyPayed) => {
             throw new Error('Đã xảy ra lỗi');
     }
 };
+
+export const isAdmin = (role) => {
+    switch (role) {
+        case 0:
+            return true;
+        case 1:
+            return true;
+        default:
+            return false;
+    }
+};

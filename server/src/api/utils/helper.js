@@ -46,20 +46,19 @@ module.exports = {
         });
         return list;
     },
-    analystVip : async(myPoint)=>{
-        const point = myPoint;
-        switch(true)
-        {
-            case point < 500:
+    analystVip: async (moneyPayed) => {
+        const money = moneyPayed;
+        switch (true) {
+            case money < 500:
                 return 'Bronze';
-            case  point >= 500 & point < 1000:
+            case (money >= 500) & (money < 1000):
                 return 'Silver';
-            case point >= 1000 && point < 5000:
+            case money >= 1000 && money < 5000:
                 return 'Gold';
-            case point > 5000 :
-                return 'Plantium';
-            default: 
+            case money > 5000:
+                return 'Platinum';
+            default:
                 return 'Bronze';
-        }            
-    }
+        }
+    },
 };

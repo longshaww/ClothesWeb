@@ -3,20 +3,20 @@ import Footer from '../components/footer/footer';
 import { Outlet } from 'react-router-dom';
 import GoToTop from '../components/GoToTopButton/go.to.top';
 import '../assets/styles/layout.css';
+import { useSelector } from 'react-redux';
 export default function Layout() {
-    return (
-        <div>
-            <div style={{ height: '20% ' }}>
-                <NavbarApp />
-                <GoToTop />
-            </div>
+    const height = useSelector((state) => state?.heightNav.height);
 
-            <div style={{ marginTop: '100px', height: '70% ' }}>
+    return (
+        <div className="m-main">
+            <NavbarApp />
+            <GoToTop />
+            <div className="m-article" style={{ marginTop: `${height}px` }}>
                 <Outlet />
             </div>
-            {/* <div className = "footer-design">
+            <div className="footer-design">
                 <Footer />
-            </div> */}
+            </div>{' '}
         </div>
     );
 }

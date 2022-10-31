@@ -80,6 +80,7 @@ class UserGetVoucher extends IActionVoucher {
 }
 class UpdateState extends IActionVoucher {
     constructor(id, userID) {
+        super();
         this.id = id;
         this.userID = userID;
     }

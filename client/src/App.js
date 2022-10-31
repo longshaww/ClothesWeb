@@ -39,16 +39,18 @@ import VoucherMe from './features/infoUser/voucher.me';
 import LayoutUser from './layouts/layoutUser';
 import BillMe from './components/listBill/bill';
 import ChangePassword from './features/infoUser/changePassword';
+import MyPoint from './features/infoUser/point';
+import FeedBack from './features/infoUser/feedback';
 import ResetPassword from './components/auth/resetPassword';
 import VerifyOTPForgetPassword from './components/auth/verifyOTPForgetPassword';
 import ResetNewPassword from './components/auth/resetNewPassword';
 import EditUser from './features/admin/user/editUser/index';
+import FollowOrder from './features/followOrder/index';
+import { isAdmin } from './utils/functionValidate';
 function App() {
     const [cookies] = useCookies(['user']);
-    let user;
     let userLogin;
     if (cookies.user !== undefined) {
-        user = cookies.user.isAdmin;
         userLogin = cookies.user;
     }
     return (
@@ -57,6 +59,8 @@ function App() {
                 <Route path="/" element={<Layout />}>
                     <Route path="" element={<Home />}></Route>
                     <Route path="categories/:type" element={<Categories />}></Route>
+                    <Route path="/followOrder" element={<FollowOrder />}></Route>
+
                     <Route path="collections" element={<CollectionsLayout />}>
                         <Route index element={<Collections />} />
                         <Route path="tops" index element={<Tops />}></Route>
@@ -107,9 +111,14 @@ function App() {
                         <Route path="detailBill/:id" index element={<DetailBill />}></Route>
                         <Route path="voucher" index element={<VoucherMe />}></Route>
                         <Route path="changePassword" index element={<ChangePassword />}></Route>
+                        <Route path="my-point" index element={<MyPoint />}></Route>
+                        <Route path="feedback" index element={<FeedBack />}></Route>
                     </Route>
                 </Route>
-                <Route path="/admin" element={user ? <LayoutAdmin /> : <Navigate to="/" />}>
+                <Route
+                    path="/admin"
+                    element={isAdmin(cookies?.user?.role) ? <LayoutAdmin /> : <Navigate to="/" />}
+                >
                     <Route path="dashboard" element={<Dashboard />}></Route>
                     <Route path="users" element={<ListUser />}></Route>
                     <Route path="users/info/:id" element={<EditUser />}></Route>

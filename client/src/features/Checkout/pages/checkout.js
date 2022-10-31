@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import Toast from '../../../utils/toast';
 import axiosMethod from '../../../middlewares/axios';
 import { useNavigate } from 'react-router-dom';
+import { returnPercentSale, returnMoneySale } from '../../../utils/returnHTML';
 
 function Checkout({ cart, setTotal }) {
     const navigate = useNavigate();
@@ -185,18 +186,17 @@ function Checkout({ cart, setTotal }) {
                             </button>
                         </div>
                     </div>
-                    <div className="row py-3 border-bottom">
-                        <div className="col d-flex justify-content-start">
-                            <p className="fs-5">Khách hàng thân thiết</p>
-                        </div>
-                        <div className="col-3">
-                            {cookies.user ? (
-                                <div className="fw-bold fs-5">{cookies.user.information.name}</div>
-                            ) : (
-                                <button className="btn btn-dark">Đăng nhập</button>
-                            )}
-                        </div>
-                    </div>
+
+                    {cookies.user && (
+                        <>
+                            <div className="row py-3 border-bottom">
+                                <div className="col d-flex justify-content-start">
+                                    <p className="ml-2">Khách hàng thân thiết</p>
+                                </div>
+                                <div className="col-5">{cookies.user.information.name}</div>
+                            </div>
+                        </>
+                    )}
                     <table className="table table-borderless">
                         <tbody>
                             <tr>
@@ -206,6 +206,15 @@ function Checkout({ cart, setTotal }) {
                                     ,000đ
                                 </td>
                             </tr>
+                            {cookies.user && (
+                                <>
+                                    <tr>
+                                        <td>Giảm phần trăm theo mức thành viên</td>
+                                        <td>{returnPercentSale(cookies?.user?.vip)}%</td>
+                                    </tr>
+                                </>
+                            )}
+
                             <tr className="border-bottom">
                                 <td>Phí vận chuyển</td>
                                 <td>{shippingFee.toLocaleString()},000đ</td>
@@ -213,7 +222,12 @@ function Checkout({ cart, setTotal }) {
                             <tr>
                                 <td>Tổng cộng</td>
                                 <td>
-                                    {total.toLocaleString()}
+                                    {cookies.user
+                                        ? returnMoneySale(
+                                              total,
+                                              cookies?.user?.vip
+                                          ).toLocaleString()
+                                        : total.toLocaleString()}
                                     ,000đ
                                 </td>
                             </tr>

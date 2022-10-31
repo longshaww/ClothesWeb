@@ -1,5 +1,6 @@
 const Bill = require('../../../../models/BillWeb');
 const IStrategy = require('../IStrategy');
+const UpdateCancel = require('../ConcreteStrategy/UpdateCancel');
 class UpdateFailedConfirm extends IStrategy {
     constructor(idBill) {
         super();
@@ -11,13 +12,16 @@ class UpdateFailedConfirm extends IStrategy {
             const bill = await Bill.findById(this._idBill);
             if (bill.status === 'DELIVERY') {
                 bill.status = 'FAILED_DELIVERY_CONFIRMATION';
-                await bill.save();
-                return bill ? bill : null;
+                return await bill.save().then(async (dataBill) => {
+                    const reasons = 'Bill được hủy do không giao được hàng ';
+                    const updateCancel = new UpdateCancel(this._idBill, reasons);
+                    await updateCancel.createBillCancel(this._idBill, dataBill.paymentMethod);
+                    return dataBill;
+                });
             }
-            return null;
+            throw new Error('Bill status not delivery ');
         } catch (err) {
-            console.log(err);
-            return null;
+            throw new Error(err.message);
         }
     }
 }

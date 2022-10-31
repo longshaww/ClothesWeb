@@ -1,7 +1,9 @@
-.footer-design {
-    /* position: fixed; */
-    z-index: 0;
-    bottom: 0;
-    width: 100%;
-    margin-top: 30px;
+.m-main {
+    min-height: 100vh;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+}
+.m-article {
+    flex: 1;
 }

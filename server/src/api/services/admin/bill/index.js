@@ -35,10 +35,10 @@ class BillAdminService {
     async getBillOfID(idBillWeb) {
         try {
             const bill = await Bill.findById(idBillWeb);
-            bill ?? null;
+            return bill ?? null;
         } catch (err) {
-            console.log(err);
-            return null;
+            throw new Error(err.message);
+
         }
     }
 
@@ -55,8 +55,7 @@ class BillAdminService {
             }
             return null;
         } catch (err) {
-            console.log(err);
-            return null;
+            throw new Error(err.message);
         }
     }
 }

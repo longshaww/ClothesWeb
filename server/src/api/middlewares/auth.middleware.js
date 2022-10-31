@@ -10,7 +10,7 @@ module.exports = {
                 if (err) {
                     return res.status(401).json('Token not undefined');
                 } else {
-                    if (dataUser.isAdmin) {
+                    if (dataUser.isAdmin || dataUser.role === 1 || 0) {
                         req.user = dataUser;
                         next();
                     } else {
@@ -28,7 +28,6 @@ module.exports = {
     verify: async (req, res, next) => {
         try {
             const authHeader = req.headers.authorization;
-
             if (authHeader) {
                 const token = authHeader.split(' ')[1];
                 jwt.verify(token, 'mySecretKey', (err, dataUser) => {
@@ -45,7 +44,12 @@ module.exports = {
                     msg: 'You are not authenticated',
                 });
             }
-        } catch (err) {}
+        } catch (err) {
+            res.json({
+                success: false,
+                msg: err.message,
+            });
+        }
     },
     validate: async (req, res, next) => {
         try {
@@ -83,7 +87,7 @@ module.exports = {
                 ? next()
                 : res.status(404).json({
                       success: false,
-                      msg: 'REQUEST failed',
+                      msg: 'Request failed validate token',
                   });
         } catch (err) {
             res.status(404).json({
@@ -107,7 +111,7 @@ module.exports = {
                 ? next()
                 : res.status(404).json({
                       success: false,
-                      msg: 'Request failed',
+                      msg: 'Request failed bill',
                   });
         } catch (err) {
             res.status(404).json({
@@ -115,5 +119,5 @@ module.exports = {
                 msg: err.message,
             });
         }
-    }
+    },
 };

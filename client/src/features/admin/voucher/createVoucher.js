@@ -1,5 +1,5 @@
 import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
-import { LocalizationProvider, DatePicker } from '@mui/lab';
+import { LocalizationProvider, DatePicker } from '@mui/x-date-pickers';
 import { Box, TextField } from '@mui/material';
 import moment from 'moment';
 import { useState } from 'react';
@@ -70,6 +70,7 @@ export default function CreateVoucher() {
                     sx={{
                         display: 'grid',
                         gridTemplateColumns: 'repeat(2, 1fr)',
+                        gap: 3,
                         marginBottom: 3,
                     }}
                 >

@@ -151,7 +151,9 @@ class BillController {
                 voucherID,
                 total
             );
+
             const billResult = await billService.createBill(sessionId);
+            
             billResult
                 ? res.status(200).json({
                       success: true,
@@ -159,10 +161,10 @@ class BillController {
                   })
                 : res.status(401).json({
                       success: false,
-                      msg: 'failed',
+                      msg: 'failed create bill',
                   });
         } catch (err) {
-            res.status(404).send({ success: false, message: err.message });
+            res.status(404).json({ success: false, message: err.message });
         }
     }
 

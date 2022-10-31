@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import './style.css';
 const MBreadcrumb = ({ breadcrumbList }) => {
     return (
-        <div className="container">
+        <div className="container mt-2">
             <Breadcrumb className="bg-light breadcrumb-styled">
                 {breadcrumbList.map((item, index) => (
                     <BreadcrumbItem key={index}>

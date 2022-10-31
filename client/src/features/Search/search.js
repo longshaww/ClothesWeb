@@ -19,7 +19,6 @@ function Search({ collections }) {
         async function fetchData() {
             try {
                 const res = await axiosMethod(`search?q=${keyword}&page=${page}`, 'get');
-                console.log(res);
                 setData(res.products);
             } catch (error) {
                 console.log(error);

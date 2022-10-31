@@ -4,6 +4,7 @@ const Session = require('../../../../models/Sessions');
 const Product = require('../../../../models/Product');
 const User = require('../../../../models/UserWeb');
 const CancelBills = require('../../../../models/CancelBill');
+const { analystVip } = require('../../../../utils/helper');
 class BillUserService {
     constructor(
         userID,
@@ -33,7 +34,7 @@ class BillUserService {
         try {
             const flag1 = await this.minusProduct();
             if (!flag1) {
-                return null;
+                throw new Error('Minus product fail');
             }
             const newBillWeb = new BillWeb({
                 listProduct: this._listProduct,
@@ -61,6 +62,7 @@ class BillUserService {
                 });
                 newBillWeb.deliveryID = newInfo.id;
             }
+
             const currentSession = await Session.findById(sessionId);
             if (currentSession) {
                 await Session.updateOne(
@@ -72,14 +74,14 @@ class BillUserService {
                     }
                 );
             }
+
             await newBillWeb.save();
             if (
                 newBillWeb.userID !== undefined ||
                 newBillWeb.userID !== null ||
                 newBillWeb.userID.length !== 0
             ) {
-                const flag2 = await this.postReward(newBillWeb.userID, newBillWeb.total);
-                if (!flag2) return null;
+                await this.postRewardAndMoneyPayed(newBillWeb.userID, newBillWeb.total);
             }
             const idBillWeb = newBillWeb._id;
             let bill = await this.getBill(idBillWeb);
@@ -97,10 +99,9 @@ class BillUserService {
                 const qtyProductUserBuy = el.qty;
                 const sizeNameUserBuy = el.size;
                 const flag = await this.executeMinus(idProduct, qtyProductUserBuy, sizeNameUserBuy);
-                console.log(flag);
-                if (!flag) return false;
+                if (!flag) throw new Error('Minus Product Error');
             }
-            return await true;
+            return true;
         } catch (err) {
             throw new Error(err.message);
         }
@@ -141,22 +142,24 @@ class BillUserService {
             throw new Error(err.message);
         }
     }
-    async postReward(idUser, totalMoney) {
+    async postRewardAndMoneyPayed(idUser, totalMoney) {
         try {
             const reward = await this.returnReward(totalMoney);
+            const user = await User.findById(idUser);
             if (reward > 0) {
-                const user = await User.findById(idUser);
                 const myPointNow = user.myPoint;
                 user.myPoint = myPointNow + reward;
-                return await user.save().then((data) => {
-                    return data ? true : false;
-                });
             }
+            const moneyHavePayed = user.moneyPayed;
+            user.moneyPayed = moneyHavePayed + totalMoney;
+            user.vip = await analystVip(user.moneyPayed);
+            const data = await user.save();
+            if (!data) throw new Error('Save User Error');
+            return;
         } catch (err) {
             throw new Error(err.message);
         }
     }
-
     async returnReward(totalMoney) {
         let point = totalMoney;
         switch (true) {
@@ -178,7 +181,7 @@ class BillUserService {
                 .populate('deliveryID')
                 .populate('listProduct._id')
                 .populate('voucherID');
-            return await billResult;
+            return billResult;
         } catch (err) {
             throw new Error(err.message);
         }
@@ -189,10 +192,10 @@ class BillUserService {
             const bill = await BillWeb.findById(idBill);
             if (bill.status === 'PENDING') {
                 bill.status = 'CANCEL_BILL';
-                return await bill.save().then(async (dataBill) => {
-                    return await this.createBillCancel(bill._id, bill.paymentMethod, reason).then(
+                return bill.save().then(async (dataBill) => {
+                    return this.createBillCancel(bill._id, bill.paymentMethod, reason).then(
                         async () => {
-                            return await this.addQtyProduct(bill.listProduct).then(async () => {
+                            return this.addQtyProduct(bill.listProduct).then(async () => {
                                 return dataBill;
                             });
                         }

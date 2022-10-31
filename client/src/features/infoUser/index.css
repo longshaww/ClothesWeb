@@ -1,0 +1,44 @@
+.m-title-sidebar {
+    color: red;
+}
+.sidebar-container {
+    padding: 10px 10px;
+}
+
+.acc-avt-user img {
+    width: 120px;
+    height: 120px;
+    border: 1px solid #c6c6c6;
+    border-radius: 50%;
+    margin: 0 auto;
+}
+.acc-info-user {
+    font-weight: bolder;
+
+    text-align: center;
+    font-size: 16px;
+}
+.m-active {
+    color: #0a58ca;
+}
+.m-title {
+    font-weight: bolder;
+}
+.voucher-item {
+    min-height: 120px;
+    position: relative;
+}
+.font-weight-bold {
+    font-weight: bolder;
+    font-size: 14px;
+}
+.font-weight-light {
+    font-size: 13px;
+    color: #787878;
+}
+
+.point-text {
+    font-size: 13px;
+    color: #787878;
+    font-weight: normal;
+}

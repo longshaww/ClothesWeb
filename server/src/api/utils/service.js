@@ -71,8 +71,11 @@ module.exports = {
                 email: user.email,
                 isAdmin: user.isAdmin,
                 information: user.information,
+                myPoint: user.myPoint,
+                vip: user.vip,
+                role: user.role,
             };
-            const accessToken = generateAccessToken(customData);
+            const accessToken = generateAccessToken(user);
             if (user) {
                 res.status(200).json({
                     success: true,

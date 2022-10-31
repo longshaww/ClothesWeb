@@ -1,6 +1,6 @@
 const Bill = require('../../../../models/BillWeb');
 const IStrategy = require('../IStrategy');
-class UpdatePending extends IStrategy{
+class UpdatePending extends IStrategy {
     constructor(idBill) {
         super();
         this._idBill = idBill;
@@ -14,10 +14,9 @@ class UpdatePending extends IStrategy{
                 await bill.save();
                 return bill ? bill : null;
             }
-            return null;
+            throw new Error('STATUS BILL NOT PENDING');
         } catch (err) {
-            console.log(err);
-            return null;
+            throw new Error(err.message);
         }
     }
 }

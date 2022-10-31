@@ -36,7 +36,7 @@ function PaymentSuccess({ setCart }) {
                         localStorage.removeItem('voucher');
                     }
                 } catch (err) {
-                    console.log(err.response);
+                    console.log(err);
                 }
             }
             if (customer) {

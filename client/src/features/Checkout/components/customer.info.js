@@ -296,15 +296,15 @@ function CustomerInfo({ cart }) {
                 )}
 
                 {cookies.user && (
-                    <div class="form-check form-switch">
+                    <div className="form-check form-switch">
                         <input
-                            class="form-check-input"
+                            className="form-check-input"
                             type="checkbox"
                             role="switch"
                             id="changeInfoInput"
                             onChange={handleChangeInfo}
                         />
-                        <label class="form-check-label" for="changeInfoInput">
+                        <label className="form-check-label" for="changeInfoInput">
                             Thay đổi thông tin giao hàng ?
                         </label>
                     </div>
@@ -342,9 +342,9 @@ function CustomerInfo({ cart }) {
                         <div className="py-3 my-4">
                             {changeInfo.listInfo.length &&
                                 changeInfo.listInfo.map((item, index) => (
-                                    <div class="form-check mb-2" key={index}>
+                                    <div className="form-check mb-2" key={index}>
                                         <input
-                                            class="form-check-input"
+                                            className="form-check-input"
                                             type="radio"
                                             checked={changeInfo.checkedInfo === item._id}
                                             onChange={() =>
@@ -355,7 +355,7 @@ function CustomerInfo({ cart }) {
                                             }
                                             id={index}
                                         />
-                                        <label class="form-check-label row" for={index}>
+                                        <label className="form-check-label row" for={index}>
                                             <div className="col fw-bold">
                                                 {`${item.nameCustomer} ${item.phoneNumber}`}
                                             </div>
