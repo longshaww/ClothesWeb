@@ -10,6 +10,7 @@ import Avatar from '@mui/material/Avatar';
 import jwtDecode from 'jwt-decode';
 import Toast from '../../utils/toast';
 import '../../assets/styles/auth.css';
+import { isAdmin } from '../../utils/functionValidate';
 function Auth() {
     const [cookies, setCookie, removeCookie] = useCookies(['user', 'accessToken']);
     //MUI Cart Open handle
@@ -166,8 +167,10 @@ function Auth() {
                             </div>
                         </Link>
 
-                        <Link to="/admin/dashboard">
-                            {cookies.user.isAdmin ? (
+                        <Link
+                            to={(cookies?.user?.role === 0 && '/admin/dashboard') || '/admin/bills'}
+                        >
+                            {isAdmin(cookies?.user?.role) ? (
                                 <div className="mt-1">
                                     <span>Quản lý</span>
                                 </div>

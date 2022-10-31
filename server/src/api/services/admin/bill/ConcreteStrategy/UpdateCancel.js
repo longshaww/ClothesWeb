@@ -13,14 +13,14 @@ class UpdateCancel extends IStrategy {
             const bill = await Bill.findById(this._idBill);
             if (bill.status === 'PENDING') {
                 bill.status = 'CANCEL_BILL';
-              return  await bill.save().then(async (dataBill) => {
-                    const data = await this.createBillCancel(bill._id);
-                    return data ? dataBill : null;
+                return await bill.save().then(async (dataBill) => {
+                    await this.createBillCancel(this._idBill, dataBill.paymentMethod);
+                    return dataBill;
                 });
             }
-            return null;
+            throw new Error('BILL STATUS NOT PENDING');
         } catch (err) {
-            return null;
+            throw new Error(err.message);
         }
     }
 
@@ -31,11 +31,9 @@ class UpdateCancel extends IStrategy {
                 reason: this._reason,
                 moneyStatus: paymentMethod === 'COD' ? 'NO_REFUNDS' : 'NEED_REFUNDS',
             });
-            await cancelBill.save();
-            return cancelBill ?? null;
+            return cancelBill.save();
         } catch (err) {
-            console.log(err);
-            return null;
+            throw new Error(err.message);
         }
     }
 }

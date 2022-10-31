@@ -15,9 +15,9 @@ class UpdateConfirmation extends IStrategy {
                 await bill.save();
                 return bill ? bill : null;
             }
-            return null;
+            throw new Error('Bill status not DELIVERY');
         } catch (err) {
-            return null;
+            throw new Error(err.message);
         }
     }
 }

@@ -73,6 +73,7 @@ module.exports = {
                 information: user.information,
                 myPoint: user.myPoint,
                 vip: user.vip,
+                role: user.role,
             };
             const accessToken = generateAccessToken(user);
             if (user) {

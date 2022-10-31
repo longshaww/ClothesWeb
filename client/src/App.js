@@ -46,12 +46,11 @@ import VerifyOTPForgetPassword from './components/auth/verifyOTPForgetPassword';
 import ResetNewPassword from './components/auth/resetNewPassword';
 import EditUser from './features/admin/user/editUser/index';
 import FollowOrder from './features/followOrder/index';
+import { isAdmin } from './utils/functionValidate';
 function App() {
     const [cookies] = useCookies(['user']);
-    let user;
     let userLogin;
     if (cookies.user !== undefined) {
-        user = cookies.user.isAdmin;
         userLogin = cookies.user;
     }
     return (
@@ -116,7 +115,10 @@ function App() {
                         <Route path="feedback" index element={<FeedBack />}></Route>
                     </Route>
                 </Route>
-                <Route path="/admin" element={user ? <LayoutAdmin /> : <Navigate to="/" />}>
+                <Route
+                    path="/admin"
+                    element={isAdmin(cookies?.user?.role) ? <LayoutAdmin /> : <Navigate to="/" />}
+                >
                     <Route path="dashboard" element={<Dashboard />}></Route>
                     <Route path="users" element={<ListUser />}></Route>
                     <Route path="users/info/:id" element={<EditUser />}></Route>

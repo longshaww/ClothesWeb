@@ -15,7 +15,7 @@ const UserWeb = new mongoose.Schema(
             address: { type: String, required: true },
         },
         isAdmin: { type: Boolean, required: true, default: false },
-        role: { type: Number, required: true, default: 0 },
+        role: { type: Number, required: true, default: 0, enum: [0, 1, 2] },
         myPoint: { type: Number, required: true, default: 0 },
         verify: { type: Boolean, required: true, default: false },
         vip: {
