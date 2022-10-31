@@ -36,4 +36,5 @@ UserWeb.plugin(mongooseDelete, {
     overrideMethods: true,
     deletedAt: true,
 });
+
 module.exports = mongoose.model('UserWeb', UserWeb);

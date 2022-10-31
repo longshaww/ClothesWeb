@@ -37,7 +37,34 @@ export default function MyPoint() {
     const [cookie, setCookie, removeCookie] = useCookies();
     const [voucher, setVoucher] = useState([]);
     const [myVoucher, setMyVoucher] = useState([]);
+    useEffect(async () => {
+        const fetchData = async () => {
+            try {
+                const { data } = await axios.get(
+                    `${process.env.REACT_APP_API_URL}user/getUser/${cookie?.user?.id}`,
+                    {
+                        headers: {
+                            authorization: 'Bearer ' + cookie.accessToken,
+                        },
+                    }
+                );
 
+                if (data.success) {
+                    return AutoSetCookie(data.accessToken);
+                }
+            } catch (err) {
+                throw new Error(err.message);
+            }
+        };
+        fetchData();
+    }, []);
+    const AutoSetCookie = async (accessToken) => {
+        await setCookie('user', jwtDecode(accessToken), { path: '/' });
+        await setCookie('accessToken', accessToken, {
+            path: '/',
+        });
+        return;
+    };
     //get all voucher
     useEffect(() => {
         const fetchData = async () => {
@@ -54,7 +81,7 @@ export default function MyPoint() {
                 const data = res?.body;
                 setVoucher(data);
             } catch (error) {
-                console.log(error);
+                throw new Error(error.message);
             }
         };
         fetchData();
@@ -68,7 +95,7 @@ export default function MyPoint() {
 
                 setMyVoucher(res.body);
             } catch (error) {
-                console.log(error);
+                throw new Error(error.message);
             }
         };
         fetchData();
@@ -79,26 +106,20 @@ export default function MyPoint() {
                 const res = await axiosMethod(`user/exchangeVoucher`, 'post', body, {
                     authorization: `Bearer ${cookie.accessToken}`,
                 });
-
-                const info = await jwtDecode(res.body);
-                setCookie('user', info, { path: '/' });
-                setCookie('accessToken', res.body, {
-                    path: '/',
-                });
-
-                Toast.fire({
+                await AutoSetCookie(res.body);
+                return Toast.fire({
                     title: 'Đổi thành công 1 voucher',
                     icon: 'success',
                 });
             } catch (error) {
-                Toast.fire({
+                return Toast.fire({
                     title: 'Đổi voucher thất bại',
                     icon: 'error',
                 });
             }
         };
         if (!checkDisabled(body.discount, body.myPoint)) {
-            Toast.fire({
+            return Toast.fire({
                 title: 'Không đủ điểm',
                 icon: 'error',
             });
@@ -214,19 +235,6 @@ export default function MyPoint() {
                                         HSD:{moment.utc(item.dateEnd).format('DD/MM/YYYY')}
                                     </span>
                                 </div>
-                                <button
-                                    type="button"
-                                    style={{ backgroundColor: '#333', color: '#fff' }}
-                                    className="btn ml-5"
-                                    onClick={() =>
-                                        handleClick({
-                                            voucherID: item._id,
-                                            userID: cookie.user.id,
-                                        })
-                                    }
-                                >
-                                    Đổi
-                                </button>
                             </div>
                             <div className="col-lg-2"></div>
                         </React.Fragment>
