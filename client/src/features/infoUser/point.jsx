@@ -58,9 +58,9 @@ export default function MyPoint() {
         };
         fetchData();
     }, []);
-    const AutoSetCookie = async (accessToken) => {
-        await setCookie('user', jwtDecode(accessToken), { path: '/' });
-        await setCookie('accessToken', accessToken, {
+    const AutoSetCookie = (accessToken) => {
+        setCookie('user', jwtDecode(accessToken), { path: '/' });
+        setCookie('accessToken', accessToken, {
             path: '/',
         });
         return;
@@ -106,7 +106,7 @@ export default function MyPoint() {
                 const res = await axiosMethod(`user/exchangeVoucher`, 'post', body, {
                     authorization: `Bearer ${cookie.accessToken}`,
                 });
-                await AutoSetCookie(res.body);
+                AutoSetCookie(res.body);
                 return Toast.fire({
                     title: 'Đổi thành công 1 voucher',
                     icon: 'success',
@@ -214,11 +214,11 @@ export default function MyPoint() {
     };
     const MyVoucherComponent = () => {
         return (
-            <div className="row voucher-list mt-5">
+            <div className="row justify-content-around voucher-list mt-2">
                 {myVoucher?.length > 0 ? (
                     myVoucher.map((item, i) => (
                         <React.Fragment key={i}>
-                            <div className="col-lg-5 d-flex align-items-center flex-row shadow voucher-item">
+                            <div className="col-lg-5 mt-3 d-flex flex-row align-items-center justify-content-center  shadow voucher-item">
                                 <div className="voucher-item-img">
                                     <VoucherImage></VoucherImage>
                                 </div>
@@ -230,19 +230,43 @@ export default function MyPoint() {
                                     <span className="font-weight-light">
                                         Cho đơn hàng từ {item.qualifyAmount},000đ{' '}
                                     </span>
-
+                                    <div className="d-flex point-text align-items-center  ">
+                                        {/* xem lại */}
+                                        <span>Dùng {item.discount === 10 ? 50 : 100}</span>
+                                        <img
+                                            src={PointIcon}
+                                            width="25px"
+                                            height="25px"
+                                            alt="Điểm"
+                                            className="pl-1 xu-balance__img"
+                                        ></img>
+                                        <span className=" pl-1">để đổi</span>
+                                    </div>
                                     <span className="font-weight-light">
                                         HSD:{moment.utc(item.dateEnd).format('DD/MM/YYYY')}
                                     </span>
                                 </div>
+                                <button
+                                    type="button"
+                                    style={{ backgroundColor: '#333', color: '#fff' }}
+                                    className="btn ml-5"
+                                    onClick={() =>
+                                        handleClick({
+                                            voucherID: item._id,
+                                            userID: cookie.user.id,
+                                            discount: item.discount,
+                                            myPoint: cookie.user.myPoint,
+                                        })
+                                    }
+                                >
+                                    Đổi
+                                </button>
                             </div>
-                            <div className="col-lg-2"></div>
                         </React.Fragment>
                     ))
                 ) : (
                     <div className="d-flex flex-column justify-content-center align-items-center">
-                        <img alt="icon" className="mascot" src={VoucherIcon}></img>
-                        <span className="m-title">Bạn chưa có voucher nào</span>
+                        <img alt="point" className="mascot" src={VoucherIcon}></img>
                     </div>
                 )}
             </div>
