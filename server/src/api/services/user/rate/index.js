@@ -9,23 +9,24 @@ module.exports = {
         const product = await Product.findById(productID);
         const { content, rate } = data;
         const bill = await BillWeb.findOne({
-            userID,
-            'listProduct.id': productID,
+            userID: userID,
+            'listProduct.idProduct': productID,
         });
         if (!bill) throw new Error(`You have to buy this product before you can rate it`);
         if (!user) throw new Error(`User with ID ${userID} not found`);
         if (!product) throw new Error(`Product with ID ${productID} not found`);
         if (!rate) throw new Error(`All field is required`);
-        if (bill.status !== 'SUCCESSFUL_DELIVERY_CONFIRMATION')
+        if (bill.status !== `SUCCESSFUL_DELIVERY_CONFIRMATION`)
             throw new Error(
                 `Your order is delivering or it is failed to delivery or has been canceled`
             );
         const productFeedBack = await bill.listProduct.find((item) =>
             item.idProduct.equals(productID)
         );
-        if (productFeedBack.isFeedBack === true) {
-            throw new Error('You have rated this product');
-        }
+        if (!productFeedBack)
+            throw new Error('You have to buy this product before you can rate it');
+        if (productFeedBack.isFeedBack === true) throw new Error('You have rated this product');
+
         productFeedBack.set({
             isFeedBack: true,
         });
