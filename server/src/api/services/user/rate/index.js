@@ -8,10 +8,12 @@ module.exports = {
         const user = await UserWeb.findById(userID);
         const product = await Product.findById(productID);
         const { content, rate } = data;
+
         const bill = await BillWeb.findOne({
             userID,
             'listProduct.id': productID,
         });
+
         if (!bill) throw new Error(`You have to buy this product before you can rate it`);
         if (!user) throw new Error(`User with ID ${userID} not found`);
         if (!product) throw new Error(`Product with ID ${productID} not found`);
