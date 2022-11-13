@@ -41,7 +41,7 @@ import BillMe from './components/listBill/bill';
 import ChangePassword from './features/infoUser/changePassword';
 import MyPoint from './features/infoUser/point';
 
-import FeedBack from './features/infoUser/feedback';
+import FeedBack from './features/infoUser/Feedback';
 import ResetPassword from './components/auth/resetPassword';
 import VerifyOTPForgetPassword from './components/auth/verifyOTPForgetPassword';
 import ResetNewPassword from './components/auth/resetNewPassword';

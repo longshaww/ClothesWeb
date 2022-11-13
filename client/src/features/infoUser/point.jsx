@@ -27,7 +27,7 @@ const RANK = {
         icon: SilverRank,
         text: 'Bạc',
     },
-    Plantinum: {
+    Platinum: {
         icon: Freenium,
         text: 'Kim cương',
     },
@@ -142,12 +142,13 @@ export default function MyPoint() {
                     </div>
                     <div className="d-flex mt-2">
                         <span className="m-title">
-                            Rank hiện tại: {RANK[cookie?.user?.vip].text}
+                            Rank hiện tại:
+                            {RANK[cookie?.user?.vip]?.text}
                         </span>
                         <img
                             width={'30px'}
                             height={'20px'}
-                            src={RANK[cookie?.user?.vip].icon}
+                            src={RANK[cookie?.user?.vip]?.icon}
                             alt="rank"
                             className="pl-2 xu-balance__img"
                         ></img>

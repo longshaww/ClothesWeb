@@ -258,7 +258,7 @@ export default function ListBill() {
             },
             formatter: (cell, row, index) => {
                 return (
-                    <>
+                    <div id={`c${index}`} style={{ cursor: 'pointer' }}>
                         <i
                             id={`c${index}`}
                             style={{ cursor: 'pointer' }}
@@ -302,7 +302,7 @@ export default function ListBill() {
                                 </li>
                             </ul>
                         </UncontrolledPopover>
-                    </>
+                    </div>
                 );
             },
         },
