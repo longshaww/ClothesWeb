@@ -1,25 +1,41 @@
 const Bill = require('../../models/BillWeb');
 const moment = require('moment');
 const BillService = require('../../services/admin/bill/index');
+
 class BillAdminController {
     async getAllBill(req, res, next) {
-        const listBill = await Bill.find({});
-        let listBillCustom = [];
+        const listBill = await Bill.find().populate('userID');
+        // let listBillCustom = [];
 
-        Promise.all(
-            listBill.map(async (el) => {
-                let customData = {
-                    id: el['_id'],
-                    qtyProduct: el['qtyProduct'],
-                    total: el['total'] + ',000 VND',
-                    paymentMethod: el.paymentMethod,
-                    status: el.status,
-                    createdAt: moment(el['createdAt']).format('DD/MM/YYYY'),
-                };
+        // Promise.all(
+        //     listBill.map(async (el) => {
+        //         let customData = {
+        //             id: el['_id'],
+        //             qtyProduct: el['qtyProduct'],
+        //             total: el['total'] + ',000 VND',
+        //             paymentMethod: el.paymentMethod,
+        //             status: el.status,
+        //             createdAt: moment(el['createdAt']).format('DD/MM/YYYY'),
+        //         };
 
-                await listBillCustom.push(customData);
-            })
-        );
+        //         await listBillCustom.push(customData);
+        //     })
+        // );
+
+        const listBillCustom = listBill.map((bill) => {
+            return {
+                email: bill?.userID?.email,
+                name: bill.userID?.information?.name || 'không có tên',
+                phone: bill.userID?.information?.phoneNumber || 'không có sđt',
+                id: bill?._id,
+                qtyProduct: bill?.qtyProduct,
+                total: bill?.total + ',000 VND',
+                paymentMethod: bill.paymentMethod,
+                status: bill.status,
+                createdAt: moment(bill['createdAt']).format('DD/MM/YYYY'),
+            };
+        });
+
         res.status(200).json({
             success: true,
             listBillCustom,
@@ -37,6 +53,7 @@ class BillAdminController {
                     message: 'ERROR DATA REQUEST',
                 });
             }
+
             const dataInput = {
                 methodType: typeUpdate,
                 idBill,
@@ -46,7 +63,7 @@ class BillAdminController {
             await billService.createStrategy(dataInput);
             const result = await billService.execute();
             result
-                ? res.status(404).json({
+                ? res.status(200).json({
                       success: true,
                       dataBill: result,
                   })
@@ -62,6 +79,7 @@ class BillAdminController {
             });
         }
     }
+
     async updateStatusMoneyCancelBill(req, res, next) {
         try {
             const idCancelBill = req.params.idCancelBill;

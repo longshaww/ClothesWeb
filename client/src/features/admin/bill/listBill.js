@@ -1,122 +1,118 @@
-import "../../../assets/styles/admin/productList.css";
-import { DataGrid } from "@material-ui/data-grid";
-import { Link } from "react-router-dom";
-import { useState, useEffect } from "react";
-import axios from "axios";
-import { useCookies } from "react-cookie";
-import Toast from "../../../utils/toast";
-import InfoIcon from "@mui/icons-material/Info";
+import '../../../assets/styles/admin/productList.css';
+import { Link } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+import { useCookies } from 'react-cookie';
+import Toast from '../../../utils/toast';
+import InfoIcon from '@mui/icons-material/Info';
+import 'react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css';
+import { selectFilter, textFilter } from 'react-bootstrap-table2-filter';
+import { UncontrolledPopover } from 'reactstrap';
+import 'boxicons';
+import './index.css';
+import { Tabs } from 'antd';
+import TableBoostrap from '../../../components/TableBoostrap';
+import BillTable from './billTable';
+
+const STATUS = {
+    PENDING: 'Đang chờ xác nhận', //[DELIVERY,CANCEL_BILL]
+    DELIVERY: 'Đang giao hàng', //[SUCCESSFUL_DELIVERY_CONFIRMATION,FAILED_DELIVERY_CONFIRMATION,CANCEL_BILL]
+    SUCCESSFUL_DELIVERY_CONFIRMATION: 'Thành công', //không có next state
+    FAILED_DELIVERY_CONFIRMATION: 'Giao hàng thất bại', //không có next state
+    CANCEL_BILL: 'Đã hủy', //không có next state
+};
+
 export default function ListBill() {
-	const [data, setData] = useState(null);
-	const [cookies] = useCookies();
+    const [data, setData] = useState(null);
+    const [cookies] = useCookies();
+    const [status, setStatus] = useState(STATUS.PENDING);
 
-	useEffect(() => {
-		const getData = async () => {
-			const endpoint = `${process.env.REACT_APP_API_URL}admin/bills/getAllBill`;
+    const getData = async () => {
+        const endpoint = `${process.env.REACT_APP_API_URL}admin/bills/getAllBill`;
+        const { data } = await axios.get(endpoint, {
+            headers: {
+                authorization: 'Bearer ' + cookies.accessToken,
+            },
+        });
 
-			const { data } = await axios.get(endpoint, {
-				headers: {
-					authorization: "Bearer " + cookies.accessToken,
-				},
-			});
+        return data.listBillCustom;
+    };
+    useEffect(() => {
+        getData()
+            .then((res) => {
+                setData(res);
+            })
+            .catch((err) => {
+                Toast.fire({
+                    title: 'Không lấy được danh sách đơn',
+                    icon: 'error',
+                });
+            });
+    }, []);
 
-			setData(data.listBillCustom);
-		};
-		getData();
-	}, []);
-
-	const renderVerify = (status, id) => {
-		if (status === false) {
-			return (
-				<>
-					<button
-						className="productListEdit"
-						value={id}
-						onClick={handleVerifyBill}
-					>
-						Xác Nhận
-					</button>
-				</>
-			);
-		}
-	};
-	const handleVerifyBill = async (e) => {
-		try {
-			const endpoint = `${process.env.REACT_APP_API_URL}admin/bills//update-bill/${e.target.value}`;
-
-			const res = await axios.put(
-				endpoint,
-				{ status: true },
-				{
-					headers: {
-						authorization: "Bearer " + cookies.accessToken,
-					},
-				}
-			);
-			if (res.data.success === true) {
-				await setData(res.data.listBillCustom);
-				Toast.fire({
-					title: "Xác Nhận Thành Công",
-					icon: "success",
-				});
-			}
-		} catch (err) {
-			Toast.fire({
-				title: "Đã xảy ra lỗi",
-				icon: "error",
-			});
-		}
-	};
-
-	const columns = [
-		{ field: "id", headerName: "ID", width: 300 },
-		{
-			field: "qtyProduct",
-			headerName: "Số Lượng",
-			width: 150,
-		},
-		{
-			field: "total",
-			headerName: "Tổng Tiền",
-			width: 160,
-		},
-		{
-			field: "paymentMethod",
-			headerName: "Thanh Toán",
-			width: 160,
-		},
-		{
-			field: "createdAt",
-			headerName: "Ngày Tạo",
-			width: 160,
-		},
-
-		{
-			field: "action",
-			headerName: "Action",
-			width: 150,
-			renderCell: (params) => {
-				return (
-					<>
-						{renderVerify(params.row.status, params.row.id)}
-						<Link to={params.row.id}>
-							<InfoIcon />
-						</Link>
-					</>
-				);
-			},
-		},
-	];
-
-	return (
-		<div className="productList">
-			{data !== null ? <DataGrid
-				rows={data}
-				disableSelectionOnClick
-				columns={columns}
-				pageSize={8}
-			/> : null }
-			
-		</div>
-	);
+    return (
+        <>
+            {data && (
+                <Tabs
+                    onChange={(activeKey) => {
+                        console.log(activeKey);
+                        setStatus(activeKey);
+                    }}
+                    defaultActiveKey="1"
+                >
+                    <Tabs.TabPane tab="Đang chờ" key={STATUS.PENDING}>
+                        <BillTable
+                            cookies={cookies}
+                            data={data}
+                            setData={setData}
+                            getData={getData}
+                            key={1}
+                            status={status}
+                        />
+                    </Tabs.TabPane>
+                    <Tabs.TabPane tab="Đang giao" key={STATUS.DELIVERY}>
+                        <BillTable
+                            cookies={cookies}
+                            data={data}
+                            setData={setData}
+                            key={2}
+                            getData={getData}
+                            status={status}
+                        />
+                    </Tabs.TabPane>
+                    <Tabs.TabPane tab="Thành công" key={STATUS.SUCCESSFUL_DELIVERY_CONFIRMATION}>
+                        <BillTable
+                            cookies={cookies}
+                            data={data}
+                            key={3}
+                            setData={setData}
+                            getData={getData}
+                            status={status}
+                        />
+                    </Tabs.TabPane>
+                    <Tabs.TabPane tab="Thất bại" key={STATUS.FAILED_DELIVERY_CONFIRMATION}>
+                        <BillTable
+                            cookies={cookies}
+                            data={data}
+                            key={4}
+                            setData={setData}
+                            getData={getData}
+                            status={status}
+                        />
+                    </Tabs.TabPane>
+                    <Tabs.TabPane tab="Đã hủy" key={STATUS.CANCEL_BILL}>
+                        <BillTable
+                            cookies={cookies}
+                            data={data}
+                            key={5}
+                            setData={setData}
+                            getData={getData}
+                            status={status}
+                        />
+                    </Tabs.TabPane>
+                </Tabs>
+            )}
+            ;
+        </>
+    );
 }

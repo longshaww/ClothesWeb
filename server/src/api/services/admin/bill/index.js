@@ -11,7 +11,7 @@ class BillAdminService {
 
     async createStrategy(dataInput) {
         switch (dataInput.methodType) {
-            case 'PENDING':
+            case 'DELIVERY':
                 this.strategy = new UpdatePending(dataInput.idBill);
                 break;
             case 'SUCCESSFUL_DELIVERY_CONFIRMATION':
@@ -38,7 +38,6 @@ class BillAdminService {
             return bill ?? null;
         } catch (err) {
             throw new Error(err.message);
-
         }
     }
 

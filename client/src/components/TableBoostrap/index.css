@@ -1,0 +1,14 @@
+.bx.ctt.bx-chevron-down {
+    font-size: 20px;
+    font-weight: bolder;
+    vertical-align: middle;
+}
+
+.overlay-table {
+    height: 100%;
+    position: relative;
+}
+
+.loading-table {
+    margin: 0 auto;
+}

@@ -1,0 +1,14 @@
+.nav-text {
+    vertical-align: middle;
+}
+
+.action-list {
+    padding: 10px 0;
+}
+.action-item {
+    padding: 5px 20px;
+    cursor: pointer;
+}
+.action-item:hover {
+    color: blueviolet;
+}

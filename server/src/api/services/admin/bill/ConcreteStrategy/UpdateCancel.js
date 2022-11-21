@@ -11,7 +11,7 @@ class UpdateCancel extends IStrategy {
     async update() {
         try {
             const bill = await Bill.findById(this._idBill);
-            if (bill.status === 'PENDING') {
+            if (bill.status === 'PENDING' || bill.status === 'DELIVERY') {
                 bill.status = 'CANCEL_BILL';
                 return await bill.save().then(async (dataBill) => {
                     await this.createBillCancel(this._idBill, dataBill.paymentMethod);

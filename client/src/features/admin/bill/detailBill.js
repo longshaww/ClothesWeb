@@ -7,11 +7,22 @@ import axiosMethod from '../../../middlewares/axios';
 export default function DetailBill() {
     const [data, setData] = useState(null);
     let { id } = useParams();
+
+    const STATUS = {
+        PENDING: <span className="badge bg-info text-black fw-bold">Đang chờ xác nhận</span>,
+        DELIVERY: <span className="badge bg-info text-black fw-bold">Đang giao</span>,
+        SUCCESSFUL_DELIVERY_CONFIRMATION: (
+            <span className="badge bg-secondary text-black fw-bold">Giao thành công</span>
+        ),
+        FAILED_DELIVERY_CONFIRMATION: (
+            <span className="badge bg-primary text-black fw-bold">Giao hàng thất bại</span>
+        ),
+        CANCEL_BILL: <span className="badge bg-success text-black fw-bold">Đã hủy</span>,
+    };
     useEffect(() => {
         const getData = async () => {
             const endpoint = `bill/${id}`;
             const res = await axiosMethod(endpoint, 'get');
-            console.log('🚀 ~ file: detailBill.js ~ line 14 ~ getData ~ res', res.body);
 
             setData(res.body);
         };
@@ -26,6 +37,7 @@ export default function DetailBill() {
                         <div className="card-body">
                             <div className="container mb-5 mt-3">
                                 <div className="row d-flex align-items-baseline">
+                                    {/* id */}
                                     <div className="col-xl-9">
                                         <p
                                             style={{
@@ -38,6 +50,7 @@ export default function DetailBill() {
                                     </div>
                                 </div>
                                 <div className="container">
+                                    {/* hình ảnh */}
                                     <div className="col-md-12">
                                         <div className="text-center">
                                             <i
@@ -140,13 +153,9 @@ export default function DetailBill() {
                                                     <span className="me-1 fw-bold">
                                                         Trạng Thái:
                                                     </span>{' '}
-                                                    {data.status === true ? (
-                                                        <span className="badge bg-warning text-black fw-bold">
-                                                            Đã Được Xác Nhận
-                                                        </span>
-                                                    ) : (
+                                                    {STATUS[data?.status] || (
                                                         <span className="badge bg-danger text-black fw-bold">
-                                                            Chưa Được Xác Nhận
+                                                            Trạng thái không xác định
                                                         </span>
                                                     )}
                                                 </li>
