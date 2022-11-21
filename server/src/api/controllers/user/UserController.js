@@ -1,6 +1,7 @@
 const { getUser } = require('../../utils/service');
 const User = require('../../models/UserWeb');
 const Bill = require('../../models/BillWeb');
+const Rate = require('../../models/Rate');
 const UserService = require('../../services/user/account/index');
 const { successRes, throwErr } = require('../../utils/HandleResponse');
 
@@ -63,6 +64,34 @@ class UserController {
             });
         }
     }
+
+    async getRateUser(req, res) {
+        const { userID, productID } = req.query;
+
+        if (!userID || !productID)
+            return res.status(404).json({
+                success: false,
+                msg: 'userID or productID must be not empty',
+            });
+        try {
+            const rate = await Rate.find({ userID, productID });
+            rate
+                ? res.status(200).json({
+                      success: true,
+                      listRate: rate,
+                  })
+                : res.status(404).json({
+                      success: false,
+                      msg: 'Không Tìm Thấy',
+                  });
+        } catch (er) {
+            return res.status(404).json({
+                success: false,
+                msg: er.message,
+            });
+        }
+    }
+
     async changePassword(req, res, next) {
         try {
             const { id } = req.customer;

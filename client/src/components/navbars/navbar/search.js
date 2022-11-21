@@ -34,10 +34,11 @@ export default function PostFilterForm(props) {
     return (
         <div className="search-box">
             <input
-                autoComplete="false"
+                autocomplete="off"
                 className="form-control search-styled"
                 placeholder="Tìm kiếm sản phẩm"
                 value={search}
+                name="search-box"
                 type="text"
                 onKeyUp={handleSearchKeyUp}
                 onChange={handleSearchChange}

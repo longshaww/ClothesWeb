@@ -53,7 +53,7 @@ export default function NavbarApp() {
                                 {cookies.user && (
                                     <div className="mr-2">
                                         <div className="fs-5 fw-bold">
-                                            {cookies.user.information.name}
+                                            {cookies.user.information?.name}
                                         </div>
                                     </div>
                                 )}
@@ -135,7 +135,7 @@ export default function NavbarApp() {
 
                                 <NavItem className="sub-nav">
                                     <div className="nav-link" style={{ pointer: 'cursor' }}>
-                                        Tiện Ích
+                                        Tiện ích
                                         <i className="bx bx-chevron-down"></i>
                                     </div>
                                     <div className="sub-nav-content">
@@ -169,7 +169,7 @@ export default function NavbarApp() {
                                 </NavItem>
                                 {cookies.user && (
                                     <NavItem className="mr-2">
-                                        {cookies.user.information.name}
+                                        {cookies.user.information?.name}
                                     </NavItem>
                                 )}
                             </Nav>
