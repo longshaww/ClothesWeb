@@ -6,15 +6,10 @@ module.exports = {
     availableForExchange: async (id) => {
         let listVoucher = [];
         const data = await validation.validationReward(UserWeb, id);
-        if (data.reward >= 50) {
-            const voucher = await Voucher.findOne({ discount: 10 });
-            if (!voucher) return;
-            listVoucher.push(voucher);
-        }
         if (data.reward >= 100) {
-            const voucher = await Voucher.findOne({ discount: 20 });
-            if (!voucher) return;
-            listVoucher.push(voucher);
+            listVoucher = await Voucher.find({ discount: { $lte: 20 }, listUser: { $nin: [id] } });
+        } else if (data.reward >= 50) {
+            listVoucher = await Voucher.find({ discount: 10, listUser: { $nin: [id] } });
         }
         if (!listVoucher.length) throw new Error('There is no available item for exchange');
         return listVoucher;
