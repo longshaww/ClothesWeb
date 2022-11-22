@@ -5,7 +5,7 @@ const ValidatorChainBuilder = require('./ValidatorChainBuilder');
 const IsEmptyValidatorToken = require('./ConcreteHandler/IsEmptyValidatorToken');
 const CheckStatusBill = require('./ConcreteHandler/CheckStatusValidator');
 const CheckBillBelongUser = require('./ConcreteHandler/ChecBillBelongUser');
-const CheckVerifyNewPassword = require('./ConcreteHandler/CheckVerifyNewpassword');
+const CheckVerifyNewPassword = require('./ConcreteHandler/CheckVerifyNewPassword');
 const CheckOldPassword = require('./ConcreteHandler/CheckOldPassword');
 class ValidatorService {
     constructor() {
