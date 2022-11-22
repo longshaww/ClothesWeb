@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { useCookies } from 'react-cookie';
 import { Link } from 'react-router-dom';
 
@@ -8,8 +9,9 @@ import {
     pendingBill,
     successFulDeliveryConfirmation,
 } from '../../constants/constants';
+import Toast from '../../utils/toast';
 
-export default function BillComponent({ bill }) {
+export default function BillComponent({ bill, getData }) {
     const [cookies] = useCookies(['user']);
     const handleBillState = (status) => {
         if (status === pendingBill) {
@@ -22,6 +24,42 @@ export default function BillComponent({ bill }) {
             return 'Giao thất bại';
         } else if (status === cancelBill) {
             return 'Đã hủy';
+        }
+    };
+
+    const handleCancelBill = async (billId) => {
+        try {
+            const endpoint = `${process.env.REACT_APP_API_URL}admin/bills/update-bill/${billId}?typeUpdate=${cancelBill}`;
+
+            const res = await axios.put(
+                endpoint,
+                {},
+                {
+                    headers: {
+                        authorization: 'Bearer ' + cookies.accessToken,
+                    },
+                }
+            );
+
+            if (res.data.success === true) {
+                try {
+                    await getData();
+                    Toast.fire({
+                        title: 'Hủy thành Công',
+                        icon: 'success',
+                    });
+                } catch (error) {
+                    Toast.fire({
+                        title: 'Một lỗi bất ngờ đã xảy ra',
+                        icon: 'error',
+                    });
+                }
+            }
+        } catch (err) {
+            Toast.fire({
+                title: 'Hủy thất bại',
+                icon: 'error',
+            });
         }
     };
     return (
@@ -58,10 +96,20 @@ export default function BillComponent({ bill }) {
                             </div>
                         </div>
                     </div>
-                    <div className="text-center mt-3">
+                    <div className="text-center d-flex mt-3">
                         <Link to={`/user/detailBill/${bill._id}`}>
                             <button className="btn btn-dark">Chi Tiêt</button>
                         </Link>
+                        <>
+                            {(bill.status === pendingBill || bill.status === deliveryBill) && (
+                                <button
+                                    onClick={() => handleCancelBill(bill._id)}
+                                    className="ml-2 btn btn-danger"
+                                >
+                                    Hủy đơn
+                                </button>
+                            )}{' '}
+                        </>
                     </div>
                 </div>
             </div>
