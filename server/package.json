@@ -3,8 +3,8 @@
     "version": "1.0.0",
     "main": "index.js",
     "scripts": {
-        "start": "node ./src/index.js",
-        "dev": "nodemon --inspect ./src/index.js"
+        "start": "env-cmd -f .env.local nodemon --inspect ./src/index.js",
+        "build": "env-cmd -f .env.prod node ./src/index.js"
     },
     "keywords": [],
     "author": "",
