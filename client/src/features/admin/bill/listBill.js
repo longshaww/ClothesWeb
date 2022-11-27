@@ -51,7 +51,6 @@ export default function ListBill() {
     useEffect(() => {
         getData()
             .then((res) => {
-                // setData(res);
                 const filterData = res?.filter((item) => {
                     const arrDate = item.createdAt.match(/\d+/g).map(Number);
                     let createdAt = `${arrDate[2]}/${arrDate[1]}/${arrDate[0]}`;
