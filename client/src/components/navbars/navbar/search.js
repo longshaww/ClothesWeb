@@ -1,15 +1,10 @@
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { useNavigate, createSearchParams } from 'react-router-dom';
 import 'boxicons';
 export default function PostFilterForm(props) {
-    // const { onSubmit } = props;
-    const [search, setSearch] = useState('');
     const navigate = useNavigate();
+    const ref = useRef();
 
-    function handleSearchChange(e) {
-        const value = e.target.value;
-        setSearch(value);
-    }
     function handleSearchKeyUp(e) {
         const value = e.target.value;
         if (e.keyCode === 13) {
@@ -23,25 +18,26 @@ export default function PostFilterForm(props) {
         }
     }
     const handleSearchIconClick = () => {
-        if (!search) return;
+        var value = ref.current.value;
+
+        if (!value) return;
         navigate({
             pathname: '/search',
             search: `?${createSearchParams({
-                q: search,
+                q: value,
             })}`,
         });
     };
     return (
         <div className="search-box">
             <input
-                autocomplete="off"
+                autoComplete="nope"
                 className="form-control search-styled"
                 placeholder="Tìm kiếm sản phẩm"
-                value={search}
+                ref={ref}
                 name="search-box"
                 type="text"
                 onKeyUp={handleSearchKeyUp}
-                onChange={handleSearchChange}
             ></input>
 
             <i onClick={handleSearchIconClick} className="bx icon-search bx-search"></i>

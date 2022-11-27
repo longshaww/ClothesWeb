@@ -163,8 +163,8 @@ const BillTable = (props) => {
             filter: textFilter(),
         },
         {
-            dataField: 'qtyProduct',
-            text: 'Số lượng',
+            dataField: 'createdAt',
+            text: 'Ngày tạo',
             filter: textFilter(),
         },
         {
@@ -173,6 +173,7 @@ const BillTable = (props) => {
             headerStyle: {
                 minWidth: '120px',
                 maxWidth: '150px',
+                fontSize: '12px',
             },
             formatter: (cell) => renderStatus[STATUS[cell]],
             filter: selectFilter({
@@ -250,6 +251,7 @@ const BillTable = (props) => {
             headerStyle: {
                 fontSize: '12px',
                 width: '110px',
+
                 cursor: 'pointer',
             },
             headerAlign: 'center',
