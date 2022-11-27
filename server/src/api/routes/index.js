@@ -1,3 +1,10 @@
+const express = require('express');
+const router = express.Router();
+const authJWTRoute = require('./auth.JWT.route');
+const { validateToken, verifyAdmin, verify } = require('../middlewares/auth.middleware');
+const androidRoute = require('../routes/android/android.route');
+const sessionMiddleware = require('../middlewares/session.middleware');
+
 const {
     siteRoute,
     collectionRoute,
@@ -16,26 +23,21 @@ const {
     rateAdminRoute,
 } = require('./admin');
 
-const authJWTRoute = require('./auth.JWT.route');
-const { validateToken, verifyAdmin, verify } = require('../middlewares/auth.middleware');
-const androidRoute = require('../routes/android/android.route');
-const sessionMiddleware = require('../middlewares/session.middleware');
-function route(app) {
-    app.use('/', siteRoute);
-    app.use('/android', androidRoute);
-    app.use('/collections', collectionRoute);
-    app.use('/product', productRoute);
-    app.use('/cart', sessionMiddleware, cartRoute);
-    app.use('/bill', billRoute);
-    app.use('/voucher', voucherRoute);
+router.use('/', siteRoute);
+router.use('/android', androidRoute);
+router.use('/collections', collectionRoute);
+router.use('/product', productRoute);
+router.use('/cart', sessionMiddleware, cartRoute);
+router.use('/bill', billRoute);
+router.use('/voucher', voucherRoute);
 
-    app.use('/user', validateToken, verify, userRoute);
+router.use('/user', validateToken, verify, userRoute);
 
-    app.use('/authJWT', authJWTRoute);
-    app.use('/admin/rate', validateToken, verify, rateAdminRoute);
-    app.use('/admin/bills', validateToken, verifyAdmin, billAdminRoute);
-    app.use('/admin/products', validateToken, verifyAdmin, productAdminRoute);
-    app.use('/admin/users', validateToken, verifyAdmin, userAdminRoute);
-    app.use('/admin/dashboard', validateToken, verifyAdmin, statisticAdminRoute);
-}
-module.exports = route;
+router.use('/authJWT', authJWTRoute);
+router.use('/admin/rate', validateToken, verify, rateAdminRoute);
+router.use('/admin/bills', validateToken, verifyAdmin, billAdminRoute);
+router.use('/admin/products', validateToken, verifyAdmin, productAdminRoute);
+router.use('/admin/users', validateToken, verifyAdmin, userAdminRoute);
+router.use('/admin/dashboard', validateToken, verifyAdmin, statisticAdminRoute);
+
+module.exports = router;

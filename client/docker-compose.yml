@@ -1,0 +1,13 @@
+version: '3.9'
+
+services:
+    react-frontend:
+        container_name: highclub
+        build:
+            context: .
+            dockerfile: Dockerfile
+        volumes:
+            - '.:/app'
+            - '/app/node_modules'
+        ports:
+            - '2050:80'

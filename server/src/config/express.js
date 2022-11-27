@@ -14,5 +14,5 @@ module.exports = (app) => {
     app.use(cookieParser(process.env.signed_cookie));
     app.use(express.static(path.join(__dirname, '../api/public')));
     app.use(compression());
-    routes(app);
+    app.use('/api', routes);
 };
