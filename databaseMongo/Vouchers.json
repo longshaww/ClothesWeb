@@ -1,0 +1,630 @@
+[{
+  "_id": {
+    "$oid": "634a97f10fbd46575fbfc6c5"
+  },
+  "discount": 10,
+  "dateStart": {
+    "$date": {
+      "$numberLong": "1656090000000"
+    }
+  },
+  "dateEnd": {
+    "$date": {
+      "$numberLong": "1670691600000"
+    }
+  },
+  "maxDiscount": 100,
+  "qualifyAmount": 100,
+  "qty": 4,
+  "listUser": [
+    {
+      "$oid": "6356657a29ead049d3c5dc5f"
+    },
+    {
+      "$oid": "63541ae113318743199e8f11"
+    },
+    {
+      "$oid": "6354179413318743199e8f10"
+    }
+  ],
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1665832945869"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667901456534"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "634a98130fbd46575fbfc6c8"
+  },
+  "discount": 20,
+  "dateStart": {
+    "$date": {
+      "$numberLong": "1656090000000"
+    }
+  },
+  "dateEnd": {
+    "$date": {
+      "$numberLong": "1661360400000"
+    }
+  },
+  "maxDiscount": 100,
+  "qualifyAmount": 100,
+  "qty": 2,
+  "listUser": [
+    {
+      "$oid": "6354179413318743199e8f10"
+    },
+    {
+      "$oid": "6356657a29ead049d3c5dc5f"
+    },
+    {
+      "$oid": "635d50442885ec006f43e2cb"
+    },
+    {
+      "$oid": "63541ae113318743199e8f11"
+    }
+  ],
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1665832979313"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667283107666"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "635cf9acd90743fb6a240d1a"
+  },
+  "discount": 20,
+  "dateStart": {
+    "$date": {
+      "$numberLong": "1666976400000"
+    }
+  },
+  "dateEnd": {
+    "$date": {
+      "$numberLong": "1671728400000"
+    }
+  },
+  "maxDiscount": 200,
+  "qualifyAmount": 100,
+  "qty": 10,
+  "listUser": [
+    {
+      "$oid": "63541ae113318743199e8f11"
+    }
+  ],
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1667037612400"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1669090505779"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "635d1a74d90743fb6a240da1"
+  },
+  "discount": 10,
+  "dateStart": {
+    "$date": {
+      "$numberLong": "1666976400000"
+    }
+  },
+  "dateEnd": {
+    "$date": {
+      "$numberLong": "1667149200000"
+    }
+  },
+  "maxDiscount": 200,
+  "qualifyAmount": 500,
+  "qty": 10,
+  "listUser": [
+    {
+      "$oid": "63541ae113318743199e8f11"
+    },
+    {
+      "$oid": "6356657a29ead049d3c5dc5f"
+    },
+    {
+      "$oid": "635cf80184abeb8d34f79a74"
+    }
+  ],
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1667046004759"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667058319044"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "635d1cc3d90743fb6a240dec"
+  },
+  "discount": 20,
+  "dateStart": {
+    "$date": {
+      "$numberLong": "1666976400000"
+    }
+  },
+  "dateEnd": {
+    "$date": {
+      "$numberLong": "1677171600000"
+    }
+  },
+  "maxDiscount": 300,
+  "qualifyAmount": 1000,
+  "qty": 20,
+  "listUser": [
+    {
+      "$oid": "63541ae113318743199e8f11"
+    },
+    {
+      "$oid": "6356657a29ead049d3c5dc5f"
+    },
+    {
+      "$oid": "635cf80184abeb8d34f79a74"
+    }
+  ],
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1667046595338"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667058321008"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "635d1e65d90743fb6a240e33"
+  },
+  "discount": 10,
+  "dateStart": {
+    "$date": {
+      "$numberLong": "1666976400000"
+    }
+  },
+  "dateEnd": {
+    "$date": {
+      "$numberLong": "1676480400000"
+    }
+  },
+  "maxDiscount": 200,
+  "qualifyAmount": 700,
+  "qty": 50,
+  "listUser": [
+    {
+      "$oid": "63541ae113318743199e8f11"
+    },
+    {
+      "$oid": "6356657a29ead049d3c5dc5f"
+    },
+    {
+      "$oid": "635cf80184abeb8d34f79a74"
+    }
+  ],
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1667047013902"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667058334677"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "635d1f09d90743fb6a240e5f"
+  },
+  "discount": 20,
+  "dateStart": {
+    "$date": {
+      "$numberLong": "1666976400000"
+    }
+  },
+  "dateEnd": {
+    "$date": {
+      "$numberLong": "1674061200000"
+    }
+  },
+  "maxDiscount": 300,
+  "qualifyAmount": 600,
+  "qty": 9,
+  "listUser": [
+    {
+      "$oid": "6356657a29ead049d3c5dc5f"
+    },
+    {
+      "$oid": "635cf80184abeb8d34f79a74"
+    },
+    {
+      "$oid": "63541ae113318743199e8f11"
+    }
+  ],
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1667047177747"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1669179413028"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "635d1f91d90743fb6a240e8f"
+  },
+  "discount": 10,
+  "dateStart": {
+    "$date": {
+      "$numberLong": "1666976400000"
+    }
+  },
+  "dateEnd": {
+    "$date": {
+      "$numberLong": "1667149200000"
+    }
+  },
+  "maxDiscount": 200,
+  "qualifyAmount": 200,
+  "qty": 10,
+  "listUser": [
+    {
+      "$oid": "63541ae113318743199e8f11"
+    },
+    {
+      "$oid": "6356657a29ead049d3c5dc5f"
+    }
+  ],
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1667047313222"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667058080028"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "635d4237b79adb46116a6e63"
+  },
+  "discount": 10,
+  "dateStart": {
+    "$date": {
+      "$numberLong": "1666976400000"
+    }
+  },
+  "dateEnd": {
+    "$date": {
+      "$numberLong": "1667149200000"
+    }
+  },
+  "maxDiscount": 50,
+  "qualifyAmount": 600,
+  "qty": 5,
+  "listUser": [
+    {
+      "$oid": "63541ae113318743199e8f11"
+    },
+    {
+      "$oid": "6356657a29ead049d3c5dc5f"
+    }
+  ],
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1667056183858"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667057943991"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "635d4354b79adb46116a6e8c"
+  },
+  "discount": 20,
+  "dateStart": {
+    "$date": {
+      "$numberLong": "1666976400000"
+    }
+  },
+  "dateEnd": {
+    "$date": {
+      "$numberLong": "1672246800000"
+    }
+  },
+  "maxDiscount": 200,
+  "qualifyAmount": 900,
+  "qty": 4,
+  "listUser": [
+    {
+      "$oid": "6356657a29ead049d3c5dc5f"
+    },
+    {
+      "$oid": "63541ae113318743199e8f11"
+    }
+  ],
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1667056468248"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1669090327880"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "635d4660b79adb46116a6ee1"
+  },
+  "discount": 20,
+  "dateStart": {
+    "$date": {
+      "$numberLong": "1666976400000"
+    }
+  },
+  "dateEnd": {
+    "$date": {
+      "$numberLong": "1677171600000"
+    }
+  },
+  "maxDiscount": 200,
+  "qualifyAmount": 900,
+  "qty": 5,
+  "listUser": [
+    {
+      "$oid": "63541ae113318743199e8f11"
+    },
+    {
+      "$oid": "6356657a29ead049d3c5dc5f"
+    }
+  ],
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1667057248233"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667058081314"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "635d4b9fb79adb46116a6f27"
+  },
+  "discount": 10,
+  "dateStart": {
+    "$date": {
+      "$numberLong": "1666976400000"
+    }
+  },
+  "dateEnd": {
+    "$date": {
+      "$numberLong": "1672160400000"
+    }
+  },
+  "maxDiscount": 200,
+  "qualifyAmount": 1000,
+  "qty": 5,
+  "listUser": [
+    {
+      "$oid": "63541ae113318743199e8f11"
+    }
+  ],
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1667058591157"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1669090409011"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "635d4df3b79adb46116a6f63"
+  },
+  "discount": 20,
+  "dateStart": {
+    "$date": {
+      "$numberLong": "1666976400000"
+    }
+  },
+  "dateEnd": {
+    "$date": {
+      "$numberLong": "1667149200000"
+    }
+  },
+  "maxDiscount": 200,
+  "qualifyAmount": 20,
+  "qty": 2,
+  "listUser": [
+    {
+      "$oid": "63541ae113318743199e8f11"
+    }
+  ],
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1667059187218"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1669179417362"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "635d4e04b79adb46116a6f67"
+  },
+  "discount": 10,
+  "dateStart": {
+    "$date": {
+      "$numberLong": "1666976400000"
+    }
+  },
+  "dateEnd": {
+    "$date": {
+      "$numberLong": "1677258000000"
+    }
+  },
+  "maxDiscount": 300,
+  "qualifyAmount": 900,
+  "qty": 3,
+  "listUser": [
+    {
+      "$oid": "63541ae113318743199e8f11"
+    }
+  ],
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1667059204402"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667060232974"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "635d4e15b79adb46116a6f6b"
+  },
+  "discount": 20,
+  "dateStart": {
+    "$date": {
+      "$numberLong": "1666976400000"
+    }
+  },
+  "dateEnd": {
+    "$date": {
+      "$numberLong": "1671555600000"
+    }
+  },
+  "maxDiscount": 200,
+  "qualifyAmount": 900,
+  "qty": 3,
+  "listUser": [],
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1667059221983"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667059221983"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "635d51cab79adb46116a6fd5"
+  },
+  "discount": 20,
+  "dateStart": {
+    "$date": {
+      "$numberLong": "1666976400000"
+    }
+  },
+  "dateEnd": {
+    "$date": {
+      "$numberLong": "1671642000000"
+    }
+  },
+  "maxDiscount": 300,
+  "qualifyAmount": 4000,
+  "qty": 5,
+  "listUser": [],
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1667060170924"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667060170924"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "6360c111be3073a593d45b9f"
+  },
+  "discount": 20,
+  "dateStart": {
+    "$date": {
+      "$numberLong": "1667235600000"
+    }
+  },
+  "dateEnd": {
+    "$date": {
+      "$numberLong": "1668618000000"
+    }
+  },
+  "maxDiscount": 300,
+  "qualifyAmount": 600,
+  "qty": 5,
+  "listUser": [],
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1667285265174"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667285265174"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "637c41532822711180f5459b"
+  },
+  "discount": 20,
+  "dateStart": {
+    "$date": {
+      "$numberLong": "1669050000000"
+    }
+  },
+  "dateEnd": {
+    "$date": {
+      "$numberLong": "1669309200000"
+    }
+  },
+  "maxDiscount": 300,
+  "qualifyAmount": 200,
+  "qty": 6,
+  "listUser": [],
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1669087571773"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1669087571773"
+    }
+  }
+}]

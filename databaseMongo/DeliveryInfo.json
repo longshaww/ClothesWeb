@@ -1,0 +1,19 @@
+[{
+  "_id": {
+    "$oid": "635ec17203a66dcd662568ad"
+  },
+  "nameCustomer": "Pham Ngoc Phu",
+  "address": "123/12312 Xã Đông Phong,Huyện Yên Phong,Tỉnh Bắc Ninh",
+  "phoneNumber": "0786053698",
+  "email": "ngocphu@gmail.com",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1667154290130"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667154290130"
+    }
+  }
+}]

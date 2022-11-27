@@ -15,25 +15,26 @@
     },
     {
       "sizeName": "M",
-      "qty": "10"
+      "qty": 9
     }
   ],
   "description": {
     "imageList": [
-      "http://localhost:4000/1656379988074.png",
-      "http://localhost:4000/1656379997361.png"
+      "http://localhost:2000/1667150126110.png",
+      "http://localhost:2000/1667150135801.png"
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng ngocphu\n",
     "price": 390,
-    "type": "621df15d81c5aa40061ef705",
     "collection": {
       "$oid": "621c50c7bae8653bcb4564b3"
     }
   },
-  "discount": "ObjectId",
   "updatedAt": {
-    "$date": "2022-06-28T01:35:27.374Z"
-  }
+    "$date": {
+      "$numberLong": "1667150746819"
+    }
+  },
+  "buyed": 1
 },{
   "_id": {
     "$oid": "6232fbed01830a245b8d7504"
@@ -51,7 +52,7 @@
     },
     {
       "sizeName": "M",
-      "qty": 5
+      "qty": 4
     }
   ],
   "description": {
@@ -61,12 +62,16 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 390,
-    "type": "621df15d81c5aa40061ef705",
     "collection": {
       "$oid": "621c50e0bae8653bcb4564b4"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 1,
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1666453816399"
+    }
+  }
 },{
   "_id": {
     "$oid": "6232fbed01830a245b8d7505"
@@ -80,11 +85,11 @@
     },
     {
       "sizeName": "L",
-      "qty": 5
+      "qty": 3
     },
     {
       "sizeName": "M",
-      "qty": 5
+      "qty": 1
     }
   ],
   "description": {
@@ -94,12 +99,16 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 650,
-    "type": "621df15d81c5aa40061ef705",
     "collection": {
       "$oid": "621c50e0bae8653bcb4564b4"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 6,
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1669090233307"
+    }
+  }
 },{
   "_id": {
     "$oid": "6232fbed01830a245b8d7506"
@@ -127,10 +136,9 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 650,
-    "type": "621df15d81c5aa40061ef705",
     "collection": "621c50e0bae8653bcb4564b4"
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbf001830a245b8d7507"
@@ -140,7 +148,7 @@
   "size": [
     {
       "sizeName": "XL",
-      "qty": 10
+      "qty": 7
     },
     {
       "sizeName": "L",
@@ -148,7 +156,7 @@
     },
     {
       "sizeName": "M",
-      "qty": 5
+      "qty": 3
     }
   ],
   "description": {
@@ -158,15 +166,16 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 330,
-    "type": "621df18f81c5aa40061ef709",
     "collection": {
       "$oid": "621c50c7bae8653bcb4564b3"
     }
   },
-  "discount": "ObjectId",
   "updatedAt": {
-    "$date": "2022-06-24T06:13:10.322Z"
-  }
+    "$date": {
+      "$numberLong": "1669088884348"
+    }
+  },
+  "buyed": 5
 },{
   "_id": {
     "$oid": "6232fbf001830a245b8d7508"
@@ -176,15 +185,15 @@
   "size": [
     {
       "sizeName": "XL",
-      "qty": 10
+      "qty": "0"
     },
     {
       "sizeName": "L",
-      "qty": 5
+      "qty": "0"
     },
     {
       "sizeName": "M",
-      "qty": 5
+      "qty": "0"
     }
   ],
   "description": {
@@ -194,12 +203,16 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 330,
-    "type": "621df18f81c5aa40061ef709",
     "collection": {
       "$oid": "621c50a7bae8653bcb4564b1"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 3,
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1666470643098"
+    }
+  }
 },{
   "_id": {
     "$oid": "6232fbf001830a245b8d7509"
@@ -209,15 +222,15 @@
   "size": [
     {
       "sizeName": "XL",
-      "qty": 10
+      "qty": "0"
     },
     {
       "sizeName": "L",
-      "qty": 5
+      "qty": "0"
     },
     {
       "sizeName": "M",
-      "qty": 5
+      "qty": "0"
     }
   ],
   "description": {
@@ -227,12 +240,16 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 330,
-    "type": "621df18f81c5aa40061ef709",
     "collection": {
       "$oid": "621c50a7bae8653bcb4564b1"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 1,
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1666470596999"
+    }
+  }
 },{
   "_id": {
     "$oid": "6232fbf001830a245b8d750a"
@@ -242,11 +259,11 @@
   "size": [
     {
       "sizeName": "XL",
-      "qty": 10
+      "qty": 3
     },
     {
       "sizeName": "L",
-      "qty": 5
+      "qty": 4
     },
     {
       "sizeName": "M",
@@ -260,12 +277,16 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 450,
-    "type": "621df18f81c5aa40061ef709",
     "collection": {
       "$oid": "621c50a7bae8653bcb4564b1"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 8,
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1669130719303"
+    }
+  }
 },{
   "_id": {
     "$oid": "6232fbf001830a245b8d750b"
@@ -275,11 +296,11 @@
   "size": [
     {
       "sizeName": "XL",
-      "qty": 10
+      "qty": 7
     },
     {
       "sizeName": "L",
-      "qty": 5
+      "qty": 3
     },
     {
       "sizeName": "M",
@@ -293,12 +314,16 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 420,
-    "type": "621df18f81c5aa40061ef709",
     "collection": {
       "$oid": "621c50a7bae8653bcb4564b1"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 5,
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667285721107"
+    }
+  }
 },{
   "_id": {
     "$oid": "6232fbf001830a245b8d750c"
@@ -316,7 +341,7 @@
     },
     {
       "sizeName": "M",
-      "qty": 5
+      "qty": 4
     }
   ],
   "description": {
@@ -326,12 +351,16 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 420,
-    "type": "621df18f81c5aa40061ef709",
     "collection": {
       "$oid": "621c50a7bae8653bcb4564b1"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 1,
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667154357091"
+    }
+  }
 },{
   "_id": {
     "$oid": "6232fbf001830a245b8d750d"
@@ -359,12 +388,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 420,
-    "type": "621df18f81c5aa40061ef709",
     "collection": {
       "$oid": "621c50a7bae8653bcb4564b1"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbf001830a245b8d750e"
@@ -374,11 +402,11 @@
   "size": [
     {
       "sizeName": "XL",
-      "qty": 10
+      "qty": 0
     },
     {
       "sizeName": "L",
-      "qty": 5
+      "qty": 3
     },
     {
       "sizeName": "M",
@@ -392,12 +420,16 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 390,
-    "type": "621df18f81c5aa40061ef709",
     "collection": {
       "$oid": "621c50a7bae8653bcb4564b1"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 12,
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1669028280916"
+    }
+  }
 },{
   "_id": {
     "$oid": "6232fbf001830a245b8d750f"
@@ -407,7 +439,7 @@
   "size": [
     {
       "sizeName": "XL",
-      "qty": 10
+      "qty": 8
     },
     {
       "sizeName": "L",
@@ -425,12 +457,16 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 320,
-    "type": "621df18f81c5aa40061ef709",
     "collection": {
       "$oid": "621c50a7bae8653bcb4564b1"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 2,
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667285721198"
+    }
+  }
 },{
   "_id": {
     "$oid": "6232fbf001830a245b8d7510"
@@ -458,12 +494,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 200,
-    "type": "621df18f81c5aa40061ef709",
     "collection": {
       "$oid": "621c50a7bae8653bcb4564b1"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbf301830a245b8d7514"
@@ -473,15 +508,15 @@
   "size": [
     {
       "sizeName": "XL",
-      "qty": 10
+      "qty": 0
     },
     {
       "sizeName": "L",
-      "qty": 5
+      "qty": 0
     },
     {
       "sizeName": "M",
-      "qty": 5
+      "qty": 0
     }
   ],
   "description": {
@@ -491,12 +526,16 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 320,
-    "type": "621c5639bae8653bcb4564dd",
     "collection": {
       "$oid": "6295e2c2edafd2b5ebe66cd3"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 20,
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667283477613"
+    }
+  }
 },{
   "_id": {
     "$oid": "6232fbf301830a245b8d7515"
@@ -506,15 +545,15 @@
   "size": [
     {
       "sizeName": "XL",
-      "qty": 10
+      "qty": 0
     },
     {
       "sizeName": "L",
-      "qty": 5
+      "qty": 0
     },
     {
       "sizeName": "M",
-      "qty": 5
+      "qty": 0
     }
   ],
   "description": {
@@ -524,15 +563,16 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 320,
-    "type": "621c5639bae8653bcb4564dd",
     "collection": {
       "$oid": "6295e2c2edafd2b5ebe66cd3"
     }
   },
-  "discount": "ObjectId",
   "updatedAt": {
-    "$date": "2022-06-27T18:24:16.827Z"
-  }
+    "$date": {
+      "$numberLong": "1667156926169"
+    }
+  },
+  "buyed": 20
 },{
   "_id": {
     "$oid": "6232fbf301830a245b8d7516"
@@ -542,15 +582,15 @@
   "size": [
     {
       "sizeName": "XL",
-      "qty": 10
+      "qty": 0
     },
     {
       "sizeName": "L",
-      "qty": 5
+      "qty": 3
     },
     {
       "sizeName": "M",
-      "qty": 5
+      "qty": 0
     }
   ],
   "description": {
@@ -560,12 +600,16 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 320,
-    "type": "621c5639bae8653bcb4564dd",
     "collection": {
       "$oid": "6295e2c2edafd2b5ebe66cd3"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 18,
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1668324046316"
+    }
+  }
 },{
   "_id": {
     "$oid": "6232fbf301830a245b8d7517"
@@ -575,15 +619,15 @@
   "size": [
     {
       "sizeName": "XL",
-      "qty": 10
+      "qty": 9
     },
     {
       "sizeName": "L",
-      "qty": 5
+      "qty": 4
     },
     {
       "sizeName": "M",
-      "qty": 5
+      "qty": 3
     }
   ],
   "description": {
@@ -593,12 +637,16 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 320,
-    "type": "621c5639bae8653bcb4564dd",
     "collection": {
       "$oid": "6295e2c2edafd2b5ebe66cd3"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 4,
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1668338740830"
+    }
+  }
 },{
   "_id": {
     "$oid": "6232fbf301830a245b8d7518"
@@ -626,12 +674,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 320,
-    "type": "621c5639bae8653bcb4564dd",
     "collection": {
       "$oid": "6295e2c2edafd2b5ebe66cd3"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbf301830a245b8d7519"
@@ -659,12 +706,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 320,
-    "type": "621c5639bae8653bcb4564dd",
     "collection": {
       "$oid": "6295e2c2edafd2b5ebe66cd3"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbf301830a245b8d7528"
@@ -682,7 +728,7 @@
     },
     {
       "sizeName": "M",
-      "qty": 5
+      "qty": 4
     }
   ],
   "description": {
@@ -692,12 +738,16 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 300,
-    "type": "621c5639bae8653bcb4564dd",
     "collection": {
       "$oid": "6295e2c2edafd2b5ebe66cd3"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 1,
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667157078806"
+    }
+  }
 },{
   "_id": {
     "$oid": "6232fbf301830a245b8d7529"
@@ -725,12 +775,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 300,
-    "type": "621c5639bae8653bcb4564dd",
     "collection": {
       "$oid": "6295e2c2edafd2b5ebe66cd3"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbf301830a245b8d752a"
@@ -748,7 +797,7 @@
     },
     {
       "sizeName": "M",
-      "qty": 5
+      "qty": 3
     }
   ],
   "description": {
@@ -758,12 +807,16 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 300,
-    "type": "621c5639bae8653bcb4564dd",
     "collection": {
       "$oid": "6295e2c2edafd2b5ebe66cd3"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 2,
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667152354656"
+    }
+  }
 },{
   "_id": {
     "$oid": "6232fbf301830a245b8d752b"
@@ -791,12 +844,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 300,
-    "type": "621c5639bae8653bcb4564dd",
     "collection": {
       "$oid": "621c506fbae8653bcb4564ac"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbf301830a245b8d7535"
@@ -806,7 +858,7 @@
   "size": [
     {
       "sizeName": "XL",
-      "qty": 10
+      "qty": 9
     },
     {
       "sizeName": "L",
@@ -814,7 +866,7 @@
     },
     {
       "sizeName": "M",
-      "qty": 5
+      "qty": 1
     }
   ],
   "description": {
@@ -824,12 +876,16 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 320,
-    "type": "621c5639bae8653bcb4564dd",
     "collection": {
       "$oid": "6295e2c2edafd2b5ebe66cd3"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 5,
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667157879379"
+    }
+  }
 },{
   "_id": {
     "$oid": "6232fbf301830a245b8d7536"
@@ -857,12 +913,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 320,
-    "type": "621c5639bae8653bcb4564dd",
     "collection": {
       "$oid": "6295e2c2edafd2b5ebe66cd3"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbf301830a245b8d7538"
@@ -890,12 +945,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 320,
-    "type": "621c5639bae8653bcb4564dd",
     "collection": {
       "$oid": "621c506fbae8653bcb4564ac"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbf801830a245b8d7539"
@@ -905,11 +959,11 @@
   "size": [
     {
       "sizeName": "XL",
-      "qty": 10
+      "qty": 9
     },
     {
       "sizeName": "L",
-      "qty": 5
+      "qty": 4
     },
     {
       "sizeName": "M",
@@ -923,12 +977,16 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 240,
-    "type": "621df15d81c5aa40061ef705",
     "collection": {
       "$oid": "621c50c7bae8653bcb4564b3"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 2,
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1669090270135"
+    }
+  }
 },{
   "_id": {
     "$oid": "6232fbf801830a245b8d753a"
@@ -956,12 +1014,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 240,
-    "type": "621df15d81c5aa40061ef705",
     "collection": {
       "$oid": "621c50c7bae8653bcb4564b3"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbf801830a245b8d753b"
@@ -979,7 +1036,7 @@
     },
     {
       "sizeName": "M",
-      "qty": 5
+      "qty": 4
     }
   ],
   "description": {
@@ -989,12 +1046,16 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 240,
-    "type": "621df15d81c5aa40061ef705",
     "collection": {
       "$oid": "6295e2c2edafd2b5ebe66cd3"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 1,
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667055007069"
+    }
+  }
 },{
   "_id": {
     "$oid": "6232fbf801830a245b8d753c"
@@ -1004,11 +1065,11 @@
   "size": [
     {
       "sizeName": "XL",
-      "qty": 10
+      "qty": 8
     },
     {
       "sizeName": "L",
-      "qty": 5
+      "qty": 4
     },
     {
       "sizeName": "M",
@@ -1022,12 +1083,16 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 450,
-    "type": "621df15d81c5aa40061ef705",
     "collection": {
       "$oid": "621c50c7bae8653bcb4564b3"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 3,
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1669089351161"
+    }
+  }
 },{
   "_id": {
     "$oid": "6232fbf801830a245b8d753d"
@@ -1055,12 +1120,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 550,
-    "type": "621df15d81c5aa40061ef705",
     "collection": {
       "$oid": "621c50c7bae8653bcb4564b3"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbf801830a245b8d753e"
@@ -1088,12 +1152,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 550,
-    "type": "621df15d81c5aa40061ef705",
     "collection": {
       "$oid": "621c506fbae8653bcb4564ac"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbf801830a245b8d753f"
@@ -1121,15 +1184,16 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 420,
-    "type": "621df15d81c5aa40061ef705",
     "collection": {
       "$oid": "6295e2c2edafd2b5ebe66cd3"
     }
   },
-  "discount": "ObjectId",
   "updatedAt": {
-    "$date": "2022-06-27T18:23:43.191Z"
-  }
+    "$date": {
+      "$numberLong": "1656354223191"
+    }
+  },
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbf801830a245b8d7540"
@@ -1157,12 +1221,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 480,
-    "type": "621df15d81c5aa40061ef705",
     "collection": {
       "$oid": "621c50c7bae8653bcb4564b3"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbf801830a245b8d7541"
@@ -1190,15 +1253,16 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 480,
-    "type": "621df15d81c5aa40061ef705",
     "collection": {
       "$oid": "6295e2c2edafd2b5ebe66cd3"
     }
   },
-  "discount": "ObjectId",
   "updatedAt": {
-    "$date": "2022-06-28T01:34:37.021Z"
-  }
+    "$date": {
+      "$numberLong": "1656380077021"
+    }
+  },
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbf801830a245b8d7542"
@@ -1226,12 +1290,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 480,
-    "type": "621df15d81c5aa40061ef705",
     "collection": {
       "$oid": "621c50c7bae8653bcb4564b3"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbf801830a245b8d7543"
@@ -1241,7 +1304,7 @@
   "size": [
     {
       "sizeName": "XL",
-      "qty": 10
+      "qty": 6
     },
     {
       "sizeName": "L",
@@ -1259,12 +1322,16 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 480,
-    "type": "621df15d81c5aa40061ef705",
     "collection": {
       "$oid": "621c50c7bae8653bcb4564b3"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 4,
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1668324046592"
+    }
+  }
 },{
   "_id": {
     "$oid": "6232fbf801830a245b8d7544"
@@ -1274,7 +1341,7 @@
   "size": [
     {
       "sizeName": "XL",
-      "qty": 10
+      "qty": 9
     },
     {
       "sizeName": "L",
@@ -1292,12 +1359,16 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 480,
-    "type": "621df15d81c5aa40061ef705",
     "collection": {
       "$oid": "621c50c7bae8653bcb4564b3"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 1,
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1668338741110"
+    }
+  }
 },{
   "_id": {
     "$oid": "6232fbf801830a245b8d7545"
@@ -1325,12 +1396,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 480,
-    "type": "621df15d81c5aa40061ef705",
     "collection": {
       "$oid": "621c50c7bae8653bcb4564b3"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbf801830a245b8d7546"
@@ -1358,12 +1428,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 480,
-    "type": "621df15d81c5aa40061ef705",
     "collection": {
       "$oid": "621c50c7bae8653bcb4564b3"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbf801830a245b8d7547"
@@ -1391,10 +1460,9 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 480,
-    "type": "621df15d81c5aa40061ef705",
     "collection": "621c50c7bae8653bcb4564b3"
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbf801830a245b8d7548"
@@ -1422,12 +1490,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 550,
-    "type": "621df15d81c5aa40061ef705",
     "collection": {
       "$oid": "621c50c7bae8653bcb4564b3"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbf801830a245b8d7549"
@@ -1455,12 +1522,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 420,
-    "type": "621df15d81c5aa40061ef705",
     "collection": {
       "$oid": "621c50c7bae8653bcb4564b3"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbf801830a245b8d754a"
@@ -1488,12 +1554,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 420,
-    "type": "621df15d81c5aa40061ef705",
     "collection": {
       "$oid": "621c50c7bae8653bcb4564b3"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbf801830a245b8d754b"
@@ -1521,12 +1586,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 595,
-    "type": "621df15d81c5aa40061ef705",
     "collection": {
       "$oid": "621c50c7bae8653bcb4564b3"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbf801830a245b8d754c"
@@ -1554,12 +1618,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 580,
-    "type": "621df15d81c5aa40061ef705",
     "collection": {
       "$oid": "621c50c7bae8653bcb4564b3"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbf801830a245b8d754d"
@@ -1587,12 +1650,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 600,
-    "type": "621df15d81c5aa40061ef705",
     "collection": {
       "$oid": "621c50c7bae8653bcb4564b3"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbfb01830a245b8d754e"
@@ -1620,12 +1682,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 360,
-    "type": "621c5639bae8653bcb4564dd",
     "collection": {
       "$oid": "621c506fbae8653bcb4564ac"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbfb01830a245b8d754f"
@@ -1653,10 +1714,9 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 360,
-    "type": "621c5639bae8653bcb4564dd",
     "collection": "621c506fbae8653bcb4564ac"
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbfb01830a245b8d7550"
@@ -1684,12 +1744,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 350,
-    "type": "621c5639bae8653bcb4564dd",
     "collection": {
       "$oid": "621c506fbae8653bcb4564ac"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbfb01830a245b8d7551"
@@ -1717,12 +1776,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 350,
-    "type": "621c5639bae8653bcb4564dd",
     "collection": {
       "$oid": "621c506fbae8653bcb4564ac"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbfb01830a245b8d7552"
@@ -1750,12 +1808,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 350,
-    "type": "621c5639bae8653bcb4564dd",
     "collection": {
       "$oid": "621c506fbae8653bcb4564ac"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbfb01830a245b8d7553"
@@ -1783,12 +1840,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 350,
-    "type": "621c5639bae8653bcb4564dd",
     "collection": {
       "$oid": "621c506fbae8653bcb4564ac"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbfb01830a245b8d7554"
@@ -1816,12 +1872,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 350,
-    "type": "621c5639bae8653bcb4564dd",
     "collection": {
       "$oid": "621c506fbae8653bcb4564ac"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbfb01830a245b8d7555"
@@ -1849,12 +1904,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 350,
-    "type": "621c5639bae8653bcb4564dd",
     "collection": {
       "$oid": "621c506fbae8653bcb4564ac"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbfb01830a245b8d7556"
@@ -1882,12 +1936,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 350,
-    "type": "621c5639bae8653bcb4564dd",
     "collection": {
       "$oid": "621c506fbae8653bcb4564ac"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbfb01830a245b8d7557"
@@ -1915,12 +1968,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 350,
-    "type": "621c5639bae8653bcb4564dd",
     "collection": {
       "$oid": "621c506fbae8653bcb4564ac"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbfb01830a245b8d7558"
@@ -1948,12 +2000,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 350,
-    "type": "621c5639bae8653bcb4564dd",
     "collection": {
       "$oid": "621c506fbae8653bcb4564ac"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbfb01830a245b8d7559"
@@ -1981,12 +2032,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 350,
-    "type": "621c5639bae8653bcb4564dd",
     "collection": {
       "$oid": "621c506fbae8653bcb4564ac"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbfb01830a245b8d755a"
@@ -2014,12 +2064,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 350,
-    "type": "621c5639bae8653bcb4564dd",
     "collection": {
       "$oid": "621c506fbae8653bcb4564ac"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbfb01830a245b8d755b"
@@ -2047,12 +2096,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 350,
-    "type": "621c5639bae8653bcb4564dd",
     "collection": {
       "$oid": "621c506fbae8653bcb4564ac"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbfb01830a245b8d755c"
@@ -2080,12 +2128,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 350,
-    "type": "621c5639bae8653bcb4564dd",
     "collection": {
       "$oid": "621c506fbae8653bcb4564ac"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbfb01830a245b8d755d"
@@ -2113,12 +2160,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 350,
-    "type": "621c5639bae8653bcb4564dd",
     "collection": {
       "$oid": "621c506fbae8653bcb4564ac"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbfb01830a245b8d755e"
@@ -2146,12 +2192,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 350,
-    "type": "621c5639bae8653bcb4564dd",
     "collection": {
       "$oid": "621c506fbae8653bcb4564ac"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbfb01830a245b8d755f"
@@ -2179,12 +2224,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 350,
-    "type": "621c5639bae8653bcb4564dd",
     "collection": {
       "$oid": "621c506fbae8653bcb4564ac"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbfb01830a245b8d7560"
@@ -2212,12 +2256,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 350,
-    "type": "621c5639bae8653bcb4564dd",
     "collection": {
       "$oid": "621c506fbae8653bcb4564ac"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbfb01830a245b8d7561"
@@ -2245,12 +2288,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 340,
-    "type": "621c5639bae8653bcb4564dd",
     "collection": {
       "$oid": "621c506fbae8653bcb4564ac"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbfb01830a245b8d7562"
@@ -2278,12 +2320,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 340,
-    "type": "621c5639bae8653bcb4564dd",
     "collection": {
       "$oid": "621c506fbae8653bcb4564ac"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbfb01830a245b8d7563"
@@ -2311,12 +2352,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 340,
-    "type": "621c5639bae8653bcb4564dd",
     "collection": {
       "$oid": "621c506fbae8653bcb4564ac"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbfb01830a245b8d7564"
@@ -2344,12 +2384,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 340,
-    "type": "621c5639bae8653bcb4564dd",
     "collection": {
       "$oid": "621c506fbae8653bcb4564ac"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbfb01830a245b8d7565"
@@ -2377,12 +2416,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 340,
-    "type": "621c5639bae8653bcb4564dd",
     "collection": {
       "$oid": "621c506fbae8653bcb4564ac"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbfb01830a245b8d7566"
@@ -2410,12 +2448,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 340,
-    "type": "621c5639bae8653bcb4564dd",
     "collection": {
       "$oid": "621c506fbae8653bcb4564ac"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbfb01830a245b8d7567"
@@ -2443,10 +2480,9 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 330,
-    "type": "621c5639bae8653bcb4564dd",
     "collection": "621c506fbae8653bcb4564ac"
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbfb01830a245b8d7568"
@@ -2474,12 +2510,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 330,
-    "type": "621c5639bae8653bcb4564dd",
     "collection": {
       "$oid": "621c506fbae8653bcb4564ac"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbfb01830a245b8d7569"
@@ -2507,12 +2542,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 330,
-    "type": "621c5639bae8653bcb4564dd",
     "collection": {
       "$oid": "621c506fbae8653bcb4564ac"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbfb01830a245b8d756a"
@@ -2540,12 +2574,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 330,
-    "type": "621c5639bae8653bcb4564dd",
     "collection": {
       "$oid": "621c506fbae8653bcb4564ac"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbfb01830a245b8d756c"
@@ -2573,12 +2606,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 330,
-    "type": "621c5639bae8653bcb4564dd",
     "collection": {
       "$oid": "621c506fbae8653bcb4564ac"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbfb01830a245b8d756d"
@@ -2606,10 +2638,9 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 330,
-    "type": "621c5639bae8653bcb4564dd",
     "collection": "621c506fbae8653bcb4564ac"
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbfb01830a245b8d756e"
@@ -2637,12 +2668,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 330,
-    "type": "621c5639bae8653bcb4564dd",
     "collection": {
       "$oid": "621c506fbae8653bcb4564ac"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbfb01830a245b8d756f"
@@ -2670,12 +2700,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 330,
-    "type": "621c5639bae8653bcb4564dd",
     "collection": {
       "$oid": "621c506fbae8653bcb4564ac"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbfb01830a245b8d7570"
@@ -2703,12 +2732,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 330,
-    "type": "621c5639bae8653bcb4564dd",
     "collection": {
       "$oid": "621c506fbae8653bcb4564ac"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbfb01830a245b8d7571"
@@ -2736,12 +2764,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 330,
-    "type": "621c5639bae8653bcb4564dd",
     "collection": {
       "$oid": "621c506fbae8653bcb4564ac"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbfb01830a245b8d7572"
@@ -2769,12 +2796,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 330,
-    "type": "621c5639bae8653bcb4564dd",
     "collection": {
       "$oid": "621c506fbae8653bcb4564ac"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbfb01830a245b8d7573"
@@ -2802,12 +2828,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 330,
-    "type": "621c5639bae8653bcb4564dd",
     "collection": {
       "$oid": "621c506fbae8653bcb4564ac"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "6232fbfb01830a245b8d7574"
@@ -2835,12 +2860,11 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 330,
-    "type": "621c5639bae8653bcb4564dd",
     "collection": {
       "$oid": "621c506fbae8653bcb4564ac"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 0
 },{
   "_id": {
     "$oid": "62950e97c52195e475353c98"
@@ -2850,15 +2874,15 @@
   "size": [
     {
       "sizeName": "XL",
-      "qty": 10
+      "qty": 5
     },
     {
       "sizeName": "L",
-      "qty": 5
+      "qty": 3
     },
     {
       "sizeName": "M",
-      "qty": 5
+      "qty": 4
     }
   ],
   "description": {
@@ -2868,12 +2892,16 @@
     ],
     "productDes": "Vải cotton hút ẩm tốt ,mịn mát,co giãn, dày vừa ko bí, mang đến cảm giác dễ chịu cho người sử dụng.",
     "price": 300,
-    "type": "621df15d81c5aa40061ef705",
     "collection": {
       "$oid": "621c50e0bae8653bcb4564b4"
     }
   },
-  "discount": "ObjectId"
+  "buyed": 8,
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667901678903"
+    }
+  }
 },{
   "_id": {
     "$oid": "62b8d29f4f133081e64d4c32"
@@ -2901,85 +2929,51 @@
     ],
     "productDes": "1",
     "price": 600,
-    "type": null,
     "collection": {
       "$oid": "621c50a7bae8653bcb4564b1"
     }
   },
-  "discount": null,
   "updatedAt": {
-    "$date": "2022-06-26T22:07:37.367Z"
-  }
+    "$date": {
+      "$numberLong": "1656281257367"
+    }
+  },
+  "buyed": 0
 },{
   "_id": {
-    "$oid": "62ba23929baff4ac17e4dc05"
+    "$oid": "6360c35cbe3073a593d45c41"
   },
-  "nameProduct": "Ngoc Phu",
+  "nameProduct": "Test demo tạo sản phẩm",
   "size": [
     {
       "sizeName": "XL",
-      "qty": "3"
+      "qty": "20"
     },
     {
       "sizeName": "L",
-      "qty": "2"
+      "qty": "20"
     },
     {
       "sizeName": "M",
-      "qty": "1"
+      "qty": "0"
     }
   ],
   "price": 600,
   "description": {
     "imageList": [
-      "http://localhost:4000/1656365970572.png",
-      "http://localhost:4000/1656365970581.png"
+      "http://localhost:2000/1667285851991.png",
+      "http://localhost:2000/1667285851995.png"
     ],
-    "productDes": "hELLO",
+    "productDes": "không có",
     "price": 600,
-    "type": null,
     "collection": {
-      "$oid": "621c506fbae8653bcb4564ac"
+      "$oid": "621c50e0bae8653bcb4564b4"
     }
   },
-  "discount": null,
+  "buyed": 0,
   "updatedAt": {
-    "$date": "2022-06-27T21:39:30.605Z"
-  }
-},{
-  "_id": {
-    "$oid": "62ba393e620b1c2c8c75b713"
-  },
-  "nameProduct": "Ngoc Phu",
-  "size": [
-    {
-      "sizeName": "XL",
-      "qty": "1"
-    },
-    {
-      "sizeName": "L",
-      "qty": "3"
-    },
-    {
-      "sizeName": "M",
-      "qty": "1"
+    "$date": {
+      "$numberLong": "1667285860602"
     }
-  ],
-  "price": 600,
-  "description": {
-    "imageList": [
-      "http://localhost:4000/1656371649433.png",
-      "http://localhost:4000/1656371657154.png"
-    ],
-    "productDes": "Vãi Đẹp",
-    "price": 600,
-    "type": null,
-    "collection": {
-      "$oid": "621c506fbae8653bcb4564ac"
-    }
-  },
-  "discount": null,
-  "updatedAt": {
-    "$date": "2022-06-27T23:14:39.189Z"
   }
 }]

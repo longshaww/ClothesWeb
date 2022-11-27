@@ -1,26 +1,171 @@
 [{
   "_id": {
-    "$oid": "62b2a8d9fa77c57faf615ed1"
+    "$oid": "6354179413318743199e8f10"
   },
-  "email": "ngocphu@gmail.com",
+  "email": "test.long@gmail.com",
   "password": "202cb962ac59075b964b07152d234b70",
   "information": {
-    "name": "ngocphu",
-    "phoneNumber": "0987654321",
+    "name": "test-account-long",
+    "phoneNumber": "123456789",
     "dateOfBirth": {
-      "$date": "2001-11-30T17:00:00Z"
+      "$date": {
+        "$numberLong": "1007139600000"
+      }
     },
     "gender": false,
-    "address": "123 ly thuong kiet"
+    "address": "828 sư vạn hạnh"
+  },
+  "isAdmin": true,
+  "myPoint": 300,
+  "deleted": false,
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1655616601586"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1669130719663"
+    }
+  },
+  "verify": true,
+  "role": 0,
+  "moneyPayed": 485,
+  "vip": "Bronze"
+},{
+  "_id": {
+    "$oid": "63541ae113318743199e8f11"
+  },
+  "email": "test.khang@gmail.com",
+  "password": "202cb962ac59075b964b07152d234b70",
+  "information": {
+    "name": "Khang Nguyen",
+    "phoneNumber": "0924989334",
+    "dateOfBirth": {
+      "$date": {
+        "$numberLong": "1007139600000"
+      }
+    },
+    "gender": true,
+    "address": "828 sư vạn hạnh"
   },
   "isAdmin": true,
   "myPoint": 0,
   "deleted": false,
   "createdAt": {
-    "$date": "2022-06-19T05:30:01.586Z"
+    "$date": {
+      "$numberLong": "1655616601586"
+    }
   },
   "updatedAt": {
-    "$date": "2022-06-27T21:03:24.980Z"
+    "$date": {
+      "$numberLong": "1669179417092"
+    }
   },
-  "verify": true
+  "verify": true,
+  "role": 0,
+  "moneyPayed": 15386,
+  "vip": "Platinum"
+},{
+  "_id": {
+    "$oid": "6356657a29ead049d3c5dc5f"
+  },
+  "email": "ngocphu@gmail.com",
+  "password": "202cb962ac59075b964b07152d234b70",
+  "information": {
+    "name": "Pham Ngoc Phu",
+    "phoneNumber": "0786053698",
+    "dateOfBirth": {
+      "$date": {
+        "$numberLong": "999363600000"
+      }
+    },
+    "gender": true,
+    "address": "123/12312"
+  },
+  "isAdmin": true,
+  "role": 0,
+  "myPoint": 20,
+  "verify": true,
+  "deleted": false,
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1666606458693"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667282976753"
+    }
+  },
+  "moneyPayed": 0,
+  "vip": "Bronze"
+},{
+  "_id": {
+    "$oid": "635d50442885ec006f43e2cb"
+  },
+  "email": "ngocphupham682001@gmail.com",
+  "password": "6c9126921ea3efc1c78ef3eb846b9e1c",
+  "information": {
+    "name": "Pham Ngoc Phu",
+    "phoneNumber": "0786053698",
+    "dateOfBirth": {
+      "$date": {
+        "$numberLong": "981133200000"
+      }
+    },
+    "gender": true,
+    "address": "123/12312"
+  },
+  "isAdmin": false,
+  "role": 1,
+  "myPoint": 600,
+  "verify": true,
+  "vip": "Gold",
+  "moneyPayed": 3857,
+  "deleted": false,
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1667059780904"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667222437852"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "6360b99fbe3073a593d458b5"
+  },
+  "email": "nguyenduykhanghuflit@gmail.com",
+  "password": "a0af5da935f93265ad377297e5f7c0b8",
+  "information": {
+    "name": "khang",
+    "phoneNumber": "0924989332",
+    "dateOfBirth": {
+      "$date": {
+        "$numberLong": "991069200000"
+      }
+    },
+    "gender": true,
+    "address": "10 tran thien chanh"
+  },
+  "isAdmin": false,
+  "role": 0,
+  "myPoint": 10,
+  "verify": true,
+  "vip": "Gold",
+  "moneyPayed": 2985,
+  "deleted": false,
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1667283359606"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667283478304"
+    }
+  }
 }]

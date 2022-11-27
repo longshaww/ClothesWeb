@@ -1,0 +1,438 @@
+[{
+  "_id": {
+    "$oid": "635fb08eb60e001669d03fba"
+  },
+  "billID": {
+    "$oid": "635d3ac57a299bdd46fcbbe2"
+  },
+  "reason": "xau qua nene ko lay ",
+  "moneyStatus": "NO_REFUNDS",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1667215502104"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667215502104"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "635fb565717c7b8ba086c43c"
+  },
+  "billID": {
+    "$oid": "635d3ac57a299bdd46fcbbe2"
+  },
+  "reason": "Bill được hủy do không giao được hàng ",
+  "moneyStatus": "NO_REFUNDS",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1667216741143"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667216741143"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "6369f7045b8e3db9319cf05d"
+  },
+  "billID": {
+    "$oid": "635d3ad17a299bdd46fcbbeb"
+  },
+  "reason": null,
+  "moneyStatus": "NO_REFUNDS",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1667888900198"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667888900198"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "6369f9f47340f98df50b9171"
+  },
+  "billID": {
+    "$oid": "635d3d9f3cc11792dea334a3"
+  },
+  "reason": null,
+  "moneyStatus": "NO_REFUNDS",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1667889652150"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667889652150"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "6369fbce2dd5991a9cc91eb2"
+  },
+  "billID": {
+    "$oid": "635d3dcf3cc11792dea334ca"
+  },
+  "reason": "Bill được hủy do không giao được hàng ",
+  "moneyStatus": "NO_REFUNDS",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1667890126933"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667890126933"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "6369ff6b2dd5991a9cc924ce"
+  },
+  "billID": {
+    "$oid": "635eb3a06d5a5375227ab7c3"
+  },
+  "reason": "Bill được hủy do không giao được hàng ",
+  "moneyStatus": "NO_REFUNDS",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1667891051450"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1667891051450"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "637b15205447f2bdd20d0084"
+  },
+  "billID": {
+    "$oid": "635eb9e2524a0d22ef437c6b"
+  },
+  "reason": null,
+  "moneyStatus": "NO_REFUNDS",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1669010720781"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1669010720781"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "637b15245447f2bdd20d00ce"
+  },
+  "billID": {
+    "$oid": "635ebb35524a0d22ef437c86"
+  },
+  "reason": null,
+  "moneyStatus": "NO_REFUNDS",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1669010724816"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1669010724816"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "637b4fb55cb3b54d7f19551d"
+  },
+  "billID": {
+    "$oid": "635ecceecd0eb1720d302c97"
+  },
+  "reason": null,
+  "moneyStatus": "NO_REFUNDS",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1669025717187"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1669025717187"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "637b4fbb5cb3b54d7f195567"
+  },
+  "billID": {
+    "$oid": "635ecd0ecd0eb1720d302cb8"
+  },
+  "reason": null,
+  "moneyStatus": "NO_REFUNDS",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1669025723395"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1669025723395"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "637b4fc55cb3b54d7f1955b1"
+  },
+  "billID": {
+    "$oid": "635ecb5903a66dcd6625695e"
+  },
+  "reason": null,
+  "moneyStatus": "NO_REFUNDS",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1669025733961"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1669025733961"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "637b4fcd5cb3b54d7f1955fb"
+  },
+  "billID": {
+    "$oid": "635ecb9403a66dcd66256975"
+  },
+  "reason": null,
+  "moneyStatus": "NO_REFUNDS",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1669025741358"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1669025741358"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "637b500e5cb3b54d7f19568c"
+  },
+  "billID": {
+    "$oid": "635ebb5c524a0d22ef437c9b"
+  },
+  "reason": "Bill được hủy do không giao được hàng ",
+  "moneyStatus": "NO_REFUNDS",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1669025806245"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1669025806245"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "637b501a5cb3b54d7f1956d6"
+  },
+  "billID": {
+    "$oid": "635ebbad524a0d22ef437cc6"
+  },
+  "reason": "Bill được hủy do không giao được hàng ",
+  "moneyStatus": "NO_REFUNDS",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1669025818559"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1669025818559"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "637b54d45cb3b54d7f195d9e"
+  },
+  "billID": {
+    "$oid": "635ecc560603f5a642fda258"
+  },
+  "reason": null,
+  "moneyStatus": "NO_REFUNDS",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1669027028979"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1669027028979"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "637b55b15cb3b54d7f195fd9"
+  },
+  "billID": {
+    "$oid": "635eb6df524a0d22ef437c4c"
+  },
+  "reason": "Bill được hủy do không giao được hàng ",
+  "moneyStatus": "NO_REFUNDS",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1669027249951"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1669027249951"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "637b55b65cb3b54d7f196023"
+  },
+  "billID": {
+    "$oid": "635eb6ee524a0d22ef437c5e"
+  },
+  "reason": "Bill được hủy do không giao được hàng ",
+  "moneyStatus": "NO_REFUNDS",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1669027254826"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1669027254826"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "637b560b5cb3b54d7f1960fe"
+  },
+  "billID": {
+    "$oid": "635ecd94cd0eb1720d302ce2"
+  },
+  "reason": null,
+  "moneyStatus": "NO_REFUNDS",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1669027339963"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1669027339963"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "637b56baf0e434a26c611ac4"
+  },
+  "billID": {
+    "$oid": "635ec17203a66dcd662568ab"
+  },
+  "reason": null,
+  "moneyStatus": "NO_REFUNDS",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1669027514660"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1669027514660"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "637b56c1f0e434a26c611b0e"
+  },
+  "billID": {
+    "$oid": "635ec18303a66dcd662568c7"
+  },
+  "reason": null,
+  "moneyStatus": "NO_REFUNDS",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1669027521231"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1669027521231"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "637c473e2822711180f5492e"
+  },
+  "billID": {
+    "$oid": "637b59b8f0e434a26c611fd0"
+  },
+  "reason": null,
+  "moneyStatus": "NO_REFUNDS",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1669089086996"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1669089086996"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "637c4b252822711180f54a83"
+  },
+  "billID": {
+    "$oid": "637c48472822711180f549a9"
+  },
+  "reason": null,
+  "moneyStatus": "NO_REFUNDS",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1669090085715"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1669090085715"
+    }
+  }
+},{
+  "_id": {
+    "$oid": "637c4b422822711180f54a98"
+  },
+  "billID": {
+    "$oid": "637c467c2822711180f547b3"
+  },
+  "reason": null,
+  "moneyStatus": "NO_REFUNDS",
+  "createdAt": {
+    "$date": {
+      "$numberLong": "1669090114631"
+    }
+  },
+  "updatedAt": {
+    "$date": {
+      "$numberLong": "1669090114631"
+    }
+  }
+}]
