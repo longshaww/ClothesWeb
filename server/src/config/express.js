@@ -12,7 +12,7 @@ module.exports = (app) => {
     app.use(morgan(':method :url :status :res[content-length] - :response-time ms  :date[clf]'));
     app.use(cors({ credentials: true, origin: true }));
     app.use(cookieParser(process.env.signed_cookie));
-    app.use(express.static(path.join(__dirname, '../api/public')));
+    app.use('/api/static', express.static(path.join(__dirname, '../api/public')));
     app.use(compression());
     app.use('/api', routes);
 };
