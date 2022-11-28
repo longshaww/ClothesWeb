@@ -3,25 +3,17 @@ const Product = require('../../models/Product');
 const { getCartUtil } = require('../../utils/helper.js');
 class CartController {
     async addToCart(req, res, next) {
-        let { idProduct, qty, size, img, name, price } = req.body;
-        const product = await Product.findById(idProduct);
-        const productPrice = product.price;
-        const currentSession = res.locals.session;
-        const productExisted = currentSession.cart.find((item) => {
-            return item.idProduct.equals(idProduct) && item.size === size;
-        });
-        if (!productExisted) {
-            currentSession.cart.push({
-                idProduct,
-                qty,
-                size,
-                total: productPrice,
-                img,
-                name,
-                price,
+        try {
+            let { idProduct, qty, size, img, name, price } = req.body;
+            const product = await Product.findById(idProduct);
+            const productPrice = product.price;
+            const currentSession = res.locals.session;
+            const productExisted = currentSession.cart.find((item) => {
+                return item.idProduct.equals(idProduct) && item.size === size;
             });
-        } else {
-            if (size !== productExisted.size) {
+            const productSize = product.size.find((s) => s.sizeName === size);
+
+            if (!productExisted) {
                 currentSession.cart.push({
                     idProduct,
                     qty,
@@ -32,13 +24,32 @@ class CartController {
                     price,
                 });
             } else {
-                productExisted.set({
-                    qty: productExisted.qty + qty,
-                    total: productPrice * (productExisted.qty + qty),
-                });
+                if (productExisted.qty >= productSize.qty)
+                    return res.status(400).json({
+                        success: false,
+                        message: `${productExisted.name} chỉ còn ${productSize.qty} sản phẩm`,
+                    });
+                if (size !== productExisted.size) {
+                    currentSession.cart.push({
+                        idProduct,
+                        qty,
+                        size,
+                        total: productPrice,
+                        img,
+                        name,
+                        price,
+                    });
+                } else {
+                    productExisted.set({
+                        qty: productExisted.qty + qty,
+                        total: productPrice * (productExisted.qty + qty),
+                    });
+                }
             }
+            res.status(200).json(getCartUtil(await currentSession.save()));
+        } catch (err) {
+            res.status(400).json({ success: false, message: err.message });
         }
-        res.status(200).json(getCartUtil(await currentSession.save()));
     }
     async getCart(req, res, next) {
         try {

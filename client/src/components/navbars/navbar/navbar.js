@@ -40,29 +40,7 @@ export default function NavbarApp() {
                             <Link className="d-block d-lg-none " to="/">
                                 <img id="logo" src={Logo} alt="" className="logo-Img"></img>
                             </Link>
-                            <div
-                                className="d-flex d-lg-none align-items-center"
-                                style={{ backgroundColor: 'white' }}
-                            >
-                                <div className="mr-2" style={{ listStyle: 'none' }}>
-                                    <PopupCart></PopupCart>
-                                </div>
-                                <div style={{ listStyle: 'none' }}>
-                                    <Auth />
-                                </div>
-                                {cookies.user && (
-                                    <div className="mr-2">
-                                        <div className="fs-5 fw-bold">
-                                            {cookies.user.information?.name}
-                                        </div>
-                                    </div>
-                                )}
-                            </div>
                         </div>
-                        <div className="d-block mt-2 d-lg-none">
-                            <PostFilterForm />
-                        </div>
-
                         <Collapse isOpen={isOpen} navbar>
                             <Nav className="me-auto align-items-lg-center" navbar>
                                 <NavItem className="d-none d-lg-block ">

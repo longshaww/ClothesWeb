@@ -27,10 +27,10 @@ function PopupCart({ cart, setCart }) {
         async function getCart() {
             try {
                 const data = await axiosMethod('cart', 'get');
-                if (data.success) {
-                    setCart(data.cartQty, data, data.cartTotal);
-                }
-            } catch (err) {}
+                setCart(data.cartQty, data, data.cartTotal);
+            } catch (err) {
+                Toast.fire({ title: err.response.data.message, icon: 'error' });
+            }
         }
         getCart();
     }, [cookie.sessionId]);
@@ -42,16 +42,14 @@ function PopupCart({ cart, setCart }) {
             const data = await axiosMethod(`cart/${idProduct}`, 'delete', {
                 size,
             });
-            if (data.success) {
-                setCart(data.cartQty, data, data.cartTotal);
-                Toast.fire({
-                    title: 'Đã xóa sản phẩm khỏi giỏ hàng',
-                    icon: 'success',
-                });
-            }
+            setCart(data.cartQty, data, data.cartTotal);
+            Toast.fire({
+                title: 'Đã xóa sản phẩm khỏi giỏ hàng',
+                icon: 'success',
+            });
             return data;
         } catch (err) {
-            Toast.fire({ title: 'Xóa thất bại', icon: 'error' });
+            Toast.fire({ title: err.response.data.message, icon: 'error' });
         }
     }
 
@@ -65,8 +63,8 @@ function PopupCart({ cart, setCart }) {
     };
 
     //Cart Delete Event
-    const handleDelClick = (idProduct, size) => {
-        deleteCart(idProduct, size);
+    const handleDelClick = async (idProduct, size) => {
+        await deleteCart(idProduct, size);
     };
 
     //MUI Cart Open handle
@@ -76,12 +74,6 @@ function PopupCart({ cart, setCart }) {
 
     return (
         <Badge badgeContent={cartCount ? cartCount : '0'} color="primary">
-            {/* <ShoppingCartIcon
-                style={{ cursor: 'pointer' }}
-                onClick={handleClick}
-                aria-describedby={id}
-                variant="contained"
-            ></ShoppingCartIcon> */}
             <i
                 style={{ cursor: 'pointer', fontSize: '30px', position: 'relative' }}
                 onClick={handleClick}

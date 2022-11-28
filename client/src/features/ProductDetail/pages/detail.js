@@ -72,13 +72,15 @@ export default function Detail() {
                 icon: 'error',
             });
         else {
-            const data = await axiosMethod('cart', 'post', body);
-            if (data.success) {
+            try {
+                const data = await axiosMethod('cart', 'post', body);
                 dispatch(setCart(data.cartQty, data, data.cartTotal));
                 Toast.fire({
                     title: 'Thêm vào giỏ hàng thành công',
                     icon: 'success',
                 });
+            } catch (err) {
+                Toast.fire({ title: err.response.data.message, icon: 'error' });
             }
         }
     }
@@ -97,9 +99,7 @@ export default function Detail() {
         postCart();
     };
 
-    const handleModalImage = () => {
-        alert('hello');
-    };
+    const handleModalImage = () => {};
 
     return (
         <>

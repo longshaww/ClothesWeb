@@ -24,7 +24,7 @@ class ProductManager {
                     },
                 ],
                 description: {
-                    imageList: [`${API_HOST}${file1}`, `${API_HOST}${file2}`],
+                    imageList: [`${API_HOST}static/${file1}`, `${API_HOST}static/${file2}`],
                     productDes: dataRequest.productDes,
                     price: dataRequest.price,
                     type: null,
