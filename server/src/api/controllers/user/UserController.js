@@ -31,7 +31,7 @@ class UserController {
                     },
                 }
             );
-            return (await userUpdate)
+            return userUpdate
                 ? getUser(req.params.id, res, next)
                 : res.status(404).json({
                       success: false,

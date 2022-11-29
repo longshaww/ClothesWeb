@@ -38,37 +38,18 @@ class UserAdminController {
         try {
             const { _id, isAdmin, role, myPoint, vip, moneyPayed, deleted } = req.body;
             const { name, phoneNumber, dateOfBirth, gender, address } = req.body.information;
-
             if (
                 !_id ||
-                _id === '' ||
-                isAdmin === undefined ||
                 isAdmin === '' ||
-                role === undefined ||
-                role === '' ||
-                myPoint === '' ||
-                myPoint === undefined ||
+                isNaN(role) ||
+                isNaN(myPoint) ||
                 !vip ||
-                vip === '' ||
-                moneyPayed === '' ||
-                !moneyPayed ||
-                deleted === '' ||
-                deleted === undefined
+                isNaN(moneyPayed) ||
+                deleted === ''
             ) {
                 throw new Error('Error Request');
             }
-            if (
-                !name ||
-                name === undefined ||
-                !phoneNumber ||
-                phoneNumber === '' ||
-                !dateOfBirth ||
-                dateOfBirth === '' ||
-                gender === undefined ||
-                gender === '' ||
-                address === undefined ||
-                address === ''
-            ) {
+            if (!name || !phoneNumber || !dateOfBirth || gender === '' || !address) {
                 throw new Error('Error Request');
             }
             const idUser = _id;
@@ -86,7 +67,7 @@ class UserAdminController {
             if (!idUser || idUser === '') throw new Error('NOT FOUND ID USER');
             const manageUserService = new ManageUserService(idUser);
             const dataUser = await manageUserService.getIdUser();
-            if (!dataUser) throw new Error('DATA IS EMPTY ');
+            if (!dataUser) throw new Error('DATA IS EMPTY');
             return successRes(res, 200, dataUser, 'Success Get ID USER');
         } catch (err) {
             return throwErr(res, 404, err.message);

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Card, CardImg, CardBody, CardGroup, Row, Container } from 'reactstrap';
 import { Link } from 'react-router-dom';
-
+import { Badge } from 'reactstrap';
 import './card.css';
 import 'antd/dist/antd.css';
 
@@ -14,11 +14,13 @@ const ProductList = (props) => {
                     <div className="row row-cols-1 row-cols-md-3 row-cols-lg-3 ">
                         {props.data.map((collection) => {
                             return (
-                                <Card key={collection._id} className="col border-1 ">
+                                <Card key={collection._id} className="col border border-0 ">
                                     {collection?.lable != 'hide' && (
                                         <>
                                             <span className="text-right">
-                                                {collection.lable && collection.lable}
+                                                {collection.lable && (
+                                                    <Badge color="danger">{collection.lable}</Badge>
+                                                )}
                                             </span>
 
                                             <CardImg
