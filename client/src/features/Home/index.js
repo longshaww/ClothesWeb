@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ProductList from '../../components/ProductList';
+import { Helmet } from 'react-helmet';
 export default function Home() {
     const [productNewArrivals, setProductNewArrivals] = useState([]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -22,6 +23,14 @@ export default function Home() {
 
     return (
         <div>
+            <Helmet>
+                <title>HIGHBAR</title>
+                <meta
+                    name="description"
+                    content="Vietnamese Streetwear LocalbrandCopyright © 2021 HIGHBAR"
+                ></meta>
+                <link rel="canonical" href="/"></link>
+            </Helmet>
             {/* banner */}
             <div className="highclub">
                 <div
