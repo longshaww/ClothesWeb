@@ -48,6 +48,7 @@ import ResetNewPassword from './components/auth/resetNewPassword';
 import EditUser from './features/admin/user/editUser/index';
 import FollowOrder from './features/followOrder/index';
 import { isAdmin } from './utils/functionValidate';
+import ReviewManagement from './features/admin/ReviewManagement';
 function App() {
     const [cookies] = useCookies(['user']);
     let userLogin;
@@ -132,6 +133,7 @@ function App() {
                     <Route path="vouchers/edit/:id" element={<EditVoucher />}></Route>
                     <Route path="bills" element={<ListBill />}></Route>
                     <Route path="bills/:id" element={<DetailBill />}></Route>
+                    <Route path="review-management" element={<ReviewManagement />}></Route>
                 </Route>
             </Routes>
         </div>

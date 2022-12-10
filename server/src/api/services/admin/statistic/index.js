@@ -8,6 +8,7 @@ module.exports = {
             const listUser = [];
             const startDateFormat = new Date(moment(startDate).format('YYYY-MM-DD'));
             const endDateFormat = new Date(moment(endDate).format('YYYY-MM-DD'));
+
             const bills = await BillWeb.find({
                 status: billState,
                 paymentMethod,
@@ -16,13 +17,14 @@ module.exports = {
                     $lt: endDateFormat,
                 },
             });
+
             bills.forEach((bill) => {
                 products += bill.listProduct.length;
                 if (!listUser.includes(bill?.userID?.toString()) || bill?.userID === undefined) {
                     listUser.push(bill?.userID?.toString());
                 }
             });
-            console.log(listUser);
+
             return {
                 billCount: bills.length,
                 productCount: products,
