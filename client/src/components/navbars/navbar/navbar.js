@@ -125,11 +125,6 @@ export default function NavbarApp() {
                                     </div>
                                 </NavItem>
                                 {/* VOUCHER */}
-                                <NavItem>
-                                    <Link to="/collections/sale" className="nav-link">
-                                        Mã giảm giá
-                                    </Link>
-                                </NavItem>
                             </Nav>
                             <Nav
                                 navbar
