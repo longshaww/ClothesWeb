@@ -22,7 +22,6 @@ function PopupCart({ cart, setCart }) {
 
     const [cookie] = useCookies(['sessionId']);
     //Get Cart at first
-
     useEffect(() => {
         async function getCart() {
             try {
@@ -35,8 +34,18 @@ function PopupCart({ cart, setCart }) {
         getCart();
     }, [cookie.sessionId]);
 
-    //Handle Delete Cart
-
+    async function handleChangeQty(idProduct, qty, size) {
+        try {
+            const data = await axiosMethod(`cart/changeQty`, 'put', {
+                idProduct,
+                qty,
+                size,
+            });
+            setCart(data.cartQty, data, data.cartTotal);
+        } catch (err) {
+            Toast.fire({ title: err.response.data.message, icon: 'error' });
+        }
+    }
     async function deleteCart(idProduct, size) {
         try {
             const data = await axiosMethod(`cart/${idProduct}`, 'delete', {
@@ -125,7 +134,38 @@ function PopupCart({ cart, setCart }) {
                                                         <span>{item.size}</span>
                                                     </p>
                                                     <div className="d-flex justify-content-between cart-price-qty">
-                                                        <span className="cart-qty">{item.qty}</span>
+                                                        <div className="d-inline-flex rounded quantity p-0">
+                                                            <button
+                                                                onClick={() =>
+                                                                    handleChangeQty(
+                                                                        item.idProduct,
+                                                                        -1,
+                                                                        item.size
+                                                                    )
+                                                                }
+                                                                className="btn btn-light"
+                                                            >
+                                                                -
+                                                            </button>
+                                                            <div
+                                                                className="d-flex justify-content-center align-items-center h-100 fw-bold"
+                                                                style={{ width: '1rem' }}
+                                                            >
+                                                                {item.qty}
+                                                            </div>
+                                                            <button
+                                                                onClick={() =>
+                                                                    handleChangeQty(
+                                                                        item.idProduct,
+                                                                        1,
+                                                                        item.size
+                                                                    )
+                                                                }
+                                                                className="btn btn-light"
+                                                            >
+                                                                +
+                                                            </button>
+                                                        </div>
                                                         <div className="fw-bold">
                                                             {`${item.total.toLocaleString()},000đ`}
                                                         </div>
@@ -156,6 +196,7 @@ function PopupCart({ cart, setCart }) {
                                 <tbody>
                                     <tr>
                                         <td className="text-start">TỔNG TIỀN</td>
+
                                         <td className="text-end text-danger fw-bold fs-5">
                                             {`${cartTotalPrice.toLocaleString()},000đ`}
                                         </td>

@@ -16,6 +16,19 @@ function Cart({ cart, setCart }) {
     const handleDelClick = (idProduct, size) => {
         deleteCart(idProduct, size);
     };
+
+    async function handleChangeQty(idProduct, qty, size) {
+        try {
+            const data = await axiosMethod(`cart/changeQty`, 'put', {
+                idProduct,
+                qty,
+                size,
+            });
+            setCart(data.cartQty, data, data.cartTotal);
+        } catch (err) {
+            Toast.fire({ title: err.response.data.message, icon: 'error' });
+        }
+    }
     async function deleteCart(idProduct, size) {
         const data = await axiosMethod(`cart/${idProduct}`, 'delete', {
             size,
@@ -77,7 +90,38 @@ function Cart({ cart, setCart }) {
                                                         <span>{item.size}</span>
                                                     </p>
                                                     <div className="d-flex justify-content-between cart-price-qty">
-                                                        <span className="cart-qty">{item.qty}</span>
+                                                        <div className="d-inline-flex rounded quantity p-0">
+                                                            <button
+                                                                onClick={() =>
+                                                                    handleChangeQty(
+                                                                        item.idProduct,
+                                                                        -1,
+                                                                        item.size
+                                                                    )
+                                                                }
+                                                                className="btn btn-light"
+                                                            >
+                                                                -
+                                                            </button>
+                                                            <div
+                                                                className="d-flex justify-content-center align-items-center h-100 fw-bold"
+                                                                style={{ width: '1rem' }}
+                                                            >
+                                                                {item.qty}
+                                                            </div>
+                                                            <button
+                                                                onClick={() =>
+                                                                    handleChangeQty(
+                                                                        item.idProduct,
+                                                                        1,
+                                                                        item.size
+                                                                    )
+                                                                }
+                                                                className="btn btn-light"
+                                                            >
+                                                                +
+                                                            </button>
+                                                        </div>
                                                         <div className="fw-bold">
                                                             {`${item.total.toLocaleString()},000đ`}
                                                         </div>
