@@ -10,9 +10,9 @@ const FeedBackProduct = ({ validProduct, setRender, cookies, loading }) => {
     const [valueRate, setValueRate] = useState({});
     const [content, setContent] = useState({});
     const [dataRate, setDataRate] = useState({});
+
+    console.log(validProduct);
     const handleRate = (content, rate, idProduct) => {
-        console.log(content);
-        console.log(rate);
         const body = {
             userID: cookies?.user?.id,
             data: {
@@ -82,7 +82,6 @@ const FeedBackProduct = ({ validProduct, setRender, cookies, loading }) => {
             });
     };
 
-    console.log(dataRate);
     return validProduct && validProduct.length > 0 ? (
         validProduct?.map((item, index) => (
             <div key={index} className="row product-rate p-2">

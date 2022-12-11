@@ -17,3 +17,13 @@
     font-size: 14px;
     font-weight: 300;
 }
+
+.star-product {
+    font-size: 30px;
+    font-weight: 400;
+}
+.stastic-star {
+    color: #ee4d2d;
+    font-size: 18px;
+    width: 120px;
+}
