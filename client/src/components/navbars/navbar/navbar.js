@@ -126,25 +126,23 @@ export default function NavbarApp() {
                                 </NavItem>
                                 {/* VOUCHER */}
                             </Nav>
-                            <Nav
-                                navbar
-                                className="d-none d-lg-flex align-items-center"
-                                style={{ backgroundColor: 'white' }}
-                            >
+                            <Nav navbar style={{ backgroundColor: 'white' }}>
                                 <NavItem className="mr-2">
                                     <PostFilterForm />
                                 </NavItem>
-                                <NavItem className="mr-2" style={{ listStyle: 'none' }}>
-                                    <PopupCart></PopupCart>
-                                </NavItem>
-                                <NavItem style={{ listStyle: 'none' }}>
-                                    <Auth />
-                                </NavItem>
-                                {cookies.user && (
-                                    <NavItem className="mr-2">
-                                        {cookies.user.information?.name}
+                                <div className="d-flex mt-lg-0 mt-3 align-items-center">
+                                    <NavItem className="mr-2" style={{ listStyle: 'none' }}>
+                                        <PopupCart></PopupCart>
                                     </NavItem>
-                                )}
+                                    <NavItem style={{ listStyle: 'none' }}>
+                                        <Auth />
+                                    </NavItem>
+                                    {cookies.user && (
+                                        <NavItem className="mr-2">
+                                            {cookies.user.information?.name}
+                                        </NavItem>
+                                    )}
+                                </div>
                             </Nav>
                         </Collapse>
                     </Navbar>

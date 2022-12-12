@@ -1,11 +1,48 @@
 import '../../../assets/styles/admin/sidebar.css';
 import { LineStyle, PermIdentity, Storefront, AttachMoney } from '@material-ui/icons';
 import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
-import { Link } from 'react-router-dom';
+import ReviewsOutlinedIcon from '@mui/icons-material/ReviewsOutlined';
+import { Link, useLocation } from 'react-router-dom';
 import { useCookies } from 'react-cookie';
 
 export default function Sidebar() {
     const [cookies] = useCookies(['user']);
+    const location = useLocation().pathname;
+
+    const STATISTICAL_PATH = [
+        {
+            url: '/admin/dashboard',
+            text: 'Thống kê',
+            icon: <LineStyle className="sidebarIcon" />,
+        },
+    ];
+    const MANAGEMENT_PATH = [
+        {
+            url: '/admin/users',
+            text: 'Người Dùng',
+            icon: <PermIdentity className="sidebarIcon" />,
+        },
+        {
+            url: '/admin/products',
+            text: 'Sản phẩm',
+            icon: <Storefront className="sidebarIcon" />,
+        },
+        {
+            url: '/admin/bills',
+            text: 'Hóa đơn',
+            icon: <AttachMoney className="sidebarIcon" />,
+        },
+        {
+            url: '/admin/vouchers',
+            text: 'Voucher',
+            icon: <CardGiftcardIcon className="sidebarIcon" />,
+        },
+        {
+            url: '/admin/review-management',
+            text: 'Đánh giá',
+            icon: <ReviewsOutlinedIcon className="sidebarIcon" />,
+        },
+    ];
 
     return (
         <div className="sidebar">
@@ -14,44 +51,44 @@ export default function Sidebar() {
                     <div className="sidebarMenu">
                         <h3 className="sidebarTitle">Thống Kê</h3>
                         <ul className="sidebarList">
-                            <Link to="/admin/dashboard" className="link">
-                                <li className="sidebarListItem active">
-                                    <LineStyle className="sidebarIcon" />
-                                    Thống Kê
-                                </li>
-                            </Link>
+                            {STATISTICAL_PATH.map((item, index) => {
+                                return (
+                                    <Link key={`s${index}`} to={item.url} className="link">
+                                        <li
+                                            className={
+                                                location === item.url
+                                                    ? 'sidebarListItem active'
+                                                    : 'sidebarListItem'
+                                            }
+                                        >
+                                            {item.icon}
+                                            {item.text}
+                                        </li>
+                                    </Link>
+                                );
+                            })}
                         </ul>
                     </div>
                 )}
                 <div className="sidebarMenu">
                     <h3 className="sidebarTitle">Quản Lý</h3>
                     <ul className="sidebarList">
-                        {cookies?.user?.role === 0 && (
-                            <Link to="/admin/users" className="link">
-                                <li className="sidebarListItem">
-                                    <PermIdentity className="sidebarIcon" />
-                                    Người Dùng
-                                </li>
-                            </Link>
-                        )}
-                        <Link to="/admin/products" className="link">
-                            <li className="sidebarListItem">
-                                <Storefront className="sidebarIcon" />
-                                Sản Phẩm
-                            </li>
-                        </Link>
-                        <Link to="/admin/bills" className="link">
-                            <li className="sidebarListItem">
-                                <AttachMoney className="sidebarIcon" />
-                                Hóa Đơn
-                            </li>
-                        </Link>
-                        <Link to="/admin/vouchers" className="link">
-                            <li className="sidebarListItem">
-                                <CardGiftcardIcon className="sidebarIcon" />
-                                Voucher
-                            </li>
-                        </Link>
+                        {MANAGEMENT_PATH.map((item, index) => {
+                            return (
+                                <Link key={`m${index}`} to={item.url} className="link">
+                                    <li
+                                        className={
+                                            location === item.url
+                                                ? 'sidebarListItem active'
+                                                : 'sidebarListItem'
+                                        }
+                                    >
+                                        {item.icon}
+                                        {item.text}
+                                    </li>
+                                </Link>
+                            );
+                        })}
                     </ul>
                 </div>
             </div>

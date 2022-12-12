@@ -38,4 +38,10 @@ module.exports = {
         if (!newRate) throw new Error('Something went wrong while rating');
         return newRate;
     },
+
+    productReview: async (productID) => {
+        const listReview = await Rate.find({ productID: productID }).populate('userID');
+        if (!listReview) throw new Error(`Product invalid`);
+        return listReview;
+    },
 };

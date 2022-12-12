@@ -1,5 +1,7 @@
 const ProductObject = require('../../services/user/collections/products');
 const validator = require('../../utils/validator');
+const { throwErr, successRes } = require('../../utils/HandleResponse');
+const rateService = require('../../services/user/rate');
 class ProductController {
     async getProductDetail(req, res, next) {
         try {
@@ -14,6 +16,18 @@ class ProductController {
                 success: false,
                 msg: err.message,
             });
+        }
+    }
+
+    async getProductReview(req, res) {
+        try {
+            const { productID } = req.params;
+
+            if (!productID) return throwErr(res, 403, 'Forbidden');
+            const listReview = await rateService.productReview(productID);
+            return successRes(res, 200, listReview, 'Get successfully');
+        } catch (err) {
+            return throwErr(res, 400, err.message);
         }
     }
 }

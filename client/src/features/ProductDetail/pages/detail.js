@@ -5,6 +5,7 @@ import { setCart } from '../../../actions/cart';
 import axiosMethod from '../../../middlewares/axios';
 import '../../../assets/styles/detail.css';
 import Toast from '../../../utils/toast';
+import RatingList from '../components/RatingList';
 
 export default function Detail() {
     const dispatch = useDispatch();
@@ -15,6 +16,7 @@ export default function Detail() {
     const [imageIndex, setImageIndex] = useState(0);
     const [checked, setChecked] = useState('');
     const [qty, setQty] = useState(1);
+    const [reviewList, setReviewList] = useState();
     useEffect(() => {
         async function fetchProductDetail() {
             const data = await axiosMethod(`product/${id}`, 'get');
@@ -24,6 +26,14 @@ export default function Detail() {
         fetchProductDetail();
     }, [id]);
 
+    useEffect(() => {
+        const data = axiosMethod(`product/rate/${id}`, 'get');
+        data.then((res) => {
+            setReviewList(res.body);
+        }).catch((err) => {
+            console.log(err);
+        });
+    }, [id]);
     let productSize;
     let productId;
     let count = 0;
@@ -200,7 +210,7 @@ export default function Detail() {
                                 </div>
                                 <div className="product-description">
                                     <div className="fs-6 fw-bold text-decoration-underline pb-3 border-bottom">
-                                        Mô tả sản phẩm
+                                        MÔ TẢ SẢN PHẨM
                                     </div>
                                     <div className="mb-3">
                                         {productDetail.description.productDes}
@@ -211,6 +221,16 @@ export default function Detail() {
                                     >
                                         CHINH SÁCH GIAO HÀNG & ĐỔI TRẢ HÀNG
                                     </Link>
+                                    <div className="mb-3">
+                                        Phần này chưa làm nha, Phần này chưa làm nha, Phần này chưa
+                                        làm nha, Phần này chưa làm nha, Phần này chưa làm nha,
+                                    </div>
+                                    <div className="fs-6 fw-bold text-decoration-underline pb-3 border-bottom">
+                                        ĐÁNH GIÁ CỦA NGƯỜI MUA
+                                    </div>
+                                    <div className="mb-3">
+                                        <RatingList reviewList={reviewList || []} />
+                                    </div>
                                 </div>
                             </div>
                         </div>

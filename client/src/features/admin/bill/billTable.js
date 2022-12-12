@@ -122,14 +122,21 @@ const BillTable = (props) => {
     let myCols = [
         {
             dataField: 'id',
-            text: 'ID',
+            text: 'Mã đơn hàng',
             filter: textFilter({
-                placeholder: 'Custom PlaceHolder',
+                placeholder: 'Lọc theo mã đơn hàng',
             }),
             headerStyle: {
                 fontSize: '12px',
                 minWidth: '160px',
                 maxWidth: '170px',
+            },
+            formatter: (cell, row, index) => {
+                return (
+                    <Link style={{ color: 'blue' }} to={`/admin/bills/${row.id}`}>
+                        {cell}
+                    </Link>
+                );
             },
         },
         {
@@ -141,31 +148,27 @@ const BillTable = (props) => {
                 maxWidth: '150px',
             },
             filter: textFilter({
-                placeholder: 'Custom PlaceHolder',
+                placeholder: 'Lọc theo tên khách hàng',
             }),
         },
         {
             dataField: 'phone',
             text: 'SĐT',
-
             filter: textFilter({
-                placeholder: 'Custom PlaceHolder',
+                placeholder: 'Lọc theo sđt',
             }),
         },
         {
             dataField: 'total',
             text: 'Tổng tiền',
-            filter: textFilter(),
+            filter: textFilter({
+                placeholder: 'Lọc theo số tiền',
+            }),
         },
         {
             dataField: 'paymentMethod',
-            text: 'Thanh toán',
-            filter: textFilter(),
-        },
-        {
-            dataField: 'createdAt',
-            text: 'Ngày tạo',
-            filter: textFilter(),
+            text: 'PTTT',
+            filter: textFilter({ placeholder: 'Lọc theo PTTT' }),
         },
         {
             dataField: 'status',
