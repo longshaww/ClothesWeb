@@ -66,9 +66,9 @@ const FeedBackProduct = ({ validProduct, setRender, cookies, loading }) => {
                 setDataRate((prev) => {
                     return {
                         ...prev,
-                        [data.productID]: {
-                            rate: data.rate,
-                            content: data.content,
+                        [data?.productID]: {
+                            rate: data?.rate,
+                            content: data?.content,
                         },
                     };
                 });

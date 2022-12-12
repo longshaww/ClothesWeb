@@ -223,7 +223,7 @@ export default function Detail() {
                                     </Link>
                                     <div className="mb-3">
                                         Phần này chưa làm nha, Phần này chưa làm nha, Phần này chưa
-                                        làm nha, Phần này chưa làm nha, Phần này chưa làm nha,
+                                        làm nha, Phần này chưa làm nha
                                     </div>
                                     <div className="fs-6 fw-bold text-decoration-underline pb-3 border-bottom">
                                         ĐÁNH GIÁ CỦA NGƯỜI MUA
