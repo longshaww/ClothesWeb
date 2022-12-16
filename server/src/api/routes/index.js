@@ -34,6 +34,7 @@ router.use('/voucher', voucherRoute);
 router.use('/user', validateToken, verify, userRoute);
 
 router.use('/authJWT', authJWTRoute);
+
 router.use('/admin/rate', validateToken, verify, rateAdminRoute);
 router.use('/admin/bills', validateToken, verifyAdmin, billAdminRoute);
 router.use('/admin/products', validateToken, verifyAdmin, productAdminRoute);
