@@ -39,7 +39,7 @@ export default function SideBarUser() {
     const pathname = useLocation().pathname;
     return (
         <div
-            className="d-flex flex-column align-items-center shadow-sm p-5"
+            className="d-flex flex-column align-items-center shadow-sm p-5 position-fixed"
             style={{ height: '100vh' }}
         >
             <div className="account-info">
