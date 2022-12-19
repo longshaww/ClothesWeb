@@ -8,7 +8,6 @@ import { returnMoney } from '../../../../../utils/returnHTML';
 export default function EditInfoUser({ infoUser, idUser, accessToken, setDataDetail }) {
     const [inputs, setInputs] = useState(infoUser);
     const [note, setNote] = useState('');
-    const date = moment(inputs.information.dateOfBirth).format('DD/MM/YYYY');
     const dateFormatList = ['DD/MM/YYYY', 'MM/DD/YYYY'];
     const options = [
         { id: 'Bronze', typeName: 'Đồng' },
@@ -61,10 +60,7 @@ export default function EditInfoUser({ infoUser, idUser, accessToken, setDataDet
                 throw new Error('Tên người dùng không để trống');
 
             if (typeof inputs.information.dateOfBirth === String) {
-                inputs.information.dateOfBirth = moment(
-                    inputs.information.dateOfBirth,
-                    dateFormatList[0]
-                );
+                inputs.information.dateOfBirth = moment(inputs.information.dateOfBirth).toDate();
             }
 
             const endpoint = `${process.env.REACT_APP_API_URL}admin/users/editUser`;
@@ -85,15 +81,8 @@ export default function EditInfoUser({ infoUser, idUser, accessToken, setDataDet
             });
         }
     };
-    const handleChangeDate = (date, dateString) => {
-        const information = {
-            name: inputs.information.name,
-            phoneNumber: inputs.information.phoneNumber,
-            dateOfBirth: dateString,
-            gender: inputs.information.gender,
-            address: inputs.information.address,
-        };
-        return setInputs({ ...inputs, information });
+    const handleChangeDate = (date) => {
+        setInputs({ ...inputs, information: { ...inputs.information, dateOfBirth: date } });
     };
     return (
         <>
@@ -161,8 +150,8 @@ export default function EditInfoUser({ infoUser, idUser, accessToken, setDataDet
                             <DatePicker
                                 className="form-control"
                                 onChange={handleChangeDate}
+                                value={moment(inputs.information.dateOfBirth) || undefined}
                                 style={{ width: '100%' }}
-                                defaultValue={moment(date, dateFormatList[0])}
                                 format={dateFormatList}
                             />
                         </Space>
@@ -197,7 +186,7 @@ export default function EditInfoUser({ infoUser, idUser, accessToken, setDataDet
 
                 <div className="text-center mt-5">
                     <button type="button" className="btn btn-success" onClick={handleClick}>
-                        Sữa
+                        Sửa
                     </button>
                 </div>
             </div>

@@ -47,7 +47,6 @@ class AuthenticationController {
                             address: req.body.address,
                         },
                         isAdmin: false,
-                        role: 0,
                         verify: false,
                     };
 

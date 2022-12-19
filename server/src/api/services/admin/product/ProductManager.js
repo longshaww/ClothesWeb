@@ -114,7 +114,7 @@ class ProductManager {
             if (index === '1') {
                 const product = await ProductModel.findOne({ _id: paramsId });
                 let customArray = [
-                    `${process.env.API_HOST}${filename}`,
+                    `${process.env.API_HOST}static/${filename}`,
                     product.description.imageList[1],
                 ];
                 const productUpdate = await ProductModel.updateOne(
@@ -130,7 +130,7 @@ class ProductManager {
                 const product = await ProductModel.findOne({ _id: paramsId });
                 let customArray = [
                     product.description.imageList[0],
-                    `${process.env.API_HOST}${filename}`,
+                    `${process.env.API_HOST}static/${filename}`,
                 ];
                 const productUpdate = await ProductModel.updateOne(
                     { _id: paramsId },

@@ -2,14 +2,23 @@ const UserWeb = require('../../../models/UserWeb');
 const Voucher = require('../../../models/Vouchers');
 const validation = require('../../authenticator/ValidationReward');
 const { generateAccessToken } = require('../../../utils/function');
+const moment = require('moment');
 module.exports = {
     availableForExchange: async (id) => {
         let listVoucher = [];
         const data = await validation.validationReward(UserWeb, id);
         if (data.reward >= 100) {
-            listVoucher = await Voucher.find({ discount: { $lte: 20 }, listUser: { $nin: [id] } });
+            listVoucher = await Voucher.find({
+                discount: { $lte: 20 },
+                dateEnd: { $gte: new Date(moment(new Date()).format('YYYY-MM-DD')) },
+                listUser: { $nin: [id] },
+            });
         } else if (data.reward >= 50) {
-            listVoucher = await Voucher.find({ discount: 10, listUser: { $nin: [id] } });
+            listVoucher = await Voucher.find({
+                discount: 10,
+                dateEnd: { $gte: new Date(moment(new Date()).format('YYYY-MM-DD')) },
+                listUser: { $nin: [id] },
+            });
         }
         if (!listVoucher.length) throw new Error('There is no available item for exchange');
         return listVoucher;

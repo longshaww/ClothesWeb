@@ -19,7 +19,6 @@ function Auth() {
     const id = open ? 'simple-popover' : undefined;
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    // click submit
     const handleSubmit = async (e) => {
         setOpen(false);
         e.preventDefault();
@@ -167,15 +166,13 @@ function Auth() {
                             </div>
                         </Link>
 
-                        <Link
-                            to={(cookies?.user?.role === 0 && '/admin/dashboard') || '/admin/bills'}
-                        >
-                            {isAdmin(cookies?.user?.role) ? (
+                        {(cookies?.user?.role === 0 || cookies?.user?.role === 1) && (
+                            <Link to={`/admin/dashboard`}>
                                 <div className="mt-1">
                                     <span>Quản lý</span>
                                 </div>
-                            ) : null}
-                        </Link>
+                            </Link>
+                        )}
 
                         <div className="mt-1">
                             <a href="#!">

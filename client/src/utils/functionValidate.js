@@ -96,7 +96,7 @@ export const validateRank = (rank, moneyPayed) => {
             } else {
                 throw new Error('Số tiền nhập sai quy định rank');
             }
-        case 'Plantinum':
+        case 'Platinum':
             if (moneyPayed > 5000) {
                 return;
             } else {

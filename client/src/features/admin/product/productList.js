@@ -88,7 +88,7 @@ function ProductList() {
                 return (
                     <>
                         <Link to={params.row.id}>
-                            <button className="productListEdit">Sữa</button>
+                            <button className="productListEdit">Sửa</button>
                         </Link>
                         <DeleteOutline
                             className="productListDelete"
@@ -101,7 +101,7 @@ function ProductList() {
     ];
 
     return (
-        <div className="productList">
+        <>
             <Link to="/admin/products/create">
                 <button type="button" className="btn btn-primary mb-2">
                     Tạo Sản Phẩm
@@ -115,7 +115,7 @@ function ProductList() {
                     pageSize={8}
                 />
             )}
-        </div>
+        </>
     );
 }
 

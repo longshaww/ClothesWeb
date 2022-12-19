@@ -128,10 +128,10 @@ export default function ListUser() {
     ];
 
     return (
-        <div className="userList">
+        <>
             {dataUser !== null ? (
                 <DataGrid rows={dataUser} disableSelectionOnClick columns={columns} pageSize={9} />
             ) : null}
-        </div>
+        </>
     );
 }

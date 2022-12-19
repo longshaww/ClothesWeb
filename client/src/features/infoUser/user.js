@@ -135,7 +135,7 @@ export default function User() {
                     setCheckedGender(customData.gender);
 
                     Toast.fire({
-                        title: 'Sữa Thông Tin Thành Công',
+                        title: 'Sửa Thông Tin Thành Công',
                         icon: 'success',
                     });
                 }

@@ -153,7 +153,6 @@ class BillController {
             );
 
             const billResult = await billService.createBill(sessionId);
-            
             billResult
                 ? res.status(200).json({
                       success: true,

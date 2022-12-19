@@ -1,4 +1,5 @@
 import '../../../assets/styles/admin/sidebar.css';
+import { useState, useEffect } from 'react';
 import { LineStyle, PermIdentity, Storefront, AttachMoney } from '@material-ui/icons';
 import CardGiftcardIcon from '@mui/icons-material/CardGiftcard';
 import ReviewsOutlinedIcon from '@mui/icons-material/ReviewsOutlined';
@@ -8,15 +9,7 @@ import { useCookies } from 'react-cookie';
 export default function Sidebar() {
     const [cookies] = useCookies(['user']);
     const location = useLocation().pathname;
-
-    const STATISTICAL_PATH = [
-        {
-            url: '/admin/dashboard',
-            text: 'Thống kê',
-            icon: <LineStyle className="sidebarIcon" />,
-        },
-    ];
-    const MANAGEMENT_PATH = [
+    const [managementPath, setManagementPath] = useState([
         {
             url: '/admin/users',
             text: 'Người Dùng',
@@ -42,10 +35,25 @@ export default function Sidebar() {
             text: 'Đánh giá',
             icon: <ReviewsOutlinedIcon className="sidebarIcon" />,
         },
+    ]);
+    useEffect(() => {
+        if (cookies?.user?.role === 1) {
+            const clonedPaths = [...managementPath];
+            clonedPaths.shift();
+            setManagementPath(clonedPaths);
+        }
+    }, [cookies]);
+
+    const STATISTICAL_PATH = [
+        {
+            url: '/admin/dashboard',
+            text: 'Thống kê',
+            icon: <LineStyle className="sidebarIcon" />,
+        },
     ];
 
     return (
-        <div className="sidebar">
+        <div className="sidebar shadow">
             <div className="sidebarWrapper">
                 {cookies?.user?.role === 0 && (
                     <div className="sidebarMenu">
@@ -73,7 +81,7 @@ export default function Sidebar() {
                 <div className="sidebarMenu">
                     <h3 className="sidebarTitle">Quản Lý</h3>
                     <ul className="sidebarList">
-                        {MANAGEMENT_PATH.map((item, index) => {
+                        {managementPath.map((item, index) => {
                             return (
                                 <Link key={`m${index}`} to={item.url} className="link">
                                     <li

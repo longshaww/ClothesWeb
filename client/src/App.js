@@ -40,7 +40,6 @@ import LayoutUser from './layouts/layoutUser';
 import BillMe from './components/listBill/bill';
 import ChangePassword from './features/infoUser/changePassword';
 import MyPoint from './features/infoUser/point';
-
 import FeedBack from './features/infoUser/Feedback';
 import ResetPassword from './components/auth/resetPassword';
 import VerifyOTPForgetPassword from './components/auth/verifyOTPForgetPassword';
@@ -119,10 +118,34 @@ function App() {
                 </Route>
                 <Route
                     path="/admin"
-                    element={isAdmin(cookies?.user?.role) ? <LayoutAdmin /> : <Navigate to="/" />}
+                    element={
+                        cookies?.user?.role === 0 || cookies?.user?.role === 1 ? (
+                            <LayoutAdmin />
+                        ) : (
+                            <Navigate to="/" />
+                        )
+                    }
                 >
-                    <Route path="dashboard" element={<Dashboard />}></Route>
-                    <Route path="users" element={<ListUser />}></Route>
+                    <Route
+                        path="dashboard"
+                        element={
+                            cookies?.user?.role === 0 ? (
+                                <Dashboard />
+                            ) : (
+                                <Navigate to="/admin/products" />
+                            )
+                        }
+                    ></Route>
+                    <Route
+                        path="users"
+                        element={
+                            cookies?.user?.role === 0 ? (
+                                <ListUser />
+                            ) : (
+                                <Navigate to="/admin/products" />
+                            )
+                        }
+                    ></Route>
                     <Route path="users/info/:id" element={<EditUser />}></Route>
                     <Route path="products" element={<ProductList />}></Route>
                     <Route path="products/:id" element={<DetailProduct />}></Route>

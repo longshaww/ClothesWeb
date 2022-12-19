@@ -15,7 +15,7 @@ export default function EditVoucher() {
     const [inputs, setInputs] = useState({
         discount: '',
         dateStart: moment(new Date()).format('YYYY/MM/DD'),
-        dateEnd: moment(new Date()).format('YYYY/MM/DD'),
+        dateEnd: moment().add('1', 'days').format('YYYY/MM/DD'),
         maxDiscount: '',
         qualifyAmount: '',
         qty: '',
@@ -63,12 +63,12 @@ export default function EditVoucher() {
 
     return (
         <div style={{ flex: 4 }} className="p-5 shadow mx-3">
-            <h3 className="mb-3">Edit voucher</h3>
+            <h3 className="mb-3">Sửa voucher</h3>
             <form onSubmit={handleSubmit}>
                 <Box sx={{ marginBottom: 3 }}>
                     <TextField
                         id="outlined-basic"
-                        label="Discount"
+                        label="Phần trăm giảm"
                         onChange={handleInputChange}
                         value={inputs.discount}
                         name="discount"

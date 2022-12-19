@@ -10,7 +10,7 @@ export default function ActionUser({ infoUser, idUser, accessToken, setDataDetai
         <>
             <div className="p-2 shadow mx-3" style={{ flex: 1 }}>
                 <Tabs defaultActiveKey="1">
-                    <Tabs.TabPane tab="Sữa Thông Tin" key="1">
+                    <Tabs.TabPane tab="Sửa Thông Tin" key="1">
                         <EditInfoUser
                             infoUser={infoUser}
                             idUser={idUser}

@@ -261,11 +261,7 @@ const BillTable = (props) => {
             ...item,
         };
     });
-    return (
-        <div className="productList">
-            {dataByStatus && <TableBoostrap data={dataByStatus} myCols={myCols} />}
-        </div>
-    );
+    return <>{dataByStatus && <TableBoostrap data={dataByStatus} myCols={myCols} />}</>;
 };
 
 export default BillTable;

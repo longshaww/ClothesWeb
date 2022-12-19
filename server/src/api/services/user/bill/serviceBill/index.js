@@ -76,11 +76,7 @@ class BillUserService {
             }
 
             await newBillWeb.save();
-            if (
-                newBillWeb.userID !== undefined ||
-                newBillWeb.userID !== null ||
-                newBillWeb.userID.length !== 0
-            ) {
+            if (newBillWeb.userID) {
                 await this.postRewardAndMoneyPayed(newBillWeb.userID, newBillWeb.total);
             }
             const idBillWeb = newBillWeb._id;
@@ -151,8 +147,10 @@ class BillUserService {
                 user.myPoint = myPointNow + reward;
             }
             const moneyHavePayed = user.moneyPayed;
-            user.moneyPayed = moneyHavePayed + totalMoney;
-            user.vip = await analystVip(user.moneyPayed);
+            if (moneyHavePayed) {
+                user.moneyPayed = moneyHavePayed + totalMoney;
+                user.vip = await analystVip(user.moneyPayed);
+            }
             const data = await user.save();
             if (!data) throw new Error('Save User Error');
             return;

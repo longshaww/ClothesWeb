@@ -37,7 +37,7 @@ export default function MyPoint() {
     const [cookie, setCookie, removeCookie] = useCookies();
     const [voucher, setVoucher] = useState([]);
     const [myVoucher, setMyVoucher] = useState([]);
-    useEffect(async () => {
+    useEffect(() => {
         const fetchData = async () => {
             try {
                 const { data } = await axios.get(
@@ -225,7 +225,6 @@ export default function MyPoint() {
                                 </div>
                                 <div className="ml-2 d-flex flex-column voucher-item-detail">
                                     <span className="font-weight-bold">
-                                        {' '}
                                         Giảm {item.discount}% tối đa {item.maxDiscount},000đ{' '}
                                     </span>
                                     <span className="font-weight-light">
@@ -247,21 +246,6 @@ export default function MyPoint() {
                                         HSD:{moment.utc(item.dateEnd).format('DD/MM/YYYY')}
                                     </span>
                                 </div>
-                                <button
-                                    type="button"
-                                    style={{ backgroundColor: '#333', color: '#fff' }}
-                                    className="btn ml-5"
-                                    onClick={() =>
-                                        handleClick({
-                                            voucherID: item._id,
-                                            userID: cookie.user.id,
-                                            discount: item.discount,
-                                            myPoint: cookie.user.myPoint,
-                                        })
-                                    }
-                                >
-                                    Đổi
-                                </button>
                             </div>
                         </React.Fragment>
                     ))

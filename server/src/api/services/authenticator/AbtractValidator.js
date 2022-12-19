@@ -1,4 +1,3 @@
-const IValidator = require('./IValidator');
 class AbtractValidator {
     isValid(model) {
         if (this.nextValidator != null) {

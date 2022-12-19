@@ -70,8 +70,7 @@ export default function ListBill() {
     return (
         <>
             {data && (
-                <div className="pt-8">
-                    {' '}
+                <div>
                     <Box
                         sx={{
                             display: 'grid',
