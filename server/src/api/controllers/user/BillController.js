@@ -9,6 +9,7 @@ const DeliveryUserService = require('../../services/user/bill/delivery/index');
 const CommandDelete = require('../../services/user/bill/delivery/Command/CommandDelete');
 const CommandView = require('../../services/user/bill/delivery/Command/CommandView');
 const BillService = require('../../services/user/bill/serviceBill/index');
+const Logger = require('../../../config/logger');
 class BillController {
     async addNewInfoUser(req, res) {
         const { userID, nameCustomer, address, phoneNumber } = req.body;
@@ -24,6 +25,7 @@ class BillController {
             const newDeliveryInfo = await deliveryMangerService.run();
             res.status(200).json({ success: true, body: newDeliveryInfo });
         } catch (err) {
+            Logger.getInstance().logger.error(`ERROR MESSAGE OF addNewInfoUser: ${err}`);
             res.status(400).json({ success: false, message: err });
         }
     }
@@ -51,6 +53,7 @@ class BillController {
                 body: data,
             });
         } catch (err) {
+            Logger.getInstance().logger.error(`ERROR MESSAGE OF editInfoUser: ${err}`);
             res.status(400).json({ success: false, message: err });
         }
     }
@@ -68,6 +71,7 @@ class BillController {
             const data = await deliveryMangerService.run();
             res.status(200).json({ success: true, body: data });
         } catch (err) {
+            Logger.getInstance().logger.error(`ERROR MESSAGE OF deleteInfoUser: ${err}`);
             res.status(400).json({ success: false, message: err });
         }
     }
@@ -86,6 +90,7 @@ class BillController {
             let listInfo = await deliveryMangerService.run();
             res.status(200).json({ success: true, body: listInfo });
         } catch (err) {
+            Logger.getInstance().logger.error(`ERROR MESSAGE OF listInfo: ${err}`);
             res.status(400).json({ success: false, message: err });
         }
     }
@@ -106,6 +111,7 @@ class BillController {
                 body: bill,
             });
         } catch (err) {
+            Logger.getInstance().logger.error(`ERROR MESSAGE OF getBill: ${err}`);
             res.status(400).json({ success: false, message: err });
         }
     }
@@ -163,6 +169,7 @@ class BillController {
                       msg: 'failed create bill',
                   });
         } catch (err) {
+            Logger.getInstance().logger.error(`ERROR MESSAGE OF postBill: ${err}`);
             res.status(404).json({ success: false, message: err.message });
         }
     }
@@ -184,6 +191,7 @@ class BillController {
                 ? res.status(200).json({ success: true, data: dataBill })
                 : res.status(404).json({ success: false, msg: 'FAILED UPDATE CANCEL BILL' });
         } catch (err) {
+            Logger.getInstance().logger.error(`ERROR MESSAGE OF updateCancelBill: ${err}`);
             res.status(404).json({
                 success: false,
                 msg: err.message,

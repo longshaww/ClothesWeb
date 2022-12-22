@@ -31,7 +31,9 @@
         "nodemailer": "^6.7.5",
         "request": "^2.88.2",
         "request-promise": "^4.2.6",
-        "stripe": "^9.0.0"
+        "stripe": "^9.0.0",
+        "winston": "^3.8.2",
+        "winston-mongodb": "^5.1.0"
     },
     "devDependencies": {
         "compression": "^1.7.4",
