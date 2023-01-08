@@ -13,6 +13,11 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import DetailAddress from './detail.address';
 import { useCookies } from 'react-cookie';
+import {
+    ValidateEmail,
+    validatePhoneNumber,
+    checkIsValidName,
+} from '../../../utils/functionValidate';
 
 function CustomerInfo({ cart }) {
     const cartStore = cart.cartStore;
@@ -93,34 +98,25 @@ function CustomerInfo({ cart }) {
     };
 
     const validation = () => {
+        if (
+            !inputs.nameCustomer ||
+            !inputs.email ||
+            !inputs.phoneNumber ||
+            !inputs.address ||
+            !ValidateEmail(inputs.email) ||
+            !validatePhoneNumber(inputs.phoneNumber)
+        ) {
+            return true;
+        }
         if (!cookies.user) {
-            if (
-                !inputs.nameCustomer ||
-                !inputs.email ||
-                !inputs.phoneNumber ||
-                !inputs.address ||
-                !detailAddress.city ||
-                !detailAddress.ward ||
-                !detailAddress.province
-            ) {
-                return true;
-            }
-        } else {
-            if (
-                !inputs.nameCustomer ||
-                !inputs.email ||
-                !inputs.phoneNumber ||
-                !inputs.address ||
-                !detailAddress.city ||
-                !detailAddress.ward ||
-                !detailAddress.province
-            ) {
-                if (inputs.detailInputHidden) {
-                    return false;
-                }
+            if (!detailAddress.city || !detailAddress.ward || !detailAddress.province) {
                 return true;
             }
         }
+        if (!inputs.detailInputHidden && cookies.user) {
+            return true;
+        }
+        return false;
     };
 
     //Submit Form
@@ -128,7 +124,7 @@ function CustomerInfo({ cart }) {
         event.preventDefault();
         if (validation()) {
             return Toast.fire({
-                title: 'Vui lòng nhập đầy đủ thông tin !',
+                title: 'Vui lòng nhập đúng thông tin !',
                 icon: 'warning',
             });
         }
