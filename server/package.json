@@ -36,11 +36,19 @@
         "winston-mongodb": "^5.1.0"
     },
     "devDependencies": {
+        "@babel/cli": "^7.20.7",
+        "@babel/core": "^7.20.12",
+        "@babel/node": "^7.20.7",
+        "@babel/preset-env": "^7.20.2",
         "compression": "^1.7.4",
         "eslint": "^8.24.0",
         "eslint-config-airbnb-base": "^15.0.0",
         "eslint-plugin-import": "^2.26.0",
+        "express-mongo-sanitize": "^2.2.0",
+        "express-rate-limit": "^6.7.0",
         "morgan": "^1.10.0",
-        "nodemon": "^2.0.20"
+        "nodemon": "^2.0.20",
+        "xss": "^1.0.14",
+        "xss-clean": "^0.1.1"
     }
 }

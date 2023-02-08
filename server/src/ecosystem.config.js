@@ -1,6 +1,6 @@
 module.exports = {
     apps : [{
-      name   : "app1",
+      name   : "highclub",
       script : "./index.js",
       env_production: {
          NODE_ENV: "production"
