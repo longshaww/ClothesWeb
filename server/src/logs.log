@@ -1,258 +1,164 @@
-{"level":"info","message":"Server is running on port 2000","timestamp":"2022-12-22T11:51:15.062Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2022-12-22T11:51:16.396Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2022-12-22T11:53:58.034Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2022-12-22T11:53:59.265Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T16:27:45.977Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T16:27:48.193Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T16:27:49.281Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T16:27:51.783Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T16:29:22.140Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T16:29:23.984Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T16:29:25.893Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T16:30:07.978Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T16:30:09.953Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T16:34:55.594Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T16:36:21.852Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T16:36:23.731Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T16:36:39.703Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T16:36:41.311Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T18:22:52.005Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T18:22:53.477Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T18:23:29.816Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T18:23:31.326Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T18:23:32.822Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T18:23:44.630Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T18:23:45.881Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T18:24:04.430Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T18:24:05.771Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T18:24:59.523Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T18:25:01.015Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T18:36:42.528Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T18:36:50.819Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T18:37:09.262Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T18:37:14.137Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T18:37:19.086Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T18:37:40.052Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T18:37:41.726Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T18:38:17.156Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T18:38:18.884Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T18:38:33.549Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T18:38:35.093Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T18:38:46.205Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T18:38:47.729Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T18:40:05.600Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T18:40:21.158Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T18:45:33.301Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T18:45:34.993Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T18:45:56.180Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T18:45:57.927Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:20:21.734Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:20:34.521Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:21:20.325Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:21:21.966Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:21:57.629Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:22:03.104Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:22:13.844Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:22:18.084Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:22:25.735Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:23:30.759Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:23:32.109Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:23:41.627Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:23:43.884Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:23:45.203Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:23:46.294Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:23:49.840Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:28:20.076Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:28:21.498Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:28:31.131Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:28:46.812Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:28:56.208Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:29:10.325Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:29:11.681Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:29:12.196Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:29:13.686Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:30:11.157Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:30:12.618Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:30:31.896Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:30:33.489Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:30:35.240Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:30:36.666Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:30:58.158Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:30:59.603Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:31:27.588Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:31:29.557Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:31:30.812Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:31:41.165Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:31:42.814Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:32:27.476Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:32:30.521Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:33:56.310Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:33:57.885Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:34:13.864Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:34:15.524Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:34:22.470Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:34:24.120Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:34:29.396Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:34:30.961Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:34:31.900Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:34:33.520Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:34:35.290Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:34:36.850Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:34:43.520Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:34:45.093Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:35:58.353Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:35:59.748Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:36:08.237Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:36:09.543Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:37:19.578Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:37:20.845Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:37:32.568Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:37:33.997Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:37:34.653Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:37:36.059Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:37:44.580Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:37:45.888Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:37:48.235Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:37:50.768Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:37:51.987Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:37:53.643Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:38:02.737Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:38:03.967Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:45:30.396Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:45:33.049Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:45:34.406Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:54:38.408Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:54:40.094Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:54:44.558Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:54:46.268Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:54:53.704Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:54:55.304Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:55:07.086Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:55:08.635Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:55:09.404Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:55:11.074Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:55:13.889Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:55:15.427Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:55:47.216Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:55:48.831Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:56:19.740Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:56:21.360Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:56:23.853Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:56:25.421Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:56:27.978Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:56:29.625Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:56:50.629Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:56:52.218Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:56:54.224Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:56:55.921Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:56:56.950Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:56:58.565Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:57:16.184Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:57:17.820Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:57:20.921Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:57:22.558Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:57:45.140Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:57:46.597Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:57:52.599Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:57:54.172Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:57:56.875Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:57:58.417Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:58:00.110Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:58:03.745Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:58:04.794Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:58:06.107Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:58:40.858Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:58:42.500Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:58:44.955Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:58:46.499Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:59:22.215Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:59:33.381Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:59:40.813Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T19:59:51.274Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T19:59:55.108Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T20:00:14.625Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T20:00:16.281Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T20:00:17.795Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T20:00:20.828Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T20:00:22.655Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T20:00:23.770Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T20:00:25.130Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T20:00:32.190Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T20:00:33.836Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T20:00:36.138Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T20:00:37.812Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T20:02:10.332Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T20:02:11.801Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T20:02:15.795Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T20:02:17.547Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T20:02:38.383Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T20:02:47.859Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T20:03:00.398Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T20:03:03.734Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T20:03:05.043Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T20:03:11.002Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T20:14:09.170Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T20:14:10.879Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T20:15:03.189Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T20:15:07.926Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T20:15:24.097Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T20:15:57.077Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T20:15:58.864Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T20:16:00.551Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T20:16:03.398Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T20:16:05.083Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T20:16:19.412Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T20:16:20.758Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T20:16:28.759Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T20:16:30.383Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T20:16:35.738Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T20:16:37.330Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T20:16:47.895Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T20:16:49.491Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T20:17:11.736Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T20:17:20.631Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T20:17:33.756Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T20:17:35.876Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T20:17:42.065Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T20:17:44.854Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T20:17:56.665Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T20:18:16.975Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T20:18:18.796Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T20:18:40.700Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T20:18:42.449Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T20:20:23.169Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T20:20:24.850Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T20:20:28.130Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T20:20:29.473Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T20:20:33.558Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T20:20:35.158Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T20:20:35.602Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T20:20:37.010Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T20:20:54.720Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T20:20:56.305Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T20:34:29.117Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T20:34:32.302Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T20:34:34.235Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T20:34:35.927Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T20:34:39.521Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T20:34:41.177Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T20:34:42.715Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T20:34:44.372Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T20:34:46.709Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T20:34:48.415Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T20:34:49.392Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T20:34:51.040Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T20:37:27.845Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T20:37:29.108Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T20:38:53.897Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T20:38:55.231Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T20:46:41.963Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T20:46:43.451Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T20:46:58.739Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T20:47:00.455Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T20:47:04.963Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T20:47:06.443Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T20:48:02.927Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T20:48:04.557Z"}
-{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-08T20:48:08.492Z"}
-{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-08T20:48:10.069Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T06:54:47.113Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T06:54:50.980Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T06:59:05.394Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T06:59:06.888Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:07:17.213Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:07:18.690Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:10:16.034Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:10:17.699Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:10:42.629Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:10:44.127Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:10:51.144Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:10:56.209Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:13:14.074Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:13:15.503Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:13:31.649Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:13:33.294Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:14:32.639Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:14:34.210Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:17:56.613Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:17:58.203Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:17:59.019Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:18:00.734Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:18:02.192Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:18:37.711Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:18:39.156Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:19:07.274Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:19:09.072Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:19:11.903Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:19:13.567Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:19:18.736Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:19:20.425Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:22:44.913Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:22:46.387Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:24:58.387Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:25:03.677Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:25:06.080Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:25:10.028Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:25:11.657Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:25:17.330Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:25:18.929Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:25:20.588Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:25:22.201Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:26:05.988Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:26:07.727Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:26:10.647Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:26:21.035Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:26:23.266Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:26:28.569Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:26:29.745Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:26:31.328Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:26:36.368Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:26:37.976Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:27:00.546Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:27:08.087Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:27:12.818Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:27:14.596Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:27:16.270Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:27:22.173Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:27:23.658Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:27:25.786Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:27:27.435Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:27:29.761Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:27:31.438Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:27:34.987Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:27:36.467Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:27:41.427Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:27:42.997Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:27:46.557Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:27:48.032Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:28:34.160Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:28:35.834Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:28:38.717Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:28:40.406Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:28:41.869Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:28:50.800Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:28:52.635Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:28:53.458Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:28:54.979Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:29:03.271Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:29:04.914Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:29:34.335Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:29:37.169Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:29:42.703Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:29:47.449Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:29:49.047Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:29:53.718Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:29:55.401Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:30:02.918Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:30:04.681Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:30:52.829Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:30:55.709Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:30:56.728Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:31:00.548Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:31:03.772Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:31:06.868Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:31:13.695Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:31:15.482Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:31:23.295Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:31:25.009Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:31:33.911Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:31:35.444Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:31:41.831Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:31:43.821Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:31:45.372Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:31:53.049Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:31:54.589Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:32:05.024Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:32:06.672Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:32:20.589Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:32:22.342Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:32:32.750Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:32:34.426Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:32:44.257Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:32:46.160Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:32:47.834Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:32:57.352Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:32:58.714Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:33:48.808Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:33:50.507Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:33:53.290Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:33:55.597Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:33:57.167Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:34:02.947Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:34:04.666Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:34:11.083Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:34:12.625Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:34:19.502Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:34:21.130Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:44:18.944Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:44:20.372Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:44:21.874Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:44:25.744Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:44:27.332Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:44:54.834Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:44:56.313Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:45:37.808Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:45:39.876Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:45:42.463Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:45:47.209Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:46:08.037Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:46:18.989Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:46:23.423Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:46:27.128Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:49:48.389Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:49:49.995Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:49:52.134Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:49:53.880Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:50:13.537Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:50:17.119Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:50:31.128Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:50:32.586Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:50:37.850Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:50:39.344Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:50:56.077Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:50:57.835Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:51:07.206Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:52:44.245Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:52:45.827Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:52:46.629Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:52:48.116Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:52:51.661Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:52:53.981Z"}
+{"level":"info","message":"Server is running on port 2000","timestamp":"2023-02-09T07:52:55.171Z"}
+{"level":"info","message":"Successfully connected to database","timestamp":"2023-02-09T07:53:10.798Z"}
