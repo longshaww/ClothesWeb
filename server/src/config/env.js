@@ -19,5 +19,6 @@ module.exports = {
     TOPS: process.env.TOPS,
     NEWARRIVALS: process.env.NEWARRIVALS,
     MIN_PASSWORD_LENGTH: process.env.MIN_PASSWORD_LENGTH,
-
+    REDIS_URL : process.env.REDIS_URL,
+    REDIS_KEY : process.env.REDIS_KEY
 };
