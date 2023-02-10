@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Logger = require('./logger');
+const Logger = require('../logger');
 module.exports = async () => {
     try {
         await mongoose.connect(process.env.MONGO_URL, {

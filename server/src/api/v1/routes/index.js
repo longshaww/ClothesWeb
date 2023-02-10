@@ -2,8 +2,7 @@ const express = require('express');
 const router = express.Router();
 const authJWTRoute = require('./auth.JWT.route');
 const { validateToken, verifyAdmin, verify } = require('../middlewares/auth.middleware');
-const sessionMiddleware = require('../middlewares/session.middleware');
-
+const { sessionMiddleware, cacheMiddleware } = require('../middlewares/index');
 const {
     siteRoute,
     collectionRoute,
@@ -23,7 +22,7 @@ const {
 } = require('./admin');
 
 router.use('/', siteRoute);
-router.use('/collections', collectionRoute);
+router.use('/collections', cacheMiddleware, collectionRoute);
 router.use('/product', productRoute);
 router.use('/cart', sessionMiddleware, cartRoute);
 router.use('/bill', billRoute);

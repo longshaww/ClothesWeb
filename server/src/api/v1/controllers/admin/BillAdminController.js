@@ -7,7 +7,6 @@ class BillAdminController {
         const listBill = await Bill.find().populate('deliveryID');
 
         const listBillCustom = listBill.map((bill) => {
-            console.log(bill.deliveryID?.email)
             return {
                 email: bill.deliveryID?.email || 'không có email',
                 name: bill.deliveryID?.nameCustomer || 'không có tên',

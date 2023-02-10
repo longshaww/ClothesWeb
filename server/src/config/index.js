@@ -1,6 +1,5 @@
 const expressLoad = require('./express');
-const mongooseLoad = require('./database');
-const ServerGlobal = require('./logger');
+const mongooseLoad = require('./db/mongo');
 module.exports = async (app) => {
     await mongooseLoad();
     expressLoad(app);

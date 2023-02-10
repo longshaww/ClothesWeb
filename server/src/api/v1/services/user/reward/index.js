@@ -1,4 +1,4 @@
-const {User, Voucher} = require('../../../models/index')
+const { User, Voucher } = require('../../../models/index');
 const { validationReward } = require('../../../utils/helper');
 const { generateAccessToken } = require('../../../utils/function');
 const moment = require('moment');
