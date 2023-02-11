@@ -2,6 +2,8 @@ version: '3.9'
 
 services:
     react-frontend:
+        stdin_open: true
+        tty: true
         container_name: highclub
         build:
             context: .
