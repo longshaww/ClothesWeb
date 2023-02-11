@@ -36,7 +36,7 @@ export default function BillMe() {
         <>
             <div className="p-5">
                 <div className="row justify-content-center">
-                    <div className="d-flex justify-content-center  m-title">ĐIỂM TÍCH LŨY</div>
+                    <div className="d-flex justify-content-center  m-title"></div>
                     <Tabs
                         defaultActiveKey="1"
                         items={[

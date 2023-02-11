@@ -9,13 +9,17 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import Toast from '../../../utils/toast';
 import { deleteConfirm } from '../../../utils/delete.confirm';
 import moment from 'moment';
+import { useCookies } from 'react-cookie';
 
 export default function ListVoucher() {
     const [listVoucher, setListVoucher] = useState([]);
+    const [cookies] = useCookies(['accessToken']);
 
     useEffect(() => {
         async function getListVoucher() {
-            const vouchers = await axiosMethod('voucher', 'get');
+            const vouchers = await axiosMethod('admin/voucher', 'get', null, {
+                authorization: 'Bearer ' + cookies.accessToken,
+            });
             if (vouchers.success) {
                 setListVoucher(vouchers.body);
             }
@@ -28,7 +32,9 @@ export default function ListVoucher() {
             const findById = listVoucher.find((a) => a._id === id);
             const index = listVoucher.indexOf(findById);
             setListVoucher([...listVoucher.slice(0, index), ...listVoucher.slice(index + 1)]);
-            const deleteVoucher = await axiosMethod(`voucher/${id}`, 'delete');
+            const deleteVoucher = await axiosMethod(`admin/voucher/${id}`, 'delete', null, {
+                authorization: 'Bearer ' + cookies.accessToken,
+            });
             if (deleteVoucher.success) {
                 Toast.fire({
                     title: 'Xóa voucher thành công',

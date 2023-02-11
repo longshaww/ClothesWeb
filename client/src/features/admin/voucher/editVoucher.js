@@ -8,10 +8,13 @@ import Toast from '../../../utils/toast';
 import axiosMethod from '../../../middlewares/axios';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
+import { useCookies } from 'react-cookie';
 
 export default function EditVoucher() {
     const navigate = useNavigate();
     const { id } = useParams();
+    const [cookies] = useCookies(['accessToken']);
+
     const [inputs, setInputs] = useState({
         discount: '',
         dateStart: moment(new Date()).format('YYYY/MM/DD'),
@@ -22,7 +25,9 @@ export default function EditVoucher() {
     });
     useEffect(() => {
         async function getVoucher() {
-            const voucher = await axiosMethod(`voucher/${id}`, 'get');
+            const voucher = await axiosMethod(`admin/voucher/${id}`, 'get', null, {
+                authorization: 'Bearer ' + cookies.accessToken,
+            });
             if (voucher.success) {
                 setInputs(voucher.body);
             }
@@ -50,7 +55,9 @@ export default function EditVoucher() {
     const handleSubmit = async (e) => {
         e.preventDefault();
         if (validateVoucher(inputs)) {
-            const newVoucher = await axiosMethod(`voucher/${id}`, 'put', inputs);
+            const newVoucher = await axiosMethod(`admin/voucher/${id}`, 'put', inputs, {
+                authorization: 'Bearer ' + cookies.accessToken,
+            });
             if (newVoucher.success) {
                 Toast.fire({
                     title: 'Sửa voucher thành công',

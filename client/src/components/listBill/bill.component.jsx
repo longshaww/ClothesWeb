@@ -29,7 +29,7 @@ export default function BillComponent({ bill, getData }) {
 
     const handleCancelBill = async (billId) => {
         try {
-            const endpoint = `${process.env.REACT_APP_API_URL}admin/bills/update-bill/${billId}?typeUpdate=${cancelBill}`;
+            const endpoint = `${process.env.REACT_APP_API_URL}/bill/update-cancelBill/${billId}`;
 
             const res = await axios.put(
                 endpoint,

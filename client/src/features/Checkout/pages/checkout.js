@@ -22,8 +22,20 @@ function Checkout({ cart, setTotal }) {
     });
     const shippingFee = 35;
     useEffect(() => {
+        const userCookie = cookies?.user?.id;
+        if (!userCookie) {
+            return;
+        }
         async function myVoucher() {
-            const myVouchers = await axiosMethod(`voucher/myVoucher/${cookies?.user?.id}`);
+            const myVouchers = await axiosMethod(
+                `voucher/myVoucher/${cookies?.user?.id}`,
+                'get',
+                null,
+                {
+                    authorization: `Bearer ${cookies.accessToken}`,
+                }
+            );
+
             if (myVouchers.success) {
                 Toast.fire({
                     title: `Bạn đang sở hữu ${myVouchers?.body?.length} voucher`,
@@ -32,7 +44,7 @@ function Checkout({ cart, setTotal }) {
                 return setVoucher({ ...voucher, voucherList: myVouchers.body });
             }
         }
-        myVoucher();
+        return myVoucher();
     }, []);
     useEffect(() => {
         if (cartTotalPrice && cartTotalPrice === 0) {
@@ -65,19 +77,6 @@ function Checkout({ cart, setTotal }) {
             });
         }
         try {
-            await axiosMethod(
-                `voucher?code=${voucher.voucherInput}&amount=${cartTotalPrice}`,
-                'get',
-                null,
-                { user: cookies.user.id }
-            );
-        } catch (err) {
-            return Toast.fire({
-                title: err.response.data.message,
-                icon: 'error',
-            });
-        }
-        try {
             const applyVoucher = await axiosMethod(
                 'voucher/apply',
                 'post',
@@ -85,11 +84,14 @@ function Checkout({ cart, setTotal }) {
                     amount: cartTotalPrice,
                     code: voucher.voucherInput,
                 },
-                { user: cookies.user.id }
+
+                {
+                    authorization: `Bearer ${cookies.accessToken}`,
+                }
             );
             if (applyVoucher.success) {
                 Toast.fire({
-                    title: applyVoucher.message,
+                    title: 'Áp dụng voucher thành công',
                     icon: 'success',
                 });
             }

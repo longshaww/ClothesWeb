@@ -1,5 +1,5 @@
 const AbtractValidator = require('../AbtractValidator');
-const User = require('../../../models/UserWeb');
+const {User} = require('../../../models/index');
 const md5 = require('md5');
 class CheckOldPassword extends AbtractValidator {
     async isValid(model) {

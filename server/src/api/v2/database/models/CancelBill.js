@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const CancelBills = new mongoose.Schema(
     {
-        billID: { type: Schema.Types.ObjectId, ref: 'BillWeb' },
+        billID: { type: Schema.Types.ObjectId, ref: 'Bill' },
         reason: { type: String },
         moneyStatus: {
             type: String,

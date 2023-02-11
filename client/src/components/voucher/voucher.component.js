@@ -84,14 +84,6 @@ export default function VoucherComponent({ voucher, allowCopy }) {
                                 </div>
                             </div>
                         </div>
-                        <div className="text-center mt-3">
-                            <button
-                                className="btn btn-dark"
-                                onClick={() => onCopyCodeClick(voucher._id)}
-                            >
-                                Lấy mã
-                            </button>
-                        </div>
                     </div>
                 </div>
             ) : (

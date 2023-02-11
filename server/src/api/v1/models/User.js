@@ -1,9 +1,8 @@
 const mongoose = require('mongoose');
-const Customer = require('./Customers');
 const { Schema } = mongoose;
 const mongooseDelete = require('mongoose-delete');
 
-const UserWeb = new mongoose.Schema(
+const User = new mongoose.Schema(
     {
         email: { type: Schema.Types.String, required: true },
         password: { type: Schema.Types.String, required: true },
@@ -25,16 +24,17 @@ const UserWeb = new mongoose.Schema(
             enum: ['Bronze', 'Silver', 'Gold', 'Platinum'],
         },
         moneyPayed: { type: Schema.Types.Number, required: true, default: 0 },
+        listVoucher: [{ type: Schema.Types.ObjectId, ref: 'Vouchers' }],
     },
     {
         timestamps: true,
-        collection: 'UserWeb',
+        collection: 'User',
         versionKey: false,
     }
 );
-UserWeb.plugin(mongooseDelete, {
+User.plugin(mongooseDelete, {
     overrideMethods: true,
     deletedAt: true,
 });
 
-module.exports = mongoose.model('UserWeb', UserWeb);
+module.exports = mongoose.model('User', User);

@@ -1,16 +1,15 @@
 const DeliveryInfo = require('../../../../models/DeliveryInfo');
-const UserWeb = require('../../../../models/UserWeb');
+const {User} = require('../../../../models/index');
 class DeliveryUserManager {
     constructor() {}
 
     async create(infoUser) {
         try {
             return DeliveryInfo.create(infoUser).then((data) => {
-                return data ?? null;
+                return data;
             });
         } catch (err) {
-            console.log(err);
-            return null;
+            throw new Error(err.message);
         }
     }
 
@@ -21,28 +20,26 @@ class DeliveryUserManager {
             deliveryInfo.address = address;
             deliveryInfo.phoneNumber = phoneNumber;
             return await deliveryInfo.save().then((data) => {
-                return data ?? null;
+                return data ;
             });
         } catch (err) {
-            console.log(err);
-            return null;
+            throw new Error(err.message);
         }
     }
 
     async delete(id) {
         try {
             return DeliveryInfo.findByIdAndDelete(id).then((data) => {
-                return data ?? null;
+                return data;
             });
         } catch (err) {
-            console.log(err);
-            return null;
+            throw new Error(err.message);
         }
     }
 
     async getListInfo(userID) {
         try {
-            const user = await UserWeb.findById(userID);
+            const user = await User.findById(userID);
             const customize = {
                 _id: user._id,
                 nameCustomer: user.information.name,
@@ -51,10 +48,9 @@ class DeliveryUserManager {
             };
             const listInfo = await DeliveryInfo.find({ userID: userID });
             await listInfo.unshift(customize);
-            return listInfo ?? null;
+            return listInfo;
         } catch (err) {
-            console.log(err);
-            return null;
+            throw new Error(err.message);
         }
     }
 }

@@ -1,7 +1,6 @@
 const { restart } = require('nodemon');
-const Product = require('../models/Product');
 var ObjectId = require('mongodb').ObjectId;
-const User = require('../models/UserWeb');
+const { User, Product } = require('../models/index');
 const moment = require('moment');
 const { generateAccessToken } = require('../utils/function');
 module.exports = {

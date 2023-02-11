@@ -29,9 +29,14 @@ function PaymentSuccess({ setCart }) {
                     const updateQty = await axiosMethod(
                         `voucher/updateState/${voucher}`,
                         'put',
-                        null,
-                        { user: cookies.user.id }
+                        {
+                            userID : cookies.user.id,
+                        },
+                        {
+                            authorization: `Bearer ${cookies.accessToken}`,
+                        }
                     );
+
                     if (updateQty.success) {
                         localStorage.removeItem('voucher');
                     }
@@ -43,7 +48,6 @@ function PaymentSuccess({ setCart }) {
                 customer.paymentMethod = payment;
             }
             const res = await axiosMethod('bill', 'post', customer);
-            console.log(res);
             if (res.success) {
                 setSearchParams({ bill: res.body._id });
                 setBill(res.body);

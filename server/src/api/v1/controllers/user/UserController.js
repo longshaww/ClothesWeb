@@ -1,7 +1,6 @@
 const { getUser } = require('../../utils/service');
-const User = require('../../models/UserWeb');
-const Bill = require('../../models/BillWeb');
-const Rate = require('../../models/Rate');
+
+const { Bill, User, Rate } = require('../../models/index');
 const UserService = require('../../services/user/account/index');
 
 class UserController {

@@ -170,7 +170,7 @@ class BillController {
         try {
             const idBill = req.params.idBill;
             const reason = req.body.reason ?? null;
-
+            console.log('vao');
             if (idBill == '' || idBill === null || idBill === undefined) {
                 res.status(404).json({
                     success: false,

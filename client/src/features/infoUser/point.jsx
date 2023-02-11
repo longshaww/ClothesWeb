@@ -68,10 +68,9 @@ export default function MyPoint() {
     //get all voucher
     useEffect(() => {
         const fetchData = async () => {
-            // `user/availableForExchange/${cookie.user.id}`,
             try {
                 const res = await axiosMethod(
-                    `user/availableForExchange/${cookie.user.id}`,
+                    `voucher/availableForExchange/${cookie.user.id}`,
                     'get',
                     null,
                     {
@@ -91,8 +90,10 @@ export default function MyPoint() {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const res = await axiosMethod(`voucher/myVoucher/${cookie.user.id}`);
-
+                const res = await axiosMethod(`voucher/myVoucher/${cookie.user.id}`, 'get', null, {
+                    authorization: `Bearer ${cookie.accessToken}`,
+                });
+                console.log(res);
                 setMyVoucher(res.body);
             } catch (error) {
                 throw new Error(error.message);
@@ -103,7 +104,7 @@ export default function MyPoint() {
     const handleClick = (body) => {
         const fetchData = async () => {
             try {
-                const res = await axiosMethod(`user/exchangeVoucher`, 'post', body, {
+                const res = await axiosMethod(`voucher/exchangeVoucher`, 'post', body, {
                     authorization: `Bearer ${cookie.accessToken}`,
                 });
                 AutoSetCookie(res.body);

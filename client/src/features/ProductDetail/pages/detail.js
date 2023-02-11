@@ -215,16 +215,6 @@ export default function Detail() {
                                     <div className="mb-3">
                                         {productDetail.description.productDes}
                                     </div>
-                                    <Link
-                                        to="cart"
-                                        className="fs-6 pb-3 border-bottom  fw-bold text-decoration-underline"
-                                    >
-                                        CHINH SÁCH GIAO HÀNG & ĐỔI TRẢ HÀNG
-                                    </Link>
-                                    <div className="mb-3">
-                                        Phần này chưa làm nha, Phần này chưa làm nha, Phần này chưa
-                                        làm nha, Phần này chưa làm nha
-                                    </div>
                                     <div className="fs-6 fw-bold text-decoration-underline pb-3 border-bottom">
                                         ĐÁNH GIÁ CỦA NGƯỜI MUA
                                     </div>

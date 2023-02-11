@@ -1,4 +1,4 @@
-const Bill = require('../../../../models/BillWeb');
+const { Bill } = require('../../../../models/index');
 const IStrategy = require('../IStrategy');
 const UpdateCancel = require('./UpdateCancel');
 class UpdateFailedConfirm extends IStrategy {

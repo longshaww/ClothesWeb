@@ -1,4 +1,4 @@
-const Bill = require('../../../../models/BillWeb');
+const {Bill} = require('../../../../models/index');
 const IStrategy = require('../IStrategy');
 class UpdatePending extends IStrategy {
     constructor(idBill) {

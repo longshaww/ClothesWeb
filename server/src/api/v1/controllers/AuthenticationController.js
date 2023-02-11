@@ -1,8 +1,7 @@
 const jwt = require('jsonwebtoken');
-const User = require('../models/UserWeb');
+const { User, UserOTPVerification } = require('../models/index');
 const { generateRefreshToken, generateAccessToken } = require('../utils/function');
 const md5 = require('md5');
-const UserOTPVerification = require('../models/UserOTPVerification');
 let refreshTokens = [];
 const { sendOTPVerification } = require('../utils/function');
 const UserService = require('../services/user/account/index');

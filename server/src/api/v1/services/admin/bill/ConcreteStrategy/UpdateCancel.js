@@ -1,6 +1,6 @@
-const Bill = require('../../../../models/BillWeb');
-const CancelBills = require('../../../../models/CancelBill');
+const { Bill, CancelBill, DeliveryInfo } = require('../../../../models/index');
 const IStrategy = require('../IStrategy');
+
 class UpdateCancel extends IStrategy {
     constructor(idBill, reason) {
         super();
@@ -26,7 +26,7 @@ class UpdateCancel extends IStrategy {
 
     async createBillCancel(idBill, paymentMethod) {
         try {
-            const cancelBill = new CancelBills({
+            const cancelBill = new CancelBill({
                 billID: idBill,
                 reason: this._reason,
                 moneyStatus: paymentMethod === 'COD' ? 'NO_REFUNDS' : 'NEED_REFUNDS',

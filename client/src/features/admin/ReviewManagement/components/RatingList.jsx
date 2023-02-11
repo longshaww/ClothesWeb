@@ -27,25 +27,6 @@ const RatingList = ({ ratings, item, setLoading, getData }) => {
             });
     }
 
-    const handleBlockUser = async (id) => {
-        setLoading(true);
-        const endpoint = `${process.env.REACT_APP_API_URL}admin/users/banuser/${id}`;
-
-        const res = await axios.delete(endpoint, {
-            headers: {
-                authorization: 'Bearer ' + cookies.accessToken,
-            },
-        });
-        if (res.data.success === true) {
-            getData();
-            setLoading(false);
-            Toast.fire({
-                title: 'BLOCK USER THÀNH CÔNG',
-                icon: 'success',
-            });
-        }
-    };
-
     return (
         <ul className="list-rate ">
             {ratings[item].map((item) => {
@@ -84,14 +65,6 @@ const RatingList = ({ ratings, item, setLoading, getData }) => {
                                 >
                                     Xóa đánh giá
                                 </button>
-                                {item.userID && (
-                                    <button
-                                        onClick={() => handleBlockUser(item?.userID)}
-                                        className="btn btn-danger ml-2"
-                                    >
-                                        Chặn người dùng
-                                    </button>
-                                )}
                             </div>
                         </div>
                     </li>

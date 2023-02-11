@@ -1,12 +1,9 @@
 const mongoose = require('mongoose');
-const UserWeb = require('./UserWeb');
-const DeliveryInfo = require('./DeliveryInfo');
-const Vouchers = require('./Vouchers');
 const { Schema } = mongoose;
 
-const BillWeb = new mongoose.Schema(
+const Bill = new mongoose.Schema(
     {
-        userID: { type: Schema.Types.ObjectId, ref: 'UserWeb' },
+        userID: { type: Schema.Types.ObjectId, ref: 'User' },
         deliveryID: {
             type: Schema.Types.ObjectId,
             ref: 'DeliveryInfo',
@@ -48,9 +45,9 @@ const BillWeb = new mongoose.Schema(
     },
     {
         timestamps: true,
-        collection: 'BillWeb',
+        collection: 'Bill',
         versionKey: false,
     }
 );
 
-module.exports = mongoose.model('BillWeb', BillWeb);
+module.exports = mongoose.model('Bill', Bill);

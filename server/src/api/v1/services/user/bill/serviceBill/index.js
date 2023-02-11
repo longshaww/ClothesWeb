@@ -1,9 +1,11 @@
-const BillWeb = require('../../../../models/BillWeb');
-const DeliveryInfo = require('../../../../models/DeliveryInfo');
-const Session = require('../../../../models/Sessions');
-const Product = require('../../../../models/Product');
-const User = require('../../../../models/UserWeb');
-const CancelBills = require('../../../../models/CancelBill');
+const {
+    Bill,
+    DeliveryInfo,
+    Sessions,
+    Product,
+    User,
+    CancelBill,
+} = require('../../../../models/index');
 const { analystVip } = require('../../../../utils/helper');
 class BillUserService {
     constructor(
@@ -32,11 +34,8 @@ class BillUserService {
 
     async createBill(sessionId) {
         try {
-            const flag1 = await this.minusProduct();
-            if (!flag1) {
-                throw new Error('Minus product fail');
-            }
-            const newBillWeb = new BillWeb({
+            await this.minusProduct();
+            const newBillWeb = new Bill({
                 listProduct: this._listProduct,
                 paymentMethod: this._paymentMethod,
                 total: this._total,
@@ -53,19 +52,18 @@ class BillUserService {
                 if (this._idDelivery) {
                     newBillWeb.deliveryID = this._idDelivery;
                 }
-            } else {
-                const newInfo = await DeliveryInfo.create({
-                    nameCustomer: this._nameCustomer,
-                    address: this._address,
-                    phoneNumber: this._phoneNumber,
-                    email: this._email,
-                });
-                newBillWeb.deliveryID = newInfo.id;
             }
+            const newInfo = await DeliveryInfo.create({
+                nameCustomer: this._nameCustomer,
+                address: this._address,
+                phoneNumber: this._phoneNumber,
+                email: this._email,
+            });
+            newBillWeb.deliveryID = newInfo.id;
 
-            const currentSession = await Session.findById(sessionId);
+            const currentSession = await Sessions.findById(sessionId);
             if (currentSession) {
-                await Session.updateOne(
+                await Sessions.updateOne(
                     { _id: sessionId },
                     {
                         $set: {
@@ -124,7 +122,7 @@ class BillUserService {
             });
             if (!flagCatchError) return false;
 
-            const product = await Product.updateOne(
+            await Product.updateOne(
                 { _id: idProduct },
                 {
                     $set: {
@@ -133,7 +131,6 @@ class BillUserService {
                     },
                 }
             );
-            return product ? true : false;
         } catch (err) {
             throw new Error(err.message);
         }
@@ -174,7 +171,7 @@ class BillUserService {
 
     async getBill(idBillWeb) {
         try {
-            const billResult = await BillWeb.findById(idBillWeb)
+            const billResult = await Bill.findById(idBillWeb)
                 .populate('userID')
                 .populate('deliveryID')
                 .populate('listProduct._id')
@@ -187,20 +184,16 @@ class BillUserService {
 
     async cancelBill(idBill, reason) {
         try {
-            const bill = await BillWeb.findById(idBill);
-            if (bill.status === 'PENDING') {
-                bill.status = 'CANCEL_BILL';
-                return bill.save().then(async (dataBill) => {
-                    return this.createBillCancel(bill._id, bill.paymentMethod, reason).then(
-                        async () => {
-                            return this.addQtyProduct(bill.listProduct).then(async () => {
-                                return dataBill;
-                            });
-                        }
-                    );
-                });
+            const bill = await Bill.findById(idBill);
+            if (bill.status !== 'PENDING') {
+                throw new Error(`Status not matching : ${bill.status}`);
             }
-            return null;
+            bill.status = 'CANCEL_BILL';
+            const dataBill = await bill.save();
+            await this.createBillCancel(bill._id, bill.paymentMethod, reason);
+            await this.addQtyProduct(bill.listProduct);
+            await DeliveryInfo.deleteOne({ _id: bill.deliveryID });
+            return dataBill;
         } catch (err) {
             throw new Error(err.message);
         }
@@ -208,7 +201,7 @@ class BillUserService {
 
     async createBillCancel(idBill, paymentMethod, reason) {
         try {
-            const cancelBill = new CancelBills({
+            const cancelBill = new CancelBill({
                 billID: idBill,
                 reason: reason,
                 moneyStatus: paymentMethod === 'COD' ? 'NO_REFUNDS' : 'NEED_REFUNDS',

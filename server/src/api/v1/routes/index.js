@@ -10,13 +10,14 @@ const {
     cartRoute,
     billRoute,
     userRoute,
+    voucherRoute,
 } = require('./user');
 
 const {
     billAdminRoute,
     userAdminRoute,
     statisticAdminRoute,
-    voucherRoute,
+    voucherAdminRoute,
     productAdminRoute,
     rateAdminRoute,
 } = require('./admin');
@@ -26,7 +27,7 @@ router.use('/collections', cacheMiddleware, collectionRoute);
 router.use('/product', productRoute);
 router.use('/cart', sessionMiddleware, cartRoute);
 router.use('/bill', billRoute);
-router.use('/voucher', voucherRoute);
+router.use('/voucher', validateToken, verify, voucherRoute);
 router.use('/user', validateToken, verify, userRoute);
 
 router.use('/authJWT', authJWTRoute);
@@ -35,5 +36,5 @@ router.use('/admin/bills', validateToken, verifyAdmin, billAdminRoute);
 router.use('/admin/products', validateToken, verifyAdmin, productAdminRoute);
 router.use('/admin/users', validateToken, verifyAdmin, userAdminRoute);
 router.use('/admin/dashboard', validateToken, verifyAdmin, statisticAdminRoute);
-
+router.use('/admin/voucher', validateToken, verifyAdmin, voucherAdminRoute);
 module.exports = router;

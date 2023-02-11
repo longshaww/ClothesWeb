@@ -1,4 +1,4 @@
-const Bill = require('../../../models/BillWeb');
+const {Bill} = require('../../../models/index');
 const AbtractValidator = require('../AbtractValidator');
 class CheckStatusBill extends AbtractValidator {
     async isValid(model) {
