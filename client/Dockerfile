@@ -2,7 +2,7 @@ FROM node:16-alpine as builder
 
 WORKDIR /app
 COPY . .
-RUN yarn install && yarn build
+RUN npm install && npm run build
 
 FROM nginx:alpine
 
